@@ -1,0 +1,126 @@
+---
+title: "What is enzymatic methyl sequencing?"
+description: "How EM-seq reads DNA methylation while preserving precious low-input cfDNA—and why that matters for this study"
+date: 2026-08-24
+categories: [EM-seq, methylation, sequencing, methods]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/emseq-fragmentomics.webp"
+---
+
+::: {.lead-panel}
+## Reading an extra layer of DNA
+
+DNA sequence tells us which bases are present. **DNA methylation** adds another layer: chemical marks associated with gene regulation, cell identity, inflammation, aging, and disease. Enzymatic methyl sequencing—EM-seq—helps measure that layer at single-base resolution while avoiding much of the DNA damage caused by traditional bisulfite conversion [@vaisvila2021emseq].
+:::
+
+![EM-seq carries nucleosome-protected cfDNA through enzymatic conversion, paired-end sequencing, and joint methylation–fragmentomics analysis.](../media/illustrations/emseq-fragmentomics.webp){.science-visual fig-alt="Scientific illustration of nucleosomes, DNA fragments, enzymatic methyl sequencing, paired reads, and analytical profiles"}
+
+## Why methylation needs special chemistry
+
+A sequencing instrument normally reads cytosine whether it carries a methyl group or not. The assay therefore needs a way to make modified and unmodified cytosines produce different sequencing results.
+
+Traditional bisulfite sequencing uses harsh chemistry to convert unmodified cytosines. It is powerful, but the treatment can fragment and unevenly degrade DNA. That is especially problematic when the starting material is plasma cfDNA: scarce molecules that are already short.
+
+## EM-seq in motion
+
+::: {.emseq-animation role="img" aria-label="Animated four-step overview of EM-seq: starting DNA, protection of modified cytosines, conversion of unmodified cytosines, and sequencing readout"}
+::: {.emseq-step .emseq-step-1}
+::: {.emseq-icon}
+DNA
+:::
+**1 · Start**
+
+The molecule contains modified and unmodified cytosines.
+:::
+::: {.emseq-arrow}
+→
+:::
+::: {.emseq-step .emseq-step-2}
+::: {.emseq-icon}
+5mC
+:::
+**2 · Protect**
+
+TET2 and T4-BGT chemistry protects 5mC and 5hmC.
+:::
+::: {.emseq-arrow}
+→
+:::
+::: {.emseq-step .emseq-step-3}
+::: {.emseq-icon}
+C→U
+:::
+**3 · Convert**
+
+APOBEC deaminates the unprotected cytosines.
+:::
+::: {.emseq-arrow}
+→
+:::
+::: {.emseq-step .emseq-step-4}
+::: {.emseq-icon}
+C/T
+:::
+**4 · Read**
+
+After sequencing, protected sites read as C; converted sites read as T.
+:::
+:::
+
+In simplified terms, EM-seq preserves modified cytosines and changes unmodified cytosines into a different sequencing signal. Software aligns the converted reads and counts methylated and unmethylated evidence at CpG sites.
+
+::: {.callout-note title="An important detail"}
+Standard EM-seq generally reports protected **5mC and 5hmC together**. Without an additional assay, it should be described as modified-cytosine signal rather than a clean separation of those two marks.
+:::
+
+## Why this study needs it
+
+This project compares methylation in **plasma cfDNA** and **colonic tissue DNA**. The two materials create different technical demands:
+
+| Study need | How EM-seq helps | What still needs checking |
+|---|---|---|
+| Very limited plasma cfDNA | Supports low-input library preparation with less destructive conversion | Yield, complexity, duplication, and minimum input |
+| Single-base methylation | Produces CpG-level evidence for DML and DMR analysis | Conversion controls, coverage, and multiple testing |
+| Paired tissue and plasma | Uses a common assay family for within-participant comparison | Different extraction, fragmentation, and cell mixtures |
+| Plasma fragmentomics | Paired reads may retain native molecule lengths and ends | Library chemistry must preserve those physical features |
+| Pathway interpretation | DMRs can be mapped to genes and tested pathways | Mapping rules and tested-region background must be explicit |
+
+## The fragmentomics bonus
+
+EM-seq reads contain more than methylation calls. If native plasma molecules remain intact during preparation, paired-end alignments can also describe:
+
+- fragment-length distributions and short-fragment ratios;
+- mono- and di-nucleosomal patterns;
+- fragment-end positions and sequence motifs;
+- coverage near transcription start sites; and
+- relationships between fragment length and methylation.
+
+That link is biologically interesting because cfDNA fragmentation is shaped partly by nucleosome packaging, chromatin accessibility, and nuclease activity [@lo2021fragmentomics]. Tissue DNA is deliberately sheared, so its laboratory-created insert lengths cannot serve as native tissue fragmentomics.
+
+## What EM-seq cannot do alone
+
+EM-seq does not identify which cell released every plasma molecule, prove that a methylation difference changes gene expression, or establish that a patient is progressing toward cancer. Those questions need paired tissue context, cell-mixture modeling, other biological measurements, and—especially for progression—longitudinal validation.
+
+```{mermaid}
+flowchart LR
+  E["EM-seq reads"] --> M["CpG methylation"]
+  E --> F["Plasma fragment features"]
+  M --> T["Tissue–plasma comparison"]
+  F --> T
+  S["sIgA + inflammation"] --> T
+  T --> H["Candidate biological<br/>hypothesis"]
+  H --> V["Independent longitudinal<br/>validation required"]
+```
+
+::: {.callout-important title="Why it is valuable here"}
+EM-seq protects the study's most limited material, provides high-resolution methylation measurements, and may preserve a second physical signal from plasma fragments. That makes each carefully collected cfDNA molecule more informative—but only if assay QC and interpretation remain rigorous.
+:::
+
+[Follow the complete genomics pipeline →](../sequencing-methods.qmd) · [See why tissue and plasma are paired →](why-pair-tissue-and-plasma.qmd)
+
+[Continue with the short fragmentomics explainer →](what-is-fragmentomics.qmd)
+
+## References
+
+::: {#refs}
+:::

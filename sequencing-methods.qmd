@@ -97,6 +97,10 @@ With 18 planned participants, the defensible target is a quality-controlled feas
 
 [See the complete experimental roadmap →](roadmap.qmd) · [Read the annotated papers →](publications.qmd)
 
+[Prefer a visual introduction? Read “What is enzymatic methyl sequencing?” →](posts/what-is-emseq.qmd)
+
+[Then explore “What is fragmentomics?” →](posts/what-is-fragmentomics.qmd)
+
 ## References
 
 ::: {#refs}
