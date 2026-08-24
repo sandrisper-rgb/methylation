@@ -1,0 +1,135 @@
+---
+title: "Why pair colonic tissue and plasma?"
+description: "How the study uses anatomical context, liquid biopsy, methylation, and fragmentomics to triangulate colitis-associated change"
+date: 2026-08-24
+categories: [study design, tissue of origin, fragmentomics, colitis]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/tissue-plasma-pairing.webp"
+---
+
+::: {.lead-panel}
+## Two specimens answer different questions
+
+Colonic tissue shows molecular change where disease occurs. Plasma cell-free DNA offers a less-invasive but mixed signal from cells throughout the body. Studying both within the same participant creates a bridge between **anatomical relevance** and **potential clinical accessibility**.
+:::
+
+![Paired colonic tissue and plasma provide complementary views of the same participant's biology.](../media/illustrations/tissue-plasma-pairing.webp){.science-visual fig-alt="Scientific illustration connecting colonic tissue, a participant, and plasma cfDNA molecules"}
+
+## The paired design
+
+The planned study includes 18 participants across three comparison groups—high-risk ulcerative colitis, colorectal cancer, and healthy comparators—with plasma cfDNA and colonic tissue collected from each participant. Serum sIgA and inflammatory measurements provide a separate immune data stream.
+
+```{mermaid}
+flowchart LR
+  P["One participant"] --> T["Colonic tissue"]
+  P --> B["Blood"]
+  T --> TM["Local tissue<br/>methylation"]
+  B --> CF["Plasma cfDNA"]
+  B --> S["Serum sIgA +<br/>inflammation"]
+  CF --> PM["cfDNA methylation"]
+  CF --> FR["Fragment length, ends,<br/>and coverage"]
+  TM --> C["Within-person<br/>triangulation"]
+  PM --> C
+  FR --> C
+  S --> C
+```
+
+Pairing matters because every participant acts as a partial biological reference for themselves. Tissue–plasma comparisons are less exposed to between-person differences than comparisons made from unrelated tissue and blood cohorts, although age, sex, treatment, inflammation, cell composition, and technical batch still require attention.
+
+## What tissue contributes
+
+Colonic biopsy DNA is anatomically anchored. A methylation difference in tissue can therefore be connected more directly to the affected mucosa than a difference detected only in plasma.
+
+Tissue helps the project:
+
+- identify CpGs and DMRs associated with UC or CRC tissue biology;
+- compare the direction and magnitude of changes across clinical groups;
+- nominate genes and pathways involving epithelial barrier function, inflammation, immune regulation, and carcinogenesis; and
+- create a participant-matched reference against which plasma signals can be evaluated.
+
+Tissue is not a perfect ground truth. A biopsy contains mixtures of epithelial, stromal, and immune cells, samples only a small anatomical area, and may be affected by inflammation, histology, treatment, and sampling depth.
+
+## What plasma contributes
+
+Plasma cfDNA is accessible without repeatedly biopsying the colon, but it is a mixture of molecules released by blood cells and multiple tissues. Its value is translational: if a tissue-associated methylation or fragment pattern is also detectable in plasma, it may eventually support less-invasive monitoring.
+
+Plasma adds three kinds of evidence:
+
+1. **Methylation:** modified-cytosine patterns that may reflect contributing cell types.
+2. **Fragment size:** short/long ratios and mono- or di-nucleosomal patterns linked to chromatin packaging and DNA release.
+3. **Fragment position and ends:** coverage around regulatory regions, genomic end coordinates, and end motifs influenced by chromatin accessibility and nuclease activity [@lo2021fragmentomics].
+
+## Can fragmentomics separate genes?
+
+Fragmentomics does not physically sort genes into separate tubes. It creates genomic features that can help distinguish the activity or contribution of genomic regions and cell types.
+
+For example, paired-end reads can be summarized around transcription start sites (TSSs). Because nucleosome positioning differs around active and inactive regulatory regions, coverage and fragment-end patterns may provide an indirect footprint of gene regulation. Fragment lengths and ends can also be aggregated over tissue-specific methylation regions or gene sets.
+
+| Question | Fragmentomic operation | Resulting evidence |
+|---|---|---|
+| Is a regulatory region represented differently? | Compare normalized coverage and ends around its TSS or enhancer | Region-level footprint |
+| Are fragments associated with a tissue-linked methylation signature? | Intersect fragments with pre-specified DMRs/reference regions | Candidate tissue contribution |
+| Does fragment length vary with methylation? | Stratify molecule or region summaries by length and methylation level | Joint epigenetic–physical pattern |
+| Do groups show different cleavage profiles? | Compare end coordinates or motif frequencies with batch-aware models | Candidate nuclease/chromatin signal |
+| Are related genes changing coherently? | Aggregate tested genes into KEGG/Reactome pathways | Pathway-level hypothesis |
+
+These analyses can prioritize genes or pathways; they do not prove that a gene is expressed. Direct transcriptional confirmation would require RNA-based measurements or another expression assay.
+
+## Four possible tissue–plasma patterns
+
+| Observation | Possible interpretation | Next check |
+|---|---|---|
+| Same methylation direction in tissue and plasma | Candidate colon-linked signal detectable in circulation | Rule out blood-cell composition and batch; replicate externally |
+| Strong tissue signal, weak plasma signal | Local biology may be diluted below plasma detection | Examine depth, cfDNA fraction, region coverage, and assay sensitivity |
+| Plasma signal without a tissue match | Signal may originate outside the sampled biopsy or from another cell type | Test leukocyte/systemic references and biopsy heterogeneity |
+| Opposite tissue and plasma directions | Mixture, sampling, technical, or biological differences may dominate | Audit QC and model cell composition before interpretation |
+
+Agreement is informative, but disagreement is not automatically failure. It can reveal dilution, tissue heterogeneity, systemic inflammation, or a missing tissue-of-origin component.
+
+## Why add sIgA as a second biological axis?
+
+Methylation and fragmentomics describe DNA released from cells. Serum sIgA and inflammatory markers describe an immune context. These sources are complementary rather than technical replicates.
+
+```{mermaid}
+flowchart TD
+  E["Epigenetic evidence<br/>tissue + plasma methylation"] --> H["Candidate disease-state<br/>hypothesis"]
+  F["Physical evidence<br/>plasma fragmentomics"] --> H
+  I["Immune evidence<br/>sIgA + inflammation"] --> H
+  H --> V{"Do independent biological<br/>layers agree?"}
+  V -->|Yes| R["Prioritize for replication"]
+  V -->|Partly| X["Refine cell-of-origin<br/>and confounding model"]
+  V -->|No| N["Report uncertainty;<br/>do not force a signature"]
+```
+
+If a candidate methylation pattern appears in tissue and plasma and also varies coherently with immune or inflammatory measurements, the finding gains **biological triangulation**. Because these assays have different error structures, agreement is harder to explain by one isolated technical artifact.
+
+However, two sources do not automatically confirm disease development. They can:
+
+- strengthen evidence for a cross-sectional disease-state difference;
+- help distinguish local colon biology from systemic signals;
+- reveal whether immune state explains part of the epigenetic association; and
+- prioritize a small set of candidate markers for longitudinal testing.
+
+## What would confirm progression?
+
+Progression is a change over time. Confirming that a fingerprint tracks development from UC toward dysplasia or colitis-associated CRC would require:
+
+1. repeated tissue, plasma, and immune measurements where ethically and clinically feasible;
+2. dated outcomes from surveillance colonoscopy and pathology;
+3. a signature locked before outcome evaluation;
+4. models that preserve within-participant correlation and account for treatment and inflammation;
+5. an independent longitudinal cohort; and
+6. evidence that the combined signature adds information beyond established clinical surveillance.
+
+The current study can establish feasibility, estimate cross-sectional contrasts, and nominate a tissue-informed plasma fingerprint. It cannot establish temporal progression on its own.
+
+::: {.callout-important title="Design advantage in one sentence"}
+Paired tissue anchors the biology, plasma tests accessibility and tissue-of-origin clues, and sIgA supplies an independent immune context—together producing a stronger, more falsifiable hypothesis than any one specimen or assay alone.
+:::
+
+[Explore the full study design →](../research.qmd) · [Follow the sequencing pipeline →](../sequencing-methods.qmd) · [Understand the sIgA rationale →](../siga-methods.qmd)
+
+## References
+
+::: {#refs}
+:::

@@ -6,8 +6,10 @@ description: "Leading cfDNA laboratories, platforms, and lessons for methylation
 ::: {.lead-panel}
 ## More information from every cfDNA molecule
 
-Modern liquid biopsy no longer asks only whether a mutation is present. Methylation, fragment size, fragment ends, nucleosome footprints, topology, and sequence variation can each carry information about disease and tissue of origin. These technologies provide a roadmap for this project's cfDNA work—but most were developed in cancer cohorts and cannot be assumed to perform similarly in ulcerative colitis.
+Modern liquid biopsy no longer asks only whether a mutation is present. Methylation, fragment size, fragment ends, nucleosome footprints, topology, and sequence variation can each carry information about disease and tissue of origin [@lo2021fragmentomics; @tsui2025fragmentomics]. These technologies provide a roadmap for this project's cfDNA work—but most were developed in cancer cohorts and cannot be assumed to perform similarly in ulcerative colitis.
 :::
+
+![Multiple cfDNA features can be combined into an interpretable analytical fingerprint.](media/illustrations/cfdna-analysis-fingerprint.webp){.science-visual .science-visual-compact fig-alt="Scientific illustration of methylation, fragmentation, immune, and statistical signals converging into a fingerprint"}
 
 ## Leading laboratories
 
@@ -57,6 +59,8 @@ This sequence prevents technology from outrunning the biological question. With 
 3. **Keep features linked when possible.** Single-molecule approaches can connect methylation and fragment length instead of measuring them in separate aliquots.
 4. **Control the analytical search space.** Small cohorts favor pre-specified regions, pathway-level summaries, shrinkage, and resampling over unconstrained classifiers.
 5. **Separate discovery from validation.** Internal cross-validation estimates model stability; it does not substitute for a new cohort, prospective follow-up, or clinical-utility testing.
+
+[Open the annotated evidence guide →](publications.qmd)
 
 ::: {.callout-important title="Translation boundary"}
 These platforms demonstrate what cfDNA can reveal in oncology and organ-injury settings. Their inclusion is a technology landscape, not evidence that they diagnose UC, predict colitis-associated CRC, or outperform colonoscopic surveillance.

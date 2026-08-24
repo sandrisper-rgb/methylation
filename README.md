@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="media/illustrations/tissue-plasma-pairing.webp" alt="Colonic tissue and plasma cfDNA connected through one participant" width="860">
+
 # Methylation + sIgA
 
 ### Reading epigenetic and mucosal immune signals together in ulcerative colitis
@@ -9,6 +11,8 @@
 [![Publish site](https://github.com/sandrisper-rgb/methylation/actions/workflows/publish.yml/badge.svg)](https://github.com/sandrisper-rgb/methylation/actions/workflows/publish.yml)
 
 **PCI-2024-0016 · Universidad El Bosque · InmuBo Cancer Research Line**
+
+🧬 **methylation** · 🫧 **cfDNA fragments** · 🛡️ **mucosal immunity**
 
 </div>
 
@@ -22,6 +26,8 @@ Long-standing ulcerative colitis can create a cycle of inflammation, epithelial 
 - **Secretory immunoglobulin A (sIgA)** in serum—a complementary view of mucosal immune-barrier biology.
 
 The aim is to characterize and compare these signals across ulcerative colitis, colorectal cancer, and healthy comparator groups, then test their relationships with inflammatory markers.
+
+> Two specimens, two biological axes, one careful question: can anatomically anchored tissue and accessible blood signals tell a coherent story about colitis-associated change?
 
 ```mermaid
 flowchart LR
@@ -46,12 +52,21 @@ flowchart LR
 | [Project media](https://sandrisper-rgb.github.io/methylation/resources.html) | Embedded video, English PDF, and Spanish PDF/PowerPoint |
 | [Presentations](https://sandrisper-rgb.github.io/methylation/presentations.html) | Embedded Spanish and English slide decks with direct downloads |
 | [Related research](https://sandrisper-rgb.github.io/methylation/related-work.html) | IBD and biomarker programs at UCLA, Johns Hopkins, Stanford, CHU Sainte-Justine, and beyond |
+| [Sequencing & pipelines](https://sandrisper-rgb.github.io/methylation/sequencing-methods.html) | EM-seq chemistry, histones, methylation, fragmentomics, and the genomics workflow |
+| [sIgA data & rationale](https://sandrisper-rgb.github.io/methylation/siga-methods.html) | Serum ELISA, mucosal immune context, assay QC, and integration logic |
+| [Field notes](https://sandrisper-rgb.github.io/methylation/posts/) | Illustrated explainers on study design, other laboratories, statistics, ML, and software |
 | [`workflows/`](workflows/) | Reproducible analysis notebooks and documented decisions |
 | [`findings/`](findings/) | Reviewed summaries as evidence develops |
 
 ## Planned comparison
 
 The clarified design includes **18 participants and 36 paired specimens**: plasma cfDNA and colonic tissue from high-risk ulcerative colitis, colorectal cancer, and healthy comparator groups. The public site deliberately distinguishes planned methods and expected results from completed evidence.
+
+| 🧫 Colonic tissue | 🩸 Plasma and serum |
+|---|---|
+| Local methylation and anatomical context | cfDNA methylation, fragment lengths and ends, plus sIgA |
+| Helps nominate tissue-linked regions and pathways | Tests whether signals are visible through a less-invasive sample |
+| Stronger spatial relevance | Stronger monitoring potential |
 
 ## Build locally
 

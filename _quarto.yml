@@ -5,6 +5,7 @@ project:
     - "*.qmd"
     - "findings/**/*.qmd"
     - "workflows/**/*.qmd"
+    - "posts/**/*.qmd"
   resources:
     - presentations/files/**
     - publications/files/**
@@ -27,32 +28,44 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - href: research.qmd
-        text: Study
-      - href: roadmap.qmd
-        text: Roadmap
-      - href: approach.qmd
-        text: Methylation vs sIgA
-      - href: technology.qmd
-        text: cfDNA technology
-      - href: findings/index.qmd
-        text: Findings
-      - href: workflows/index.qmd
-        text: R workflows
+      - text: Study
+        menu:
+          - href: research.qmd
+            text: Design & cohorts
+          - href: approach.qmd
+            text: Methylation vs sIgA
+          - href: roadmap.qmd
+            text: Experimental roadmap
+      - text: Methods
+        menu:
+          - href: sequencing-methods.qmd
+            text: Sequencing & pipelines
+          - href: siga-methods.qmd
+            text: sIgA data & rationale
+          - href: technology.qmd
+            text: cfDNA technology landscape
+          - href: workflows/index.qmd
+            text: Reproducible workflows
+      - text: Results
+        menu:
+          - href: findings/index.qmd
+            text: Findings
+          - href: publications.qmd
+            text: Evidence guide
+      - href: posts/index.qmd
+        text: Field Notes
       - text: Resources
         menu:
           - href: resources.qmd
             text: Project media
-          - href: publications.qmd
-            text: Research articles
           - href: presentations.qmd
             text: Presentations
           - href: related-work.qmd
             text: Related research
-      - href: team.qmd
-        text: Team
-      - href: contributing.qmd
-        text: Contribute
+          - href: team.qmd
+            text: Team
+          - href: contributing.qmd
+            text: Contribute
   page-footer:
     left: "Methylation + sIgA · PCI-2024-0016"
     center: "Universidad El Bosque"

@@ -76,6 +76,10 @@ Supports research across disease mechanisms, diagnostics, treatment, and patient
 
 ## The liquid-biopsy connection
 
+## Colombian genomics context
+
+The [CÓDIGO consortium](https://codigo.uniandes.edu.co/) demonstrates growing national capacity for collaborative genomics, bioinformatics, and ancestry-aware interpretation [@marinoramirez2025codigo]. Its population-genomics resource is not a disease-specific methylation control for this project; its relevance is infrastructural and methodological.
+
 The project's plasma methylation arm also sits within a fast-moving cfDNA field spanning methylation, fragmentomics, tissue-of-origin deconvolution, and single-molecule sequencing. See the [verified laboratory and platform comparison](technology.qmd) for DELFI, GEMINI, CUHK's plasma DNA work, UCLA methylation methods, Stanford nanopore research, Galleri, and Tagomics.
 
 ::: {.callout-tip title="Collaboration lens"}

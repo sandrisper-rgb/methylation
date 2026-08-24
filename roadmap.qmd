@@ -42,7 +42,7 @@ flowchart TD
 
 ## Why enzymatic methyl sequencing
 
-EM-seq is an enzyme-based alternative to bisulfite conversion. TET2 and T4-BGT protect modified cytosines; APOBEC deaminates unmodified cytosines before Illumina sequencing. The protocol is designed to minimize DNA damage and support low-input material, an important property for cfDNA.
+EM-seq is an enzyme-based alternative to bisulfite conversion. TET2 and T4-BGT protect modified cytosines; APOBEC deaminates unmodified cytosines before Illumina sequencing. The protocol is designed to minimize DNA damage and support low-input material, an important property for cfDNA [@vaisvila2021emseq].
 
 For this study, **tissue DNA is intentionally sheared**. Native plasma cfDNA should not be treated identically if fragment-length analysis is planned: preserving and documenting its original insert-size distribution is a prerequisite for interpretable fragmentomics.
 
@@ -67,21 +67,24 @@ A paired Wilcoxon test can summarize selected methylation percentages or assay-l
 
 ## Advisory extension: fragmentomics
 
-The same paired-end plasma libraries may support a feasibility analysis of:
+The same paired-end plasma libraries may support a feasibility analysis of fragment size, end motifs, and nucleosome-linked coverage—feature families grounded in cfDNA biology [@lo2021fragmentomics; @tsui2025fragmentomics]:
 
 - insert-length distributions and short-fragment proportions;
 - mono- and di-nucleosomal peaks;
 - coverage patterns around transcription start sites;
+- fragment-end positions and end-motif frequencies;
 - associations between fragment length and local methylation; and
 - integrated methylation–fragmentation summaries.
 
-These are **candidate analyses**, not guaranteed free outputs. Feasibility depends on whether plasma molecules remain unsheared, library insert sizes are faithfully retained, paired-end BAM fields pass QC, depth is adequate, conversion/library steps do not introduce unacceptable bias, and a locked analysis plan controls multiplicity.
+These are **candidate analyses**, not guaranteed free outputs. Feasibility depends on whether plasma molecules remain unsheared, library insert sizes are faithfully retained, paired-end BAM fields pass QC, depth is adequate, conversion/library steps do not introduce unacceptable bias, and a locked analysis plan controls multiplicity. FinaleMe and FRAGMA provide computational precedents, not validated drop-in models for this EM-seq dataset [@liu2024finaleme; @zhou2022fragma].
+
+[Follow the sequencing and genomics pipeline step by step →](sequencing-methods.qmd)
 
 ## External validation and systems biology
 
 Candidate DMRs can be compared with harmonized TCGA colon and rectal cancer methylation data in the [NCI Genomic Data Commons](https://gdc.cancer.gov/about-data/publications/coadread_2012). This is external biological triangulation—not direct validation of UC progression—because TCGA tumor cohorts, platforms, biospecimens, and clinical context differ from this study.
 
-Gene- and region-level results can then be evaluated with [KEGG](https://www.genome.jp/kegg/pathway.html) and [Reactome](https://reactome.org/) for pathways involving mucosal immunity, epithelial barrier function, inflammation, and carcinogenesis. Enrichment needs an appropriate tested-region background and correction for multiple comparisons.
+Gene- and region-level results can then be evaluated with [KEGG](https://www.genome.jp/kegg/pathway.html) and [Reactome](https://reactome.org/PathwayBrowser/) for pathways involving mucosal immunity, epithelial barrier function, inflammation, and carcinogenesis. Enrichment needs an appropriate tested-region background, a recorded database version and mapping rule, effect direction, and correction for multiple comparisons.
 
 ## Decision gates
 

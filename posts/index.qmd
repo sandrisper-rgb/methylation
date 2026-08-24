@@ -1,0 +1,15 @@
+---
+title: "Field notes"
+description: "Methods explainers, comparisons, and practical analysis guidance"
+listing:
+  contents: "*.qmd"
+  sort: "date desc"
+  type: grid
+  categories: true
+  feed: true
+  fields: [image, title, description, date, categories]
+page-layout: full
+title-block-banner: true
+---
+
+Short, evidence-aware notes connecting methods from the wider cfDNA field to this project's design. These posts distinguish published feasibility from methods that are ready to use in a small UC cohort.

@@ -59,6 +59,8 @@ A mucosal immune signal involved in limiting exposure to commensal microbes and 
 :::
 ::::
 
+[Explore how the two data streams are produced →](sequencing-methods.qmd) · [Understand the sIgA assay and rationale →](siga-methods.qmd)
+
 ## Study at a glance
 
 :::: {.metric-grid}
@@ -168,4 +170,46 @@ Connect this Colombian project with complementary IBD programs worldwide.
 :::
 :::
 ::::
+
+## From the Field Notes
+
+Practical, illustrated explainers connect the study design to the wider cfDNA field.
+
+:::: {.grid}
+::: {.g-col-12 .g-col-md-4}
+::: {.research-card .post-link-card}
+![Tissue and plasma paired around one participant.](media/illustrations/tissue-plasma-pairing.webp){fig-alt="Scientific illustration connecting colonic tissue and plasma cfDNA"}
+
+### Why pair tissue and plasma?
+
+See how anatomical context, liquid biopsy, fragmentomics, and sIgA triangulate a candidate disease-state signal.
+
+[Read the post →](posts/why-pair-tissue-and-plasma.qmd)
+:::
+:::
+::: {.g-col-12 .g-col-md-4}
+::: {.research-card .post-link-card}
+![Multiple molecular streams converging into a fingerprint.](media/illustrations/cfdna-analysis-fingerprint.webp){fig-alt="Scientific illustration of molecular and statistical signals converging into a fingerprint"}
+
+### How leading labs analyze cfDNA
+
+Compare the feature engineering, statistical models, machine learning, and validation logic used across major programs.
+
+[Read the post →](posts/how-leading-labs-analyze-cfdna.qmd)
+:::
+:::
+::: {.g-col-12 .g-col-md-4}
+::: {.research-card .post-link-card}
+![Nucleosomes, methylation sequencing, and genomic outputs.](media/illustrations/emseq-fragmentomics.webp){fig-alt="Scientific illustration of nucleosomes, EM-seq, paired reads, and genomic profiles"}
+
+### Packages for disease fingerprinting
+
+Choose a reproducible stack for EM-seq, fragment features, pathways, integration, and future longitudinal models.
+
+[Read the post →](posts/packages-for-disease-fingerprinting.qmd)
+:::
+:::
+::::
+
+[Browse all Field Notes →](posts/index.qmd){.btn .btn-primary}
 :::
