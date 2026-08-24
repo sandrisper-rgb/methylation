@@ -33,6 +33,8 @@ website:
         text: Study
       - href: approach.qmd
         text: Methylation vs sIgA
+      - href: technology.qmd
+        text: cfDNA technology
       - href: findings/index.qmd
         text: Findings
       - href: workflows/index.qmd

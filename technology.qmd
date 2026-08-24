@@ -1,0 +1,63 @@
+---
+title: "Liquid-biopsy technology landscape"
+description: "Leading cfDNA laboratories, platforms, and lessons for methylation research in colitis"
+---
+
+::: {.lead-panel}
+## More information from every cfDNA molecule
+
+Modern liquid biopsy no longer asks only whether a mutation is present. Methylation, fragment size, fragment ends, nucleosome footprints, topology, and sequence variation can each carry information about disease and tissue of origin. These technologies provide a roadmap for this project's cfDNA work—but most were developed in cancer cohorts and cannot be assumed to perform similarly in ulcerative colitis.
+:::
+
+## Leading laboratories
+
+| Institution / group | Research leaders | Distinctive contribution | Relevance here |
+|---|---|---|---|
+| [Johns Hopkins Kimmel Cancer Center](https://www.hopkinsmedicine.org/news/newsroom/news-releases/2023/07/novel-machine-learning-blood-test-detects-cancers-with-genome-wide-mutations-in-single-molecules-of-cell-free-dna) | Victor E. Velculescu; Robert B. Scharpf and collaborators | DELFI uses genome-wide cfDNA fragmentation patterns; GEMINI models genome-wide mutation profiles from single cfDNA molecules. Their combination illustrates multi-feature detection. | Fragmentation could complement methylation when inflammation, tissue injury, and neoplasia all contribute cfDNA. |
+| [CUHK Li Ka Shing Institute / Chemical Pathology](https://www.cuhk.edu.hk/med/cpy/Research/PeiyongJiang.htm) | Y. M. Dennis Lo; Rossa W. K. Chiu; Peiyong Jiang | Foundational work in plasma DNA biology, fragment ends, topology, genome-wide methylation, and tissue-of-origin mapping. | Directly informs the challenge of deciding whether a plasma methylation signal originates in colon, blood cells, or another tissue. |
+| [UCLA Zhou Lab](https://labs.dgsom.ucla.edu/zhou/pages/CancerDetector/) | Xianghong Jasmine Zhou; Wenyuan Li and collaborators | CancerLocator, CancerDetector, cfTools, and cost-conscious cfDNA methylation analysis for detection and tissue localization. | Offers computational precedents for read-level signal amplification and methylation-based deconvolution. |
+| [Stanford Oncology](https://med.stanford.edu/profiles/billy-lau) | Maximilian Diehn; Ash Alizadeh; Billy Lau; Hanlee Ji and collaborators | CAPP-Seq established ultrasensitive targeted ctDNA tracking; later native nanopore work jointly measures methylation and fragment length on individual cfDNA molecules. | Shows a path from single-feature assays toward joint molecular profiles, although platform feasibility must be assessed locally. |
+| [Tagomics](https://tagomics.com/organ-health) | Jack Kennefick; John Gallon; academic and pharmaceutical collaborators | Activace enriches informative unmethylated regions; LiquiPath uses cell-type methylation atlases and deconvolution for multi-organ safety monitoring. | Demonstrates how tissue-specific reference atlases could make a blood signal more biologically interpretable. |
+
+## Platform comparison
+
+| Platform | Signal used | Technical idea | Current application | Key caution |
+|---|---|---|---|---|
+| [DELFI](https://delfidiagnostics.com/technology/fragmentomics/) | Fragment sizes and genome-wide fragmentation patterns | Low-coverage whole-genome sequencing plus machine learning | Cancer detection and treatment-monitoring research | Fragmentation is affected by biology and pre-analytics; a cancer-trained classifier is not a UC classifier. |
+| [GEMINI](https://www.hopkinsmedicine.org/news/newsroom/news-releases/2023/07/novel-machine-learning-blood-test-detects-cancers-with-genome-wide-mutations-in-single-molecules-of-cell-free-dna) | Genome-wide mutation patterns in individual molecules | Machine learning aggregates sparse mutation information | Early cancer detection research, including combination with DELFI | Somatic mutation burden and epigenetic dysregulation are different biological signals. |
+| CancerLocator / CancerDetector | cfDNA methylation | Probabilistic tissue localization and joint CpG-pattern modeling at read level | Research in early cancer detection and localization | Reference methylomes, population transferability, and low tumor fraction determine performance. |
+| [Galleri](https://grail.com/press-releases/grail-ccga-discovery-results-published-in-cancer-cell-reveal-methylation-as-promising-dna-hallmark-for-multi-cancer-early-detection/) | Targeted cfDNA methylation | Genomic sequencing, data science, and machine learning predict a cancer signal and likely origin | Commercial multi-cancer early detection test; signals across more than 50 cancer types | It complements rather than replaces recommended screening and does not detect every cancer. It is not validated for UC progression surveillance. |
+| [Native nanopore cfDNA](https://nanoporetech.com/resource-centre/joint-fragmentomic-and-methylation-signatures-of-cfdna-for-cancer-detection) | Methylation plus physical fragment length on the same molecule | PCR-free, single-molecule sequencing preserves linked epigenetic and fragmentomic features | Emerging cancer-detection research | Evidence is still developing; input, depth, error profiles, cost, and independent validation matter. |
+| [LiquiPath / Activace](https://tagomics.com/organ-health) | Cell-type-specific methylation and unmethylated-region enrichment | Atlas-based deconvolution traces plasma cfDNA to contributing tissues | Early-access drug-safety and organ-injury monitoring | Proprietary platform; company-reported capabilities need independent, use-case-specific validation. |
+
+## A practical technology ladder for this project
+
+```{mermaid}
+flowchart LR
+  A["1 · Establish assay<br/>quality + pre-analytics"] --> B["2 · Compare tissue and<br/>plasma methylation"]
+  B --> C["3 · Add tissue-of-origin<br/>deconvolution"]
+  C --> D["4 · Evaluate fragment<br/>features"]
+  D --> E["5 · Integrate methylation,<br/>sIgA + inflammation"]
+  E --> F["6 · Validate in an<br/>independent cohort"]
+
+  classDef base fill:#e9f5f2,stroke:#167d78,color:#123b5d;
+  classDef advanced fill:#f7efe1,stroke:#c58b2c,color:#3c2d16;
+  classDef validation fill:#123b5d,stroke:#123b5d,color:#fff;
+  class A,B,C base;
+  class D,E advanced;
+  class F validation;
+```
+
+This sequence prevents technology from outrunning the biological question. With a modest exploratory sample, priority should go to reproducible sample handling, assay QC, pre-specified comparisons, and effect-size estimation. High-dimensional machine learning is most credible after sample size and external validation support it.
+
+## Design lessons that transfer
+
+1. **Preserve provenance.** Record collection tube, processing delay, centrifugation, storage, freeze–thaw history, DNA yield, library batch, and sequencing metrics.
+2. **Model tissue of origin.** Plasma is a mixture; methylation references and paired colon tissue can help separate epithelial biology from leukocyte or systemic signals.
+3. **Keep features linked when possible.** Single-molecule approaches can connect methylation and fragment length instead of measuring them in separate aliquots.
+4. **Control the analytical search space.** Small cohorts favor pre-specified regions, pathway-level summaries, shrinkage, and resampling over unconstrained classifiers.
+5. **Separate discovery from validation.** Internal cross-validation estimates model stability; it does not substitute for a new cohort, prospective follow-up, or clinical-utility testing.
+
+::: {.callout-important title="Translation boundary"}
+These platforms demonstrate what cfDNA can reveal in oncology and organ-injury settings. Their inclusion is a technology landscape, not evidence that they diagnose UC, predict colitis-associated CRC, or outperform colonoscopic surveillance.
+:::

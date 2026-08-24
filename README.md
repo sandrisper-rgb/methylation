@@ -41,6 +41,7 @@ flowchart LR
 |---|---|
 | [Study design](https://sandrisper-rgb.github.io/methylation/research.html) | Question, objectives, samples, methods, ethics, and analysis frame |
 | [Methylation vs sIgA](https://sandrisper-rgb.github.io/methylation/approach.html) | Side-by-side comparison of the two biological approaches |
+| [cfDNA technology](https://sandrisper-rgb.github.io/methylation/technology.html) | DELFI, GEMINI, CUHK, UCLA, Stanford, Galleri, Tagomics, and a practical technology ladder |
 | [Project media](https://sandrisper-rgb.github.io/methylation/resources.html) | Embedded video, English PDF, and Spanish PowerPoint |
 | [Related research](https://sandrisper-rgb.github.io/methylation/related-work.html) | IBD and biomarker programs at UCLA, Johns Hopkins, Stanford, CHU Sainte-Justine, and beyond |
 | [`workflows/`](workflows/) | Reproducible analysis notebooks and documented decisions |

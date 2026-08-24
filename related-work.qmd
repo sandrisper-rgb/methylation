@@ -74,6 +74,10 @@ Supports research across disease mechanisms, diagnostics, treatment, and patient
 - It focuses on a **Colombian UC population**, contributing evidence from a setting underrepresented in many molecular cohorts.
 - It places biomarker discovery in the clinically important transition from chronic inflammation toward colitis-associated CRC.
 
+## The liquid-biopsy connection
+
+The project's plasma methylation arm also sits within a fast-moving cfDNA field spanning methylation, fragmentomics, tissue-of-origin deconvolution, and single-molecule sequencing. See the [verified laboratory and platform comparison](technology.qmd) for DELFI, GEMINI, CUHK's plasma DNA work, UCLA methylation methods, Stanford nanopore research, Galleri, and Tagomics.
+
 ::: {.callout-tip title="Collaboration lens"}
 The most valuable external connections would bring independent validation cohorts, longitudinal follow-up, standardized methylation pipelines, and expertise in mucosal immunology or cfDNA tissue-of-origin analysis.
 :::
