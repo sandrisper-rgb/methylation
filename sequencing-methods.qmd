@@ -95,7 +95,7 @@ After FDR-controlled DML/DMR analysis, mapped genes can be summarized with [KEGG
 With 18 planned participants, the defensible target is a quality-controlled feasibility analysis and a small set of candidate features. High-dimensional classifiers, prognosis claims, and clinical use require independent longitudinal validation.
 :::
 
-[See the complete experimental roadmap →](roadmap.qmd) · [Read the annotated papers →](publications.qmd)
+[See the complete experimental roadmap →](roadmap.qmd) · [Read the literature review →](publications.qmd)
 
 [Prefer a visual introduction? Read “What is enzymatic methyl sequencing?” →](posts/what-is-emseq.qmd)
 

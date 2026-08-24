@@ -46,14 +46,12 @@ website:
             text: cfDNA technology landscape
           - href: workflows/index.qmd
             text: Reproducible workflows
-      - text: Results
-        menu:
-          - href: findings/index.qmd
-            text: Findings
-          - href: publications.qmd
-            text: Evidence guide
+      - href: findings/index.qmd
+        text: Findings
       - href: posts/index.qmd
         text: Field Notes
+      - href: publications.qmd
+        text: Literature Review
       - text: Resources
         menu:
           - href: resources.qmd
@@ -61,7 +59,7 @@ website:
           - href: presentations.qmd
             text: Presentations
           - href: related-work.qmd
-            text: Related research
+            text: Research groups
           - href: team.qmd
             text: Team
           - href: contributing.qmd
