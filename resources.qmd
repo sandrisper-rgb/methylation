@@ -13,12 +13,12 @@ The project materials explain the clinical rationale, biological hypotheses, pla
 
 ```{=html}
 <video controls preload="metadata" playsinline class="project-video project-video-wide">
-  <source src="WhatsApp Video 2026-08-20 at 12.32.43 PM.mp4" type="video/mp4">
-  Your browser does not support embedded video. <a href="WhatsApp Video 2026-08-20 at 12.32.43 PM.mp4">Download the MP4</a>.
+  <source src="media/project-explainer.mp4" type="video/mp4">
+  Your browser does not support embedded video. <a href="media/project-explainer.mp4">Download the MP4</a>.
 </video>
 ```
 
-**Duration:** 4 min 41 sec · **Format:** MP4, 1280 × 720 · [Download video](WhatsApp%20Video%202026-08-20%20at%2012.32.43%20PM.mp4)
+**Duration:** 4 min 41 sec · **Format:** MP4, 1280 × 720 · [Abrir o descargar video](media/project-explainer.mp4){target="_blank"}
 
 ## Presentations
 
@@ -31,7 +31,7 @@ PDF · ENGLISH
 
 Thirty slides covering UC pathophysiology, methylation and sIgA rationale, research questions, design, ethics, expected results, budget, and schedule.
 
-[Open or download PDF](EXPOSICION_ULTIMA_EN.pdf){.btn .btn-primary}
+[View PDF](media/project-presentation-en.pdf){.btn .btn-primary target="_blank"} [Download PDF](media/project-presentation-en.pdf){.btn .btn-outline-primary download="project-presentation-en.pdf"}
 :::
 
 ::: {.download-card}
@@ -42,9 +42,26 @@ POWERPOINT · ESPAÑOL
 
 Diapositivas editables en español: patrones de metilación del ADN y niveles de inmunoglobulina A secretora en la progresión del cáncer colorrectal desde la colitis ulcerativa.
 
-[Descargar PowerPoint](EXPOSICION%20ULTIMA.pptx){.btn .btn-primary}
+[Descargar PowerPoint](media/presentacion-proyecto-es.pptx){.btn .btn-primary download="presentacion-proyecto-es.pptx"}
 :::
 ::::
+
+## Vista previa del PDF
+
+La presentación en inglés puede leerse directamente aquí. Si el visor integrado está bloqueado por el navegador, usa **View PDF** arriba para abrirla en una pestaña independiente.
+
+```{=html}
+<object class="pdf-preview" data="media/project-presentation-en.pdf" type="application/pdf">
+  <div class="pdf-fallback">
+    <p>El visor PDF no está disponible en este navegador.</p>
+    <p><a class="btn btn-primary" href="media/project-presentation-en.pdf" target="_blank">Abrir presentación PDF</a></p>
+  </div>
+</object>
+```
+
+::: {.callout-tip title="PowerPoint"}
+Los navegadores normalmente no muestran archivos `.pptx` dentro de una página web. El botón **Descargar PowerPoint** entrega el archivo original editable; el PDF se ofrece como versión visible en línea.
+:::
 
 ::: {.callout-note title="Citation and reuse"}
 Project PCI-2024-0016 is presented by Angie Alejandra Benavides Rojas, advised by Dr. Sandra Perdomo and co-advised by Dr. María Consuelo Romero, Universidad El Bosque, InmuBo Cancer Research Line. Contact the research team before reusing slides or media beyond linking to this page.

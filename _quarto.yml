@@ -8,9 +8,7 @@ project:
   resources:
     - presentations/files/**
     - publications/files/**
-    - "EXPOSICION ULTIMA.pptx"
-    - EXPOSICION_ULTIMA_EN.pdf
-    - "WhatsApp Video 2026-08-20 at 12.32.43 PM.mp4"
+    - media/**
   preview:
     port: 4200
     browser: true

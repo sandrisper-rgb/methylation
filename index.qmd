@@ -127,8 +127,8 @@ Watch the short visual overview, then explore the full English presentation or o
 ::: {.g-col-12 .g-col-lg-7}
 ```{=html}
 <video controls preload="metadata" playsinline class="project-video">
-  <source src="WhatsApp Video 2026-08-20 at 12.32.43 PM.mp4" type="video/mp4">
-  Your browser does not support embedded video. <a href="WhatsApp Video 2026-08-20 at 12.32.43 PM.mp4">Download the MP4</a>.
+  <source src="media/project-explainer.mp4" type="video/mp4">
+  Your browser does not support embedded video. <a href="media/project-explainer.mp4">Download the MP4</a>.
 </video>
 ```
 :::
