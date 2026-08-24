@@ -1,0 +1,78 @@
+---
+title: "How leading labs turn cfDNA into a disease signal"
+description: "A practical comparison of feature engineering, statistics, and machine learning across fragmentomics and methylation programs"
+date: 2026-08-24
+categories: [fragmentomics, machine learning, laboratories]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/cfdna-analysis-fingerprint.webp"
+---
+
+::: {.lead-panel}
+## The shared pattern
+
+The leading programs differ in assay and commercial maturity, but their analytical logic is similar: preserve molecule-level information, compress millions of observations into biologically motivated features, control nuisance variation, train a model without information leakage, and test it in people who were not used to develop it.
+:::
+
+![Different molecular and statistical signals converge into an interpretable cfDNA fingerprint.](../media/illustrations/cfdna-analysis-fingerprint.webp){.science-visual fig-alt="Scientific illustration of DNA, fragment distributions, molecular networks, and validation outputs converging into a layered fingerprint"}
+
+## Five analytical styles
+
+| Program | Primary signal | Statistical/ML pattern | Transferable lesson |
+|---|---|---|---|
+| Johns Hopkins / DELFI | Genome-wide fragment-size and coverage profiles | Window-level feature engineering followed by supervised classifiers and held-out validation | Lock preprocessing and summarize the genome before modeling |
+| CUHK plasma-DNA program | Fragment ends, sizes, nucleosome patterns, methylation, tissue of origin | Mechanism-led scores, probabilistic/deep-learning models, and independent cohorts | A feature should have a biological and technical model, not only predictive importance |
+| UCLA methylation methods | Read-level CpG patterns and reference methylomes | Probabilistic mixture/tissue-localization models | Model plasma as a mixture and validate reference-panel transferability |
+| Stanford single-molecule work | Methylation and physical length on the same molecule | Joint molecule-level features and multivariable classification | Preserve linkage between features when the platform allows it |
+| Tagomics | Enriched methylation signal and atlas-based tissue deconvolution | Proprietary feature selection, deconvolution, and prediction | Enrichment may improve signal, but independent validation and transparent references still matter |
+
+These are families of approaches, not an assertion that all underlying code or training data are public. Commercial performance claims cannot be reproduced from a website alone.
+
+## What “fingerprinting” means statistically
+
+A disease fingerprint is not a single heatmap. It is a pre-defined vector of measurements that may include:
+
+- DMR methylation levels and pathway summaries;
+- fragment-size quantiles and short/long ratios;
+- mono-/di-nucleosomal peak characteristics;
+- end-motif frequencies or diversity scores;
+- TSS or open-chromatin coverage summaries;
+- inferred tissue contributions; and
+- sIgA, inflammatory, and clinical covariates.
+
+The feature vector becomes credible only when the complete transformation—from raw reads to one row per participant—is reproducible and frozen before final evaluation.
+
+## The modeling sequence
+
+```{mermaid}
+flowchart LR
+  R["Raw reads + assay data"] --> Q["Sample and batch QC"]
+  Q --> F["Biology-led features"]
+  F --> S["Scaling + feature selection<br/>inside resampling"]
+  S --> M["Parsimonious model"]
+  M --> V["Nested/held-out validation"]
+  V --> C["Calibration, uncertainty,<br/>decision value"]
+```
+
+### For this study
+
+With 18 participants, the safest target is **feature feasibility and effect estimation**, not a production classifier. If a model is explored, use a very small locked feature panel, penalization, participant-level resampling, and bootstrap stability. All filtering, imputation, scaling, and feature selection must occur inside each training fold.
+
+Useful baselines are often more informative than an elaborate neural network:
+
+1. clinical covariates only;
+2. methylation only;
+3. fragmentomics only;
+4. sIgA/inflammation only; and
+5. a small integrated model.
+
+Compare incremental performance, calibration, and stability—not just apparent AUC. A model that perfectly separates 18 discovery samples may simply encode batch, library depth, or an unstable feature.
+
+## Progression needs longitudinal data
+
+Cross-sectional UC, CRC, and healthy groups can support discrimination hypotheses. They cannot show within-person progression. Progression analysis requires repeated samples and dated clinical outcomes; mixed-effects models, joint longitudinal–time-to-event models, or landmark prediction then become relevant. Until those data exist, call the output a **candidate disease-state fingerprint**, not a progression predictor.
+
+::: {.callout-important title="The strongest transferable lesson"}
+The best laboratories do not begin with an algorithm. They begin with a measurement model: what created the feature biologically, what can distort it technically, and what independent data would falsify the claim.
+:::
+
+[See the technology comparison →](../technology.qmd) · [Read the package guide →](packages-for-disease-fingerprinting.qmd)

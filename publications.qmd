@@ -1,29 +1,65 @@
 ---
 title: "Research Articles"
-description: "Shared literature and reading notes"
+description: "Annotated reviews, methods papers, and resources behind the analytical roadmap"
 ---
 
-Use this page as the curated reading list. Prefer a DOI or publisher link over uploading a copyrighted PDF. PDFs may be placed in `publications/files/` only when the team has permission to redistribute them.
+::: {.lead-panel}
+## Evidence behind the analytical roadmap
 
-## Reading list
+This curated set connects the team's shared papers to decisions in the study. **Reviews orient the field; methods papers justify feasibility; neither substitutes for validation in ulcerative colitis.** Publisher and DOI links are used instead of redistributing article PDFs.
+:::
 
-No articles have been added yet.
+## Start with the reviews
 
-For each article, add its citation to `references.bib`, then cite it in Quarto using `[@citation-key]`. A useful reading note includes:
+:::: {.evidence-grid}
+::: {.evidence-card}
+::: {.evidence-type}
+REVIEW · CONCEPTUAL FOUNDATION
+:::
+### Fragmentomics, methylation, and tissue of origin
 
-- Full citation and DOI
-- Why the paper matters to the project
-- Population, samples, assay, and analysis method
-- Main results and limitations
-- Questions for the group
+Lo and colleagues explain why cfDNA fragment size, end motifs, nucleosome organization, topology, and methylation can reveal aspects of tissue of origin [@lo2021fragmentomics]. It is the clearest foundation for treating the physical fragment and its methylation state as complementary measurements.
 
-## Suggested organization
+**Use here:** define the feature families and the biological interpretation boundary.
+:::
 
-| Theme | Scope |
-|---|---|
-| Disease biology | Colitis phenotypes and inflammatory pathways |
-| Epigenetics | DNA methylation mechanisms and interpretation |
-| Assays | Arrays, sequencing, preprocessing, and quality control |
-| Statistics | Differential methylation, cell composition, and confounding |
-| Translation | Biomarkers, replication, and clinical relevance |
+::: {.evidence-card}
+::: {.evidence-type}
+REVIEW · TRANSLATIONAL LANDSCAPE
+:::
+### Fragmentomics in cancer
 
+Tsui, Jiang, and Lo review current fragmentomic features, sequencing and computational approaches, clinical studies, and unresolved standardization questions [@tsui2025fragmentomics].
+
+**Use here:** prioritize reproducible exploratory outputs; do not transfer cancer classifier performance to UC.
+:::
+::::
+
+## Methods and proof-of-concept papers
+
+| Paper | What it contributes | How it changes this project | Main limitation here |
+|---|---|---|---|
+| EM-seq from low-input DNA [@vaisvila2021emseq] | Enzymatic methyl sequencing at single-base resolution, including comparisons using cfDNA | Supports the assay choice and strict insert-size/library QC | Technical performance is not clinical validity |
+| FRAGMA [@zhou2022fragma] | Links CpG methylation to cfDNA cleavage profiles and end motifs | Motivates exploratory fragment-end and methylation-aware summaries | Developed in other biological and disease settings |
+| FinaleMe [@liu2024finaleme] | Infers methylation and tissue-of-origin signals from cfDNA fragmentation patterns | Provides a computational precedent for joint fragmentomic–epigenomic analysis | Its WGS model is not automatically transferable to EM-seq data |
+| Plasma cfDNA methylation in SLE [@liu2025sle] | Demonstrates genome-wide cfDNA methylation analysis in an inflammatory autoimmune disease | Reinforces the need to distinguish inflammation-associated signal from neoplasia | SLE biology and the published assay/model differ from UC |
+
+## Colombian genomics context
+
+The CÓDIGO consortium illustrates the value of local genomics infrastructure, bioinformatics capacity, and ancestry-aware interpretation in Colombia [@marinoramirez2025codigo]. It does **not** provide a methylation reference panel for this study, but it strengthens the rationale for transparent provenance and locally relevant validation.
+
+## Databases and reproducible resources
+
+- [KEGG PATHWAY](https://www.genome.jp/kegg/pathway.html): manually curated molecular interaction and reaction maps for pathway interpretation.
+- [Reactome Pathway Browser](https://reactome.org/PathwayBrowser/): curated human pathways and hierarchical pathway context.
+- [NCI Genomic Data Commons](https://portal.gdc.cancer.gov/): harmonized cancer genomic data, including TCGA resources for external triangulation.
+- [NEB EM-seq tools and example data](https://github.com/nebiolabs/EM-seq/): implementation resource associated with the EM-seq method paper.
+
+::: {.callout-note title="How to read this evidence"}
+Evidence from oncology, SLE, or public cancer datasets can support feasibility, select features, and test biological coherence. It cannot directly validate prediction of UC progression. That requires a sufficiently powered, longitudinal, independent cohort.
+:::
+
+## References
+
+::: {#refs}
+:::

@@ -67,6 +67,32 @@ a { color: var(--teal); }
 .pdf-fallback { padding: 3rem; text-align: center; }
 .research-card { height: 100%; border-top: 4px solid var(--teal); }
 .research-card h3 { margin-top: 0; color: var(--ocean); }
+.post-link-card { overflow: hidden; padding: 0 0 1.4rem; }
+.post-link-card img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; margin: 0 0 1.25rem; transition: transform .55s cubic-bezier(.2,.7,.2,1); }
+.post-link-card h3, .post-link-card p { margin-left: 1.4rem; margin-right: 1.4rem; }
+.post-link-card:hover img { transform: scale(1.04); }
+.evidence-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.2rem; margin: 1.5rem 0 2.5rem; }
+.evidence-card { padding: 1.6rem; border: 1px solid rgba(18,59,93,.12); border-top: 4px solid var(--gold); border-radius: 1rem; background: white; box-shadow: 0 12px 36px rgba(16,47,59,.07); }
+.evidence-card h3 { margin-top: .45rem; color: var(--ocean); }
+.evidence-type { color: var(--teal); font-size: .76rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+
+.science-visual {
+  display: block;
+  width: 100%;
+  margin: 1.4rem auto 2.2rem;
+  border-radius: 1.15rem;
+  box-shadow: 0 18px 48px rgba(16,47,59,.18);
+  transition: transform .45s ease, box-shadow .45s ease;
+  animation: visual-breathe 7s ease-in-out infinite;
+}
+.science-visual:hover { transform: translateY(-5px) scale(1.008); box-shadow: 0 24px 58px rgba(16,47,59,.24); }
+.science-visual-compact { max-width: 980px; }
+.quarto-grid-item img { transition: transform .6s cubic-bezier(.2,.7,.2,1), filter .4s ease; }
+.quarto-grid-item:hover img { transform: scale(1.045); filter: saturate(1.08); }
+@keyframes visual-breathe {
+  0%, 100% { box-shadow: 0 18px 48px rgba(16,47,59,.17); }
+  50% { box-shadow: 0 21px 54px rgba(22,125,120,.25); }
+}
 
 .download-grid, .lab-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.2rem; margin: 1.5rem 0 2.5rem; }
 .role-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.4rem; margin: 1.5rem 0 2.5rem; }
@@ -94,7 +120,11 @@ thead { background: var(--ocean); color: white; }
 }
 @media (max-width: 640px) {
   .hero { padding-top: 4rem; padding-bottom: 4rem; }
-  .download-grid, .lab-grid, .metric-grid, .role-grid { grid-template-columns: 1fr; }
+  .download-grid, .lab-grid, .metric-grid, .role-grid, .evidence-grid { grid-template-columns: 1fr; }
   .claims-ladder { columns: 1; }
   .pdf-preview { min-height: 520px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .science-visual, .quarto-grid-item img { animation: none; transition: none; }
 }

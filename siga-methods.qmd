@@ -1,0 +1,78 @@
+---
+title: "sIgA data source & rationale"
+description: "How serum secretory IgA is measured and why it complements methylation and fragmentomics"
+---
+
+::: {.lead-panel}
+## A complementary immune measurement
+
+The sequencing arm asks what epigenetic and physical information is carried by DNA. The sIgA arm asks a different question: what does an accessible antibody measurement suggest about mucosal immune-barrier biology? Combining them tests whether immune state helps interpret epigenetic variation rather than forcing one marker to stand in for the other.
+:::
+
+![sIgA connects mucosal immune-barrier biology with an accessible serum ELISA measurement.](media/illustrations/siga-mucosal-assay.webp){.science-visual fig-alt="Scientific illustration of intestinal epithelium, secretory IgA, a serum droplet, and ELISA plate wells"}
+
+## Where the sIgA data come from
+
+Blood collection yields two distinct analytical materials:
+
+```{mermaid}
+flowchart LR
+  B["Participant blood"] --> P["Plasma"]
+  B --> S["Serum"]
+  P --> C["cfDNA extraction"]
+  C --> E["EM-seq methylation<br/>+ fragmentomics"]
+  S --> A["sIgA ELISA"]
+  A --> V["Concentration +<br/>assay QC"]
+  E --> J["Joint analysis"]
+  V --> J
+  K["Inflammation + clinical<br/>covariates"] --> J
+```
+
+The study measures **sIgA in serum by ELISA**. It is not derived from sequencing, and it should not be described as the same thing as secretory IgA measured directly in stool, intestinal fluid, or mucosal tissue.
+
+## Why sIgA belongs in the study
+
+Secretory IgA is central to immune exclusion at mucosal surfaces: it binds microbial and other antigens, limits inappropriate epithelial contact, and participates in shaping host–microbe relationships. UC disrupts epithelial and immune homeostasis. A serum sIgA measurement may therefore provide a complementary, lower-dimensional indicator of immune-barrier state.
+
+The rationale is not that sIgA alone diagnoses progression. It is to test whether variation in sIgA:
+
+1. differs across UC, CRC, and healthy comparator groups;
+2. correlates with inflammatory markers and clinical features;
+3. explains part of the variation in tissue or plasma methylation;
+4. adds independent information to a small integrated model; and
+5. helps distinguish inflammation-associated cfDNA signals from candidate neoplastic signals.
+
+## ELISA measurement path
+
+| Step | Data produced | Quality requirement |
+|---|---|---|
+| Plate setup | Standards, blanks, controls, and participant replicates | Randomization and recorded plate/batch position |
+| Calibration | Optical density versus known concentration | Appropriate curve model and acceptable standard recovery |
+| Sample dilution | Replicate readings within the assay range | Dilutional parallelism and no saturation |
+| Concentration estimate | sIgA concentration with dilution correction | Replicate precision and defined LLOQ/ULOQ handling |
+| Analysis table | One reviewed value plus QC flags per participant | No silent replacement of censored or failed values |
+
+The presented seven-point calibration curve (1.250 to 0 µg/ml; reported $R^2=0.959$) is an assay-development result, not sufficient acceptance by itself. Blank behavior, standard recovery, replicate coefficient of variation, lower and upper quantification limits, dilutional parallelism, and plate effects should be assessed before biological comparisons.
+
+## Analysis rationale
+
+Because the cohort is small, sIgA is most useful as a pre-specified continuous variable with transparent plots and uncertainty. The analysis should emphasize effect sizes and confidence intervals, retain group labels for descriptive comparisons, and avoid choosing cut points after looking at outcomes.
+
+| Question | Suggested analysis | Interpretation limit |
+|---|---|---|
+| Does sIgA differ by group? | Distribution plots and a robust group comparison | Cross-sectional association only |
+| Does it track inflammation? | Spearman correlation and covariate-aware sensitivity model | Shared inflammation is not proof of mechanism |
+| Does it relate to methylation? | Pre-specified DMR/pathway summaries versus sIgA | Multiple testing and cell composition remain important |
+| Does it add information? | Small nested model with resampling | Internal improvement is not external validation |
+
+## Important distinctions
+
+::: {.callout-warning title="Serum is not the mucosal surface"}
+Serum sIgA is accessible but may be influenced by systemic production, clearance, infection, medication, and other conditions. It should not be treated as a direct measurement of luminal IgA coating, local secretion, microbiome binding, or intestinal plasma-cell activity.
+:::
+
+::: {.callout-important title="Clinical boundary"}
+This exploratory measurement does not establish an individual cancer-risk threshold. Prognostic use would require standardized assay performance, longitudinal sampling, adjustment for clinical confounders, and independent validation beyond this cohort.
+:::
+
+[Compare methylation and sIgA →](approach.qmd) · [See the complete study design →](research.qmd)

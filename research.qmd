@@ -43,6 +43,8 @@ The research team describes plasma and tissue as paired within each of 18 partic
 
 ## From sample to interpretation
 
+![The paired design links anatomically anchored tissue with accessible plasma cfDNA.](media/illustrations/tissue-plasma-pairing.webp){.science-visual .science-visual-compact fig-alt="Illustration of colonic tissue and plasma cfDNA connected through one participant"}
+
 ```{mermaid}
 flowchart TD
   A["Eligibility + consent"] --> B{"Study group"}

@@ -1,0 +1,88 @@
+---
+title: "Packages for a methylation–fragmentomics disease fingerprint"
+description: "A pragmatic open-source stack for EM-seq, fragment features, pathway analysis, integration, and future progression models"
+date: 2026-08-24
+categories: [software, statistics, reproducibility]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/emseq-fragmentomics.webp"
+---
+
+::: {.lead-panel}
+## Best means fit for purpose
+
+No single package fingerprints disease progression. The strongest stack separates read processing, methylation inference, fragment feature extraction, biological annotation, statistical modeling, and validation. For this project, transparent Bioconductor and workflow tools are preferable to a large black-box model.
+:::
+
+![A reproducible stack carries nucleosome-protected cfDNA through methylation sequencing to interpretable features.](../media/illustrations/emseq-fragmentomics.webp){.science-visual fig-alt="Scientific illustration of nucleosomes, DNA fragments, enzymatic methylation preparation, paired reads, and genomic features"}
+
+## Recommended core stack
+
+| Job | Preferred tool | Why it fits | Important caution |
+|---|---|---|---|
+| Reproducible orchestration | [Nextflow](https://www.nextflow.io/) + containers | Records dependencies and scales from workstation to compute cluster | Pin container digests and reference files |
+| Read QC | [fastp](https://github.com/OpenGene/fastp) + [MultiQC](https://multiqc.info/) | Adapter/quality processing plus cohort-wide QC review | Do not hide group- or batch-specific QC failures |
+| EM-seq alignment | [bwa-meth](https://github.com/brentp/bwa-meth) | Established bisulfite-aware alignment route used in the planned pipeline | Validate compatibility and conversion metrics for the exact EM-seq protocol |
+| Methylation extraction | [MethylDackel](https://github.com/dpryan79/MethylDackel) | Produces per-cytosine methylation calls from aligned reads | Review overlap, duplicate, strand, and bias handling |
+| DML/DMR inference | [DSS](https://bioconductor.org/packages/DSS/) | Coverage-aware beta-binomial modeling and multi-factor designs | Small samples still limit covariate complexity |
+| Methylation objects/QC | [bsseq](https://bioconductor.org/packages/bsseq/) | Standard count/coverage representation, smoothing, and visualization | Smoothing choices affect region calls |
+| Alternative exploratory methylation workflow | [methylKit](https://bioconductor.org/packages/methylKit/) | Accessible filtering, QC, differential methylation, and tabix-backed data | Pre-specify why it is used alongside or instead of DSS |
+| Fragment ends | [FrEIA](https://github.com/mouliere-lab/FrEIA) | Open pipeline for fragment-end sequence abundance and diversity | Built around cfDNA WGS; benchmark carefully on EM-seq |
+| Generic BAM features | [samtools](https://www.htslib.org/) + [deepTools](https://deeptools.readthedocs.io/) + R/Bioconductor | Transparent insert-size, coverage, window, and TSS summaries | Define proper-pair, duplicate, MAPQ, and blacklist rules |
+| Genomic annotation | [GenomicRanges](https://bioconductor.org/packages/GenomicRanges/) + [annotatr](https://bioconductor.org/packages/annotatr/) | Reproducible overlap of CpGs/DMRs with genes and regulatory regions | Record genome build and many-to-many mappings |
+| Pathway analysis | [clusterProfiler](https://bioconductor.org/packages/clusterProfiler/) | KEGG/GO workflows with explicit gene universes | Use the tested-region background, not every human gene |
+| Penalized fingerprint model | [glmnet](https://glmnet.stanford.edu/) via [tidymodels](https://www.tidymodels.org/) | Elastic net is interpretable and suitable for correlated predictors | Tune and select features inside nested resampling |
+| Model interpretation | [DALEX](https://modeloriented.github.io/DALEX/) or [vip](https://koalaverse.github.io/vip/) | Auditable variable-importance and diagnostics | Importance does not establish causality |
+
+## Recommended architecture for this cohort
+
+```{mermaid}
+flowchart TD
+  A["FASTQ"] --> B["fastp · bwa-meth<br/>MethylDackel"]
+  B --> C["DSS / bsseq<br/>CpGs + DMRs"]
+  B --> D["samtools · deepTools<br/>FrEIA benchmark"]
+  C --> E["GenomicRanges<br/>clusterProfiler"]
+  D --> F["Locked fragment<br/>feature table"]
+  E --> G["Small pathway/DMR<br/>feature table"]
+  H["sIgA + inflammation<br/>clinical data"] --> I["Participant-level<br/>analysis table"]
+  F --> I
+  G --> I
+  I --> J["glmnet + tidymodels<br/>nested resampling"]
+```
+
+## What to use now versus later
+
+### Use now
+
+- `DSS` as the primary coverage-aware methylation model.
+- `bsseq`/`GenomicRanges` for storage, visualization, and annotation.
+- Simple BAM-derived fragment metrics with explicit definitions.
+- `clusterProfiler` only after defining the correct tested-feature universe.
+- `glmnet` only for a deliberately small exploratory integrated signature.
+
+### Benchmark before adopting
+
+- `FrEIA`, because its assumptions and preprocessing were developed for cfDNA WGS rather than enzymatically converted libraries.
+- Tissue-deconvolution tools such as `EpiDISH`, because available reference matrices may be platform-, tissue-, or array-specific and may not transfer to plasma EM-seq.
+- FinaleMe/FRAGMA implementations, because the cited methods demonstrate important principles but are not automatic replacements for direct EM-seq methylation calls.
+
+### Add when longitudinal outcomes exist
+
+- [`lme4`](https://cran.r-project.org/package=lme4) or [`glmmTMB`](https://cran.r-project.org/package=glmmTMB) for repeated continuous or generalized outcomes;
+- [`survival`](https://cran.r-project.org/package=survival) for time-to-event baselines;
+- [`JMbayes2`](https://cran.r-project.org/package=JMbayes2) for joint longitudinal–survival models; and
+- [`rsample`](https://rsample.tidymodels.org/) with participant/group-aware splits for honest temporal or external validation.
+
+## Non-negotiable safeguards
+
+1. Keep participant IDs grouped across all resampling splits.
+2. Never select DMRs on the full dataset before cross-validation.
+3. Fit normalization, imputation, and scaling on training folds only.
+4. Preserve raw counts and coverage; do not model methylation percentages without depth awareness.
+5. Record software versions, reference genome checksum, annotations, pathway database date, and parameters.
+6. Report uncertainty, calibration, and feature stability alongside discrimination.
+
+::: {.callout-note title="Practical recommendation"}
+Start with a containerized Nextflow workflow producing one reviewed participant-level feature table. Use DSS for the primary methylation inference, transparent BAM summaries for first-pass fragmentomics, and elastic net only after reducing the feature space through pre-specified biology—not outcome-driven screening.
+:::
+
+[Follow the molecular pipeline →](../sequencing-methods.qmd) · [See how other labs model cfDNA →](how-leading-labs-analyze-cfdna.qmd)
