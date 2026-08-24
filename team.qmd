@@ -9,6 +9,10 @@ description: "Operational leadership, academic advising, and clinical collaborat
 Alejandra Benavides Rojas leads the experimental and primary analytical pipeline. Dr. Sandra Perdomo advises the scientific strategy, protocol, interpretation, and computational extensions. Their work converges on the same specimens and sequencing files, allowing methylation, immune, and—subject to feasibility—fragmentomic signals to be interpreted together.
 :::
 
+::: {.callout-tip title="The research group behind the project"}
+The study is connected to **InMubo, the Cellular and Molecular Immunology Research Group at Universidad El Bosque**. The university describes a program spanning cancer immunology, mucosal immunity and infection, autoimmunity, systemic inflammation, and research training. [Read Universidad El Bosque's profile of InMubo →](https://www.unbosque.edu.co/centro-informacion/noticias/inmubo-deja-alto-nombre-ueb){target="_blank"}
+:::
+
 :::: {.role-grid}
 ::: {.role-card .role-ale}
 ::: {.role-label}
