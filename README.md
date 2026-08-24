@@ -40,6 +40,7 @@ flowchart LR
 | Area | Purpose |
 |---|---|
 | [Study design](https://sandrisper-rgb.github.io/methylation/research.html) | Question, objectives, samples, methods, ethics, and analysis frame |
+| [Experimental roadmap](https://sandrisper-rgb.github.io/methylation/roadmap.html) | Wet lab, EM-seq, ELISA, methylation analysis, fragmentomics, and validation gates |
 | [Methylation vs sIgA](https://sandrisper-rgb.github.io/methylation/approach.html) | Side-by-side comparison of the two biological approaches |
 | [cfDNA technology](https://sandrisper-rgb.github.io/methylation/technology.html) | DELFI, GEMINI, CUHK, UCLA, Stanford, Galleri, Tagomics, and a practical technology ladder |
 | [Project media](https://sandrisper-rgb.github.io/methylation/resources.html) | Embedded video, English PDF, and Spanish PowerPoint |
@@ -49,7 +50,7 @@ flowchart LR
 
 ## Planned comparison
 
-The study materials describe **36 sample units**: plasma cfDNA and colonic tissue from high-risk ulcerative colitis, colorectal cancer, and healthy comparator groups. The public site deliberately distinguishes planned methods and expected results from completed evidence.
+The clarified design includes **18 participants and 36 paired specimens**: plasma cfDNA and colonic tissue from high-risk ulcerative colitis, colorectal cancer, and healthy comparator groups. The public site deliberately distinguishes planned methods and expected results from completed evidence.
 
 ## Build locally
 

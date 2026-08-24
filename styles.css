@@ -67,6 +67,12 @@ a { color: var(--teal); }
 .research-card h3 { margin-top: 0; color: var(--ocean); }
 
 .download-grid, .lab-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.2rem; margin: 1.5rem 0 2.5rem; }
+.role-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.4rem; margin: 1.5rem 0 2.5rem; }
+.role-card { padding: 2rem; border-radius: 1rem; color: white; box-shadow: 0 16px 40px rgba(16,47,59,.15); }
+.role-card h2 { margin-top: .5rem; color: white; }
+.role-ale { background: linear-gradient(145deg, #123b5d, #176477); }
+.role-sandra { background: linear-gradient(145deg, #7d4939, #b66e50); }
+.role-label { color: #f6d78f; font-size: .76rem; font-weight: 700; letter-spacing: .14em; }
 .download-card { border-top: 4px solid var(--gold); }
 .file-tag, .lab-place { color: var(--teal); }
 .lab-card { border-left: 4px solid var(--teal); }
@@ -86,6 +92,6 @@ thead { background: var(--ocean); color: white; }
 }
 @media (max-width: 640px) {
   .hero { padding-top: 4rem; padding-bottom: 4rem; }
-  .download-grid, .lab-grid, .metric-grid { grid-template-columns: 1fr; }
+  .download-grid, .lab-grid, .metric-grid, .role-grid { grid-template-columns: 1fr; }
   .claims-ladder { columns: 1; }
 }

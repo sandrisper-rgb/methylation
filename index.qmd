@@ -63,9 +63,9 @@ A mucosal immune signal involved in limiting exposure to commensal microbes and 
 
 :::: {.metric-grid}
 ::: {.metric}
-**36**
+**18**
 
-planned sample units
+participants planned
 :::
 ::: {.metric}
 **3**
@@ -73,9 +73,9 @@ planned sample units
 comparison groups
 :::
 ::: {.metric}
-**2**
+**36**
 
-biological signal families
+paired specimens
 :::
 ::: {.metric}
 **1**

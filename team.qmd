@@ -1,23 +1,72 @@
 ---
-title: "Team"
-description: "People contributing to the project"
+title: "Team & responsibilities"
+description: "Operational leadership, academic advising, and clinical collaboration"
 ---
 
-## Principal researcher
+::: {.lead-panel}
+## One study, two complementary forms of leadership
 
-### Sandra Perdomo
+Alejandra Benavides Rojas leads the experimental and primary analytical pipeline. Dr. Sandra Perdomo advises the scientific strategy, protocol, interpretation, and computational extensions. Their work converges on the same specimens and sequencing files, allowing methylation, immune, and—subject to feasibility—fragmentomic signals to be interpreted together.
+:::
 
-Universidad El Bosque
+:::: {.role-grid}
+::: {.role-card .role-ale}
+::: {.role-label}
+OPERATIONAL LEAD
+:::
+## Angie Alejandra Benavides Rojas
 
-_Add Sandra's academic title, department, short biography, research interests, profile link, and preferred contact address._
+**M.Sc. investigator · Basic Biomedical Sciences**
 
-## Students and collaborators
+Ale leads the end-to-end generation and primary analysis of study evidence:
 
-| Name | Role | Research focus | GitHub |
-|---|---|---|---|
-| To add | Student researcher | To add | To add |
+- coordinate sample processing and plasma separation;
+- prepare tissue DNA and plasma cfDNA;
+- construct EM-seq libraries and coordinate sequencing;
+- quantify serum sIgA by ELISA;
+- run methylation preprocessing and quality control;
+- identify differential methylation with DSS; and
+- integrate laboratory measurements with clinical variables.
+:::
 
-## Authorship and credit
+::: {.role-card .role-sandra}
+::: {.role-label}
+THESIS ADVISOR
+:::
+## Dr. Sandra Perdomo
 
-Contributions should be recorded as the work develops. Publication authorship will follow the research group's agreed policy; website contributions can also be recognized through Git history and page-level author metadata.
+**Advisor · Universidad El Bosque**
 
+Sandra provides scientific and translational direction:
+
+- ground the hypothesis in colitis and cancer biology;
+- verify protocol, regulatory, and analytical coherence;
+- guide fragmentomics feasibility and interpretation;
+- direct comparison with public cancer resources;
+- connect DMRs to pathways and biological systems; and
+- keep exploratory findings aligned with validation requirements.
+:::
+::::
+
+## Clinical network
+
+Recruitment and screening are described as taking place with gastroenterologists **Viviana Parra, Cristian Flores, and Ricardo Villareal** across **Los Cobos Medical Center, GastroAdvanced, and HIC Bucaramanga**.
+
+The project presentation identifies approval by the HIC Bucaramanga–Fundación Cardiovascular de Bucaramanga research committee under **Minutes 005-2024**, with the study framed under Colombian **Resolution 8430 of 1993**.
+
+## How responsibilities connect
+
+```{mermaid}
+flowchart LR
+  C["Clinical network<br/>screening + specimens"] --> A["Ale<br/>wet lab + core analysis"]
+  S["Sandra<br/>strategy + oversight"] --> A
+  A --> M["Methylation + sIgA<br/>primary evidence"]
+  M --> X["Fragmentomics +<br/>external validation"]
+  S --> X
+  X --> I["Integrated biological<br/>interpretation"]
+  I --> V["Replication and<br/>future translation"]
+```
+
+## Credit and authorship
+
+This page describes project functions, not publication-author order or ownership. Authorship, intellectual property, and reuse of project materials should follow the team's written agreements and institutional policies as the work develops.

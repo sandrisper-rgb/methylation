@@ -1,0 +1,99 @@
+---
+title: "Experimental & analytical roadmap"
+description: "From paired specimens to methylation, sIgA, fragmentomics, and validation"
+---
+
+::: {.lead-panel}
+## One collection, multiple analytical views
+
+The core pipeline generates paired tissue and plasma evidence from 18 participants. The primary study measures methylation and serum sIgA; the advisory roadmap asks which additional, defensible cfDNA features can be recovered from the same sequencing data without a second sequencing experiment.
+:::
+
+## Paired cohort
+
+| Clinical group | Participants | Plasma specimens | Paired colonic tissue | Total specimens |
+|---|---:|---:|---:|---:|
+| High-risk ulcerative colitis | 8 | 8 | 8 | 16 |
+| Colorectal cancer | 5 | 5 | 5 | 10 |
+| Healthy comparators | 5 | 5 | 5 | 10 |
+| **Total** | **18** | **18** | **18** | **36** |
+
+Pairing provides a within-person bridge between the accessible plasma signal and the tissue context. It does not eliminate the need to account for clinical differences, cell composition, batch effects, or the limited precision of a small exploratory cohort.
+
+## Operational pipeline
+
+```{mermaid}
+flowchart TD
+  P["18 consented participants<br/>3 clinical groups"] --> B["Blood processing<br/>plasma + serum aliquots"]
+  P --> T["Colonic biopsy<br/>tissue preparation"]
+  B --> CF["PANAMAX 48<br/>cfDNA extraction"]
+  T --> GD["PANAMAX 48<br/>genomic DNA extraction"]
+  GD --> SH["UltraShear<br/>tissue-DNA fragmentation"]
+  CF --> EM["NEBNext EM-seq<br/>library preparation"]
+  SH --> EM
+  EM --> N["Illumina NovaSeq 6000<br/>paired-end sequencing"]
+  B --> EL["Serum sIgA<br/>ELISA"]
+  N --> Q["FASTQ + sample QC"]
+  Q --> AL["fastp → bwa-meth/GRCh38<br/>→ MethylDackel"]
+  AL --> DSS["DSS beta-binomial<br/>DML/DMR analysis"]
+  DSS --> IN["Paired + clinical<br/>integration"]
+  EL --> IN
+```
+
+## Why enzymatic methyl sequencing
+
+EM-seq is an enzyme-based alternative to bisulfite conversion. TET2 and T4-BGT protect modified cytosines; APOBEC deaminates unmodified cytosines before Illumina sequencing. The protocol is designed to minimize DNA damage and support low-input material, an important property for cfDNA.
+
+For this study, **tissue DNA is intentionally sheared**. Native plasma cfDNA should not be treated identically if fragment-length analysis is planned: preserving and documenting its original insert-size distribution is a prerequisite for interpretable fragmentomics.
+
+## sIgA assay development
+
+The reported seven-point ELISA calibration ranges from 1.250 to 0 µg/ml and produced an $R^2$ of 0.959 in the presented run. This supports continued assay optimization, but acceptance should also consider blank behavior, standards and controls, replicate precision, dilutional parallelism, lower and upper quantification limits, and pre-specified plate-level QC—not $R^2$ alone.
+
+## Primary methylation analysis
+
+The planned containerized Nextflow workflow connects:
+
+1. `fastp` for adapter and read-quality processing;
+2. `bwa-meth` alignment to GRCh38;
+3. `MethylDackel` extraction of cytosine-context methylation; and
+4. DSS in R for differential loci and regions.
+
+DSS is appropriate to evaluate because its sequencing-data model uses beta-binomial variation and dispersion shrinkage. The final model still needs a written design formula, group contrasts, pairing/subject handling, covariates, minimum coverage rules, DMR construction criteria, and false-discovery-rate control.
+
+::: {.callout-warning title="Paired test ≠ complete methylome model"}
+A paired Wilcoxon test can summarize selected methylation percentages or assay-level features. It should not replace coverage-aware DML/DMR modeling across the methylome. Likewise, chi-square or Fisher tests are suitable only when categorical cell counts and assumptions support them.
+:::
+
+## Advisory extension: fragmentomics
+
+The same paired-end plasma libraries may support a feasibility analysis of:
+
+- insert-length distributions and short-fragment proportions;
+- mono- and di-nucleosomal peaks;
+- coverage patterns around transcription start sites;
+- associations between fragment length and local methylation; and
+- integrated methylation–fragmentation summaries.
+
+These are **candidate analyses**, not guaranteed free outputs. Feasibility depends on whether plasma molecules remain unsheared, library insert sizes are faithfully retained, paired-end BAM fields pass QC, depth is adequate, conversion/library steps do not introduce unacceptable bias, and a locked analysis plan controls multiplicity.
+
+## External validation and systems biology
+
+Candidate DMRs can be compared with harmonized TCGA colon and rectal cancer methylation data in the [NCI Genomic Data Commons](https://gdc.cancer.gov/about-data/publications/coadread_2012). This is external biological triangulation—not direct validation of UC progression—because TCGA tumor cohorts, platforms, biospecimens, and clinical context differ from this study.
+
+Gene- and region-level results can then be evaluated with [KEGG](https://www.genome.jp/kegg/pathway.html) and [Reactome](https://reactome.org/) for pathways involving mucosal immunity, epithelial barrier function, inflammation, and carcinogenesis. Enrichment needs an appropriate tested-region background and correction for multiple comparisons.
+
+## Decision gates
+
+| Gate | Minimum evidence | Decision |
+|---|---|---|
+| Assay readiness | Extraction, conversion, library, sequencing, and ELISA QC meet locked criteria | Proceed to full cohort or troubleshoot |
+| Primary signal | Effect sizes and FDR-controlled methylation results are stable under sensitivity analyses | Prioritize DMRs or report uncertainty |
+| Pair concordance | Tissue/plasma direction and within-person relationships are interpretable | Advance plasma candidates or retain tissue-only evidence |
+| Fragmentomics feasibility | Native size preservation, BAM metrics, depth, and controls are adequate | Add structural features or stop extension |
+| External triangulation | Candidate biology is directionally coherent in relevant public data/pathways | Nominate—not declare—validation targets |
+| Translation | Independent longitudinal cohort demonstrates reproducibility and incremental value | Consider prospective clinical-utility work |
+
+::: {.callout-important title="Current endpoint"}
+The credible near-term output is an integrated **candidate epigenetic–immune signature** with transparent uncertainty. A diagnostic product, patent position, or claim of clinical power would require independent validation, prospective evidence, and formal institutional review.
+:::

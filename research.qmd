@@ -15,6 +15,10 @@ Ulcerative colitis (UC) is a chronic inflammatory disease of the colonic mucosa.
 
 The goal is not to replace colonoscopy. It is to investigate whether less-invasive blood-derived measurements, anchored to colonic tissue and clinical context, can contribute to future risk-stratification strategies.
 
+## Epigenetic–immune hypothesis
+
+The team hypothesizes that aberrant DNA methylation—potentially including hypermethylation near genes involved in mucosal immune regulation—may be associated with altered sIgA biology, persistent inflammation, and progression-related phenotypes. This is a directional biological model to test, not an established causal chain: methylation may be cause, consequence, cell-composition marker, or correlate of inflammation, and sIgA regulation is not controlled by a single epigenetic switch.
+
 ## Objectives
 
 1. Characterize DNA methylation profiles in plasma cell-free DNA and colonic biopsies from patients with high-risk UC.
@@ -24,17 +28,17 @@ The goal is not to replace colonoscopy. It is to investigate whether less-invasi
 
 ## Planned design
 
-The presentation describes a **descriptive, cross-sectional study with an analytical component** and 36 planned sample units.
+The clarified design is a **descriptive, cross-sectional study with an analytical component**: 18 participants contribute paired plasma and colonic-tissue specimens, producing 36 planned specimens.
 
-| Group | Plasma cfDNA | Colonic tissue | Role in comparison |
-|---|---:|---:|---|
-| Ulcerative colitis | 8 | 8 | High-risk disease group |
-| Colorectal cancer | 5 | 5 | Neoplastic comparator |
-| Healthy comparators | 5 | 5 | Reference group |
-| **Total** | **18** | **18** | **36 sample units** |
+| Group | Participants | Plasma cfDNA | Paired colonic tissue | Role |
+|---|---:|---:|---:|---|
+| Ulcerative colitis | 8 | 8 | 8 | High-risk disease group |
+| Colorectal cancer | 5 | 5 | 5 | Neoplastic comparator |
+| Healthy comparators | 5 | 5 | 5 | Reference group |
+| **Total** | **18** | **18** | **18** | **36 specimens** |
 
-::: {.callout-note title="Interpretation note"}
-The source presentation reports sample units by specimen type. The public study materials should not be used to infer participant counts, pairing, recruitment completion, or results beyond what the approved protocol and research team confirm.
+::: {.callout-note title="Pairing clarified"}
+The research team describes plasma and tissue as paired within each of 18 participants. The table is a planned design and does not imply that recruitment, processing, or analysis is complete.
 :::
 
 ## From sample to interpretation
@@ -67,6 +71,8 @@ flowchart TD
 The source presentation proposes descriptive summaries for continuous and categorical variables, followed by association testing using chi-square or Fisher's exact tests as appropriate, with a 95% confidence level and a nominal threshold of *p* ≤ 0.05.
 
 For biomarker development, that plan is a starting point. A robust downstream workflow should also pre-specify methylation quality control, cell-composition and batch adjustment, multiple-testing correction, effect sizes with confidence intervals, missing-data handling, and an independent validation strategy.
+
+[Explore the complete experimental and analytical roadmap →](roadmap.qmd)
 
 ## Ethics and responsible data use
 
