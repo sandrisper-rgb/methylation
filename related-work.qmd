@@ -12,6 +12,15 @@ This project contributes a Colombian, integrative biomarker perspective. The pro
 ## Centers and labs to follow
 
 :::: {.lab-grid}
+::: {.lab-card .lab-card-featured}
+::: {.lab-place}
+BOGOTÁ · COLOMBIA · HOME GROUP
+:::
+### [InMubo · Universidad El Bosque](https://www.unbosque.edu.co/centro-informacion/noticias/inmubo-deja-alto-nombre-ueb)
+
+The Cellular and Molecular Immunology Research Group connects cancer immunology, mucosal immunity and infection, autoimmunity, systemic inflammation, and new technologies. This is the project's local scientific home—not merely a comparator lab.
+:::
+
 ::: {.lab-card}
 ::: {.lab-place}
 LOS ANGELES · USA

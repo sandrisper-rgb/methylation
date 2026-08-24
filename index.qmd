@@ -47,6 +47,20 @@ See how chronic inflammation, methylation, plasma cfDNA, and sIgA connect—then
 :::
 :::
 
+::: {.institution-band}
+::: {.institution-mark}
+INMUBO · UNIVERSIDAD EL BOSQUE
+:::
+::: {.institution-copy}
+## Rooted in cellular and molecular immunology
+
+This project sits within the scientific environment of **InMubo**, the Cellular and Molecular Immunology Research Group at Universidad El Bosque, whose work spans cancer immunology, mucosal immunity and infection, autoimmunity, systemic inflammation, and new research technologies.
+:::
+::: {.institution-action}
+[Meet the InMubo research group ↗](https://www.unbosque.edu.co/centro-informacion/noticias/inmubo-deja-alto-nombre-ueb){.btn .btn-light target="_blank"}
+:::
+:::
+
 ::: {.content-block}
 ::: {.section-intro}
 ## The question behind the project
