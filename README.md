@@ -43,7 +43,8 @@ flowchart LR
 | [Experimental roadmap](https://sandrisper-rgb.github.io/methylation/roadmap.html) | Wet lab, EM-seq, ELISA, methylation analysis, fragmentomics, and validation gates |
 | [Methylation vs sIgA](https://sandrisper-rgb.github.io/methylation/approach.html) | Side-by-side comparison of the two biological approaches |
 | [cfDNA technology](https://sandrisper-rgb.github.io/methylation/technology.html) | DELFI, GEMINI, CUHK, UCLA, Stanford, Galleri, Tagomics, and a practical technology ladder |
-| [Project media](https://sandrisper-rgb.github.io/methylation/resources.html) | Embedded video, English PDF, and Spanish PowerPoint |
+| [Project media](https://sandrisper-rgb.github.io/methylation/resources.html) | Embedded video, English PDF, and Spanish PDF/PowerPoint |
+| [Presentations](https://sandrisper-rgb.github.io/methylation/presentations.html) | Embedded Spanish and English slide decks with direct downloads |
 | [Related research](https://sandrisper-rgb.github.io/methylation/related-work.html) | IBD and biomarker programs at UCLA, Johns Hopkins, Stanford, CHU Sainte-Justine, and beyond |
 | [`workflows/`](workflows/) | Reproducible analysis notebooks and documented decisions |
 | [`findings/`](findings/) | Reviewed summaries as evidence develops |

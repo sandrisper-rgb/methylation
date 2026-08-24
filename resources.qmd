@@ -38,11 +38,11 @@ Thirty slides covering UC pathophysiology, methylation and sIgA rationale, resea
 ::: {.file-tag}
 POWERPOINT · ESPAÑOL
 :::
-### Presentación original
+### Presentación en español
 
-Diapositivas editables en español: patrones de metilación del ADN y niveles de inmunoglobulina A secretora en la progresión del cáncer colorrectal desde la colitis ulcerativa.
+Versión en PDF para lectura en línea y archivo PowerPoint editable: patrones de metilación del ADN y niveles de inmunoglobulina A secretora en la progresión del cáncer colorrectal desde la colitis ulcerativa.
 
-[Descargar PowerPoint](media/presentacion-proyecto-es.pptx){.btn .btn-primary download="presentacion-proyecto-es.pptx"}
+[Ver PDF en español](media/presentacion-proyecto-es.pdf){.btn .btn-primary target="_blank"} [Descargar PowerPoint](media/presentacion-proyecto-es.pptx){.btn .btn-outline-primary download="presentacion-proyecto-es.pptx"}
 :::
 ::::
 
@@ -62,6 +62,8 @@ La presentación en inglés puede leerse directamente aquí. Si el visor integra
 ::: {.callout-tip title="PowerPoint"}
 Los navegadores normalmente no muestran archivos `.pptx` dentro de una página web. El botón **Descargar PowerPoint** entrega el archivo original editable; el PDF se ofrece como versión visible en línea.
 :::
+
+[Ver ambas presentaciones y sus visores integrados →](presentations.qmd)
 
 ::: {.callout-note title="Citation and reuse"}
 Project PCI-2024-0016 is presented by Angie Alejandra Benavides Rojas, advised by Dr. Sandra Perdomo and co-advised by Dr. María Consuelo Romero, Universidad El Bosque, InmuBo Cancer Research Line. Contact the research team before reusing slides or media beyond linking to this page.
