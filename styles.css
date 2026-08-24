@@ -168,6 +168,20 @@ a { color: var(--teal); }
 .pathway-level:nth-child(4) { animation-delay: 1.35s; border-top-color: var(--coral); }
 .pathway-level:not(:last-child)::after { content: "›"; position: absolute; right: -.72rem; top: 36%; z-index: 2; color: var(--gold); font-size: 2rem; }
 @keyframes pathway-focus { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.025); } }
+.siga-story { display: grid; grid-template-columns: repeat(4,1fr); gap: .8rem; margin: 2rem 0 2.5rem; }
+.siga-story-step { position: relative; min-height: 145px; padding: 1.15rem; border-radius: 1rem; background: linear-gradient(145deg, #fff8eb, white); border: 1px solid rgba(18,59,93,.12); border-top: 4px solid var(--gold); box-shadow: 0 9px 25px rgba(16,47,59,.08); animation: siga-step 7s ease-in-out infinite; }
+.siga-story-step:nth-child(2) { animation-delay: .45s; }
+.siga-story-step:nth-child(3) { animation-delay: .9s; border-top-color: var(--teal); }
+.siga-story-step:nth-child(4) { animation-delay: 1.35s; border-top-color: var(--coral); }
+.siga-story-step:not(:last-child)::after { content: "→"; position: absolute; right: -.72rem; top: 42%; color: var(--teal); font-weight: 700; z-index: 2; }
+@keyframes siga-step { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+.two-signal-animation { position: relative; min-height: 300px; margin: 2rem 0 2.5rem; border-radius: 1.2rem; overflow: hidden; color: white; background: radial-gradient(circle at center, #176b74, var(--ocean) 62%); box-shadow: 0 16px 40px rgba(16,47,59,.18); }
+.signal-center, .signal-orbit { position: absolute; display: grid; place-items: center; padding: 1rem; border-radius: 50%; text-align: center; }
+.signal-center { width: 155px; height: 155px; left: calc(50% - 77px); top: 72px; background: rgba(255,255,255,.13); border: 1px solid rgba(255,255,255,.35); }
+.signal-orbit { width: 132px; height: 132px; top: 84px; color: var(--ink); background: #fff8eb; box-shadow: 0 0 0 10px rgba(255,255,255,.06); animation: signal-orbit 5s ease-in-out infinite; }
+.signal-orbit-dna { left: 8%; }
+.signal-orbit-siga { right: 8%; animation-delay: .8s; background: var(--mint); }
+@keyframes signal-orbit { 0%, 100% { transform: scale(.96); } 50% { transform: scale(1.04); box-shadow: 0 0 0 18px rgba(255,255,255,.03); } }
 
 .download-grid, .lab-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.2rem; margin: 1.5rem 0 2.5rem; }
 .role-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.4rem; margin: 1.5rem 0 2.5rem; }
@@ -207,6 +221,14 @@ thead { background: var(--ocean); color: white; }
   .pathway-zoom { grid-template-columns: 1fr; }
   .pathway-level { min-height: auto; }
   .pathway-level:not(:last-child)::after { content: "⌄"; right: 49%; top: auto; bottom: -.9rem; }
+  .siga-story { grid-template-columns: 1fr; }
+  .siga-story-step { min-height: auto; }
+  .siga-story-step:not(:last-child)::after { content: "↓"; right: 49%; top: auto; bottom: -.85rem; }
+  .two-signal-animation { min-height: 500px; }
+  .signal-orbit { top: auto; left: calc(50% - 66px); right: auto; }
+  .signal-orbit-dna { top: 25px; }
+  .signal-center { top: 175px; }
+  .signal-orbit-siga { top: 345px; }
   .institution-band { grid-template-columns: 1fr; margin-left: 1.2rem; margin-right: 1.2rem; }
   .institution-action { white-space: normal; }
 }
@@ -217,5 +239,5 @@ thead { background: var(--ocean); color: white; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .science-visual, .quarto-grid-item img, .emseq-step, .emseq-icon, .emseq-arrow, .fragment-bar, .nucleosome-peak, .progression-node, .progression-line::after, .cpg-mark, .cpg-arrow, .cpg-coil, .software-era, .count-vial, .pathway-level { animation: none; transition: none; }
+  .science-visual, .quarto-grid-item img, .emseq-step, .emseq-icon, .emseq-arrow, .fragment-bar, .nucleosome-peak, .progression-node, .progression-line::after, .cpg-mark, .cpg-arrow, .cpg-coil, .software-era, .count-vial, .pathway-level, .siga-story-step, .signal-orbit { animation: none; transition: none; }
 }
