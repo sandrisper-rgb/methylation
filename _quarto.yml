@@ -8,13 +8,16 @@ project:
   resources:
     - presentations/files/**
     - publications/files/**
+    - "EXPOSICION ULTIMA.pptx"
+    - EXPOSICION_ULTIMA_EN.pdf
+    - "WhatsApp Video 2026-08-20 at 12.32.43 PM.mp4"
   preview:
     port: 4200
     browser: true
 
 website:
   title: "Methylation & Colitis"
-  description: "Collaborative research on DNA methylation and colitis"
+  description: "Integrating DNA methylation and sIgA to investigate colitis progression"
   site-url: "https://sandrisper-rgb.github.io/methylation"
   repo-url: "https://github.com/sandrisper-rgb/methylation"
   repo-actions: [edit, issue]
@@ -27,23 +30,29 @@ website:
       - href: index.qmd
         text: Home
       - href: research.qmd
-        text: Research
+        text: Study
+      - href: approach.qmd
+        text: Methylation vs sIgA
       - href: findings/index.qmd
         text: Findings
       - href: workflows/index.qmd
         text: R workflows
-      - text: Library
+      - text: Resources
         menu:
+          - href: resources.qmd
+            text: Project media
           - href: publications.qmd
             text: Research articles
           - href: presentations.qmd
             text: Presentations
+          - href: related-work.qmd
+            text: Related research
       - href: team.qmd
         text: Team
       - href: contributing.qmd
         text: Contribute
   page-footer:
-    left: "Methylation & Colitis Research Group"
+    left: "Methylation + sIgA · PCI-2024-0016"
     center: "Universidad El Bosque"
     right: "Built with [Quarto](https://quarto.org/)"
 

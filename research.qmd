@@ -1,47 +1,77 @@
 ---
-title: "Research"
-description: "Questions, methods, and project status"
+title: "Study design"
+description: "Research question, objectives, cohorts, specimens, and analytical plan"
 ---
 
-## Research question
+::: {.lead-panel}
+## The central question
 
-> Which DNA methylation patterns are associated with colitis phenotypes, inflammatory activity, and clinically relevant outcomes?
+Can differential methylation signatures in plasma cell-free DNA and colonic tissue, interpreted together with serum sIgA and inflammation markers, help characterize ulcerative colitis patients at high risk of colorectal cancer progression?
+:::
 
-This wording is a starting point. The team should replace it with the approved protocol question and define the population, tissue or sample type, assay platform, comparison groups, and primary outcomes.
+## Why this matters
+
+Ulcerative colitis (UC) is a chronic inflammatory disease of the colonic mucosa. In long-standing or extensive disease, repeated injury and repair can contribute to dysplasia and colitis-associated colorectal cancer (CRC). Colonoscopic surveillance remains central to care. This project explores a complementary molecular layer: **epigenetic state** through DNA methylation and **mucosal immune state** through sIgA.
+
+The goal is not to replace colonoscopy. It is to investigate whether less-invasive blood-derived measurements, anchored to colonic tissue and clinical context, can contribute to future risk-stratification strategies.
 
 ## Objectives
 
-1. Characterize methylation signals in samples relevant to colitis.
-2. Assess associations between methylation and clinical or molecular variables.
-3. Integrate findings with existing evidence and biological pathways.
-4. Develop transparent, reproducible R workflows for quality control and analysis.
+1. Characterize DNA methylation profiles in plasma cell-free DNA and colonic biopsies from patients with high-risk UC.
+2. Compare those profiles with healthy and CRC comparator groups.
+3. Test associations between serum sIgA and methylation signatures identified in liquid biopsy and colonic tissue.
+4. Examine relationships among methylation, sIgA, and inflammatory markers in high-risk UC.
 
-## Study map
+## Planned design
+
+The presentation describes a **descriptive, cross-sectional study with an analytical component** and 36 planned sample units.
+
+| Group | Plasma cfDNA | Colonic tissue | Role in comparison |
+|---|---:|---:|---|
+| Ulcerative colitis | 8 | 8 | High-risk disease group |
+| Colorectal cancer | 5 | 5 | Neoplastic comparator |
+| Healthy comparators | 5 | 5 | Reference group |
+| **Total** | **18** | **18** | **36 sample units** |
+
+::: {.callout-note title="Interpretation note"}
+The source presentation reports sample units by specimen type. The public study materials should not be used to infer participant counts, pairing, recruitment completion, or results beyond what the approved protocol and research team confirm.
+:::
+
+## From sample to interpretation
 
 ```{mermaid}
-flowchart LR
-  A[Research question] --> B[Samples and metadata]
-  B --> C[Quality control]
-  C --> D[Methylation analysis]
-  D --> E[Biological interpretation]
-  E --> F[Reviewed finding]
-  F --> G[Publication or presentation]
+flowchart TD
+  A["Eligibility + consent"] --> B{"Study group"}
+  B -->|High-risk UC| C["Plasma + colonic tissue"]
+  B -->|CRC comparator| D["Plasma + colonic tissue"]
+  B -->|Healthy comparator| E["Plasma + colonic tissue"]
+  C --> M["DNA extraction + methylation profiling"]
+  D --> M
+  E --> M
+  C --> S["Serum sIgA by ELISA"]
+  M --> Q["Quality control + differential methylation"]
+  S --> Q
+  Q --> A2["Association with inflammation + phenotype"]
+  A2 --> V["Candidate integrated signature"]
+  V --> R["Independent validation required"]
 ```
 
-## Governance checklist
+## Eligibility described for the UC group
 
-- Record protocol and ethics approval details before describing participant data.
-- Never commit identifiable or sensitive participant data to GitHub.
-- Document data provenance, exclusions, transformations, and software versions.
-- Distinguish exploratory results from findings reviewed by the principal investigator.
-- Verify that every uploaded article or presentation may legally be shared publicly.
+- Confirmed UC with more than eight years of disease or primary sclerosing cholangitis.
+- Exclusion of Crohn's disease, contraindication to colonoscopy or biopsy, and prior colonic surgery, as described in the slides.
+- Recruitment sites named in the presentation include Cobos Medical Center, HIC Bucaramanga, and GastroAdvanced.
 
-## Project status
+## Analysis frame
 
-| Workstream | Lead | Status | Next milestone |
-|---|---|---|---|
-| Literature review | To assign | Planning | Define search strategy |
-| Data dictionary | To assign | Planning | Agree on variables |
-| Methylation QC | To assign | Planning | Select platform workflow |
-| Statistical analysis | To assign | Planning | Draft analysis plan |
+The source presentation proposes descriptive summaries for continuous and categorical variables, followed by association testing using chi-square or Fisher's exact tests as appropriate, with a 95% confidence level and a nominal threshold of *p* ≤ 0.05.
 
+For biomarker development, that plan is a starting point. A robust downstream workflow should also pre-specify methylation quality control, cell-composition and batch adjustment, multiple-testing correction, effect sizes with confidence intervals, missing-data handling, and an independent validation strategy.
+
+## Ethics and responsible data use
+
+The presentation identifies Colombian Resolution 8430 of 1993, informed consent, and approval by the HIC Bucaramanga–Fundación Cardiovascular de Bucaramanga research committee (Minutes 005-2024). Public GitHub content must remain de-identified and contain no participant-level clinical, genomic, or other sensitive data.
+
+::: {.callout-warning title="Research, not medical advice"}
+This is an exploratory biomarker study. No methylation or sIgA result described here is validated for diagnosing UC, predicting cancer, or directing an individual's care.
+:::

@@ -1,0 +1,86 @@
+---
+title: "Methylation vs sIgA"
+description: "Comparing epigenetic and mucosal immune signals in colitis progression"
+---
+
+::: {.lead-panel}
+## Complementary, not competing
+
+Methylation and sIgA answer different biological questions. Methylation can capture durable changes in gene regulation and cell state; sIgA reflects an immune barrier response closer to the intestinal mucosa. The central opportunity is to test whether their **joint pattern** is more informative than either alone.
+:::
+
+## Side-by-side comparison
+
+| Dimension | DNA methylation | Secretory IgA (sIgA) |
+|---|---|---|
+| Biological layer | Epigenetic regulation and cell-of-origin signal | Mucosal humoral immunity and host–microbe interface |
+| Material in this study | Plasma cfDNA and colonic tissue DNA | Serum |
+| Typical readout | CpG/site- or region-level methylation; candidate signature | Concentration measured by ELISA |
+| Time window | Potentially persistent molecular state, but influenced by cell mixture and disease context | More dynamic immune state, potentially influenced by infection, treatment, and systemic/mucosal context |
+| Spatial context | Tissue is local; cfDNA is less invasive but mixes signals from multiple tissues | Serum is accessible but is not identical to luminal or fecal secretory IgA |
+| Main strength | High-dimensional signal that may reveal pathways and tissue-linked alterations | Lower-dimensional, interpretable, comparatively accessible immune measurement |
+| Main limitation | Batch effects, multiple testing, cell composition, and tissue-of-origin ambiguity | Biological variability and uncertainty about how serum measurements represent local intestinal secretion |
+| Project role | Identify differential signatures across UC, CRC, and healthy groups | Test immune association with methylation and inflammation |
+
+## Methylation: an epigenetic signal
+
+DNA methylation is a chemical modification of DNA that can participate in regulating gene expression without changing the DNA sequence. In inflamed colonic tissue, an observed methylation difference may reflect disease biology, altered cellular composition, exposure history, treatment, or a combination of these factors.
+
+The project uses two views:
+
+- **Colonic tissue** provides anatomical relevance and a direct view of the affected mucosa.
+- **Plasma cell-free DNA (cfDNA)** offers a less-invasive sampling route and may carry methylation patterns from cells releasing DNA into circulation.
+
+Agreement between tissue and cfDNA would strengthen biological interpretation. Disagreement can also be informative, but requires careful attention to cell of origin, assay sensitivity, and technical variability.
+
+## sIgA: a mucosal immune signal
+
+Secretory IgA helps maintain mucosal homeostasis by interacting with microbes and limiting inappropriate contact with the epithelial surface. The presentation motivates sIgA as a candidate indicator of immune-barrier function in UC.
+
+This project measures **serum sIgA**. That distinction matters: serum concentration is accessible and potentially useful, but it should not automatically be treated as equivalent to secretory IgA measured at the intestinal surface or in stool.
+
+## What integration can test
+
+```{mermaid}
+flowchart LR
+  subgraph E["Epigenetic axis"]
+    T["Tissue methylation"]
+    P["Plasma cfDNA methylation"]
+  end
+  subgraph I["Immune axis"]
+    S["Serum sIgA"]
+    F["Inflammation markers"]
+  end
+  T --> J["Joint signature"]
+  P --> J
+  S --> J
+  F --> J
+  J --> C{"Does the pattern<br/>separate groups?"}
+  C -->|Exploratory signal| V["Replication + validation"]
+  C -->|No stable signal| L["Refine biological model"]
+```
+
+An integrated model could ask whether methylation and sIgA:
+
+1. correlate within the UC group;
+2. contribute independent information after accounting for inflammation and clinical variables;
+3. distinguish UC, CRC, and healthy comparator groups; and
+4. remain stable under resampling and, ultimately, in an independent cohort.
+
+## Claims ladder
+
+::: {.claims-ladder}
+**Association**  
+Signals vary together in the observed samples.
+
+**Discrimination**  
+A model separates predefined groups in held-out data.
+
+**Prognosis**  
+A prospectively validated model predicts future progression.
+
+**Clinical utility**  
+Using the model improves decisions or outcomes beyond current care.
+:::
+
+The current cross-sectional design can investigate the first two levels. Claims about prognosis or clinical utility require longitudinal follow-up, external validation, and comparison with established surveillance pathways.

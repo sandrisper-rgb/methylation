@@ -1,0 +1,79 @@
+---
+title: "Related research"
+description: "IBD, mucosal immunology, biomarker, and colitis-associated cancer programs"
+---
+
+::: {.lead-panel}
+## Part of a global research landscape
+
+This project contributes a Colombian, integrative biomarker perspective. The programs below offer complementary expertise in IBD cohorts, mucosal immunology, microbiome science, biomarkers, and inflammation-to-cancer biology. Links are provided for scientific context—not to imply formal collaboration.
+:::
+
+## Centers and labs to follow
+
+:::: {.lab-grid}
+::: {.lab-card}
+::: {.lab-place}
+LOS ANGELES · USA
+:::
+### [UCLA Center for Inflammatory Bowel Diseases](https://www.uclahealth.org/departments/medicine/gastro/research/centers/center-inflammatory-bowel-diseases)
+
+A translational center spanning immunology, microbiome research, clinical cohorts, diagnostics, and precision approaches. UCLA's Koon Lab emphasizes IBD activity and stricture biomarkers, while the Jacobs Lab studies microbiome–host interactions.
+:::
+
+::: {.lab-card}
+::: {.lab-place}
+BALTIMORE · USA
+:::
+### [Johns Hopkins GI research labs](https://www.hopkinsmedicine.org/gastroenterology-hepatology/research/labs)
+
+The Selaru Lab focuses on molecular changes in the transition from chronic gastrointestinal inflammation to cancer—a particularly close conceptual neighbor to this project. The Meyerhoff IBD Center also studies genetic, environmental, and biomarker questions.
+:::
+
+::: {.lab-card}
+::: {.lab-place}
+STANFORD · USA
+:::
+### [Stanford Sinha Lab](https://sinhalab.stanford.edu/research/)
+
+Patient-centered IBD research connecting diet, metabolites, the microbiome, and intestinal inflammation. Stanford's broader IBD program combines multidisciplinary care with clinical and translational investigation.
+:::
+
+::: {.lab-card}
+::: {.lab-place}
+MONTRÉAL · CANADA
+:::
+### [CHU Sainte-Justine / Jantchou research](https://recherche.umontreal.ca/chercheur/is/in15897/)
+
+Pediatric IBD research with a history of work on epigenetic markers in Crohn's disease. This is the likely “CHU” comparator relevant to the requested landscape; it should not be confused with the **CHUK gene** or unrelated institutions using the CHUK acronym.
+:::
+
+::: {.lab-card}
+::: {.lab-place}
+INTERNATIONAL NETWORK
+:::
+### [International Human Epigenome Consortium](https://ihec-epigenomes.org/)
+
+A useful reference for epigenomic standards, datasets, and cross-study thinking when translating methylation signals into reproducible biology.
+:::
+
+::: {.lab-card}
+::: {.lab-place}
+PATIENT-FOCUSED RESEARCH
+:::
+### [Crohn's & Colitis Foundation](https://www.crohnscolitisfoundation.org/research)
+
+Supports research across disease mechanisms, diagnostics, treatment, and patient outcomes, and provides a broader view of priorities in the IBD field.
+:::
+::::
+
+## Where this project is distinctive
+
+- It explicitly joins a **high-dimensional epigenetic signal** with a **mucosal immune marker**.
+- It compares **liquid biopsy and colonic tissue**, creating an internal bridge between accessibility and anatomical relevance.
+- It focuses on a **Colombian UC population**, contributing evidence from a setting underrepresented in many molecular cohorts.
+- It places biomarker discovery in the clinically important transition from chronic inflammation toward colitis-associated CRC.
+
+::: {.callout-tip title="Collaboration lens"}
+The most valuable external connections would bring independent validation cohorts, longitudinal follow-up, standardized methylation pipelines, and expertise in mucosal immunology or cfDNA tissue-of-origin analysis.
+:::

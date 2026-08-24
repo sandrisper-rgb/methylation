@@ -1,62 +1,171 @@
 ---
-title: "Methylation & Colitis"
-pagetitle: "Methylation & Colitis Research Group"
-description: "Collaborative research on epigenetic mechanisms in colitis at Universidad El Bosque."
+title: "Methylation & sIgA in colitis progression"
+pagetitle: "Methylation + sIgA | Colitis progression research"
+description: "A translational study integrating epigenetic and mucosal immune signals to investigate progression from ulcerative colitis toward colorectal cancer."
 page-layout: full
 toc: false
 ---
 
 ::: {.hero}
-# Methylation & Colitis
+::: {.hero-kicker}
+TRANSLATIONAL EPIGENETICS · COLOMBIA
+:::
 
-**A collaborative research hub led by Sandra Perdomo at Universidad El Bosque**
+# Two biological signals.<br>A clearer view of progression.
 
-We bring together molecular evidence, clinical questions, and reproducible data analysis to understand the role of DNA methylation in colitis.
+We are studying whether **DNA methylation signatures** and **secretory immunoglobulin A (sIgA)** can be read together to improve risk stratification in ulcerative colitis and illuminate progression toward colitis-associated colorectal cancer.
 
-[Explore the research](research.qmd){.btn .btn-light .btn-lg} [View R workflows](workflows/index.qmd){.btn .btn-outline-light .btn-lg}
+[See the study design](research.qmd){.btn .btn-light .btn-lg} [Compare the approaches](approach.qmd){.btn .btn-outline-light .btn-lg}
+
+::: {.hero-meta}
+**PCI-2024-0016** · Universidad El Bosque · InmuBo Cancer Research Line
+:::
 :::
 
 ::: {.content-block}
-## One place for our research
+::: {.section-intro}
+## The question behind the project
+
+Long-standing ulcerative colitis creates a setting of persistent inflammation, epithelial injury, repair, and—in some patients—neoplastic transformation. Current surveillance is essential, but the project asks whether molecular signals in blood and colon tissue can add a more biologically informative layer.
+:::
+
+:::: {.signal-grid}
+::: {.signal-card .signal-card-methylation}
+::: {.signal-number}
+01
+:::
+### DNA methylation
+
+An epigenetic record of gene regulation and cellular state. The project compares methylation profiles in plasma cell-free DNA and colonic tissue across ulcerative colitis, colorectal cancer, and healthy comparator groups.
+
+[How methylation is studied →](approach.qmd#methylation-an-epigenetic-signal)
+:::
+
+::: {.signal-bridge}
+**Integrated interpretation**
+
+Do immune dysfunction and epigenetic change move together—and does their combination distinguish higher-risk biology?
+:::
+
+::: {.signal-card .signal-card-siga}
+::: {.signal-number}
+02
+:::
+### Secretory IgA
+
+A mucosal immune signal involved in limiting exposure to commensal microbes and shaping intestinal immune responses. The study examines serum sIgA alongside methylation and inflammatory markers.
+
+[How sIgA complements methylation →](approach.qmd#siga-a-mucosal-immune-signal)
+:::
+::::
+
+## Study at a glance
+
+:::: {.metric-grid}
+::: {.metric}
+**36**
+
+planned sample units
+:::
+::: {.metric}
+**3**
+
+comparison groups
+:::
+::: {.metric}
+**2**
+
+biological signal families
+:::
+::: {.metric}
+**1**
+
+integrated risk model
+:::
+::::
+
+```{mermaid}
+%%| fig-width: 11
+%%| fig-cap: "The study links tissue context, minimally invasive signals, and clinical interpretation."
+flowchart LR
+  UC["Ulcerative colitis<br/>persistent inflammation"] --> S["Paired biological view"]
+  S --> P["Plasma cfDNA<br/>methylation"]
+  S --> T["Colonic tissue<br/>methylation"]
+  S --> I["Serum sIgA +<br/>inflammation markers"]
+  P --> X["Integrated association<br/>analysis"]
+  T --> X
+  I --> X
+  C["Healthy + CRC<br/>comparators"] --> X
+  X --> O["Candidate signatures for<br/>risk stratification"]
+
+  classDef source fill:#e9f5f2,stroke:#167d78,color:#123b5d;
+  classDef assay fill:#f7efe1,stroke:#c58b2c,color:#3c2d16;
+  classDef outcome fill:#123b5d,stroke:#123b5d,color:#fff;
+  class UC,C source;
+  class P,T,I assay;
+  class S,X,O outcome;
+```
+
+::: {.callout-important title="Study status"}
+This site describes the **rationale, planned design, and expected analytical framework** presented by the research team. Candidate biomarkers remain hypotheses until validated; the site does not present clinical guidance or a diagnostic test.
+:::
+:::
+
+::: {.video-band}
+::: {.content-block}
+:::: {.grid .align-items-center}
+::: {.g-col-12 .g-col-lg-5}
+::: {.eyebrow}
+PROJECT EXPLAINER
+:::
+## From chronic inflammation to molecular surveillance
+
+Watch the short visual overview, then explore the full English presentation or original Spanish slide deck.
+
+[Open all project media](resources.qmd){.btn .btn-primary}
+:::
+::: {.g-col-12 .g-col-lg-7}
+```{=html}
+<video controls preload="metadata" playsinline class="project-video">
+  <source src="WhatsApp Video 2026-08-20 at 12.32.43 PM.mp4" type="video/mp4">
+  Your browser does not support embedded video. <a href="WhatsApp Video 2026-08-20 at 12.32.43 PM.mp4">Download the MP4</a>.
+</video>
+```
+:::
+::::
+:::
+:::
+
+::: {.content-block}
+## Explore the work
 
 :::: {.grid}
 ::: {.g-col-12 .g-col-md-4}
 ::: {.research-card}
-### Findings
+### Study design
 
-Short, readable summaries of current results, figures, and interpretations.
+Research question, cohorts, specimens, objectives, ethics, and analysis plan.
 
-[Read findings →](findings/index.qmd)
+[Read the protocol story →](research.qmd)
 :::
 :::
-
 ::: {.g-col-12 .g-col-md-4}
 ::: {.research-card}
-### Research library
+### Two-source comparison
 
-Shared articles and student presentations, organized with citations and context.
+What methylation and sIgA reveal independently—and why integration matters.
 
-[Browse articles →](publications.qmd)
+[Compare the signals →](approach.qmd)
 :::
 :::
-
 ::: {.g-col-12 .g-col-md-4}
 ::: {.research-card}
-### Reproducible analysis
+### Research landscape
 
-Documented R workflows that connect code, data, outputs, and scientific decisions.
+Connect this Colombian project with complementary IBD programs worldwide.
 
-[Open workflows →](workflows/index.qmd)
+[Visit related groups →](related-work.qmd)
 :::
 :::
 ::::
-
-## Our focus
-
-DNA methylation can influence gene regulation without changing the DNA sequence. This project examines how methylation patterns relate to inflammation, disease phenotype, and potential biomarkers in colitis. The website is the group's living research notebook: work is shared early, reviewed together, and improved over time.
-
-::: {.callout-note title="This site is under active development"}
-The current content is a starter structure. Study aims, datasets, ethics information, and validated findings should be added by the research team before public release.
 :::
-:::
-
