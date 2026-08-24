@@ -1,0 +1,114 @@
+---
+title: "How can colitis reshape DNA methylation?"
+description: "From inflammatory signaling and epithelial repair to CpG islands, gene regulation, and candidate cancer-related field effects"
+date: 2026-08-24
+categories: [ulcerative colitis, DNA methylation, CpG islands, gene regulation]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/emseq-fragmentomics.webp"
+---
+
+::: {.lead-panel}
+## Inflammation can leave an epigenetic record
+
+Ulcerative colitis does not simply “switch methylation on.” Chronic inflammation changes signaling, oxidative stress, cell turnover, tissue repair, and the mixture of epithelial and immune cells in a biopsy. Together, these processes are associated with gains of methylation at some genomic regions and losses at others.
+:::
+
+![Methyl marks, nucleosome packaging, sequencing reads, and genomic profiles represent linked layers of epigenetic information.](../media/illustrations/emseq-fragmentomics.webp){.science-visual fig-alt="Scientific illustration of DNA around nucleosomes, methyl marks, sequencing reads, and methylation profiles"}
+
+## First: what is being methylated?
+
+DNA methylation commonly adds a methyl group to carbon 5 of cytosine, creating **5-methylcytosine (5mC)**. In human DNA, this most often occurs at a **CpG dinucleotide**:
+
+::: {.cpg-animation role="img" aria-label="Animated CpG sequence gaining a methyl group and changing from an open to a more compact regulatory state"}
+::: {.cpg-sequence}
+5′—C—p—G—3′
+:::
+::: {.cpg-mark}
+CH₃
+:::
+::: {.cpg-arrow}
+→
+:::
+::: {.cpg-output}
+::: {.cpg-coil}
+:::
+**Context-dependent change in chromatin and transcription**
+:::
+:::
+
+“CpG” means cytosine followed by guanine on the same DNA strand, with the **p** representing the phosphate linkage. It is a sequence motif, not the pairing of C with G across the two strands.
+
+## What are CpG islands?
+
+CpGs are relatively uncommon across much of the human genome, but some short regions contain many of them. These **CpG islands** are often found at or near gene promoters and transcription start sites. Exact computational definitions vary, but they generally use region length, GC content, and observed-versus-expected CpG frequency.
+
+The surrounding geography also matters:
+
+| Region | Approximate relationship | Why it matters |
+|---|---|---|
+| CpG island | CpG-rich core, often promoter-associated | Frequently unmethylated at active or poised promoters |
+| Shore | Up to roughly 2 kb from an island | Often shows tissue- and disease-associated variation |
+| Shelf | Approximately 2–4 kb from an island | Can carry additional tissue-specific patterns |
+| Open sea | Isolated CpGs farther from islands | Much of the genome; often more methylated, with context-specific regulation |
+
+Not every promoter contains an island, and not every island controls a gene in the same way.
+
+## Why might colitis alter the pattern?
+
+Several mechanisms may operate together:
+
+1. **Inflammatory signaling.** Cytokine pathways—including TNF, IL-6, and NF-κB-related signaling—change transcription and chromatin-regulatory activity.
+2. **Oxidative and nitrosative stress.** Reactive molecules can damage DNA and alter repair, replication, and the recruitment or activity of epigenetic enzymes.
+3. **Repeated epithelial turnover.** Injury forces intestinal stem and progenitor cells through repeated repair cycles. Methylation patterns can drift or be selected as clones expand.
+4. **Changing enzyme activity.** DNA methyltransferases add methylation and TET enzymes participate in active demethylation pathways; inflammatory context may disturb their targeting or balance.
+5. **Cell selection.** A methylation state that supports survival under chronic inflammatory stress may become more common as that cell clone expands.
+6. **Changing cell mixture.** Inflamed biopsies contain different proportions of epithelial, stromal, and immune cells. Because each cell type has its own methylome, bulk-tissue differences can appear even without a change inside any one cell type.
+
+That last point is crucial: a “UC methylation signature” may contain both **within-cell epigenetic remodeling** and **between-cell compositional change**.
+
+## What happens downstream?
+
+The effect depends on genomic context—not simply “more methylation means less gene expression.”
+
+### Promoters and transcription start sites
+
+Dense methylation at some promoter CpG islands can reduce transcription-factor access and recruit methyl-CpG-binding proteins and repressive chromatin machinery. This may silence genes involved in cell-cycle control, DNA repair, apoptosis, epithelial adhesion, or signaling.
+
+### Enhancers
+
+Methylation changes at enhancers can alter transcription-factor binding and the long-range regulatory contacts that tune when and where genes are expressed.
+
+### Gene bodies
+
+Gene-body methylation is common and can correlate with active transcription, exon use, or suppression of inappropriate internal transcription. Its meaning differs from promoter methylation.
+
+### Repetitive DNA and genome stability
+
+Loss of methylation across repetitive elements may contribute to abnormal repeat activity and genomic instability. Cancer genomes can therefore show **local promoter hypermethylation and broader hypomethylation at the same time**.
+
+## What has been observed in UC?
+
+Studies have reported aberrant methylation in inflamed, non-neoplastic UC mucosa and in colitis-associated dysplasia and cancer. A study of cancer-free UC mucosa found promoter-CpG-island hypermethylation associated with disease duration and severe phenotype ([DOI: 10.1097/MIB.0000000000000990](https://doi.org/10.1097/MIB.0000000000000990)).
+
+A [systematic review of UC-associated cancer](https://pubmed.ncbi.nlm.nih.gov/28621161/) identified candidate methylated genes including **RUNX3, MYOD1, CDKN2A/p16, EYA4**, and **ESR1**, while also finding that the overall pattern differs from sporadic colorectal cancer. Other studies have examined inflammation-related genes, DNA-repair genes such as **MGMT**, and CpG-island methylator phenotype panels.
+
+These examples are candidates, not a universal progression panel. Findings vary with tissue region, cell composition, assay, disease activity, treatment, age, and study design.
+
+## Why paired tissue and plasma help
+
+Tissue shows whether a methylation change is present in the affected colon, but bulk tissue may be distorted by inflammation and cellular mixture. Plasma is less invasive and may carry colon-derived cfDNA, but it is diluted by DNA from blood and other tissues.
+
+Within-person comparison can ask:
+
+- Is a tissue DMR detectable in plasma?
+- Does the direction agree across specimens?
+- Is the plasma signal related to fragment length or tissue-of-origin features?
+- Does it persist after accounting for inflammation and immune measurements?
+
+Agreement strengthens a candidate interpretation. Disagreement can reveal dilution, sampling heterogeneity, blood-cell contribution, or technical effects.
+
+::: {.callout-important title="The central idea"}
+Chronic colitis can create conditions that reshape or select methylation patterns, but a measured difference is not automatically a causal gene switch. Genomic location, cell type, disease activity, expression data, and independent validation determine what the mark means.
+:::
+
+[Learn how EM-seq measures the marks →](what-is-emseq.qmd) · [See why tissue and plasma are paired →](why-pair-tissue-and-plasma.qmd) · [Read the clinical progression context →](from-colitis-to-colorectal-cancer.qmd)

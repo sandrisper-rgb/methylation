@@ -216,4 +216,8 @@ Choose a reproducible stack for EM-seq, fragment features, pathways, integration
 New to the assay? [Start with the illustrated EM-seq explainer →](posts/what-is-emseq.qmd)
 
 Curious about the physical DNA signal? [Read the short fragmentomics explainer →](posts/what-is-fragmentomics.qmd)
+
+For the clinical context, read [how long-standing colitis can progress toward colorectal cancer →](posts/from-colitis-to-colorectal-cancer.qmd)
+
+For the mechanism, explore [how inflammation can reshape DNA methylation →](posts/how-colitis-reshapes-dna-methylation.qmd)
 :::

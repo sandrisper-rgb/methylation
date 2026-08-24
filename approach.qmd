@@ -24,6 +24,8 @@ Methylation and sIgA answer different biological questions. Methylation can capt
 
 ## Methylation: an epigenetic signal
 
+[Read the illustrated Field Note on colitis, CpG islands, and altered gene regulation →](posts/how-colitis-reshapes-dna-methylation.qmd)
+
 DNA methylation is a chemical modification of DNA that can participate in regulating gene expression without changing the DNA sequence. In inflamed colonic tissue, an observed methylation difference may reflect disease biology, altered cellular composition, exposure history, treatment, or a combination of these factors.
 
 The project uses two views:

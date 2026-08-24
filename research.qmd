@@ -11,6 +11,8 @@ Can differential methylation signatures in plasma cell-free DNA and colonic tiss
 
 ## Why this matters
 
+[Read the clinical-context Field Note: from ulcerative colitis to colorectal cancer →](posts/from-colitis-to-colorectal-cancer.qmd)
+
 Ulcerative colitis (UC) is a chronic inflammatory disease of the colonic mucosa. In long-standing or extensive disease, repeated injury and repair can contribute to dysplasia and colitis-associated colorectal cancer (CRC). Colonoscopic surveillance remains central to care. This project explores a complementary molecular layer: **epigenetic state** through DNA methylation and **mucosal immune state** through sIgA.
 
 The goal is not to replace colonoscopy. It is to investigate whether less-invasive blood-derived measurements, anchored to colonic tissue and clinical context, can contribute to future risk-stratification strategies.
