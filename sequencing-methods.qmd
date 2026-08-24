@@ -91,6 +91,8 @@ flowchart TD
 
 After FDR-controlled DML/DMR analysis, mapped genes can be summarized with [KEGG](https://www.genome.jp/kegg/pathway.html) and [Reactome](https://reactome.org/PathwayBrowser/). The report should retain the CpG/DMR-to-gene rule, tested-region background, database version, effect direction, overlap size, and adjusted p-value. Enrichment is a structured hypothesis about biological context—not direct evidence that a pathway is active.
 
+[Learn what KEGG contributes →](posts/what-is-kegg.qmd) · [Explore Reactome's reaction hierarchy →](posts/what-is-reactome.qmd)
+
 ::: {.callout-important title="Critical boundary"}
 With 18 planned participants, the defensible target is a quality-controlled feasibility analysis and a small set of candidate features. High-dimensional classifiers, prognosis claims, and clinical use require independent longitudinal validation.
 :::

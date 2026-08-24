@@ -76,3 +76,5 @@ This exploratory measurement does not establish an individual cancer-risk thresh
 :::
 
 [Compare methylation and sIgA →](approach.qmd) · [See the complete study design →](research.qmd)
+
+[Prefer a plain-language introduction? Read “What is secretory IgA?” →](posts/what-is-siga.qmd)

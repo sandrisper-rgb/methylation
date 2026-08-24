@@ -1,0 +1,105 @@
+---
+title: "What is secretory IgA—and why track it?"
+description: "An ELI18 guide to sIgA, what a serum ELISA can reveal, and how this immune signal complements DNA methylation"
+date: 2026-08-24
+categories: [sIgA, immunology, methylation, biomarkers]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/siga-mucosal-assay.webp"
+---
+
+::: {.lead-panel}
+## The short version
+
+**Secretory immunoglobulin A (sIgA)** is an antibody adapted to protect wet surfaces such as the intestine, mouth, and airways. Think of it as a selective border guard: it can bind microbes and other material near the lining, limiting unwanted contact without requiring an aggressive inflammatory response every time.
+:::
+
+![sIgA connects the intestinal barrier to an accessible serum ELISA measurement in this study.](../media/illustrations/siga-mucosal-assay.webp){.science-visual fig-alt="Scientific illustration of intestinal epithelium, secretory IgA, a serum droplet, and ELISA plate wells"}
+
+## Why the gut uses sIgA
+
+The intestine has a difficult job. It must absorb food, tolerate a huge microbial community, and still block pathogens. IgA-producing immune cells release antibodies toward the mucosal surface. A small **secretory component** helps IgA cross the epithelial layer and protects it in that harsh environment.
+
+sIgA can bind microbes and toxins, influence which organisms approach the epithelium, and help maintain a calmer relationship between the immune system and the microbiome. It is not simply an “inflammation goes up” marker: its level and specificity reflect production, transport, binding, loss, clearance, infection, medication, and other biology.
+
+::: {.siga-story}
+::: {.siga-story-step}
+**1 · Barrier challenge**
+
+Microbes and antigens meet the intestinal surface.
+:::
+::: {.siga-story-step}
+**2 · Immune response**
+
+IgA-producing cells make a targeted antibody response.
+:::
+::: {.siga-story-step}
+**3 · Secretory protection**
+
+sIgA helps limit contact and shape host–microbe interactions.
+:::
+::: {.siga-story-step}
+**4 · Study measurement**
+
+A serum ELISA estimates an accessible, indirect immune signal.
+:::
+:::
+
+## What this study actually measures
+
+The project uses an **ELISA**: a plate-based test in which antibody binding produces a color signal. A calibration curve converts optical density into an estimated concentration. Standards, blanks, dilution, replicate agreement, detection limits, and plate effects determine whether the value is trustworthy.
+
+Importantly, this is **serum sIgA**. Blood is convenient, but it is not the intestinal lumen. A serum measurement should not be described as a direct count of IgA coating gut microbes or as a complete readout of local mucosal immunity.
+
+## Why track the data?
+
+A single measurement can compare groups. Repeated measurements—if collected later—could show whether a participant's value is stable, follows inflammation, changes with treatment, or moves before/after a clinical event. Tracking is useful because people have different baselines and one isolated value may reflect temporary infection, medication, collection conditions, or assay variation.
+
+For the present cross-sectional study, sIgA can help ask:
+
+- Do UC, colorectal cancer, and healthy comparator groups have different distributions?
+- Does sIgA vary with clinical inflammation markers?
+- Does it explain variation in a small set of pre-specified methylation regions?
+- Does it add information beyond methylation alone?
+
+Those are association questions, not a diagnostic test. There is no validated sIgA threshold here that predicts an individual's cancer risk.
+
+## How does methylation relate to sIgA?
+
+They are two different types of evidence:
+
+| Signal | Simple analogy | What it may reflect |
+|---|---|---|
+| DNA methylation | Settings attached to DNA | Cell identity, gene-regulatory state, accumulated inflammatory or disease context |
+| sIgA | An immune-barrier output | Current production, transport, and handling of a mucosal antibody |
+
+::: {.two-signal-animation}
+::: {.signal-orbit .signal-orbit-dna}
+**DNA methylation**
+
+epigenetic state
+:::
+::: {.signal-orbit .signal-orbit-siga}
+**sIgA**
+
+immune-barrier state
+:::
+::: {.signal-center}
+**Shared participant**
+
+clinical state · inflammation · treatment · cell mixture
+:::
+:::
+
+Chronic inflammation could alter cell composition and gene regulation, leaving methylation differences. The same inflammatory environment could alter IgA production or transport. One might also influence the other indirectly through epithelial and immune pathways. But correlation does not reveal the direction: methylation could be a cause, consequence, or fellow traveler; sIgA could change for reasons unrelated to the methylated region.
+
+The strongest analysis therefore does not claim “methylation controls sIgA.” It asks whether pre-specified methylation features and sIgA move together after accounting for group, inflammation, batch, and other plausible confounders—and whether each contributes nonredundant information.
+
+## What would a useful result look like?
+
+Useful evidence would combine a visible effect size, confidence interval, assay QC, biological consistency, and replication. For an integrated model, all samples from one participant must stay in the same validation fold, and feature selection must happen inside training data. An apparent improvement in the original 18-person cohort would remain exploratory until tested independently.
+
+::: {.callout-important title="Bottom line"}
+sIgA offers a low-dimensional view of immune-barrier biology; methylation offers a high-dimensional view of cell and regulatory state. Their value is complementary. Tracking both may help separate or connect inflammatory and epigenetic patterns, but neither alone—and not their correlation—proves progression toward cancer.
+:::
+
+[See the detailed sIgA assay page →](../siga-methods.qmd) · [Compare methylation and sIgA →](../approach.qmd) · [Understand the study design →](why-pair-tissue-and-plasma.qmd)
