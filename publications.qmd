@@ -55,6 +55,8 @@ The CÓDIGO consortium illustrates the value of local genomics infrastructure, b
 - [NCI Genomic Data Commons](https://portal.gdc.cancer.gov/): harmonized cancer genomic data, including TCGA resources for external triangulation.
 - [NEB EM-seq tools and example data](https://github.com/nebiolabs/EM-seq/): implementation resource associated with the EM-seq method paper.
 
+[Read the KEGG explainer →](posts/what-is-kegg.qmd) · [Read the Reactome explainer →](posts/what-is-reactome.qmd)
+
 ::: {.callout-note title="How to read this evidence"}
 Evidence from oncology, SLE, or public cancer datasets can support feasibility, select features, and test biological coherence. It cannot directly validate prediction of UC progression. That requires a sufficiently powered, longitudinal, independent cohort.
 :::

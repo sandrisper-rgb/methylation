@@ -1,0 +1,78 @@
+---
+title: "What is Reactome?"
+description: "How Reactome's curated reaction network supports pathway enrichment and mechanistic interpretation in methylation studies"
+date: 2026-08-24
+categories: [pathways, bioinformatics, methylation, statistics]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/emseq-fragmentomics.webp"
+---
+
+::: {.lead-panel}
+## Biology represented as connected reactions
+
+**Reactome** is a free, curated, peer-reviewed knowledgebase of human biological pathways. Its basic unit is a reaction: an event in which molecules interact, move, change state, or regulate another event. Those reactions are assembled into a hierarchy from detailed mechanisms to broad processes.
+:::
+
+![Methylation and fragment evidence can be connected to genes and then placed within curated reaction pathways.](../media/illustrations/emseq-fragmentomics.webp){.science-visual fig-alt="Scientific illustration linking methylated DNA, fragments, sequencing, and genomic features"}
+
+## What makes Reactome distinctive
+
+[Reactome](https://reactome.org/) focuses on curated human biology and electronically projects many human pathways to other species. Entries connect molecular participants to cellular compartments, catalysts, regulators, literature evidence, and neighboring reactions. The hierarchy lets a researcher move from a broad result such as immune signaling toward the specific child pathways and reactions driving it.
+
+::: {.pathway-zoom}
+::: {.pathway-level}
+**Broad process**
+
+Immune system
+:::
+::: {.pathway-level}
+**Pathway**
+
+Innate immune signaling
+:::
+::: {.pathway-level}
+**Subpathway**
+
+Receptor cascade
+:::
+::: {.pathway-level}
+**Reaction**
+
+Molecules + location + evidence
+:::
+:::
+
+This nesting is useful but creates dependence: a gene may appear in several related parent and child terms. Ten significant Reactome terms therefore may represent one biological theme, not ten independent discoveries.
+
+## What Pathway Analysis does
+
+The [Reactome Pathway Analysis](https://reactome.org/PathwayBrowser/#TOOL=AT) tool can accept gene or protein identifiers and test whether pathways are over-represented. It also supports ordered data and overlays results on pathway diagrams. As with KEGG, the result depends on the input identifiers, background population, statistical procedure, and multiple-testing correction.
+
+For methylation data, the difficult step occurs before Reactome: deciding how a CpG or DMR maps to a gene. Promoter overlap, nearest transcription start site, enhancer links, and gene-body overlap answer different biological questions. The study should pre-specify the rule and retain regions that do not have a defensible target rather than forcing every DMR onto the nearest gene.
+
+## A responsible workflow here
+
+1. Call DMLs/DMRs with coverage-aware models and FDR control.
+2. Separate hypermethylated and hypomethylated sets when direction matters.
+3. Map regions to genes with a documented annotation and genome build.
+4. Define the background from all regions and genes that were genuinely testable.
+5. Run Reactome enrichment and report the exact overlap genes.
+6. Collapse redundant parent/child terms into interpretable themes without hiding the underlying results.
+7. Compare those themes with tissue–plasma concordance, sIgA, inflammation markers, and external evidence.
+
+## Reactome versus KEGG
+
+| Question | Reactome | KEGG |
+|---|---|---|
+| Core representation | Curated reactions arranged in a hierarchy | Curated pathway maps and broader linked databases |
+| Detail | Strong emphasis on participants, compartments, catalysts, and events | Strong visual maps across metabolism, signaling, disease, and drugs |
+| Access | Open knowledgebase and analysis tools | Widely accessible web resources; reuse terms vary by use case |
+| Best use here | Drill from broad immune/cancer themes into specific mechanisms | Obtain a complementary map-centered view of major biological systems |
+
+Neither database is universally “better.” Agreement can strengthen biological coherence, while disagreement can reflect different curation boundaries and gene membership. Running both should be presented as complementary interpretation, not as repeated confirmation by independent experimental data.
+
+::: {.callout-important title="Bottom line"}
+Reactome helps turn a gene list into a navigable reaction network. Its hierarchy is valuable for mechanistic thinking, but enrichment remains a statistical annotation of the measured data—not evidence that every reaction is active in the sampled tissue or plasma.
+:::
+
+[Compare KEGG →](what-is-kegg.qmd) · [Open the literature review →](../publications.qmd) · [Follow the analysis pipeline →](../sequencing-methods.qmd)

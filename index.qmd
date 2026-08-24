@@ -236,4 +236,6 @@ For the clinical context, read [how long-standing colitis can progress toward co
 For the mechanism, explore [how inflammation can reshape DNA methylation →](posts/how-colitis-reshapes-dna-methylation.qmd)
 
 For analysis, see [how the software stack evolved from limma to fragmentomics →](posts/how-methylation-software-evolved.qmd) and [how beta-binomial and regional procedures work →](posts/statistical-analysis-of-methylation-data.qmd)
+
+For biological interpretation, start with [what KEGG is →](posts/what-is-kegg.qmd) and [how Reactome represents pathways →](posts/what-is-reactome.qmd)
 :::
