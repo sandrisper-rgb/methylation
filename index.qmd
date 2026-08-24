@@ -22,6 +22,31 @@ We are studying whether **DNA methylation signatures** and **secretory immunoglo
 :::
 :::
 
+::: {.video-band .video-band-featured}
+::: {.content-block}
+:::: {.grid .align-items-center}
+::: {.g-col-12 .g-col-lg-5}
+::: {.eyebrow}
+PROJECT EXPLAINER · 4 MIN 41 SEC
+:::
+## Begin with the biological story
+
+See how chronic inflammation, methylation, plasma cfDNA, and sIgA connect—then explore the study in depth.
+
+[Explore the study](research.qmd){.btn .btn-primary} [All project media](resources.qmd){.btn .btn-outline-primary}
+:::
+::: {.g-col-12 .g-col-lg-7}
+```{=html}
+<video controls preload="metadata" playsinline class="project-video" poster="media/illustrations/tissue-plasma-pairing.webp">
+  <source src="media/project-explainer.mp4" type="video/mp4">
+  Your browser does not support embedded video. <a href="media/project-explainer.mp4">Download the MP4</a>.
+</video>
+```
+:::
+::::
+:::
+:::
+
 ::: {.content-block}
 ::: {.section-intro}
 ## The question behind the project
@@ -110,31 +135,6 @@ flowchart LR
 
 ::: {.callout-important title="Study status"}
 This site describes the **rationale, planned design, and expected analytical framework** presented by the research team. Candidate biomarkers remain hypotheses until validated; the site does not present clinical guidance or a diagnostic test.
-:::
-:::
-
-::: {.video-band}
-::: {.content-block}
-:::: {.grid .align-items-center}
-::: {.g-col-12 .g-col-lg-5}
-::: {.eyebrow}
-PROJECT EXPLAINER
-:::
-## From chronic inflammation to molecular surveillance
-
-Watch the short visual overview, then explore the full English presentation or original Spanish slide deck.
-
-[Open all project media](resources.qmd){.btn .btn-primary}
-:::
-::: {.g-col-12 .g-col-lg-7}
-```{=html}
-<video controls preload="metadata" playsinline class="project-video">
-  <source src="media/project-explainer.mp4" type="video/mp4">
-  Your browser does not support embedded video. <a href="media/project-explainer.mp4">Download the MP4</a>.
-</video>
-```
-:::
-::::
 :::
 :::
 
