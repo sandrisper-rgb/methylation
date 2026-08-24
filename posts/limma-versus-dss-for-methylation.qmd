@@ -1,0 +1,114 @@
+---
+title: "limma versus DSS for methylation: a statistical comparison"
+description: "Linear-model empirical Bayes versus beta-binomial count modeling—and why raw EM-seq CpG evidence favors DSS in this study"
+date: 2026-08-24
+categories: [statistics, Bioconductor, methylation, software]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/cfdna-analysis-fingerprint.webp"
+---
+
+::: {.lead-panel}
+## The conclusion first
+
+`limma` and `DSS` both borrow strength across genomic features, but at different levels of the model. `limma` moderates feature-wise residual variances after fitting linear models to approximately continuous responses. `DSS` models methylated reads conditional on coverage with a beta-binomial distribution and shrinks CpG-wise biological dispersion. For the project's **raw EM-seq methylated/total counts**, DSS preserves the sampling structure that limma would otherwise need to approximate.
+:::
+
+![The appropriate statistical engine depends on whether the evidence arrives as normalized continuous measurements or methylated reads conditional on coverage.](../media/illustrations/cfdna-analysis-fingerprint.webp){.science-visual fig-alt="Scientific illustration of molecular evidence entering statistical analysis"}
+
+## limma: feature-wise linear models with moderated variance
+
+For feature $g$, [`limma`](https://bioconductor.org/packages/limma/) fits the familiar model
+
+$$\mathbf y_g = X\boldsymbol\beta_g + \boldsymbol\varepsilon_g, \qquad
+\boldsymbol\varepsilon_g \sim N(0,\sigma_g^2 W_g^{-1}),$$
+
+where $X$ encodes groups and covariates, contrasts select estimands, and $W_g$ may contain precision weights. The distinctive step is empirical-Bayes moderation of the feature-wise residual variances. A scaled inverse-chi-squared prior combines the noisy $s_g^2$ with a shared prior variance $s_0^2$ and prior degrees of freedom $d_0$:
+
+$$\widetilde s_g^2 = \frac{d_0s_0^2 + d_gs_g^2}{d_0+d_g}.$$
+
+The moderated $t$ statistic uses $\widetilde s_g$ and augmented degrees of freedom. This stabilizes inference when each feature has few residual degrees of freedom, while preserving arbitrary design matrices and contrasts. Robust and trend options relax the single-prior assumption; `voom` estimates a mean–variance trend and observation-level weights for RNA-seq log-counts.
+
+For methylation arrays, the common response is a normalized **M-value**, $\log_2(M/U)$, which is generally more suitable for linear-model inference than the bounded beta value $M/(M+U)$. `minfi` handles array-specific preprocessing; limma handles the design and differential analysis.
+
+## DSS: beta-binomial evidence with dispersion shrinkage
+
+For CpG $j$ in sample $i$, [`DSS`](https://bioconductor.org/packages/DSS/) begins with the actual sequencing evidence:
+
+$$M_{ij}\mid N_{ij},p_{ij},\phi_j \sim
+\operatorname{BetaBinomial}(N_{ij},p_{ij},\phi_j),$$
+
+where $M_{ij}$ is methylated reads, $N_{ij}$ is informative coverage, $p_{ij}$ is underlying methylation, and $\phi_j$ represents extra-binomial biological dispersion. One useful parameterization gives
+
+$$\operatorname{Var}(M_{ij}\mid N_{ij}) =
+N_{ij}p_{ij}(1-p_{ij})\{1+(N_{ij}-1)\phi_j\}.$$
+
+The first component is read-sampling variance; the multiplier admits participant-to-participant heterogeneity beyond binomial sampling. DSS estimates locus-specific dispersions with empirical-Bayes shrinkage, then tests group or multifactor effects. Nearby locus-level evidence can be aggregated into DMRs using spatial and effect-size criteria.
+
+## Similar philosophy, different likelihood
+
+::: {.model-compare}
+::: {.model-panel}
+### limma
+
+**Response:** continuous transformed feature
+
+**Borrowing:** residual variances across features
+
+**Precision:** residual variance and optional weights
+
+**Natural home:** arrays and derived summaries
+:::
+::: {.model-panel .model-panel-dss}
+### DSS
+
+**Response:** methylated count given total coverage
+
+**Borrowing:** beta-binomial dispersion across CpGs
+
+**Precision:** coverage plus overdispersion
+
+**Natural home:** BS-seq / EM-seq counts
+:::
+:::
+
+| Statistical issue | limma | DSS | Consequence here |
+|---|---|---|---|
+| Unequal CpG coverage | Must be represented through a transformed response and defensible precision weights | Enters directly as $N_{ij}$ | DSS retains the observation mechanism |
+| Bounded methylation proportion | Usually handled by M-value/logit-style transformation | Modeled through a count probability | DSS avoids treating raw percentages as homoscedastic Gaussian data |
+| Extra biological variation | Moderated residual variance | Beta-binomial dispersion with shrinkage | Both borrow strength, but DSS does so in the count likelihood |
+| Complex design | Excellent design/contrast machinery | Supports multi-factor designs, subject to sample size | Neither creates degrees of freedom in an 18-person cohort |
+| Regional signal | Requires explicit aggregation or region-level inputs | DML statistics feed DMR calling | DSS offers a coherent CpG-to-region route |
+| Array validation | Established choice with `minfi` preprocessing | Not designed for array intensities | limma remains preferred for 450K/EPIC external data |
+
+## Why not simply run limma on methylation percentages?
+
+Suppose two samples both have estimated methylation $0.5$. One is based on $M/N=1/2$ and the other on $50/100$. A percentage-only model initially treats them as equal observations; their binomial standard errors are roughly $0.354$ and $0.050$. A transformation improves boundaries but cannot reconstruct uncertainty if $N$ has been discarded.
+
+One could construct coverage-informed weights and use limma on a transformed response. That can be reasonable for suitable summaries, and limma's framework is flexible. It nevertheless adds modeling choices—transformation, pseudocounts, mean–variance estimation, and weights—when DSS already expresses the raw data-generating unit directly. With sparse or uneven EM-seq coverage, direct modeling is easier to defend.
+
+## Why DSS was the better primary choice here
+
+1. **The assay output matches its likelihood.** MethylDackel produces methylated and total counts at CpGs.
+2. **Coverage varies.** Plasma cfDNA and low-input libraries do not provide uniform depth across loci and participants.
+3. **Biological replicates are overdispersed.** The beta-binomial separates read sampling from extra-binomial heterogeneity.
+4. **The target includes regions.** The study needs interpretable DMRs, not only isolated CpG tests.
+5. **The audit trail is direct.** Every estimate can be traced to methylated reads, total reads, dispersion, effect size, and regional criteria.
+
+This preference is conditional, not a claim that DSS is universally more powerful. With six participants per group, dispersion and covariate estimates remain uncertain; smoothing and DMR thresholds can materially change results; cell mixture and batch can still confound effects; and asymptotic p-values do not substitute for independent replication.
+
+## Where limma still belongs in the project
+
+- **External 450K/EPIC data:** preprocess with `minfi`, analyze M-values with limma, and translate results across platforms cautiously.
+- **Low-dimensional derived outcomes:** use limma for approximately Gaussian region or pathway summaries when their construction and precision are defensible.
+- **Factorial contrasts:** exploit its transparent coefficient/contrast framework when the response suits a linear model.
+- **Sensitivity analysis:** agreement between a pre-specified continuous-summary analysis and the primary count model can test robustness, but should not be used to select the more favorable result.
+
+## A defensible analysis specification
+
+Use DSS for primary CpG/DMR inference with pre-specified coverage filters, design matrix, dispersion strategy, DMR gap/length/CpG thresholds, minimum methylation difference, and FDR procedure. Report raw group-level coverage and methylation alongside model estimates. Use limma separately for compatible array data. Compare platforms at the level of direction, regions, and biological themes—not by pretending their observations share one likelihood.
+
+::: {.callout-important title="Statistical takeaway"}
+The key distinction is not “modern versus old” or “sequencing versus microarray” as labels. It is conditional sampling: EM-seq gives $M\mid N$. DSS represents that likelihood and its overdispersion explicitly. limma is elegant when the response and precision can legitimately be represented by a weighted Gaussian linear model.
+:::
+
+[Read the broader software history →](how-methylation-software-evolved.qmd) · [See the beta-binomial explainer →](statistical-analysis-of-methylation-data.qmd) · [Follow the pipeline →](../sequencing-methods.qmd)
