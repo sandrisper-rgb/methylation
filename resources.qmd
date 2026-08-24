@@ -46,19 +46,6 @@ Versión en PDF para lectura en línea y archivo PowerPoint editable: patrones d
 :::
 ::::
 
-## Vista previa del PDF
-
-La presentación en inglés puede leerse directamente aquí. Si el visor integrado está bloqueado por el navegador, usa **View PDF** arriba para abrirla en una pestaña independiente.
-
-```{=html}
-<object class="pdf-preview" data="media/project-presentation-en.pdf" type="application/pdf">
-  <div class="pdf-fallback">
-    <p>El visor PDF no está disponible en este navegador.</p>
-    <p><a class="btn btn-primary" href="media/project-presentation-en.pdf" target="_blank">Abrir presentación PDF</a></p>
-  </div>
-</object>
-```
-
 ::: {.callout-tip title="PowerPoint"}
 Los navegadores normalmente no muestran archivos `.pptx` dentro de una página web. El botón **Descargar PowerPoint** entrega el archivo original editable; el PDF se ofrece como versión visible en línea.
 :::
