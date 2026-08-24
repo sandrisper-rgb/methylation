@@ -220,4 +220,6 @@ Curious about the physical DNA signal? [Read the short fragmentomics explainer �
 For the clinical context, read [how long-standing colitis can progress toward colorectal cancer →](posts/from-colitis-to-colorectal-cancer.qmd)
 
 For the mechanism, explore [how inflammation can reshape DNA methylation →](posts/how-colitis-reshapes-dna-methylation.qmd)
+
+For analysis, see [how the software stack evolved from limma to fragmentomics →](posts/how-methylation-software-evolved.qmd) and [how beta-binomial and regional procedures work →](posts/statistical-analysis-of-methylation-data.qmd)
 :::

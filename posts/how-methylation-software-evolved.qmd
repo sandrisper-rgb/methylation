@@ -1,0 +1,95 @@
+---
+title: "From limma to fragmentomics: how the software stack evolved"
+description: "A practical history of well-tested packages for methylation sequencing, regional inference, annotation, and disease fingerprints"
+date: 2026-08-24
+categories: [software, Bioconductor, methylation, statistics]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/emseq-fragmentomics.webp"
+---
+
+::: {.lead-panel}
+## The measurement chooses the method
+
+`limma` remains one of the most trusted tools in genomics, but no package is best for every methylation assay. Array intensities, methylated and total read counts, genomic regions, fragment lengths, and clinical outcomes have different statistical structures. A defensible workflow gives each layer to software designed for it.
+:::
+
+![The contemporary workflow connects enzymatic methylation sequencing and fragment structure to interpretable genomic features.](../media/illustrations/emseq-fragmentomics.webp){.science-visual fig-alt="Scientific illustration of nucleosomes, enzymatic methylation preparation, paired sequencing reads, and genomic signals"}
+
+## Five stages in the software story
+
+::: {.software-timeline}
+::: {.software-era}
+**1 · Arrays**
+
+`minfi` → `limma`
+:::
+::: {.software-era}
+**2 · Sequencing**
+
+`bwa-meth` → `MethylDackel`
+:::
+::: {.software-era}
+**3 · Counts and regions**
+
+`DSS` · `bsseq` · `dmrseq`
+:::
+::: {.software-era}
+**4 · Meaning**
+
+`GenomicRanges` · `annotatr`
+:::
+::: {.software-era}
+**5 · Integration**
+
+`FrEIA` · `glmnet` · `tidymodels`
+:::
+:::
+
+This is not a league table. It is a progression driven by the data: early microarrays measured probe intensities at selected CpGs; bisulfite and enzymatic sequencing added base-level methylated/total read counts and uneven coverage; region callers joined nearby CpGs; fragmentomics added molecule geometry; and integrated studies now require carefully validated multivariable models.
+
+## Where the major packages fit
+
+| Layer | Main software | Why it is useful here | What it should receive |
+|---|---|---|---|
+| Illumina methylation arrays | [`minfi`](https://bioconductor.org/packages/minfi/) | Imports IDAT files, performs array QC and normalization | 450K/EPIC array intensities |
+| Differential array analysis | [`limma`](https://bioconductor.org/packages/limma/) | Stable linear models and empirical-Bayes variance moderation | Usually normalized M-values plus a design matrix |
+| EM-seq alignment and calls | [`bwa-meth`](https://github.com/brentp/bwa-meth) + [`MethylDackel`](https://github.com/dpryan79/MethylDackel) | Produces aligned reads and per-CpG methylated/coverage calls | Reads, BAMs, and cytosine counts |
+| Methylation evidence | [`bsseq`](https://bioconductor.org/packages/bsseq/) or [`methrix`](https://bioconductor.org/packages/methrix/) | Keeps counts, coverage, coordinates, and metadata aligned | Per-CpG methylated and total counts |
+| Primary sequencing inference | [`DSS`](https://bioconductor.org/packages/DSS/) | Beta-binomial dispersion modeling supports coverage-aware DML and DMR analysis | Methylated and total read counts |
+| Region sensitivity analysis | [`dmrseq`](https://bioconductor.org/packages/dmrseq/) | Tests candidate regions while accommodating covariates and spatial structure | CpG-level methylation evidence |
+| Exploratory workflow | [`methylKit`](https://bioconductor.org/packages/methylKit/) | Convenient filtering, QC, visualization, and differential methylation | Cytosine call tables |
+| Genomic context | [`GenomicRanges`](https://bioconductor.org/packages/GenomicRanges/) + [`annotatr`](https://bioconductor.org/packages/annotatr/) | Maps results to CpG islands, genes, and regulatory features | Coordinates on a recorded genome build |
+| Pathways | [`clusterProfiler`](https://bioconductor.org/packages/clusterProfiler/) | Tests enrichment with an explicit background | A gene list and tested-feature universe |
+| Plasma fragments | [`samtools`](https://www.htslib.org/) + [`deepTools`](https://deeptools.readthedocs.io/) + [`FrEIA`](https://github.com/mouliere-lab/FrEIA) | Produces length, coverage, end, and motif features | Quality-filtered paired plasma alignments |
+| Candidate fingerprint | [`glmnet`](https://glmnet.stanford.edu/) through [`tidymodels`](https://www.tidymodels.org/) | Elastic net handles correlated predictors in an interpretable sparse model | A small, locked participant-level table |
+
+## So, should this study use limma?
+
+**Yes—when the input matches its strengths.** `limma` is an excellent choice for normalized methylation-array M-values, such as an external 450K/EPIC validation dataset. Its empirical-Bayes step stabilizes feature-wise variance estimates by sharing information across features. It can also be useful for carefully defined region- or pathway-level summary matrices.
+
+For raw EM-seq CpG calls, methylation is observed as **methylated reads out of total reads**, with coverage varying by CpG and participant. Treating those observations as ordinary continuous percentages discards their different precision. A coverage-aware beta-binomial approach such as `DSS` is the more natural primary analysis; `limma` can remain complementary rather than being forced onto the wrong layer.
+
+::: {.callout-note title="Arrays and sequencing answer the same biological question differently"}
+Use `minfi` + `limma` for array intensities; use count-aware models for EM-seq. Agreement across platforms is useful external evidence, but preprocessing and modeling should remain platform-specific.
+:::
+
+## A sensible stack for this project
+
+1. Use `fastp`, `bwa-meth`, and `MethylDackel` to create reviewed per-CpG counts.
+2. Store methylation and coverage in `bsseq` or `methrix`; preserve the raw evidence.
+3. Pre-specify `DSS` as the primary DML/DMR model and `dmrseq` or `methylKit` as sensitivity analysis—not as a search for the smallest p-value.
+4. Annotate regions with `GenomicRanges`/`annotatr`; use tested regions as the enrichment background.
+5. Analyze native plasma fragment features separately, because tissue DNA is deliberately sheared.
+6. Integrate only a small set of stable molecular and clinical features with participant-aware nested resampling.
+
+![Multiple molecular streams should converge only after each has been processed with an appropriate, auditable method.](../media/illustrations/cfdna-analysis-fingerprint.webp){.science-visual .science-visual-compact fig-alt="Scientific illustration of methylation, fragment, immune, and clinical data streams converging into a disease fingerprint"}
+
+## Why “well tested” is not enough
+
+Longevity, documentation, peer review, active maintenance, and standard data containers are reassuring. Fit to the assay is still decisive. A mature array package can be wrong for raw sequencing counts; a strong WGS fragmentomics tool may not transfer unchanged to enzymatically converted libraries. Record the package version, reference genome, annotations, parameters, and reason for every choice.
+
+::: {.callout-important title="Recommendation"}
+For these EM-seq data, make `DSS` the primary coverage-aware inference engine, keep `bsseq`/`methrix` as the evidence layer, and reserve `limma` for array-based external data or justified derived matrices. The package should follow the measurement—not its fame.
+:::
+
+[See the detailed package checklist →](packages-for-disease-fingerprinting.qmd) · [Understand the statistical models →](statistical-analysis-of-methylation-data.qmd) · [Follow the molecular pipeline →](../sequencing-methods.qmd)

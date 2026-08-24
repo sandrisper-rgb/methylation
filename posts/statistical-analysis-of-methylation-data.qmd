@@ -1,0 +1,118 @@
+---
+title: "How are methylation and fragmentomics data analyzed statistically?"
+description: "From beta-binomial CpG models and DMRs to paired tissue–plasma contrasts, multiple testing, and honest validation"
+date: 2026-08-24
+categories: [statistics, methylation, fragmentomics, study design]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/cfdna-analysis-fingerprint.webp"
+---
+
+::: {.lead-panel}
+## Start with counts, not just percentages
+
+At one CpG, EM-seq observes a number of methylated reads out of all informative reads. A value of 50% based on 2 reads is much less precise than 50% based on 100 reads. Beta-binomial models preserve that depth information and allow biological variability beyond simple binomial sampling.
+:::
+
+![Analysis connects methylation counts, cfDNA fragment features, immune markers, and clinical covariates without collapsing their distinct uncertainties.](../media/illustrations/cfdna-analysis-fingerprint.webp){.science-visual fig-alt="Scientific illustration of molecular data streams entering statistical and machine-learning analysis"}
+
+## What the beta-binomial model is doing
+
+For participant *i* at CpG *j*, let $M_{ij}$ be methylated reads and $N_{ij}$ be total informative reads:
+
+$$M_{ij} \sim \mathrm{BetaBinomial}(N_{ij}, p_{ij}, \phi_j)$$
+
+Here, $p_{ij}$ is the underlying methylation probability and $\phi_j$ captures **overdispersion**: participants vary more than a simple binomial model predicts. A regression links $p_{ij}$ to group and covariates such as age, sex, batch, inflammation, or cell mixture.
+
+::: {.count-demo}
+::: {.count-vial}
+**1 / 2 reads**
+
+50% · uncertain
+:::
+::: {.count-vial}
+**50 / 100 reads**
+
+50% · more precise
+:::
+::: {.count-message}
+Same percentage. Very different evidence.
+:::
+:::
+
+The beta-binomial is usually fitted at CpGs or within a regional procedure. A **CpG island** is a genomic annotation—a CpG-dense region—not a different probability distribution. [`DSS`](https://bioconductor.org/packages/DSS/) can test differentially methylated loci (DMLs), then combine spatially coherent evidence into differentially methylated regions (DMRs), which may overlap islands, shores, promoters, enhancers, or gene bodies.
+
+## The analysis, in order
+
+```{mermaid}
+flowchart LR
+  A["Methylated / total<br/>counts at CpGs"] --> B["Coverage + conversion<br/>quality control"]
+  B --> C["Beta-binomial model<br/>group + covariates"]
+  C --> D["DML evidence<br/>effect + uncertainty"]
+  D --> E["Spatially coherent<br/>DMRs"]
+  E --> F["FDR control +<br/>effect-size filter"]
+  F --> G["CpG island / gene /<br/>regulatory annotation"]
+  G --> H["Pathways + locked<br/>candidate features"]
+```
+
+### 1. Quality control before testing
+
+Review read quality, mapping, conversion controls, duplicates, coverage, methylation distributions, sample identity, and batch structure. Define filtering rules without looking for the result that best separates groups.
+
+### 2. Build the design matrix
+
+The contrast must match the question: UC versus healthy, cancer versus healthy, or an ordered exploratory contrast. With 18 planned participants, every covariate consumes information; include only pre-specified confounders supported by the design.
+
+### 3. Estimate CpG effects
+
+Report methylation difference and uncertainty, not only a p-value. `DSS` uses beta-binomial modeling with dispersion shrinkage. [`bsseq`](https://bioconductor.org/packages/bsseq/) provides count-aware objects, smoothing, and visualization; [`dmrseq`](https://bioconductor.org/packages/dmrseq/) offers a complementary region-oriented strategy.
+
+### 4. Join neighboring evidence into DMRs
+
+One CpG can be noisy. A region is more persuasive when nearby CpGs change coherently in direction and magnitude. Minimum CpG count, maximum gap, smoothing bandwidth, and effect threshold should be pre-specified and tested for sensitivity.
+
+### 5. Control multiplicity
+
+Testing hundreds of thousands of CpGs creates false positives by chance. Benjamini–Hochberg false-discovery-rate control is common. A convincing result combines adjusted significance, effect size, adequate coverage, regional coherence, and stability.
+
+## How tissue and plasma should be compared
+
+If tissue and plasma come from the same participant, they are **paired**, but not interchangeable replicates. Tissue provides local context; plasma is a mixture of DNA released across the body.
+
+| Question | Appropriate procedure |
+|---|---|
+| Does a feature differ between groups? | Coverage-aware group model with pre-specified covariates |
+| Do paired tissue and plasma agree? | Participant-blocked association or concordance analysis with confidence intervals |
+| Is a signal tissue-supported and plasma-detectable? | Consistent direction plus explicit detectability/coverage criteria |
+| Does methylation add information beyond sIgA? | Compare nested, cross-validated models and calibration—not in-sample accuracy |
+| Is there progression over time? | Mixed-effects or survival models only after longitudinal outcomes exist |
+
+A focused paired model can include participant as a block or random effect, specimen source, group, and a source-by-group interaction. That interaction asks whether group differences change between tissue and plasma; in this modest cohort it remains exploratory.
+
+## Fragmentomics uses different likelihoods
+
+Fragment features are not methylated/total CpG counts. Length ratios may use binomial or beta-binomial models when defined as counts, continuous summaries may use robust linear models, end motifs are compositional or multinomial, and regional coverage is often count-like. Each feature needs a distribution matching how it was generated.
+
+## From inference to a disease fingerprint
+
+With many features and few participants, an unconstrained model can memorize the cohort. A safer route is:
+
+1. define QC and candidate feature families before modeling;
+2. keep all samples from one participant in the same resampling fold;
+3. perform filtering, normalization, imputation, and selection inside training folds;
+4. use an interpretable penalized model such as elastic net;
+5. report cross-validated uncertainty, calibration, and selection stability; and
+6. reserve clinical claims for an independent, preferably longitudinal cohort.
+
+::: {.callout-warning title="A common source of leakage"}
+Calling DMRs once on the complete cohort and then cross-validating a classifier on those DMRs leaks outcome information into every test fold. Repeat feature discovery within each training fold, or use a separately locked feature set.
+:::
+
+## What this small study can establish
+
+The planned cohort can assess feasibility, data quality, effect-size patterns, source concordance, and a limited set of candidate signatures. It cannot estimate a stable population-wide diagnostic or time to cancer progression. Report raw coverage, effect sizes, uncertainty, FDR, sensitivity analyses, and the exact specification.
+
+::: {.callout-important title="Plain-language summary"}
+Beta-binomial modeling is valuable because methylation is count evidence with unequal depth and extra biological variability. CpG islands enter later as genomic regions for aggregation and interpretation. The final result should be a coherent, coverage-supported region—not an isolated percentage or an unvalidated classifier score.
+:::
+
+[See which packages implement these steps →](how-methylation-software-evolved.qmd) · [Read the practical package guide →](packages-for-disease-fingerprinting.qmd) · [Follow the sequencing pipeline →](../sequencing-methods.qmd)

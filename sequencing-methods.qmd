@@ -101,6 +101,8 @@ With 18 planned participants, the defensible target is a quality-controlled feas
 
 [Then explore “What is fragmentomics?” →](posts/what-is-fragmentomics.qmd)
 
+[See how the analysis software evolved →](posts/how-methylation-software-evolved.qmd) · [Understand beta-binomial and regional statistics →](posts/statistical-analysis-of-methylation-data.qmd)
+
 ## References
 
 ::: {#refs}

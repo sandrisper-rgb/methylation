@@ -16,32 +16,6 @@ Explore the complete research presentation in Spanish or English. The Spanish ve
 | 2026-08 | Angie Alejandra Benavides Rojas | DNA methylation and sIgA in progression from UC toward CRC | Spanish | [View PDF](media/presentacion-proyecto-es.pdf){target="_blank"} · [Download PPTX](media/presentacion-proyecto-es.pptx){download="presentacion-proyecto-es.pptx"} | Project presentation |
 | 2026-08 | Angie Alejandra Benavides Rojas | DNA methylation patterns and sIgA levels in colorectal cancer progression | English | [View PDF](media/project-presentation-en.pdf){target="_blank"} | English edition |
 
-## Presentación en español
-
-```{=html}
-<object class="pdf-preview" data="media/presentacion-proyecto-es.pdf" type="application/pdf">
-  <div class="pdf-fallback">
-    <p>El visor PDF no está disponible en este navegador.</p>
-    <p><a class="btn btn-primary" href="media/presentacion-proyecto-es.pdf" target="_blank">Abrir PDF en español</a></p>
-  </div>
-</object>
-```
-
-[Abrir PDF en español](media/presentacion-proyecto-es.pdf){.btn .btn-primary target="_blank"} [Descargar PowerPoint editable](media/presentacion-proyecto-es.pptx){.btn .btn-outline-primary download="presentacion-proyecto-es.pptx"}
-
-## English presentation
-
-```{=html}
-<object class="pdf-preview" data="media/project-presentation-en.pdf" type="application/pdf">
-  <div class="pdf-fallback">
-    <p>The embedded PDF viewer is unavailable in this browser.</p>
-    <p><a class="btn btn-primary" href="media/project-presentation-en.pdf" target="_blank">Open English PDF</a></p>
-  </div>
-</object>
-```
-
-[Open English PDF](media/project-presentation-en.pdf){.btn .btn-primary target="_blank"}
-
 ::: {.callout-warning title="Responsible sharing"}
 These files describe the study rationale, planned methods, and expected results. They do not report a validated diagnostic test. Before adding future presentations, remove participant identifiers, confidential data, private speaker notes, and third-party material that cannot be redistributed.
 :::
