@@ -1,0 +1,78 @@
+---
+title: "What is fragmentomics?"
+description: "How the size, ends, and genomic positions of cfDNA fragments provide clues about chromatin and tissue of origin"
+date: 2026-08-24
+categories: [fragmentomics, cfDNA, liquid biopsy, methods]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/cfdna-analysis-fingerprint.webp"
+---
+
+::: {.lead-panel}
+## The shape of DNA is also data
+
+Fragmentomics studies the physical patterns of cell-free DNA molecules: how long they are, where they begin and end, which sequences appear at their ends, and how fragments are distributed across the genome. These patterns can carry clues about chromatin organization, nucleases, cell death, and the tissues that released the DNA [@lo2021fragmentomics].
+:::
+
+![Fragment lengths, molecular ends, methylation, pathways, and statistical summaries converge into an interpretable cfDNA fingerprint.](../media/illustrations/cfdna-analysis-fingerprint.webp){.science-visual fig-alt="Scientific illustration of cfDNA fragments, length distributions, molecular networks, and analytical outputs"}
+
+## Why fragments are not random
+
+Inside a cell, DNA wraps around histone proteins to form nucleosomes. When cells release DNA, exposed linker regions are generally easier for nucleases to cut than nucleosome-protected DNA. Plasma therefore contains recurring fragment sizes and genomic footprints rather than a random collection of broken molecules.
+
+::: {.fragment-animation role="img" aria-label="Animated cell-free DNA fragments of different lengths moving across nucleosome peaks"}
+::: {.fragment-track}
+::: {.fragment-bar .fragment-short}
+:::
+::: {.fragment-bar .fragment-mono}
+:::
+::: {.fragment-bar .fragment-di}
+:::
+::: {.nucleosome-peak .peak-one}
+:::
+::: {.nucleosome-peak .peak-two}
+:::
+::: {.nucleosome-peak .peak-three}
+:::
+:::
+::: {.fragment-caption}
+Short fragments · mono-nucleosomal fragments · longer nucleosomal multiples
+:::
+:::
+
+## What can be measured?
+
+| Feature | Simple question | Possible biological clue |
+|---|---|---|
+| Fragment length | Are molecules shorter or longer? | Cell death, chromatin protection, or disease-associated mixture |
+| Nucleosomal peaks | Are approximately 167 bp and longer multiples visible? | DNA packaging around histones |
+| Fragment ends | Where are molecules repeatedly cut? | Chromatin accessibility and nuclease activity |
+| End motifs | Which short sequences occur at the ends? | Cleavage preferences and contributing biology |
+| Regional coverage | Which genomic windows contain more or fewer fragments? | Tissue contribution or regulatory footprints |
+| TSS coverage | How are fragments arranged near gene starts? | Indirect evidence related to nucleosome organization—not direct expression |
+
+## Why it matters in this study
+
+The plasma EM-seq FASTQ/BAM files may preserve both methylation and fragment information from the same library. That creates an opportunity to ask whether UC, CRC, and healthy comparator groups differ in:
+
+- length distributions and short-fragment proportions;
+- mono- and di-nucleosomal patterns;
+- fragment-end positions and motifs;
+- coverage around a pre-specified set of transcription start sites; and
+- the relationship between fragment length and methylation.
+
+This is especially useful alongside paired colonic tissue. Tissue methylation can nominate anatomically relevant regions; plasma fragment patterns can then test whether those regions or related tissue-of-origin signals are detectable in circulation.
+
+## The essential limitation
+
+Fragmentomics does not directly sequence histones, identify the source of every molecule, or prove that a gene is active. Pre-analytical handling, extraction, end repair, conversion, PCR, depth, mapping, and blood-cell contributions can all alter the signal.
+
+::: {.callout-important title="In one sentence"}
+Methylation asks **which chemical marks are present**; fragmentomics asks **what the released DNA molecules look like and where they came from**. Reading both may make each plasma molecule more informative.
+:::
+
+[Read the EM-seq companion explainer →](what-is-emseq.qmd) · [Follow the full sequencing pipeline →](../sequencing-methods.qmd)
+
+## References
+
+::: {#refs}
+:::

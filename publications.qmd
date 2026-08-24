@@ -1,10 +1,10 @@
 ---
-title: "Research Articles"
-description: "Annotated reviews, methods papers, and resources behind the analytical roadmap"
+title: "Literature Review"
+description: "An annotated review of the methods papers and resources behind the analytical roadmap"
 ---
 
 ::: {.lead-panel}
-## Evidence behind the analytical roadmap
+## Literature behind the analytical roadmap
 
 This curated set connects the team's shared papers to decisions in the study. **Reviews orient the field; methods papers justify feasibility; neither substitutes for validation in ulcerative colitis.** Publisher and DOI links are used instead of redistributing article PDFs.
 :::

@@ -1,0 +1,127 @@
+---
+title: "From ulcerative colitis to colorectal cancer"
+description: "What progression means, which symptoms and biomarkers matter, how risk changes over time, and why the global burden is shifting"
+date: 2026-08-24
+categories: [ulcerative colitis, colorectal cancer, biomarkers, epidemiology]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/tissue-plasma-pairing.webp"
+---
+
+::: {.callout-important title="Health information, not diagnosis"}
+Symptoms of an inflammatory flare and colorectal cancer can overlap, and cancer may cause no early symptoms. New, persistent, or changing symptoms need clinical assessment; a biomarker or blog post cannot determine the cause.
+:::
+
+::: {.lead-panel}
+## Progression is a possibility—not an inevitable path
+
+Ulcerative colitis (UC) produces chronic inflammation in the lining of the colon. Over many years, repeated injury and repair can allow abnormal cell clones to accumulate, sometimes leading through dysplasia to colitis-associated colorectal cancer. **Most people with UC do not develop colorectal cancer**, but long-standing colonic disease requires risk-based surveillance.
+:::
+
+![Paired colonic tissue and plasma help connect local inflammatory change with accessible molecular signals.](../media/illustrations/tissue-plasma-pairing.webp){.science-visual fig-alt="Scientific illustration connecting inflamed colonic tissue, a participant, and plasma cell-free DNA"}
+
+## A biological continuum, not a stopwatch
+
+::: {.progression-path role="img" aria-label="Animated conceptual pathway from controlled colitis through persistent inflammation and dysplasia to colitis-associated colorectal cancer, with surveillance across the pathway"}
+::: {.progression-node}
+**UC diagnosed**
+
+Extent and activity vary
+:::
+::: {.progression-line}
+:::
+::: {.progression-node}
+**Persistent inflammation**
+
+Repeated injury and repair
+:::
+::: {.progression-line}
+:::
+::: {.progression-node}
+**Dysplasia**
+
+Precancerous abnormal cells
+:::
+::: {.progression-line}
+:::
+::: {.progression-node .progression-node-final}
+**Colitis-associated CRC**
+
+Invasive cancer
+:::
+:::
+
+This diagram is conceptual. People can remain stable, move at different rates, or never enter the later stages. Treatment and control of inflammation may change risk, and surveillance can detect and remove or manage precancerous lesions.
+
+## How long does it take?
+
+There is no single duration for an individual. Current guidance uses disease duration as one component of risk:
+
+- The [AGA advises beginning dysplasia screening about 8–10 years after diagnosis](https://gastro.org/news/clinical-practice-update-dysplasia-management-in-patients-with-ibd/), unless primary sclerosing cholangitis (PSC) is present, when surveillance starts earlier.
+- [ECCO guidance reports that CRC risk rises significantly after roughly 8–10 years](https://www.guidelinecentral.com/guideline/4544256/) and recommends a screening colonoscopy eight years after the onset of first symptoms.
+- Subsequent intervals depend on disease extent, inflammation, family history, PSC, strictures, previous dysplasia, examination quality, and local guidance—not duration alone.
+
+The eight-year point is **a surveillance threshold, not a prediction that cancer develops in eight years**. Cancer can occur earlier, later, or never. Once dysplasia is found, risk and management change; the 2025 British guideline notes that many patients who progress from diagnosed dysplasia to advanced neoplasia do so within five years, but that observation does not describe all UC patients.
+
+## Symptoms: overlap is the problem
+
+Common UC symptoms include diarrhea, blood in the stool, urgency, and abdominal pain. Severe inflammation can also cause fever, rapid heart rate, anemia, fatigue, and weight loss. The [NIDDK overview](https://www.niddk.nih.gov/health-information/digestive-diseases/ulcerative-colitis) emphasizes that symptoms vary substantially between people.
+
+Possible colorectal cancer symptoms include blood in the stool, persistent change in bowel habits, abdominal discomfort or bloating, unexplained weight loss, fatigue, and sometimes vomiting. The [National Cancer Institute](https://www.cancer.gov/types/colorectal/patient/colon-treatment-pdq) stresses that these findings can also arise from other conditions.
+
+::: {.callout-warning title="Symptoms cannot reliably separate flare from cancer"}
+A change in bleeding, bowel habit, pain, fatigue, anemia, or weight—especially if persistent or different from the person's usual pattern—should be discussed with the treating team. Surveillance colonoscopy is intended to find dysplasia or cancer even when symptoms are absent.
+:::
+
+## Which biomarkers matter today?
+
+“Biomarker” covers several very different jobs. A marker of inflammation is not automatically a marker of cancer progression.
+
+| Clinical question | Established information | What it can and cannot say |
+|---|---|---|
+| Is intestinal inflammation active? | Fecal calprotectin, fecal lactoferrin, CRP, symptoms, endoscopy | Helps monitor UC activity; does not diagnose dysplasia or CRC |
+| Is there precancerous change? | High-definition colonoscopy/chromoendoscopy with targeted biopsy and expert pathology | Dysplasia is the key established precursor finding |
+| Who has higher long-term risk? | Duration, colonic extent, cumulative inflammatory burden, PSC, family history, stricture, prior dysplasia | Guides surveillance intensity; does not predict an individual's outcome with certainty |
+| Is cancer present or staged? | Colonoscopy, pathology, imaging, and standard clinical work-up | Requires clinical diagnostic evaluation |
+
+The [AGA biomarker guideline](https://gastro.org/clinical-guidance/the-role-of-biomarkers-for-the-management-of-ulcerative-colitis-uc/) supports combining symptoms with fecal calprotectin, fecal lactoferrin, or CRP to monitor inflammatory activity. It does not replace endoscopic dysplasia surveillance.
+
+### Research biomarkers
+
+DNA methylation, cfDNA concentration, tissue-of-origin estimates, fragment lengths and ends, somatic changes, microbiome signatures, and immune measurements such as sIgA are active research areas. This project asks whether paired tissue/plasma methylation and serum sIgA can nominate a coherent disease-state signature. These are **candidate markers**, not established clinical tests for UC-to-cancer progression.
+
+## Where is UC prevalent?
+
+IBD has historically had its highest prevalence in high-income North America, Western and Northern Europe, and other early-industrialized settings. Recent global analyses show a more dynamic picture:
+
+- A [GBD 2019 analysis](https://bmjopen.bmj.com/content/13/3/e065186) found large prevalent burdens in Western Europe and high age-standardized prevalence in high-income regions.
+- The [global GBD 2017 study](https://pubmed.ncbi.nlm.nih.gov/31648971/) estimated especially high prevalence in the United States and United Kingdom.
+- A newer [global epidemiological analysis](https://www.nature.com/articles/s41586-025-08940-0) describes rising IBD incidence and accumulating prevalence across newly industrialized regions.
+- Colombian studies document a growing national IBD burden and a predominance of UC among characterized IBD cases; one [national register](https://pubmed.ncbi.nlm.nih.gov/32723624/) reported substantially more UC than Crohn's disease in its participating centers.
+
+These sources mostly report **IBD or UC prevalence**, not the prevalence of colitis-associated CRC specifically. Cancer burden also depends on disease duration, treatment, surveillance access, demography, and background CRC risk.
+
+## Why might geography differ?
+
+No single explanation is proven. Researchers consider interacting factors:
+
+- genetic susceptibility and population ancestry;
+- urbanization and industrialization;
+- changing diet and food processing;
+- antibiotic and other medication exposures;
+- smoking patterns and environmental pollution;
+- sanitation, infections, and early-life microbial exposures;
+- microbiome changes;
+- healthcare access, specialist availability, and diagnostic awareness; and
+- differences in registries and case ascertainment.
+
+The rapid rise in newly industrialized regions cannot be explained by genetics changing over a few decades. It points toward environmental and healthcare-system changes interacting with susceptibility. Apparent geographic differences also reflect how consistently countries detect and record disease.
+
+## What this means for the Colombian study
+
+A locally studied cohort matters because biomarkers developed in one health system, ancestry mixture, assay pipeline, or disease spectrum may not transfer cleanly to another. Paired colon tissue and plasma can help anchor signal origin; sIgA and inflammatory markers provide immune context; external datasets can test coherence. Longitudinal Colombian validation would still be required before claiming that a molecular signature predicts progression.
+
+::: {.callout-important title="The practical takeaway"}
+Duration identifies when surveillance becomes especially important, but **persistent inflammation, disease extent, PSC, family history, and dysplasia** refine the risk. Symptoms and inflammation biomarkers help manage UC; colonoscopy and pathology remain central for detecting precancerous change.
+:::
+
+[See how this study is designed →](why-pair-tissue-and-plasma.qmd) · [Explore the candidate molecular signals →](what-is-emseq.qmd) · [Read the fragmentomics explainer →](what-is-fragmentomics.qmd)

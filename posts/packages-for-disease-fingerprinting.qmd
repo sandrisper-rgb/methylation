@@ -85,4 +85,4 @@ flowchart TD
 Start with a containerized Nextflow workflow producing one reviewed participant-level feature table. Use DSS for the primary methylation inference, transparent BAM summaries for first-pass fragmentomics, and elastic net only after reducing the feature space through pre-specified biology—not outcome-driven screening.
 :::
 
-[Follow the molecular pipeline →](../sequencing-methods.qmd) · [See how other labs model cfDNA →](how-leading-labs-analyze-cfdna.qmd)
+[Follow the molecular pipeline →](../sequencing-methods.qmd) · [See how the software stack evolved →](how-methylation-software-evolved.qmd) · [Understand the statistical procedures →](statistical-analysis-of-methylation-data.qmd)
