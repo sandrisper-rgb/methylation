@@ -1,0 +1,62 @@
+---
+title: "Methylation & Colitis"
+pagetitle: "Methylation & Colitis Research Group"
+description: "Collaborative research on epigenetic mechanisms in colitis at Universidad El Bosque."
+page-layout: full
+toc: false
+---
+
+::: {.hero}
+# Methylation & Colitis
+
+**A collaborative research hub led by Sandra Perdomo at Universidad El Bosque**
+
+We bring together molecular evidence, clinical questions, and reproducible data analysis to understand the role of DNA methylation in colitis.
+
+[Explore the research](research.qmd){.btn .btn-light .btn-lg} [View R workflows](workflows/index.qmd){.btn .btn-outline-light .btn-lg}
+:::
+
+::: {.content-block}
+## One place for our research
+
+:::: {.grid}
+::: {.g-col-12 .g-col-md-4}
+::: {.research-card}
+### Findings
+
+Short, readable summaries of current results, figures, and interpretations.
+
+[Read findings →](findings/index.qmd)
+:::
+:::
+
+::: {.g-col-12 .g-col-md-4}
+::: {.research-card}
+### Research library
+
+Shared articles and student presentations, organized with citations and context.
+
+[Browse articles →](publications.qmd)
+:::
+:::
+
+::: {.g-col-12 .g-col-md-4}
+::: {.research-card}
+### Reproducible analysis
+
+Documented R workflows that connect code, data, outputs, and scientific decisions.
+
+[Open workflows →](workflows/index.qmd)
+:::
+:::
+::::
+
+## Our focus
+
+DNA methylation can influence gene regulation without changing the DNA sequence. This project examines how methylation patterns relate to inflammation, disease phenotype, and potential biomarkers in colitis. The website is the group's living research notebook: work is shared early, reviewed together, and improved over time.
+
+::: {.callout-note title="This site is under active development"}
+The current content is a starter structure. Study aims, datasets, ethics information, and validated findings should be added by the research team before public release.
+:::
+:::
+

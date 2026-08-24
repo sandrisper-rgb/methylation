@@ -1,0 +1,25 @@
+---
+title: "R Workflows"
+description: "Reproducible analysis notebooks"
+listing:
+  contents: "*.qmd"
+  sort: "title"
+  type: table
+  fields: [title, description, author, date, categories]
+  filter-ui: true
+---
+
+Each workflow should explain its inputs, assumptions, software dependencies, outputs, and quality checks. Do not add participant-level or otherwise sensitive data to this public repository.
+
+## Recommended workflow
+
+1. Create a branch for the analysis.
+2. Add or revise a `.qmd` notebook in this folder.
+3. Keep reusable functions in `R/` and tests in `tests/`.
+4. Render locally with `quarto render`.
+5. Open a pull request for scientific and code review.
+
+::: {.callout-tip title="Reproducible environments"}
+Once the analysis packages are selected, initialize `renv` and commit `renv.lock`. This records exact R package versions without committing the package library itself.
+:::
+

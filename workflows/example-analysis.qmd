@@ -1,0 +1,67 @@
+---
+title: "Example: methylation summary workflow"
+description: "A safe synthetic-data example for a reproducible Quarto analysis."
+author: "Research team"
+date: 2026-08-24
+categories: [R, quality-control, template]
+format:
+  html:
+    code-fold: false
+execute:
+  echo: true
+  eval: true
+---
+
+## Purpose
+
+This template demonstrates the expected notebook structure using synthetic data. Replace it with a platform-appropriate workflow after agreeing on the analysis plan.
+
+```{r}
+#| label: setup
+#| message: false
+
+set.seed(2026)
+methylation <- data.frame(
+  sample_id = sprintf("synthetic_%02d", 1:20),
+  group = rep(c("comparison", "colitis"), each = 10),
+  beta_value = c(rbeta(10, 4, 6), rbeta(10, 5, 5))
+)
+```
+
+## Quality checks
+
+```{r}
+#| label: data-summary
+
+stopifnot(
+  !anyDuplicated(methylation$sample_id),
+  all(methylation$beta_value >= 0 & methylation$beta_value <= 1)
+)
+
+aggregate(beta_value ~ group, methylation, function(x) {
+  c(n = length(x), mean = mean(x), sd = sd(x))
+})
+```
+
+## Exploratory visualization
+
+```{r}
+#| label: fig-synthetic-beta
+#| fig-cap: "Synthetic beta values used only to demonstrate the workflow."
+
+boxplot(
+  beta_value ~ group,
+  data = methylation,
+  col = c("#9ecae1", "#41ae76"),
+  ylab = "Beta value",
+  xlab = "",
+  ylim = c(0, 1)
+)
+stripchart(beta_value ~ group, data = methylation,
+           vertical = TRUE, method = "jitter", add = TRUE, pch = 16)
+```
+
+## Interpretation
+
+These values are simulated and carry no scientific or clinical meaning. A real workflow must pre-specify normalization, probe filtering, batch handling, model covariates, and multiple-testing correction.
+

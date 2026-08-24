@@ -1,0 +1,66 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - "*.qmd"
+    - "findings/**/*.qmd"
+    - "workflows/**/*.qmd"
+  resources:
+    - presentations/files/**
+    - publications/files/**
+  preview:
+    port: 4200
+    browser: true
+
+website:
+  title: "Methylation & Colitis"
+  description: "Collaborative research on DNA methylation and colitis"
+  site-url: "https://sandrisper-rgb.github.io/methylation"
+  repo-url: "https://github.com/sandrisper-rgb/methylation"
+  repo-actions: [edit, issue]
+  page-navigation: true
+  back-to-top-navigation: true
+  navbar:
+    background: primary
+    search: true
+    left:
+      - href: index.qmd
+        text: Home
+      - href: research.qmd
+        text: Research
+      - href: findings/index.qmd
+        text: Findings
+      - href: workflows/index.qmd
+        text: R workflows
+      - text: Library
+        menu:
+          - href: publications.qmd
+            text: Research articles
+          - href: presentations.qmd
+            text: Presentations
+      - href: team.qmd
+        text: Team
+      - href: contributing.qmd
+        text: Contribute
+  page-footer:
+    left: "Methylation & Colitis Research Group"
+    center: "Universidad El Bosque"
+    right: "Built with [Quarto](https://quarto.org/)"
+
+format:
+  html:
+    theme:
+      light: cosmo
+      dark: darkly
+    css: styles.css
+    toc: true
+    code-copy: true
+    code-fold: show
+    link-external-newwindow: true
+
+execute:
+  freeze: auto
+  warning: false
+
+bibliography: references.bib
+csl: apa.csl

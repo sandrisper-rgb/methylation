@@ -1,0 +1,23 @@
+---
+title: "Team"
+description: "People contributing to the project"
+---
+
+## Principal researcher
+
+### Sandra Perdomo
+
+Universidad El Bosque
+
+_Add Sandra's academic title, department, short biography, research interests, profile link, and preferred contact address._
+
+## Students and collaborators
+
+| Name | Role | Research focus | GitHub |
+|---|---|---|---|
+| To add | Student researcher | To add | To add |
+
+## Authorship and credit
+
+Contributions should be recorded as the work develops. Publication authorship will follow the research group's agreed policy; website contributions can also be recognized through Git history and page-level author metadata.
+

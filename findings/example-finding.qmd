@@ -1,0 +1,29 @@
+---
+title: "Example finding: replace with a reviewed result"
+description: "A template showing how students can report a result responsibly."
+author: "Research team"
+date: 2026-08-24
+categories: [template, methylation]
+draft: true
+---
+
+## Question
+
+State one focused question.
+
+## Data and method
+
+Describe the dataset, sample size, variables, quality controls, and statistical method. Link to the corresponding [R workflow](../workflows/index.qmd).
+
+## Result
+
+Report estimates and uncertainty, not only statistical significance. Include a clear figure or table when useful.
+
+## Interpretation and limitations
+
+Separate what the analysis shows from possible biological explanations. Note confounding, selection, measurement, and multiple-testing limitations.
+
+## Review status
+
+**Draft — not for citation.** Reviewed by: _name and date_.
+

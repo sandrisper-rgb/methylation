@@ -1,0 +1,15 @@
+---
+title: "Presentations"
+description: "Student presentations and project updates"
+---
+
+Place approved PowerPoint files in `presentations/files/`, then add a row below. Keep filenames short and descriptive, for example `2026-08-literature-review.pptx`.
+
+| Date | Presenter | Topic | File | Review status |
+|---|---|---|---|---|
+| — | — | No presentations uploaded yet | — | — |
+
+::: {.callout-warning title="Before uploading"}
+Remove participant identifiers, confidential data, private speaker notes, and copyrighted material that cannot be redistributed. Obtain approval from the project lead for public release.
+:::
+

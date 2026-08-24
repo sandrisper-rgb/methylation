@@ -1,0 +1,14 @@
+/_site/
+/.quarto/
+/.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+renv/library/
+renv/staging/
+*.html
+.tools/
+WhatsApp Video*.mp4
+
+
+**/*.quarto_ipynb

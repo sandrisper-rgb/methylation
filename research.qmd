@@ -1,0 +1,47 @@
+---
+title: "Research"
+description: "Questions, methods, and project status"
+---
+
+## Research question
+
+> Which DNA methylation patterns are associated with colitis phenotypes, inflammatory activity, and clinically relevant outcomes?
+
+This wording is a starting point. The team should replace it with the approved protocol question and define the population, tissue or sample type, assay platform, comparison groups, and primary outcomes.
+
+## Objectives
+
+1. Characterize methylation signals in samples relevant to colitis.
+2. Assess associations between methylation and clinical or molecular variables.
+3. Integrate findings with existing evidence and biological pathways.
+4. Develop transparent, reproducible R workflows for quality control and analysis.
+
+## Study map
+
+```{mermaid}
+flowchart LR
+  A[Research question] --> B[Samples and metadata]
+  B --> C[Quality control]
+  C --> D[Methylation analysis]
+  D --> E[Biological interpretation]
+  E --> F[Reviewed finding]
+  F --> G[Publication or presentation]
+```
+
+## Governance checklist
+
+- Record protocol and ethics approval details before describing participant data.
+- Never commit identifiable or sensitive participant data to GitHub.
+- Document data provenance, exclusions, transformations, and software versions.
+- Distinguish exploratory results from findings reviewed by the principal investigator.
+- Verify that every uploaded article or presentation may legally be shared publicly.
+
+## Project status
+
+| Workstream | Lead | Status | Next milestone |
+|---|---|---|---|
+| Literature review | To assign | Planning | Define search strategy |
+| Data dictionary | To assign | Planning | Agree on variables |
+| Methylation QC | To assign | Planning | Select platform workflow |
+| Statistical analysis | To assign | Planning | Draft analysis plan |
+

@@ -1,0 +1,17 @@
+{
+  "hash": "b7d1d9e63950646aa1c9d68e334d7002",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Example: methylation summary workflow\"\ndescription: \"A safe synthetic-data example for a reproducible Quarto analysis.\"\nauthor: \"Research team\"\ndate: 2026-08-24\ncategories: [R, quality-control, template]\nformat:\n  html:\n    code-fold: false\nexecute:\n  echo: true\n  eval: true\n---\n\n## Purpose\n\nThis template demonstrates the expected notebook structure using synthetic data. Replace it with a platform-appropriate workflow after agreeing on the analysis plan.\n\n\n::: {.cell}\n\n```{.r .cell-code}\nset.seed(2026)\nmethylation <- data.frame(\n  sample_id = sprintf(\"synthetic_%02d\", 1:20),\n  group = rep(c(\"comparison\", \"colitis\"), each = 10),\n  beta_value = c(rbeta(10, 4, 6), rbeta(10, 5, 5))\n)\n```\n:::\n\n\n## Quality checks\n\n\n::: {.cell}\n\n```{.r .cell-code}\nstopifnot(\n  !anyDuplicated(methylation$sample_id),\n  all(methylation$beta_value >= 0 & methylation$beta_value <= 1)\n)\n\naggregate(beta_value ~ group, methylation, function(x) {\n  c(n = length(x), mean = mean(x), sd = sd(x))\n})\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n       group beta_value.n beta_value.mean beta_value.sd\n1    colitis  10.00000000      0.50690153    0.12041612\n2 comparison  10.00000000      0.33993347    0.08904381\n```\n\n\n:::\n:::\n\n\n## Exploratory visualization\n\n\n::: {.cell}\n\n```{.r .cell-code}\nboxplot(\n  beta_value ~ group,\n  data = methylation,\n  col = c(\"#9ecae1\", \"#41ae76\"),\n  ylab = \"Beta value\",\n  xlab = \"\",\n  ylim = c(0, 1)\n)\nstripchart(beta_value ~ group, data = methylation,\n           vertical = TRUE, method = \"jitter\", add = TRUE, pch = 16)\n```\n\n::: {.cell-output-display}\n![Synthetic beta values used only to demonstrate the workflow.](example-analysis_files/figure-html/fig-synthetic-beta-1.png){#fig-synthetic-beta width=672}\n:::\n:::\n\n\n## Interpretation\n\nThese values are simulated and carry no scientific or clinical meaning. A real workflow must pre-specify normalization, probe filtering, batch handling, model covariates, and multiple-testing correction.\n\n",
+    "supporting": [
+      "example-analysis_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

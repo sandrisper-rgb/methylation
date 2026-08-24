@@ -1,0 +1,29 @@
+---
+title: "Research Articles"
+description: "Shared literature and reading notes"
+---
+
+Use this page as the curated reading list. Prefer a DOI or publisher link over uploading a copyrighted PDF. PDFs may be placed in `publications/files/` only when the team has permission to redistribute them.
+
+## Reading list
+
+No articles have been added yet.
+
+For each article, add its citation to `references.bib`, then cite it in Quarto using `[@citation-key]`. A useful reading note includes:
+
+- Full citation and DOI
+- Why the paper matters to the project
+- Population, samples, assay, and analysis method
+- Main results and limitations
+- Questions for the group
+
+## Suggested organization
+
+| Theme | Scope |
+|---|---|
+| Disease biology | Colitis phenotypes and inflammatory pathways |
+| Epigenetics | DNA methylation mechanisms and interpretation |
+| Assays | Arrays, sequencing, preprocessing, and quality control |
+| Statistics | Differential methylation, cell composition, and confounding |
+| Translation | Biomarkers, replication, and clinical relevance |
+
