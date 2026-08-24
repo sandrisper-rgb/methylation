@@ -182,6 +182,11 @@ a { color: var(--teal); }
 .signal-orbit-dna { left: 8%; }
 .signal-orbit-siga { right: 8%; animation-delay: .8s; background: var(--mint); }
 @keyframes signal-orbit { 0%, 100% { transform: scale(.96); } 50% { transform: scale(1.04); box-shadow: 0 0 0 18px rgba(255,255,255,.03); } }
+.model-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin: 2rem 0 2.5rem; }
+.model-panel { padding: 1.6rem; border-radius: 1rem; color: white; background: linear-gradient(145deg, var(--ocean), #175d6c); box-shadow: 0 14px 34px rgba(16,47,59,.15); border-top: 5px solid var(--gold); }
+.model-panel-dss { background: linear-gradient(145deg, #176b74, var(--teal)); border-top-color: #f4c66e; }
+.model-panel h3 { margin-top: 0; color: white; }
+.model-panel p { margin-bottom: .65rem; }
 
 .download-grid, .lab-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.2rem; margin: 1.5rem 0 2.5rem; }
 .role-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.4rem; margin: 1.5rem 0 2.5rem; }
@@ -229,6 +234,7 @@ thead { background: var(--ocean); color: white; }
   .signal-orbit-dna { top: 25px; }
   .signal-center { top: 175px; }
   .signal-orbit-siga { top: 345px; }
+  .model-compare { grid-template-columns: 1fr; }
   .institution-band { grid-template-columns: 1fr; margin-left: 1.2rem; margin-right: 1.2rem; }
   .institution-action { white-space: normal; }
 }

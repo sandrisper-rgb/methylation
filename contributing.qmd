@@ -15,10 +15,6 @@ The repository is hosted under Sandra's personal GitHub account.
 
 ## Add content
 
-### A finding
-
-Copy `findings/example-finding.qmd`, give it a descriptive lowercase filename, and update all metadata. Keep `draft: true` until the finding has been reviewed.
-
 ### An R workflow
 
 Add a `.qmd` file under `workflows/`. Use relative paths, set a random seed when relevant, document packages and inputs, and confirm that no sensitive data or secrets appear in the rendered output.
@@ -30,6 +26,10 @@ Place the approved `.pptx` file in `presentations/files/` and add its details to
 ### An article
 
 Add the citation to `references.bib`. Link to the DOI or legal open-access copy. Upload a PDF only if redistribution is allowed.
+
+### A Field Note
+
+Add a `.qmd` file under `posts/` with a descriptive lowercase filename, source-grounded claims, accessible image text, and links to related methods pages. Keep clinical conclusions proportional to the evidence.
 
 ## Submit for review
 

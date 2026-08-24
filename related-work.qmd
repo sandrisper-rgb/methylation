@@ -50,11 +50,11 @@ Patient-centered IBD research connecting diet, metabolites, the microbiome, and 
 
 ::: {.lab-card}
 ::: {.lab-place}
-MONTRÉAL · CANADA
+HONG KONG · CHINA
 :::
-### [CHU Sainte-Justine / Jantchou research](https://recherche.umontreal.ca/chercheur/is/in15897/)
+### [CUHK plasma DNA research · Dennis Lo group](https://www.cuhk.edu.hk/med/cpy/Research/DennisLo.htm)
 
-Pediatric IBD research with a history of work on epigenetic markers in Crohn's disease. This is the likely “CHU” comparator relevant to the requested landscape; it should not be confused with the **CHUK gene** or unrelated institutions using the CHUK acronym.
+The Chinese University of Hong Kong group pioneered analysis of cell-free DNA in plasma and helped establish the biological foundations of fragment size, preferred ends, nucleases, tissue of origin, epigenetic markers, and non-invasive molecular testing. Its plasma-DNA work is the relevant comparator for this study; it is **CUHK**, not a Montréal pediatric IBD center.
 :::
 
 ::: {.lab-card}

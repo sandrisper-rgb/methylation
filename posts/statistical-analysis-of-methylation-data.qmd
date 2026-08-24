@@ -116,3 +116,5 @@ Beta-binomial modeling is valuable because methylation is count evidence with un
 :::
 
 [See which packages implement these steps →](how-methylation-software-evolved.qmd) · [Read the practical package guide →](packages-for-disease-fingerprinting.qmd) · [Follow the sequencing pipeline →](../sequencing-methods.qmd)
+
+[Read the formal limma-versus-DSS comparison →](limma-versus-dss-for-methylation.qmd)

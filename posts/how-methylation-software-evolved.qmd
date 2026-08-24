@@ -93,3 +93,5 @@ For these EM-seq data, make `DSS` the primary coverage-aware inference engine, k
 :::
 
 [See the detailed package checklist →](packages-for-disease-fingerprinting.qmd) · [Understand the statistical models →](statistical-analysis-of-methylation-data.qmd) · [Follow the molecular pipeline →](../sequencing-methods.qmd)
+
+[For a statistician: compare limma and DSS in detail →](limma-versus-dss-for-methylation.qmd)

@@ -3,7 +3,6 @@ project:
   output-dir: _site
   render:
     - "*.qmd"
-    - "findings/**/*.qmd"
     - "workflows/**/*.qmd"
     - "posts/**/*.qmd"
   resources:
@@ -46,8 +45,6 @@ website:
             text: cfDNA technology landscape
           - href: workflows/index.qmd
             text: Reproducible workflows
-      - href: findings/index.qmd
-        text: Findings
       - href: posts/index.qmd
         text: Field Notes
       - href: publications.qmd
