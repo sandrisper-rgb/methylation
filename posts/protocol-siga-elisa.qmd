@@ -1,0 +1,38 @@
+---
+title: "Protocol 8: serum sIgA by ELISA"
+description: "From triplicate wells and a calibration curve to one reviewed participant concentration"
+date: 2026-08-25
+categories: [protocol, sIgA, ELISA, serum]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/siga-mucosal-assay.webp"
+---
+
+## Assay role
+
+ELISA converts antibody-dependent color intensity into an estimated serum sIgA concentration. It is a separate assay lane from sequencing.
+
+```{mermaid}
+flowchart LR
+  S[Serum dilution] --> W[Three technical replicate wells]
+  STD[Standards + blanks + controls] --> OD[Plate optical density]
+  W --> OD
+  OD --> C[Calibration + dilution correction]
+  C --> Q[Replicate and range QC]
+  Q --> V[One participant sIgA estimate]
+```
+
+| Raw data | Processed data | Final integration value |
+|---|---|---|
+| plate, well, replicate, OD, dilution | blank-corrected OD, back-calculated concentration, CV, flags | one reviewed concentration per participant |
+
+The presentation’s seven-point 1.250-to-0 µg/ml curve and reported $R^2=0.959$ describe assay development, not automatic plate acceptance. The laboratory must lock the kit, lot, sample dilution, incubation/read settings, calibration model, LLOQ/ULOQ, control limits, CV threshold, and repeat rules.
+
+## QC gate
+
+Inspect standards and residuals, blank behavior, control recovery, saturation, dilutional parallelism, replicate precision, edge/plate effects, and censor flags. Do not silently turn values below LLOQ into zero or average a failed well into the result.
+
+::: {.callout-important title="What the assay does not generate"}
+It does not count mucosal plasma cells, sequence IgA, measure stool IgA coating, or directly report intestinal secretion. It produces an accessible serum concentration with assay uncertainty.
+:::
+
+[Detailed sIgA methods →](../siga-methods.qmd) · [Join all three streams →](three-data-streams-one-study.qmd)

@@ -1,0 +1,28 @@
+---
+title: "Protocol 5: UltraShear fragmentation of tissue genomic DNA"
+description: "Why UltraShear is an enzyme reagent—not a machine—and what its fragment distribution contributes"
+date: 2026-08-25
+categories: [protocol, UltraShear, DNA fragmentation, EM-seq]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/genomics-alignment-integration.png"
+---
+
+## First, a correction
+
+**NEBNext UltraShear (M7634) is an enzymatic fragmentation reagent, not an instrument.** A thermal cycler controls incubation. The formulation is designed to fragment DNA upstream of short-read library preparation while retaining methylation marks.
+
+| Input | Reaction | Output | Immediate data |
+|---|---|---|---|
+| purified tissue genomic DNA | timed UltraShear incubation and heat inactivation | fragmented tissue DNA | fragment-size trace, concentration, yield |
+
+The [NEB manual](https://www.neb.com/en/-/media/nebus/files/manuals/manualm7634.pdf) describes 5–250 ng purified gDNA and time-dependent fragmentation at 37°C followed by heat inactivation; the exact study conditions must be fixed during validation. The manual warns that the coupled EM-seq protocol differs from standard standalone paths.
+
+## Why only tissue?
+
+Tissue genomic DNA needs controlled fragmentation for Illumina library construction. Plasma cfDNA is already fragmented in vivo; deliberately re-shearing it would erase or distort the native fragmentomic signal.
+
+## QC gate
+
+Review the full fragment distribution—not only its mean—plus input mass, reaction time, buffer, lot, replicate, and recovery. Fragmentation must be balanced across groups. Tissue insert length is a preparation characteristic, not a nucleosome footprint.
+
+[Official UltraShear product page →](https://www.neb.com/products/m7634nebnext-ultrashear) · [Next: EM-seq library preparation →](protocol-emseq-library-preparation.qmd)

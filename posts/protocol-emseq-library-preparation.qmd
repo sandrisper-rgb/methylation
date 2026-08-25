@@ -1,0 +1,38 @@
+---
+title: "Protocol 6: NEBNext EM-seq library preparation"
+description: "From fragmented DNA to indexed Illumina libraries that encode modified-cytosine state"
+date: 2026-08-25
+categories: [protocol, NEBNext EM-seq, library preparation, methylation]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/genomics-alignment-integration.png"
+---
+
+## What the protocol does
+
+NEBNext EM-seq converts a DNA sample into an indexed Illumina-compatible library while encoding cytosine modification state. End repair/dA-tailing and adaptor ligation precede enzymatic protection and deamination.
+
+```{mermaid}
+flowchart LR
+  D[DNA] --> E[End repair + dA tail]
+  E --> A[EM-seq adaptor ligation]
+  A --> P[TET2 + T4-BGT protect 5mC/5hmC]
+  P --> C[APOBEC converts unmodified C]
+  C --> PCR[Q5U amplification + unique dual index]
+  PCR --> L[Sequence-ready library]
+```
+
+| Output | What it is |
+|---|---|
+| indexed library tube | amplified molecules ready for Illumina sequencing |
+| fragment-analyzer trace | library-size distribution |
+| concentration/molarity | pooling input |
+| index/sample sheet | demultiplexing key |
+| control metrics | evidence for protection/conversion performance |
+
+The [NEB v2 manual](https://www.neb.com/en/-/media/nebus/files/manuals/manuale8015.pdf) states that the assay jointly detects 5mC and 5hmC and does not distinguish them. The site must record whether the original E7120 or v2 E8015 kit was used; their ranges and workflow details differ.
+
+## QC gate
+
+Check library yield, size, adapter dimer, cycle count, unique-dual-index assignment, positive methylated and unmethylated controls, plate/batch, and replicate agreement. Never infer sample methylation from library concentration.
+
+[How EM-seq works →](what-is-emseq.qmd) · [Next: NovaSeq 6000 →](protocol-novaseq-6000.qmd)

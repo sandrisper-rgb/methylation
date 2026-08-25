@@ -1,0 +1,30 @@
+---
+title: "Protocol 4A: PANAMAX 48 extraction of plasma cfDNA"
+description: "What the automated extractor does, what comes out, and why the exact kit configuration matters"
+date: 2026-08-25
+categories: [protocol, PANAMAX 48, cfDNA extraction, liquid biopsy]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/tissue-plasma-methylation-bridge.png"
+---
+
+## Instrument role
+
+PANAMAX 48 is an automated magnetic-bead nucleic-acid extraction platform. Lysis releases nucleic acids, they bind to magnetic particles under kit-specific conditions, programmed washes remove contaminants, and purified material is eluted.
+
+| Input | Machine action | Physical output | Recorded data |
+|---|---|---|---|
+| plasma aliquot | bind–wash–elute magnetic-bead program | purified cfDNA eluate | run ID, kit/lot, positions, volume, flags |
+
+The instrument does **not** produce sequence reads or methylation calls. Those appear only after library preparation, NovaSeq sequencing, alignment, and cytosine extraction.
+
+::: {.callout-warning title="Kit identity must be locked before this becomes an SOP"}
+PANAMAX 48 supports kit-specific programs. The exact plasma-cfDNA kit name, catalogue number, validated input volume, elution volume, software/program version, and intended sample type must be copied from the study laboratory record. A viral DNA/RNA protocol is not automatically a validated cfDNA protocol.
+:::
+
+## QC gate
+
+Track extraction blanks, positive/process controls where appropriate, eluate volume, fluorometric yield, fragment profile, contamination/hemolysis context, freeze–thaw history, and replicate concordance. Avoid relying on absorbance ratios alone at cfDNA concentrations.
+
+[PANAMAX example documentation](https://www.ncbi.nlm.nih.gov/books/NBK572322/bin/fdacovideuas_142800.pdf) confirms the platform’s automated kit/program model but does not substitute for this study’s cfDNA kit manual.
+
+[Previous: plasma aliquots →](protocol-blood-processing.qmd) · [Next: EM-seq library preparation →](protocol-emseq-library-preparation.qmd)

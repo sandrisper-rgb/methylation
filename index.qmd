@@ -1,7 +1,7 @@
 ---
-title: "Methylation & sIgA in colitis progression"
-pagetitle: "Methylation + sIgA | Colitis progression research"
-description: "A translational study integrating epigenetic and mucosal immune signals to investigate progression from ulcerative colitis toward colorectal cancer."
+title: "Colitis at Molecular Resolution"
+pagetitle: "Colitis at Molecular Resolution | Methylation + sIgA"
+description: "Paired tissue and plasma DNA methylation with serum sIgA across high-risk ulcerative colitis, colorectal cancer, and healthy comparators."
 page-layout: full
 toc: false
 ---
@@ -11,9 +11,9 @@ toc: false
 TRANSLATIONAL EPIGENETICS · COLOMBIA
 :::
 
-# Two biological signals.<br>A clearer view of progression.
+# Tissue, plasma, and immunity.<br>One molecular view of colitis.
 
-We are studying whether **DNA methylation signatures** and **secretory immunoglobulin A (sIgA)** can be read together to improve risk stratification in ulcerative colitis and illuminate progression toward colitis-associated colorectal cancer.
+We are studying whether **paired tissue and plasma DNA methylation** and **serum secretory immunoglobulin A (sIgA)** reveal a coherent disease-state fingerprint across high-risk ulcerative colitis, colorectal cancer, and healthy comparators.
 
 [See the study design](research.qmd){.btn .btn-light .btn-lg} [Compare the approaches](approach.qmd){.btn .btn-outline-light .btn-lg}
 

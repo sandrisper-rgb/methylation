@@ -77,6 +77,20 @@ flowchart TD
   S["sIgA + inflammation<br/>+ clinical covariates"] --> IN
 ```
 
+### Protocol-by-protocol guides
+
+| Stage | Guide |
+|---|---|
+| 18 consented participants · three groups | [Cohort, consent, and study manifest](posts/protocol-cohort-and-consent.qmd) |
+| Blood → plasma + serum | [Blood processing and aliquots](posts/protocol-blood-processing.qmd) |
+| Colonic biopsy → prepared tissue | [Colonic biopsy preparation](posts/protocol-colonic-biopsy-preparation.qmd) |
+| PANAMAX 48 · plasma | [Automated cfDNA extraction](posts/protocol-panamax-cfdna.qmd) |
+| PANAMAX 48 · tissue | [Automated genomic-DNA extraction](posts/protocol-panamax-genomic-dna.qmd) |
+| UltraShear | [Tissue-DNA fragmentation](posts/protocol-ultrashear-fragmentation.qmd) |
+| NEBNext EM-seq | [Methylation library preparation](posts/protocol-emseq-library-preparation.qmd) |
+| NovaSeq 6000 | [Paired-end sequencing](posts/protocol-novaseq-6000.qmd) |
+| Serum sIgA | [ELISA processing and data](posts/protocol-siga-elisa.qmd) |
+
 ### Minimum outputs and checks
 
 | Stage | Required output | Stop/go question |

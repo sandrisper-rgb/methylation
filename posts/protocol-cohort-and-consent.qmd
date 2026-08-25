@@ -1,0 +1,35 @@
+---
+title: "Protocol 1: 18 consented participants and three clinical groups"
+description: "How consent, group assignment, participant IDs, and paired specimens become the study manifest"
+date: 2026-08-25
+categories: [protocol, study design, consent, metadata]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/three-data-streams.png"
+---
+
+## Purpose
+
+The laboratory workflow begins with **18 consented participants** distributed across three clinical groups: 8 high-risk ulcerative colitis, 5 colorectal cancer, and 5 healthy comparators. This is the biological sample size; downstream reads and technical replicates do not enlarge it.
+
+| Input | Process | Output |
+|---|---|---|
+| consent and eligibility documentation | assign de-identified participant ID; record group and covariates | controlled participant manifest |
+| blood and colonic biopsy collection events | bind specimen IDs to the participant | tissue/plasma/serum linkage table |
+| three laboratory technical replicates | bind replicate and batch IDs below each specimen | replicate-aware processing manifest |
+
+```text
+participant_id  group    specimen  replicate  collection_event  batch
+P001            UC       plasma    1          C001              B1
+P001            UC       tissue    1          C001              B1
+P001            UC       serum     1          C001              E1
+```
+
+## QC gate
+
+Consent scope, eligibility, specimen identity, pairing, collection time, missingness, and protocol deviations must be resolved before molecular results are exposed. Public artifacts use de-identified IDs only.
+
+::: {.callout-note title="What this stage generates"}
+This protocol generates **metadata**, not a biomarker: the authoritative key connecting every tube, library, ELISA well, clinical group, and final participant-level row.
+:::
+
+[Study design →](../research.qmd) · [Next: blood processing →](protocol-blood-processing.qmd)

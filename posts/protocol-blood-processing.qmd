@@ -1,0 +1,35 @@
+---
+title: "Protocol 2: blood processing into plasma and serum aliquots"
+description: "Why two blood fractions feed two different assays and which pre-analytical fields must travel with them"
+date: 2026-08-25
+categories: [protocol, blood processing, plasma, serum]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/three-data-streams.png"
+---
+
+## Purpose
+
+One blood collection produces two distinct analytical materials. **Plasma** supplies cell-free DNA for EM-seq and fragmentomics; **serum** supplies sIgA for ELISA. Tube type, clotting, centrifugation, transfer, delay, temperature, freeze–thaw history, aliquot volume, and visible hemolysis belong in the data record.
+
+```{mermaid}
+flowchart LR
+  B[Blood collection] --> P[Plasma aliquots]
+  B --> S[Serum aliquots]
+  P --> C[cfDNA extraction]
+  S --> E[sIgA ELISA]
+```
+
+| Fraction | Immediate output | Later data |
+|---|---|---|
+| plasma | labeled, frozen aliquots with processing metadata | cfDNA yield, methylation counts, plasma fragment features |
+| serum | labeled, frozen aliquots with processing metadata | replicate OD and calibrated sIgA concentration |
+
+## QC gate
+
+Processing must prevent cellular carryover into plasma: leukocyte lysis can swamp rare colon-derived cfDNA and distort fragment sizes. Serum conditions must be consistent enough that plate differences are not proxies for clinical group.
+
+::: {.callout-important title="Plasma is not serum"}
+The fractions are not interchangeable. Plasma cfDNA is sequenced; serum sIgA is measured optically. They meet only after independent QC.
+:::
+
+[Previous: cohort manifest →](protocol-cohort-and-consent.qmd) · [Next: PANAMAX cfDNA extraction →](protocol-panamax-cfdna.qmd) · [sIgA branch →](protocol-siga-elisa.qmd)

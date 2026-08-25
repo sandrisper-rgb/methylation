@@ -1,0 +1,28 @@
+---
+title: "Protocol 4B: PANAMAX 48 extraction of tissue genomic DNA"
+description: "Automated magnetic-bead purification from prepared colonic tissue to high-molecular-weight DNA"
+date: 2026-08-25
+categories: [protocol, PANAMAX 48, genomic DNA, tissue]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/tissue-plasma-methylation-bridge.png"
+---
+
+## Instrument role
+
+For tissue, PANAMAX 48 automates a kit-specific magnetic-bead bind–wash–elute workflow after appropriate tissue lysis. The target is purified genomic DNA suitable for controlled fragmentation and EM-seq.
+
+| Input | Physical output | Data recorded now | Data generated later |
+|---|---|---|---|
+| prepared colonic tissue lysate | genomic-DNA eluate | run, kit/lot, well, volumes, flags | fragment profile, library metrics, CpG counts |
+
+::: {.callout-warning title="The machine name is not the protocol"}
+The study must record the exact PANAMAX tissue/genomic-DNA kit, catalogue number, lysis conditions, input limits, program/software version, and elution settings. They cannot be reconstructed safely from “PANAMAX 48” alone.
+:::
+
+## QC gate
+
+Quantify yield with a DNA-appropriate fluorometric assay, assess integrity/fragment profile, document purity and inhibitors, retain extraction blanks, and check replicate consistency. High DNA yield does not guarantee an unbiased methylome.
+
+The output is DNA, not tabular biological data. The first derived distribution is created by UltraShear and fragment analysis; base-level methylation arrives after sequencing and alignment.
+
+[Previous: biopsy preparation →](protocol-colonic-biopsy-preparation.qmd) · [Next: UltraShear fragmentation →](protocol-ultrashear-fragmentation.qmd)

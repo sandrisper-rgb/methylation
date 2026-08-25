@@ -1,0 +1,28 @@
+---
+title: "Protocol 3: colonic biopsy preparation"
+description: "How an anatomically anchored biopsy becomes tissue DNA—and which context must not be lost"
+date: 2026-08-25
+categories: [protocol, colonic biopsy, tissue, pathology]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/tissue-plasma-methylation-bridge.png"
+---
+
+## Purpose
+
+The biopsy provides the local methylation reference. Preparation must preserve DNA while retaining anatomical and pathological context: colon segment, lesion/inflammation status, sampling time, preservation method, tissue amount, and—where available—histology or cellular composition.
+
+| Input | Laboratory handoff | Output |
+|---|---|---|
+| identified biopsy | controlled preservation and tissue preparation | extraction-ready tissue aliquot |
+| location and pathology metadata | de-identified annotation | tissue context table |
+| technical repeats/aliquots | replicate tracking | nested replicate records |
+
+## What can go wrong?
+
+A biopsy mixes epithelium, immune cells, stroma, vessels, and possibly neoplastic cells. A methylation difference may therefore reflect regulation within cells, a different cell mixture, or both. Sampling a single area also cannot represent the entire colon.
+
+## QC gate
+
+Record tissue integrity, input mass, preservation delay, contamination, extraction batch, and any deviation. Tissue DNA fragmentation happens downstream; native insert sizes from intentionally sheared tissue are not biological fragmentomics.
+
+[Why tissue and plasma are paired →](why-pair-tissue-and-plasma.qmd) · [Next: PANAMAX genomic DNA extraction →](protocol-panamax-genomic-dna.qmd)

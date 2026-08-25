@@ -1,0 +1,28 @@
+---
+title: "Protocol 7: paired-end sequencing on the Illumina NovaSeq 6000"
+description: "How pooled EM-seq libraries become demultiplexed FASTQs and sequencing QC"
+date: 2026-08-25
+categories: [protocol, NovaSeq 6000, paired-end sequencing, FASTQ]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/genomics-alignment-integration.png"
+---
+
+## Machine role
+
+The NovaSeq 6000 performs sequencing by synthesis on pooled, indexed libraries. Paired-end operation reads each library molecule from both ends; index reads assign clusters back to samples.
+
+| Input | Machine output | Bioinformatics-ready output |
+|---|---|---|
+| normalized indexed EM-seq pool + run recipe | base calls, quality scores, run metrics | paired FASTQ files plus demultiplexing reports |
+
+The platform supports multiple flow-cell types and read lengths. [Illumina’s specification sheet](https://www.illumina.com/content/dam/illumina-marketing/documents/products/datasheets/novaseq-6000-system-specification-sheet-770-2016-025.pdf) reports flow-cell-dependent throughput; none of those maxima proves adequate per-sample methylome coverage. The study must report the actual flow cell, read cycle configuration, loading, lane allocation, and reads per library.
+
+## Why paired ends matter
+
+They improve alignment and insert inference. In plasma, properly paired coordinates can preserve fragment length and ends. In tissue, they describe intentionally sheared library molecules and support mapping, but not native fragmentomics.
+
+## QC gate
+
+Retain cluster density, percent passing filter, Q30 by cycle/read, error/control metrics, index balance, demultiplex yield, read count per sample, and lane. EM-seq’s reduced base complexity requires a validated loading/control strategy.
+
+[Next: alignment and bioinformatics →](alignment-and-bioinformatics-for-genomics-experts.qmd) · [Illumina specifications →](https://www.illumina.com/systems/sequencing-platforms/novaseq/specifications.html)
