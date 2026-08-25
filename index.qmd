@@ -61,6 +61,83 @@ This project sits within the scientific environment of **InMubo**, the Cellular 
 :::
 :::
 
+::: {.cancer-stats-band}
+::: {.content-block}
+:::: {.cancer-stats-header}
+::: {.cancer-stats-title}
+::: {.eyebrow}
+COLOMBIA · GLOBOCAN 2024
+:::
+## Cancer burden in national context
+
+IARC estimates **123,053 new cancer cases** and **55,981 cancer deaths** in Colombia in 2024. Colorectal cancer ranks third by new cases in both sexes—an important national backdrop for this project’s focus on colitis-associated progression.
+:::
+::: {.cancer-stat-highlight aria-label="Colorectal cancer statistics in Colombia in 2024"}
+<span>COLORECTAL CANCER</span>
+<strong>11,153</strong>
+<small>new cases · 3rd most frequent</small>
+<strong>5,519</strong>
+<small>deaths · 3rd leading cause of cancer death</small>
+:::
+::::
+
+:::: {.cancer-summary-grid aria-label="Cancer statistics for Colombia in 2024"}
+::: {.cancer-summary-item}
+**123,053**
+
+new cases
+:::
+::: {.cancer-summary-item}
+**55,981**
+
+deaths
+:::
+::: {.cancer-summary-item}
+**309,071**
+
+people alive within 5 years of diagnosis
+:::
+::::
+
+### Five most frequent cancers by new cases
+
+```{=html}
+<figure class="cancer-chart" aria-labelledby="cancer-chart-caption">
+  <div class="cancer-bar-row">
+    <span class="cancer-bar-label">Breast</span>
+    <span class="cancer-bar-track"><span class="cancer-bar" style="--bar-width: 100%"></span></span>
+    <strong>17,739</strong>
+  </div>
+  <div class="cancer-bar-row">
+    <span class="cancer-bar-label">Prostate</span>
+    <span class="cancer-bar-track"><span class="cancer-bar" style="--bar-width: 94.7%"></span></span>
+    <strong>16,793</strong>
+  </div>
+  <div class="cancer-bar-row cancer-bar-row-focus">
+    <span class="cancer-bar-label">Colorectum</span>
+    <span class="cancer-bar-track"><span class="cancer-bar" style="--bar-width: 62.9%"></span></span>
+    <strong>11,153</strong>
+  </div>
+  <div class="cancer-bar-row">
+    <span class="cancer-bar-label">Stomach</span>
+    <span class="cancer-bar-track"><span class="cancer-bar" style="--bar-width: 50.8%"></span></span>
+    <strong>9,010</strong>
+  </div>
+  <div class="cancer-bar-row">
+    <span class="cancer-bar-label">Thyroid</span>
+    <span class="cancer-bar-track"><span class="cancer-bar" style="--bar-width: 46.7%"></span></span>
+    <strong>8,278</strong>
+  </div>
+  <figcaption id="cancer-chart-caption">Estimated new cases, both sexes, all ages, Colombia, 2024. Bars are scaled to the largest category shown.</figcaption>
+</figure>
+```
+
+::: {.cancer-source}
+**Source:** International Agency for Research on Cancer, [Global Cancer Observatory — Colombia fact sheet](https://gco.iarc.who.int/media/globocan/factsheets/populations/170-colombia-fact-sheet.pdf) and [Cancer Today interactive visualization](https://gco.iarc.who.int/today/en/dataviz/maps-ranking?mode=ranking&key=total&cancers=8&zoom=2). GLOBOCAN figures are estimates, not observed case counts.
+:::
+:::
+:::
+
 ::: {.content-block}
 ::: {.section-intro}
 ## The question behind the project
