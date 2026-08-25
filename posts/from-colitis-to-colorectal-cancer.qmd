@@ -4,7 +4,7 @@ description: "What progression means, which symptoms and biomarkers matter, how 
 date: 2026-08-24
 categories: [ulcerative colitis, colorectal cancer, biomarkers, epidemiology]
 author: "Methylation & Colitis team"
-image: "../media/illustrations/tissue-plasma-pairing.webp"
+image: "../media/illustrations/colitis-colon-cancer-clinical.webp"
 ---
 
 ::: {.callout-important title="Health information, not diagnosis"}

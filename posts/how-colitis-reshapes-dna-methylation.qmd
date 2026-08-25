@@ -4,7 +4,7 @@ description: "From inflammatory signaling and epithelial repair to CpG islands, 
 date: 2026-08-24
 categories: [ulcerative colitis, DNA methylation, CpG islands, gene regulation]
 author: "Methylation & Colitis team"
-image: "../media/illustrations/emseq-fragmentomics.webp"
+image: "../media/illustrations/cover-colitis-methylation.webp"
 ---
 
 ::: {.lead-panel}

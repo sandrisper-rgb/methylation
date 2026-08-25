@@ -4,7 +4,7 @@ description: "How Reactome's curated reaction network supports pathway enrichmen
 date: 2026-08-24
 categories: [pathways, bioinformatics, methylation, statistics]
 author: "Methylation & Colitis team"
-image: "../media/illustrations/pathway-network.webp"
+image: "../media/illustrations/cover-reactome.webp"
 ---
 
 ::: {.lead-panel}

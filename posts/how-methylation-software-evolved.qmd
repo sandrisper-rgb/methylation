@@ -4,7 +4,7 @@ description: "A practical history of well-tested packages for methylation sequen
 date: 2026-08-24
 categories: [software, Bioconductor, methylation, statistics]
 author: "Methylation & Colitis team"
-image: "../media/illustrations/emseq-fragmentomics.webp"
+image: "../media/illustrations/cover-software-evolution.webp"
 ---
 
 ::: {.lead-panel}

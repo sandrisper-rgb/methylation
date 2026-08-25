@@ -4,7 +4,7 @@ description: "A short guide to KEGG pathways, enrichment analysis, and responsib
 date: 2026-08-24
 categories: [pathways, bioinformatics, methylation, statistics]
 author: "Methylation & Colitis team"
-image: "../media/illustrations/pathway-network.webp"
+image: "../media/illustrations/cover-kegg.webp"
 ---
 
 ::: {.lead-panel}
