@@ -49,7 +49,7 @@ See how chronic inflammation, methylation, plasma cfDNA, and sIgA connect—then
 
 ::: {.institution-band}
 ::: {.institution-mark}
-INMUBO · UNIVERSIDAD EL BOSQUE
+![InMubo — Universidad El Bosque](media/logos/inmubo-logo.jpg){.inmubo-group-image}
 :::
 ::: {.institution-copy}
 ## Rooted in cellular and molecular immunology

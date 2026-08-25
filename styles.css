@@ -64,8 +64,10 @@ a { color: var(--teal); }
 .video-band-featured { margin-top: -3.5rem; position: relative; z-index: 2; background: linear-gradient(135deg, #e7f2ef, #fff8eb); }
 .video-band-featured .content-block { padding-top: 2rem; padding-bottom: 2rem; }
 .video-band-featured h2 { margin-top: .45rem; }
-.institution-band { display: grid; grid-template-columns: .7fr 2fr auto; gap: 1.5rem; align-items: center; margin: -1.4rem auto 3rem; max-width: 1120px; padding: 1.5rem 1.7rem; border-radius: 1rem; color: white; background: linear-gradient(120deg, var(--ocean), var(--teal)); box-shadow: 0 16px 40px rgba(16,47,59,.18); }
-.institution-mark { color: #f4c66e; font-size: .78rem; font-weight: 700; letter-spacing: .13em; }
+.institution-band { display: grid; grid-template-columns: minmax(220px, .85fr) 2fr auto; gap: 1.5rem; align-items: center; margin: -1.4rem auto 3rem; max-width: 1120px; padding: 1.5rem 1.7rem; border-radius: 1rem; color: white; background: linear-gradient(120deg, var(--ocean), var(--teal)); box-shadow: 0 16px 40px rgba(16,47,59,.18); }
+.institution-mark { overflow: hidden; padding: .75rem 1rem; border-radius: .75rem; background: white; box-shadow: 0 8px 24px rgba(5,24,35,.22); }
+.institution-mark p { margin: 0; }
+.inmubo-group-image { display: block; width: 100%; height: auto; margin: 0; object-fit: contain; }
 .institution-copy h2 { margin: 0 0 .35rem; color: white; font-size: 1.45rem; }
 .institution-copy p { margin: 0; color: #e2f2ef; font-size: .93rem; }
 .institution-action { white-space: nowrap; }
