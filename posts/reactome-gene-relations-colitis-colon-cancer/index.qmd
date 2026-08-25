@@ -1,0 +1,178 @@
+---
+title: "From gene list to pathway neighborhoods"
+subtitle: "A Reactome-guided map of inflammation, barrier failure, and colitis-associated colorectal cancer"
+description: "How the project’s 14 candidate genes connect—and where Reactome correctly leaves gaps."
+date: 2026-08-25
+author: "Methylation & Colitis team"
+categories: [Reactome, pathways, ulcerative colitis, colorectal cancer, gene networks]
+image: "images/reactome-network.png"
+bibliography: ../../references.bib
+csl: ../../apa.csl
+link-citations: true
+link-bibliography: true
+code-fold: true
+code-summary: "Show reproducible Python code"
+jupyter: project-python
+execute:
+  echo: true
+  warning: false
+  cache: false
+---
+
+A gene list becomes biologically useful when it is reorganized into processes: immune activation, immune restraint, epithelial cohesion, damage sensing, and escape from cell-cycle control. Reactome helps with that reorganization because it represents curated reactions and pathway hierarchies rather than associations inferred from co-expression alone [@milacic2024reactome]. But it also exposes an important limitation: several of the most interesting methylation candidates are poorly characterized and do not yet have direct curated Reactome pathways.
+
+::: {.callout-note title="What this analysis is—and is not"}
+The Reactome mappings were queried on 25 August 2026 with HGNC symbols, projection to human, and **interactors disabled**. The disease-stage scores below are qualitative hypotheses synthesized from the cited tissue literature; they are not patient measurements, differential-expression results, or pathway-enrichment p-values.
+:::
+
+## The 14-gene panel
+
+The panel combines immune genes that were reported as hypomethylated in severe UC (**CD86, IL10, NLRC4, NLRP3, SIGLEC5, CLMP**) with promoter-hypermethylated or neoplasia-marker candidates (**FAM217B, KIAA1614, RIBC2, FOXE1, SYNE1**) and established epithelial/cancer-relevant genes (**CDH1, CDKN2A, GDNF**) [@kang2016ucpanel; @papadia2014foxesyne; @saito2011ucmethylation]. These are not interchangeable signals: some are pathway components, some are tissue markers, and some remain mechanistically under-annotated.
+
+```{python}
+#| label: setup-reactome
+#| include: false
+from pathlib import Path
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
+
+OUT = Path("images")
+OUT.mkdir(exist_ok=True)
+sns.set_theme(style="white", context="notebook")
+navy, teal, coral, gold, gray, pale = "#17324D", "#17807E", "#D95D4F", "#E5A93D", "#8A98A6", "#EDF4F5"
+
+genes = ["CD86","CDH1","CDKN2A","CLMP","FAM217B","FOXE1","GDNF","IL10","KIAA1614","NLRC4","NLRP3","RIBC2","SIGLEC5","SYNE1"]
+modules = ["Immune\nco-regulation","Inflammasome /\ninnate danger","Barrier /\ncell adhesion","Senescence /\ncell-cycle brake","RET / NCAM\ntrophic signaling","Direct mapping\nlimited or absent"]
+membership = {
+ "CD86":[1,0,0,0,0,0], "CDH1":[0,0,1,0,0,0], "CDKN2A":[0,0,0,1,0,0],
+ "CLMP":[0,0,1,0,0,1], "FAM217B":[0,0,0,0,0,1], "FOXE1":[0,0,0,0,0,1],
+ "GDNF":[0,0,0,0,1,0], "IL10":[1,0,0,0,0,0], "KIAA1614":[0,0,0,0,0,1],
+ "NLRC4":[0,1,0,0,0,0], "NLRP3":[0,1,0,0,0,0], "RIBC2":[0,0,0,0,0,1],
+ "SIGLEC5":[1,1,0,0,0,0], "SYNE1":[0,0,0,0,0,1]
+}
+M = pd.DataFrame(membership,index=modules).T
+```
+
+## Reactome coverage is uneven—and informative
+
+Direct queries returned curated neighborhoods for nine genes. Examples include CD28/CTLA-4 and IL-10 signaling for CD86; CDH1 transcription, translation, and adherens-junction organization; oncogene- and oxidative-stress-induced senescence for CDKN2A; RET/NCAM signaling for GDNF; the IPAF inflammasome for NLRC4; the NLRP3 inflammasome; and neutrophil degranulation for SIGLEC5. SYNE1 mapped to meiotic synapsis, a real annotation but not an obvious colon mechanism. CLMP, FAM217B, FOXE1, KIAA1614, and RIBC2 were not directly mapped by this identifier analysis.
+
+@fig-coverage makes that asymmetry visible. “Limited” does not mean unimportant: it means the database does not support a direct reaction-level bridge for the submitted symbol under these settings.
+
+```{python}
+#| label: fig-coverage
+#| fig-cap: "Reactome-guided functional coverage of the 14 genes. Filled cells denote a curated direct pathway neighborhood or, for the final column, limited/absent direct mapping; assignments to biological modules are conservative."
+#| fig-width: 10
+#| fig-height: 7
+fig, ax = plt.subplots(figsize=(10,7))
+sns.heatmap(M, cmap=sns.color_palette(["#F7FAFC",teal],as_cmap=True), cbar=False,
+            linewidths=1,linecolor="white",square=False,ax=ax)
+ax.set(xlabel="Pathway neighborhood",ylabel="Candidate gene")
+ax.tick_params(axis="x",rotation=0); ax.tick_params(axis="y",rotation=0)
+fig.tight_layout(); fig.savefig(OUT/"reactome-coverage.png",dpi=220,bbox_inches="tight"); plt.show()
+```
+
+## A network with three biological bridges
+
+The central insight is not a single enriched pathway. It is a set of bridges between otherwise distinct programs, shown in @fig-reactome-network:
+
+- **IL10–CD86** links immune restraint to antigen-presenting-cell co-stimulation. Reactome’s IL-10 pathway explicitly includes suppression of CD80/CD86 and pro-inflammatory cytokines [@milacic2024reactome].
+- **NLRP3/NLRC4–SIGLEC5** places inflammasome outputs beside myeloid activation and inhibitory sialic-acid sensing. This is a functional neighborhood, not a claim that the three proteins form one complex.
+- **CDH1–CDKN2A** connects epithelial architecture to the decision between repair, senescence, and clonal expansion. In UC tissue, both loci have inflammation- or neoplasia-associated methylation evidence [@wheeler2001cdh1; @hsieh1998p16].
+
+```{python}
+#| label: fig-reactome-network
+#| fig-cap: "Reactome-guided gene-to-pathway network. Solid links are direct curated pathway memberships; dashed links are disease-level bridges proposed for colitis-to-cancer interpretation, not direct molecular reactions."
+#| fig-width: 12
+#| fig-height: 8
+fig, ax = plt.subplots(figsize=(12,8)); ax.set(xlim=(-6,6),ylim=(-4.5,4.5)); ax.axis("off")
+mod_pos={"Immune regulation":(-3.7,2.7),"Inflammasomes":(0,3.2),"Barrier / adhesion":(3.7,2.7),
+         "Trophic signaling":(-3.7,-2.5),"Senescence":(0,-3.1),"Under-annotated":(3.7,-2.5)}
+gene_groups={"Immune regulation":["IL10","CD86","SIGLEC5"],"Inflammasomes":["NLRP3","NLRC4"],
+ "Barrier / adhesion":["CDH1","CLMP"],"Trophic signaling":["GDNF"],"Senescence":["CDKN2A"],
+ "Under-annotated":["FAM217B","KIAA1614","RIBC2","FOXE1","SYNE1"]}
+gene_pos={}
+for mod,(mx,my) in mod_pos.items():
+    ax.add_patch(FancyBboxPatch((mx-1.3,my-.42),2.6,.84,boxstyle="round,pad=.08",fc=navy,ec="none"))
+    ax.text(mx,my,mod,ha="center",va="center",color="white",weight="bold")
+    gs=gene_groups[mod]
+    span = 2.0 if mod=="Under-annotated" else 1.0
+    offsets=np.linspace(-span,span,len(gs)) if len(gs)>1 else [0]
+    for off,g in zip(offsets,gs):
+        gx=mx+off; gy=my-1.15 if my>0 else my+1.15; gene_pos[g]=(gx,gy)
+        col=gray if mod=="Under-annotated" else teal
+        width = .92 if mod=="Under-annotated" else 1.1
+        ax.add_patch(FancyBboxPatch((gx-width/2,gy-.25),width,.5,boxstyle="round,pad=.05",fc=col,ec="white"))
+        ax.text(gx,gy,g,ha="center",va="center",color="white",weight="bold",fontsize=8 if mod=="Under-annotated" else 9)
+        ax.plot([mx,gx],[my-.45 if my>0 else my+.45,gy+.27 if my>0 else gy-.27],color=col,lw=1.8)
+bridges=[("Immune regulation","Inflammasomes","immune restraint / activation"),
+         ("Inflammasomes","Barrier / adhesion","pyroptosis · permeability"),
+         ("Barrier / adhesion","Senescence","injury · repair · selection"),
+         ("Senescence","Under-annotated","methylation markers"),
+         ("Trophic signaling","Barrier / adhesion","survival · tissue repair")]
+for a,b,label in bridges:
+    x1,y1=mod_pos[a]; x2,y2=mod_pos[b]
+    ax.add_patch(FancyArrowPatch((x1,y1),(x2,y2),arrowstyle="-|>",mutation_scale=14,
+                                  linestyle="--",color=coral,lw=1.8,connectionstyle="arc3,rad=.08",shrinkA=55,shrinkB=55))
+    ax.text((x1+x2)/2,(y1+y2)/2+.18,label,ha="center",fontsize=8,color=coral,
+            bbox=dict(fc="white",ec="none",alpha=.8,pad=1))
+ax.text(0,4.15,"Curated neighborhoods connected by disease-level hypotheses",ha="center",weight="bold",fontsize=14,color=navy)
+fig.tight_layout(); fig.savefig(OUT/"reactome-network.png",dpi=220,bbox_inches="tight"); plt.show()
+```
+
+## What is likely to be visible at each disease stage?
+
+The pathway signal expected in a biopsy depends on both regulation and cell composition. Active colitis should most strongly expose innate sensing, leukocyte co-regulation, epithelial junction disruption, and compensatory IL-10. Long-standing colitis can add senescence and methylation-field signals. Established cancer may retain inflammatory circuitry while making cell-cycle escape and epithelial plasticity more prominent. @fig-stage-map is a qualitative expectation map, not a measured heatmap.
+
+```{python}
+#| label: fig-stage-map
+#| fig-cap: "Qualitative hypotheses for pathway visibility across disease states. Scores encode expected relative prominence (0–3), not observed expression or clinical effect size."
+#| fig-width: 9
+#| fig-height: 5.5
+stage = pd.DataFrame({
+ "Healthy colon":[1,0,3,0,2,0],
+ "Active colitis":[3,3,1,2,2,1],
+ "Long-standing UC":[2,2,1,3,1,2],
+ "Colitis-associated CRC":[2,1,0,3,1,3]}, index=["Immune co-regulation","Inflammasome activity","Barrier integrity","Senescence / escape","Trophic signaling","Candidate methylation markers"])
+fig, ax = plt.subplots(figsize=(9,5.5))
+sns.heatmap(stage,cmap=sns.light_palette(coral,as_cmap=True),vmin=0,vmax=3,annot=True,fmt="d",linewidths=1,linecolor="white",cbar_kws={"label":"Hypothesized prominence"},ax=ax)
+ax.set(xlabel="Disease context",ylabel="Pathway program")
+ax.tick_params(axis="x",rotation=18); ax.tick_params(axis="y",rotation=0)
+fig.tight_layout(); fig.savefig(OUT/"reactome-stage-map.png",dpi=220,bbox_inches="tight"); plt.show()
+```
+
+## Gene-by-gene Reactome reading
+
+| Gene | Direct Reactome neighborhood from the query | Colitis/CRC interpretation |
+|---|---|---|
+| **CD86** | IL-10 signaling; CD28 Vav1 and PI3K/AKT; CTLA-4 co-inhibition | APC abundance and immune context; not a unidirectional activation marker |
+| **CDH1** | CDH1 transcription/translation; type-I cadherins; adherens junctions | Barrier architecture, epithelial plasticity, and methylation-associated silencing |
+| **CDKN2A** | Oncogene- and oxidative-stress-induced senescence | Stress arrest in colitis; loss can permit neoplastic escape |
+| **CLMP** | No direct mapping in this query | Strong developmental intestinal genetics, uncertain adult UC pathway [@rathjen2023clmp] |
+| **FAM217B** | No direct mapping | UC methylation candidate; mechanism unknown [@kang2016ucpanel] |
+| **FOXE1** | No direct mapping | Neoplasia-associated methylation marker; colon driver role unproven [@papadia2014foxesyne] |
+| **GDNF** | RET signaling; NCAM1 interactions and neurite outgrowth | Trophic stromal/neural signaling; inflammation-associated methylation [@saito2011ucmethylation] |
+| **IL10** | IL-10 production/signaling neighborhoods | Compensatory immune brake; ligand abundance does not prove response [@glocker2009il10r] |
+| **KIAA1614** | No direct mapping | UC promoter-methylation candidate with predicted, not established, polarity biology |
+| **NLRC4** | IPAF/NLRC4 inflammasome | Bacterial invasion sensing after barrier breach |
+| **NLRP3** | NLRP3 inflammasome | DAMP and organelle-stress sensing; activation requires more than RNA or methylation |
+| **RIBC2** | No direct mapping | Cilia biology in *Xenopus*; colon relevance unresolved [@chung2014ribc2] |
+| **SIGLEC5** | Neutrophil degranulation; immunoregulatory interactions | Myeloid abundance and inhibitory/activating paired-Siglec balance |
+| **SYNE1** | Meiotic synapsis in this query | The colon signal is more defensible as a methylation biomarker than this pathway mapping |
+
+## The most useful experimental panel
+
+The graph suggests measuring pathway outputs rather than adding more isolated genes. In paired tissue and plasma, a compact follow-up panel could combine:
+
+1. epithelial fraction, membrane E-cadherin, and permeability;
+2. NLRP3/NLRC4 complexes, cleaved caspase-1, gasdermin D, IL-1β, and IL-18;
+3. CD86-positive APC abundance, IL-10 protein, and IL-10-induced phospho-STAT3;
+4. p16^INK4a^/p14^ARF^ promoter-specific methylation, RNA, protein, and RB/p53 state;
+5. exact CpGs for FAM217B, KIAA1614, RIBC2, FOXE1, and SYNE1, validated in an external cohort.
+
+That design keeps three questions separate: **Which cells are present? Which pathways are active? Which methylation changes add predictive information?** Reactome is strongest for the second question. It cannot, by itself, convert an under-characterized methylation marker into a mechanism.
+
+#### References
