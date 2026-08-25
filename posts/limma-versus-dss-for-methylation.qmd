@@ -214,17 +214,63 @@ palette <- c(
 x <- sign(comparison$DSS_stat) * -log10(comparison$DSS_p)
 y <- sign(comparison$limma_t) * -log10(comparison$limma_p)
 
-plot(
-  x, y,
-  pch = 16,
-  col = palette[hit],
-  xlab = "DSS: signed -log10(p)",
-  ylab = "limma: signed -log10(p)"
+plot_data <- transform(
+  comparison,
+  DSS_evidence = x,
+  limma_evidence = y,
+  call = factor(hit, levels = names(palette)),
+  hover = sprintf(
+    paste(
+      "<b>%s:%s</b>",
+      "Call: %s",
+      "DSS statistic: %.2f | p: %.3g | FDR: %.3g",
+      "limma logFC: %.2f | t: %.2f | p: %.3g | FDR: %.3g",
+      sep = "<br>"
+    ),
+    chr, pos, hit,
+    DSS_stat, DSS_p, DSS_FDR,
+    limma_logFC, limma_t, limma_p, limma_FDR
+  )
 )
-abline(h = c(-1, 1) * -log10(0.05), lty = 3, col = "#718386")
-abline(v = c(-1, 1) * -log10(0.05), lty = 3, col = "#718386")
-abline(a = 0, b = 1, lty = 2, col = "#123b5d")
-legend("topleft", names(palette), col = palette, pch = 16, bty = "n", cex = 0.82)
+
+limit <- max(abs(c(x, y)), na.rm = TRUE) * 1.04
+threshold <- -log10(0.05)
+
+plotly::plot_ly(
+  plot_data,
+  x = ~DSS_evidence,
+  y = ~limma_evidence,
+  color = ~call,
+  colors = unname(palette),
+  text = ~hover,
+  hoverinfo = "text",
+  type = "scattergl",
+  mode = "markers",
+  marker = list(size = 7, opacity = 0.68)
+) |>
+  plotly::layout(
+    xaxis = list(title = "DSS: signed -log10(p)", range = c(-limit, limit)),
+    yaxis = list(title = "limma: signed -log10(p)", range = c(-limit, limit)),
+    legend = list(orientation = "h", x = 0, y = 1.08),
+    hovermode = "closest",
+    shapes = list(
+      list(type = "line", x0 = -limit, x1 = limit, y0 = -limit, y1 = limit,
+           line = list(color = "#123b5d", dash = "dash")),
+      list(type = "line", x0 = -threshold, x1 = -threshold, y0 = -limit, y1 = limit,
+           line = list(color = "#718386", dash = "dot")),
+      list(type = "line", x0 = threshold, x1 = threshold, y0 = -limit, y1 = limit,
+           line = list(color = "#718386", dash = "dot")),
+      list(type = "line", x0 = -limit, x1 = limit, y0 = -threshold, y1 = -threshold,
+           line = list(color = "#718386", dash = "dot")),
+      list(type = "line", x0 = -limit, x1 = limit, y0 = threshold, y1 = threshold,
+           line = list(color = "#718386", dash = "dot"))
+    )
+  ) |>
+  plotly::config(
+    displaylogo = FALSE,
+    responsive = TRUE,
+    modeBarButtonsToRemove = c("lasso2d", "select2d")
+  )
 ```
 
 ```{r}
@@ -287,12 +333,18 @@ This preference is conditional, not a claim that DSS is universally more powerfu
 - **Factorial contrasts:** exploit its transparent coefficient/contrast framework when the response suits a linear model.
 - **Sensitivity analysis:** agreement between a pre-specified continuous-summary analysis and the primary count model can test robustness, but should not be used to select the more favorable result.
 
-## A defensible analysis specification
+## Short conclusion: which should we use?
 
-Use DSS for primary CpG/DMR inference with pre-specified coverage filters, design matrix, dispersion strategy, DMR gap/length/CpG thresholds, minimum methylation difference, and FDR procedure. Report raw group-level coverage and methylation alongside model estimates. Use limma separately for compatible array data. Compare platforms at the level of direction, regions, and biological themes—not by pretending their observations share one likelihood.
+| Starting data or goal | Use | Why |
+|---|---|---|
+| Raw EM-seq methylated and total reads | **DSS** | Coverage and beta-binomial biological variation belong in the likelihood |
+| CpGs must be assembled into DMRs | **DSS** | It provides a coherent locus-to-region workflow |
+| Normalized 450K/EPIC array M-values | **limma** | The transformed continuous response matches its linear-model strengths |
+| Region/pathway summaries that are approximately Gaussian | **limma** | Its contrasts and empirical-Bayes variance moderation are excellent |
+| Robustness check for the EM-seq result | **Both, pre-specified** | DSS remains primary; limma can test whether direction survives a different representation |
 
-::: {.callout-important title="Statistical takeaway"}
-The key distinction is not “modern versus old” or “sequencing versus microarray” as labels. It is conditional sampling: EM-seq gives $M\mid N$. DSS represents that likelihood and its overdispersion explicitly. limma is elegant when the response and precision can legitimately be represented by a weighted Gaussian linear model.
+::: {.callout-important title="Conclusion"}
+For this study's raw EM-seq counts, use **DSS as the primary model**. Use **limma for compatible array data or justified continuous summaries**, not as a contest to find smaller p-values. The toy data show why: the methods often agree on direction, but coverage and likelihood choices change uncertainty and therefore the final calls.
 :::
 
 [Read the broader software history →](how-methylation-software-evolved.qmd) · [See the beta-binomial explainer →](statistical-analysis-of-methylation-data.qmd) · [Follow the pipeline →](../sequencing-methods.qmd)
