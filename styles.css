@@ -225,6 +225,54 @@ a { color: var(--teal); }
 .gene-switch-open { border-top: 5px solid var(--teal); background: #edf7f4; }
 .gene-switch-closed { border-top: 5px solid var(--gold); background: #fff8eb; }
 
+/* Histone scale explorer */
+.scale-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 1.5rem 0 2.2rem; }
+.scale-metric { padding: 1.3rem; border-radius: 1rem; border: 1px solid rgba(18,59,93,.1); background: linear-gradient(145deg, white, #edf7f4); box-shadow: 0 10px 28px rgba(16,47,59,.08); }
+.scale-metric strong { display: block; margin-bottom: .35rem; color: var(--ocean); font-family: "Source Serif 4", serif; font-size: clamp(1.55rem, 3vw, 2.25rem); line-height: 1; }
+.scale-metric p { margin: 0; color: var(--muted); font-size: .88rem; }
+.scale-explorer { margin: 1.2rem 0 2.7rem; padding: clamp(1.2rem, 3vw, 2rem); border-radius: 1.2rem; color: white; background: radial-gradient(circle at 88% 12%, rgba(244,198,110,.2), transparent 28%), linear-gradient(135deg, #102f3b, #176b74); box-shadow: 0 18px 46px rgba(16,47,59,.2); }
+.scale-explorer label { display: inline-block; margin-right: .8rem; color: #dff3ef; }
+.scale-explorer select { min-width: 14rem; padding: .65rem 2.4rem .65rem .8rem; border: 1px solid rgba(255,255,255,.35); border-radius: .65rem; color: var(--ocean); background: white; font-weight: 650; cursor: pointer; }
+.scale-output { display: grid; grid-template-columns: repeat(4, 1fr); gap: .8rem; margin-top: 1.5rem; }
+.scale-output > div { min-height: 132px; padding: 1rem; border: 1px solid rgba(255,255,255,.18); border-radius: .85rem; background: rgba(255,255,255,.09); transition: transform .3s ease, background .3s ease; }
+.scale-output > div:hover { transform: translateY(-4px); background: rgba(255,255,255,.14); }
+.scale-output span, .scale-output small { display: block; }
+.scale-output span { color: #b9e4d8; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.scale-output strong { display: block; margin: .45rem 0 .35rem; color: #f4c66e; font-family: "Source Serif 4", serif; font-size: clamp(1.15rem, 2vw, 1.55rem); line-height: 1.1; }
+.scale-output small { color: #e3f0ee; line-height: 1.35; }
+.annotated-science-figure { position: relative; margin: 1.4rem auto 1rem; overflow: hidden; border-radius: 1.15rem; box-shadow: 0 18px 48px rgba(16,47,59,.18); }
+.annotated-science-figure img { display: block; width: 100%; }
+.figure-pin { position: absolute; display: grid; place-items: center; width: clamp(1.75rem, 3vw, 2.5rem); height: clamp(1.75rem, 3vw, 2.5rem); border: 2px solid white; border-radius: 50%; color: #253242; background: var(--gold); font-weight: 800; box-shadow: 0 0 0 7px rgba(244,198,110,.18), 0 5px 18px rgba(0,0,0,.3); animation: hotspot-pulse 2.8s ease-in-out infinite; }
+.pin-1 { left: 12%; top: 57%; }
+.pin-2 { left: 33%; top: 63%; animation-delay: .25s; }
+.pin-3 { left: 53%; top: 42%; animation-delay: .5s; }
+.pin-4 { left: 72%; top: 39%; animation-delay: .75s; }
+.pin-5 { left: 91%; top: 35%; animation-delay: 1s; }
+.zoom-legend { display: grid; grid-template-columns: repeat(5, 1fr); gap: .65rem; margin: 0 0 2.5rem; }
+.zoom-item { padding: .9rem; border-top: 3px solid var(--gold); border-radius: .65rem; background: #fffaf0; font-size: .82rem; line-height: 1.45; }
+.zoom-item p { margin: 0; }
+.zoom-item strong { color: var(--ocean); }
+@keyframes hotspot-pulse { 0%, 100% { transform: scale(.94); } 50% { transform: scale(1.06); box-shadow: 0 0 0 12px rgba(244,198,110,0), 0 6px 22px rgba(0,0,0,.32); } }
+.packing-animation { position: relative; min-height: 270px; margin: 2rem 0 2.7rem; overflow: hidden; border-radius: 1.2rem; background: radial-gradient(circle at center, #1e7880, #102f3b 62%); box-shadow: 0 18px 44px rgba(16,47,59,.2); }
+.packing-core { position: absolute; left: calc(50% - 74px); top: 45px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; width: 148px; height: 116px; transform: rotate(-8deg); animation: core-float 4s ease-in-out infinite; }
+.packing-core span { border-radius: 45%; background: linear-gradient(145deg, #70d1c0, #174f68); border: 1px solid rgba(255,255,255,.35); box-shadow: inset 0 0 12px rgba(255,255,255,.18); }
+.packing-dna { position: absolute; left: 9%; right: 9%; top: 94px; height: 52px; border-top: 6px solid var(--gold); border-bottom: 6px solid #66d1bd; border-radius: 50%; transform: rotate(-4deg); animation: dna-wrap 5s ease-in-out infinite; }
+.packing-dna::before, .packing-dna::after { content: ""; position: absolute; left: 0; right: 0; height: 2px; top: 19px; background: repeating-linear-gradient(90deg, transparent 0 18px, rgba(255,255,255,.65) 18px 21px); }
+.packing-caption { position: absolute; left: 0; right: 0; bottom: 24px; color: #e5f4f2; text-align: center; font-weight: 700; letter-spacing: .04em; }
+@keyframes core-float { 0%, 100% { transform: translateY(0) rotate(-8deg); } 50% { transform: translateY(-7px) rotate(-3deg); } }
+@keyframes dna-wrap { 0%, 100% { transform: rotate(-4deg) scaleX(.96); } 50% { transform: rotate(4deg) scaleX(1.04); } }
+.human-dna-orbit { position: relative; min-height: 360px; margin: 2rem 0 2.7rem; overflow: hidden; border-radius: 1.2rem; color: white; background: radial-gradient(circle at 14% 50%, #f4c66e 0 2%, #9f6438 2.4%, transparent 8%), radial-gradient(circle at center, #174f68, #071820 70%); box-shadow: 0 18px 48px rgba(16,47,59,.25); }
+.orbit-sun, .orbit-earth, .orbit-neptune { position: absolute; display: grid; place-items: center; border-radius: 50%; z-index: 2; font-size: .7rem; font-weight: 700; }
+.orbit-sun { left: 10%; top: 42%; width: 58px; height: 58px; color: #382713; background: var(--gold); box-shadow: 0 0 40px rgba(244,198,110,.7); }
+.orbit-earth { left: 36%; top: 48%; width: 27px; height: 27px; color: white; background: linear-gradient(135deg, #56b8cc, #26658e); animation: planet-float 3.2s ease-in-out infinite; }
+.orbit-neptune { right: 9%; top: 43%; width: 42px; height: 42px; color: white; background: linear-gradient(135deg, #318ac0, #283a8b); animation: planet-float 4s ease-in-out infinite .5s; }
+.orbit-path { position: absolute; left: 14%; right: 11%; top: 50%; height: 3px; background: repeating-linear-gradient(90deg, var(--gold) 0 12px, transparent 12px 22px); opacity: .8; animation: orbit-flow 4s linear infinite; }
+.orbit-copy { position: absolute; left: 8%; right: 8%; bottom: 34px; text-align: center; }
+.orbit-copy p { margin: .25rem 0; }
+.orbit-copy strong { color: #f4c66e; font-family: "Source Serif 4", serif; font-size: clamp(1.35rem, 3vw, 2.1rem); }
+@keyframes planet-float { 0%, 100% { transform: translateY(-4px); } 50% { transform: translateY(5px); } }
+@keyframes orbit-flow { from { background-position: 0 0; } to { background-position: 110px 0; } }
+
 .download-grid, .lab-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.2rem; margin: 1.5rem 0 2.5rem; }
 .role-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.4rem; margin: 1.5rem 0 2.5rem; }
 .role-card { padding: 2rem; border-radius: 1rem; color: white; box-shadow: 0 16px 40px rgba(16,47,59,.15); }
@@ -273,11 +321,15 @@ thead { background: var(--ocean); color: white; }
   .signal-orbit-siga { top: 345px; }
   .model-compare { grid-template-columns: 1fr; }
   .gene-switch { grid-template-columns: 1fr; }
+  .scale-metrics, .scale-output { grid-template-columns: repeat(2, 1fr); }
+  .zoom-legend { grid-template-columns: repeat(2, 1fr); }
   .institution-band { grid-template-columns: 1fr; margin-left: 1.2rem; margin-right: 1.2rem; }
   .institution-action { white-space: normal; }
   .cancer-stats-header { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {
+  .scale-metrics, .scale-output, .zoom-legend { grid-template-columns: 1fr; }
+  .scale-explorer select { display: block; width: 100%; min-width: 0; margin-top: .6rem; }
   .hero { padding-top: 4rem; padding-bottom: 4rem; }
   .download-grid, .lab-grid, .metric-grid, .role-grid, .evidence-grid, .cancer-summary-grid { grid-template-columns: 1fr; }
   .cancer-bar-row { grid-template-columns: 6.4rem minmax(60px, 1fr) 4.2rem; gap: .55rem; font-size: .86rem; }
@@ -286,5 +338,5 @@ thead { background: var(--ocean); color: white; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .science-visual, .quarto-grid-item img, .emseq-step, .emseq-icon, .emseq-arrow, .fragment-bar, .nucleosome-peak, .progression-node, .progression-line::after, .cpg-mark, .cpg-arrow, .cpg-coil, .software-era, .count-vial, .pathway-level, .siga-story-step, .signal-orbit { animation: none; transition: none; }
+  .science-visual, .quarto-grid-item img, .emseq-step, .emseq-icon, .emseq-arrow, .fragment-bar, .nucleosome-peak, .progression-node, .progression-line::after, .cpg-mark, .cpg-arrow, .cpg-coil, .software-era, .count-vial, .pathway-level, .siga-story-step, .signal-orbit, .figure-pin, .packing-core, .packing-dna, .orbit-earth, .orbit-neptune, .orbit-path { animation: none; transition: none; }
 }
