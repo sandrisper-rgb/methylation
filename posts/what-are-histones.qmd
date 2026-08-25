@@ -1,0 +1,69 @@
+---
+title: "What are histones—and how does a cell pack two metres of DNA?"
+description: "From cell nucleus to nucleosome, and how CpG methylation can help open or close access to genes"
+date: 2026-08-25
+categories: [histones, chromatin, methylation, gene expression]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/cover-histones-chromatin.webp"
+---
+
+::: {.lead-panel}
+## DNA is stored, but never simply put away
+
+A human cell contains roughly **two metres of DNA** inside a nucleus only a few micrometres wide. Histones solve part of this packing problem: DNA winds around them to form nucleosomes. But the package is dynamic. A cell must continually expose the right regions for transcription, replication, and repair while keeping others protected.
+:::
+
+![DNA passes through open, looping, and compact chromatin states. Gold marks represent methylated cytosines; the scene is conceptual rather than a measured structure from this study.](../media/illustrations/cover-histones-chromatin.webp){.science-visual fig-alt="DNA wrapped around histones in open and compact chromatin, with methyl marks and an emerging RNA transcript"}
+
+## The packing trick: DNA around protein spools
+
+The core nucleosome contains eight histone proteins—two each of **H2A, H2B, H3, and H4**. About **147 DNA base pairs** wrap around that octamer approximately 1.7 times. Linker DNA connects one nucleosome to the next, producing the familiar “beads on a string.” Those fibers fold and interact at larger scales to form chromatin and, during cell division, highly condensed chromosomes.
+
+![A conceptual zoom from epithelial cell to nucleus, chromosome, chromatin, nucleosomes, and DNA wrapped around a histone core.](../media/illustrations/dna-packing-zoom.webp){.science-visual fig-alt="Nested zoom from a cell and nucleus to a chromosome, chromatin fiber, nucleosomes, and DNA around a histone octamer"}
+
+| Scale | What is happening | Why it matters |
+|---|---|---|
+| Cell → nucleus | The genome is contained in a protected compartment | The same DNA sequence is present in most cells, but access differs by cell type |
+| Chromosome → chromatin | Long DNA molecules are folded into a spatially organized polymer | Distant enhancers and promoters can meet; other regions are segregated |
+| Chromatin → nucleosome | DNA wraps around histone octamers | Packaging saves space and controls physical access to DNA |
+| Nucleosome → DNA sequence | Local proteins move, unwrap, or modify nucleosomes | Transcription factors and polymerases can reach—or fail to reach—a gene |
+
+## Histones are also control surfaces
+
+Histone tails extend from the nucleosome and can receive chemical modifications. **Acetylation** often weakens chromatin compaction and accompanies accessible, transcriptionally active regions. Removing acetyl groups can support a more compact state. **Histone methylation** is more context-dependent: its effect depends on which amino acid is modified and how many methyl groups are added. It can mark either active or repressed chromatin.
+
+That distinction matters: **DNA methylation at a CpG is not the same thing as histone methylation.** One modifies cytosine in DNA; the other modifies amino acids in histone proteins.
+
+## How CpGs can influence the histone package
+
+CpG methylation does not physically “methylate a histone.” Instead, the two systems communicate through proteins that read and remodel chromatin.
+
+```{mermaid}
+flowchart LR
+  A["CpG-rich promoter<br/>becomes methylated"] --> B["Some transcription factors<br/>bind less efficiently"]
+  A --> C["Methyl-CpG reader proteins<br/>bind the DNA"]
+  C --> D["HDAC and chromatin-remodelling<br/>complexes are recruited"]
+  B --> E["Promoter becomes<br/>less accessible"]
+  D --> E
+  E --> F["Transcription often decreases"]
+```
+
+At some promoters, dense CpG methylation can block particular transcription factors or recruit methyl-CpG-binding proteins. Those readers can bring histone deacetylases and chromatin-remodelling complexes to the region. Nucleosomes may then become more stable or compact, making it harder to assemble the transcription machinery. The result can be lower gene expression.
+
+::: {.callout-warning title="Methylation does not always mean silence"}
+Promoter methylation near a transcription start site is the clearest context for repression. Methylation inside an actively transcribed gene body can coexist with expression, and enhancer or intergenic methylation has context-specific effects. A methylated CpG alone is therefore not proof that its nearest gene is off.
+:::
+
+## What this study can—and cannot—observe
+
+EM-seq measures protected modified cytosines at single-base resolution. It can reveal whether CpGs in a promoter, gene body, enhancer, or other region differ between colitis, colorectal-cancer, and healthy-comparator samples. Standard EM-seq generally reads **5mC and 5hmC together**, so the signal should not automatically be called pure 5mC.
+
+The assay does **not** directly measure histone proteins, histone-tail modifications, chromatin accessibility, or RNA expression. Those would require assays such as ChIP-seq/CUT&Tag, ATAC-seq, or RNA-seq. Plasma fragment lengths and genomic end positions may carry indirect nucleosome footprints, but they remain inference—not a histone measurement. Tissue DNA is deliberately sheared, so its insert lengths cannot be interpreted as native chromatin footprints.
+
+::: {.callout-important title="The useful interpretation"}
+A promoter DMR is strongest when several neighboring CpGs change coherently, the effect survives coverage and cell-mixture checks, and RNA or protein measurements move in the expected direction. EM-seq supplies the methylation layer; the proposed histone-and-expression mechanism remains a testable explanation until those other layers are measured.
+:::
+
+[Explore DNA packaging](https://www.ncbi.nlm.nih.gov/books/NBK26834/) · [Review methylation by genomic context](https://doi.org/10.1038/nrg3230) · [Read about methylation–histone crosstalk](https://pmc.ncbi.nlm.nih.gov/articles/PMC6611551/)
+
+[How EM-seq reads methylation →](what-is-emseq.qmd) · [Why cfDNA fragments reflect chromatin →](what-is-fragmentomics.qmd) · [Follow the sequencing workflow →](../sequencing-methods.qmd)
