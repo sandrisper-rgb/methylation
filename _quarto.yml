@@ -24,6 +24,10 @@ website:
   navbar:
     background: primary
     search: true
+    right:
+      - icon: github
+        href: https://github.com/sandrisper-rgb/methylation
+        aria-label: "GitHub repository"
     left:
       - href: index.qmd
         text: Home

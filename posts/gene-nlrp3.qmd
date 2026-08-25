@@ -1,0 +1,37 @@
+---
+title: "NLRP3: a danger sensor with a two-sided intestinal role"
+description: "Inflammasome assembly, IL-1β/IL-18 maturation, pyroptosis, and context dependence"
+date: 2026-08-25
+categories: [gene profile, NLRP3, inflammasome, ulcerative colitis]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/pathway-network.webp"
+---
+
+## Function
+
+NLRP3 can assemble an inflammasome with ASC and caspase-1 after appropriate priming and activation signals. The complex matures IL-1β and IL-18 and can trigger gasdermin-D-dependent pyroptosis.
+
+::: {.gene-mechanism}
+::: {.gene-state}
+**Controlled NLRP3 activity**
+
+Supports danger sensing, antimicrobial defense, and context-dependent tissue repair.
+:::
+::: {.gene-flow-arrow}
+→
+:::
+::: {.gene-state .gene-state-off}
+**NLRP3 absent**
+
+Some inflammatory injury may decrease, but host defense and repair signals can also weaken.
+:::
+:::
+
+Too much activity can amplify chronic inflammation; too little is not universally beneficial. The presentation’s hypomethylation observation does not establish inflammasome assembly, which requires protein, localization, priming, and a second activation signal.
+
+<details><summary><strong>Functional readouts</strong></summary>
+
+NLRP3 protein, ASC specks, cleaved caspase-1, mature IL-1β/IL-18, gasdermin D cleavage, and cell-type localization.
+</details>
+
+[Back to the gene overview →](silenced-and-inflammatory-genes-in-colitis.qmd) · [NCBI Gene →](https://www.ncbi.nlm.nih.gov/gene/114548)

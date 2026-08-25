@@ -1,0 +1,37 @@
+---
+title: "CD86: the context-setting signal for T-cell activation"
+description: "How antigen-presenting cells tune CD28 and CTLA-4 signaling"
+date: 2026-08-25
+categories: [gene profile, CD86, adaptive immunity, methylation]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/pathway-network.webp"
+---
+
+## Function
+
+CD86 is displayed by antigen-presenting cells and binds **CD28** to support T-cell co-stimulation and **CTLA-4** to help restrain responses. Its meaning depends on timing, receptor availability, and the activation state of both cells.
+
+::: {.gene-mechanism}
+::: {.gene-state}
+**CD86 available**
+
+Antigen recognition receives a context signal that can support or regulate T-cell activation.
+:::
+::: {.gene-flow-arrow}
+→
+:::
+::: {.gene-state .gene-state-off}
+**CD86 reduced**
+
+T-cell priming may weaken, but inflammatory output can also change because CTLA-4 engagement is lost.
+:::
+:::
+
+The UC hypomethylation signal is biologically compatible with abundant/activated antigen-presenting cells, but does not prove CD86 overexpression. Bulk biopsy composition is a major competing explanation.
+
+<details><summary><strong>Best paired measurements</strong></summary>
+
+Cell-type-resolved methylation, CD86 RNA/protein, APC abundance, CD28/CTLA-4 context, and tissue inflammatory state.
+</details>
+
+[Back to the gene overview →](silenced-and-inflammatory-genes-in-colitis.qmd) · [NCBI Gene →](https://www.ncbi.nlm.nih.gov/gene/942)

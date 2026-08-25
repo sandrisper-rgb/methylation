@@ -1,0 +1,37 @@
+---
+title: "CDKN2A: two tumour-suppressor programs in one locus"
+description: "How p16INK4a and p14ARF protect cell-cycle control and what promoter silencing can remove"
+date: 2026-08-25
+categories: [gene profile, CDKN2A, tumour suppressor, methylation]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/pathway-network.webp"
+---
+
+## Function
+
+The CDKN2A locus encodes distinct proteins through alternative reading frames. **p16INK4a** inhibits CDK4/6 to keep RB growth control engaged; **p14ARF** helps stabilize p53 by opposing MDM2.
+
+::: {.gene-mechanism}
+::: {.gene-state}
+**CDKN2A programs active**
+
+Damaged or stressed cells face senescence, arrest, or p53-linked safeguards.
+:::
+::: {.gene-flow-arrow}
+→
+:::
+::: {.gene-state .gene-state-off}
+**Promoter/locus disabled**
+
+RB and/or p53 safeguards weaken, making inappropriate proliferation easier.
+:::
+:::
+
+Deletion, mutation, and promoter methylation can disable this locus in cancer. In long-standing UC, methylation can be a field-change marker, but a methylated read does not prove both products are lost or that a clone will become malignant.
+
+<details><summary><strong>Required resolution</strong></summary>
+
+Identify the promoter/transcript affected, verify p16/p14 RNA and protein, map the epithelial clone, and assess RB/p53 pathway state.
+</details>
+
+[Back to the gene overview →](silenced-and-inflammatory-genes-in-colitis.qmd) · [NCBI Gene →](https://www.ncbi.nlm.nih.gov/gene/1029)

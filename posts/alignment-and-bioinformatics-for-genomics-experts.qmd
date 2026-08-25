@@ -1,0 +1,175 @@
+---
+title: "From EM-seq reads to an integrated study matrix"
+description: "The alignment, methylation, fragmentomics, DMR, and sIgA processing flow for a genomics audience"
+date: 2026-08-25
+categories: [bioinformatics, alignment, EM-seq, cfDNA, sIgA]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/genomics-alignment-integration.png"
+---
+
+::: {.lead-panel}
+## Scope
+
+This is the technical handoff from paired-end EM-seq FASTQs and ELISA plate readings to analysis-ready participant features. The genomics branch uses conversion-aware alignment and retains methylated/total counts; the sIgA branch is a separate quantitative assay that joins only after its own calibration and QC.
+:::
+
+![The study has two processing lanes: tissue/plasma EM-seq becomes aligned CpG and fragment features, while serum sIgA becomes a calibrated ELISA value. They meet at the de-identified participant matrix.](../media/illustrations/genomics-alignment-integration.png){.science-visual fig-alt="Detailed biomedical workflow from colon cells and plasma cfDNA through enzymatic methyl sequencing, paired-read alignment, CpG and fragment analysis, plus a separate triplicate ELISA path converging on a participant feature matrix"}
+
+## Assay topology
+
+For each of the [18 planned participants](../research.qmd#planned-design), the design links colonic tissue DNA, plasma cfDNA, and serum sIgA. The sequencing libraries are not interchangeable:
+
+- **Tissue DNA** is extracted from a heterogeneous biopsy and intentionally fragmented during library preparation. Its methylation is biologically interpretable; its insert-size distribution is largely a laboratory product.
+- **Plasma cfDNA** arrives pre-fragmented by in-vivo release, nucleosome protection, and nuclease cleavage. If preparation preserves molecule geometry, paired alignments support methylation plus native fragmentomics.
+- **Serum sIgA** is measured by ELISA. No sIgA sequence reads enter the genomics workflow.
+
+Three laboratory technical replicates from a participant remain nested under that participant. They provide reproducibility and QC information, not additional biological degrees of freedom.
+
+## End-to-end flow
+
+```{mermaid}
+flowchart TD
+  subgraph DNA[EM-seq branch]
+    T[Tissue DNA<br/>controlled shearing] --> L[EM-seq library]
+    P[Native plasma cfDNA] --> L
+    L --> Q[Paired FASTQ<br/>fastp + FastQC/MultiQC]
+    Q --> A[bwa-meth<br/>GRCh38 alignment]
+    A --> B[Sorted/indexed BAM<br/>read groups + duplicate/QC]
+    B --> MB[M-bias + conversion<br/>diagnostics]
+    MB --> C[MethylDackel<br/>methylated/total CpG counts]
+    C --> BS[BSseq/count matrices]
+    BS --> DSS[DSS DML/DMR contrasts]
+    B --> F[Plasma-only native<br/>fragment features]
+  end
+
+  subgraph ELISA[sIgA branch]
+    S[Serum] --> W[Standards, blanks,<br/>controls + replicate wells]
+    W --> OD[Blank-corrected OD]
+    OD --> CAL[Calibration curve +<br/>dilution correction]
+    CAL --> IG[One reviewed sIgA<br/>estimate + QC]
+  end
+
+  DSS --> J[Participant-level feature matrix]
+  F --> J
+  IG --> J
+  X[Clinical group, inflammation,<br/>covariates + batch] --> J
+```
+
+## 1. Sample sheet and identity are first-class data
+
+Before sequence processing, a machine-readable manifest should bind `participant_id`, specimen, technical replicate, library, lane, read files, collection time, extraction batch, library batch, and clinical group. The participant identifier—not the library name—is the join key used in analysis.
+
+Identity and contamination checks should be resolved before group modeling. Replicates must agree genetically where informative, and tissue/plasma labels should not be inferred from filenames alone. No clinical identifier belongs in public analysis artifacts.
+
+## 2. EM-seq chemistry changes what alignment means
+
+NEBNext EM-seq protects modified cytosines through TET2 oxidation and T4-BGT glucosylation, then APOBEC converts unmodified cytosines so they are read as thymine after amplification [@vaisvila2021emseq]. Standard EM-seq therefore reports protected **5mC + 5hmC** rather than separating them.
+
+The aligner must tolerate conversion-induced C→T and complementary G→A differences. [`bwa-meth`](https://github.com/brentp/bwa-meth) presents a BWA-MEM-based conversion-aware mapping path against GRCh38 and emits conventional SAM/BAM coordinates for downstream tools.
+
+## 3. FASTQ and alignment QC
+
+Adapter/quality trimming with `fastp` should produce both cleaned reads and per-library JSON/HTML metrics. The point is not maximal trimming; it is removal of demonstrated adapter/read-through and low-quality tails without erasing short cfDNA molecules.
+
+After alignment, retain at least:
+
+| Metric | Why it matters |
+|---|---|
+| total and retained read pairs | library yield and differential attrition |
+| mapped and properly paired fraction | trustworthy coordinates and inserts |
+| MAPQ distribution | ambiguous mapping and repetitive regions |
+| duplicate fraction | independent library complexity |
+| insert-size distribution by specimen | plasma nucleosomal pattern; tissue shearing QC |
+| mitochondrial/off-target fraction | sample and preparation behavior |
+| spike-in conversion controls | incomplete conversion or overconversion |
+| read-cycle methylation/M-bias | end repair or position-specific bias |
+
+Coordinate sorting, indexing, read-group completeness, flag statistics, and duplicate policy must be consistent across libraries. Group must not be confounded with lane or preparation batch.
+
+## 4. M-bias-aware methylation extraction
+
+[`MethylDackel`](https://github.com/dpryan79/MethylDackel) can inspect per-cycle methylation bias and extract strand-aware cytosine calls from the BAM. End trimming parameters should be chosen from the observed M-bias profile and fixed by library class, rather than tuned to maximize group separation.
+
+The irreducible per-CpG record is:
+
+```text
+chr  pos  strand/context  methylated_count  unmethylated_count  total_coverage
+```
+
+CHG/CHH calls and spike-ins are useful conversion diagnostics even when biological inference is restricted to CpG sites. Filters should address MAPQ, base quality, overlapping mate double-counting, duplicates, extreme depth, blacklisted/problematic loci, strand combination, and minimum sample coverage. Every transformation should be represented in a QC report and a versioned callable-loci mask.
+
+## 5. Replicates become count-aware matrices
+
+After technical-replicate QC, valid sequencing replicates can be combined at the evidence level where the laboratory design supports pooling:
+
+$$M_{gi}=\sum_r M_{gir},\qquad N_{gi}=\sum_r N_{gir}.$$
+
+This preserves the difference between, for example, 5/10 and 50/100. Averaging replicate beta values would discard that precision structure. If technical batches are scientifically important or replicates are not exchangeable, keep them explicit in a hierarchical model instead.
+
+The analysis object should retain genomic ranges, $M$, $N$, sample metadata, callable status, technical provenance, and specimen type. Tissue and plasma can share coordinates without being forced into the same coverage filter.
+
+## 6. Differential methylation and regions
+
+For raw EM-seq counts, DSS supplies a beta-binomial, dispersion-shrunk route from CpGs to DMLs and DMRs. Pre-specified contrasts are UC versus healthy, CRC versus healthy, and CRC versus UC, with a parsimonious design for batch and defensible covariates.
+
+DMR output should retain:
+
+- genomic interval and number of contributing CpGs;
+- direction and magnitude of methylation difference;
+- test statistic, raw p-value, and FDR;
+- coverage/callability by group and specimen;
+- gene, promoter, enhancer, CpG-island, and pathway annotations; and
+- whether direction agrees in matched tissue and plasma.
+
+[The limma-versus-DSS comparison](limma-versus-dss-for-methylation.qmd) explains why coverage belongs in the primary likelihood and includes a runnable real-data example.
+
+## 7. Plasma fragmentomics branches from BAM—not from tissue inserts
+
+Properly paired, primary plasma alignments can yield template length, left/right end coordinates, end motifs, window coverage, and TSS-centered footprints. Deduplication, clipping, MAPQ, read overlap, and conversion-aware sequence interpretation must be specified. End motifs observed after conversion chemistry are not automatically equivalent to motifs from ordinary WGS.
+
+Fragment features should be aggregated before participant-level modeling: length-bin proportions, short/long ratios, nucleosomal modes, regional end counts, and normalized coverage around locked regions. Tissue insert sizes should remain library QC unless native tissue fragmentation was preserved by a distinct protocol.
+
+## 8. sIgA processing is a separate quantitative pipeline
+
+The serum assay begins with plate layout: standards, blanks, controls, participant wells, dilution, replicate, plate, and position. The presentation describes a seven-point 1.250-to-0 µg/ml development curve with reported $R^2=0.959$; that number alone does not validate a plate.
+
+A reproducible processing path should:
+
+1. subtract or model blank signal;
+2. fit the pre-specified calibration function, commonly a validated 4PL/5PL form where appropriate;
+3. back-calculate concentration and apply the dilution factor;
+4. check standard recovery, monotonicity, residuals, controls, and plate drift;
+5. compute replicate CV and apply pre-specified repeat/failure rules;
+6. flag values below LLOQ, above ULOQ, or saturated rather than silently imputing them; and
+7. emit one reviewed participant estimate plus replicate- and plate-level provenance.
+
+```text
+participant_id  siga_concentration  replicate_cv  plate  censor_flag  qc
+P001            0.73                0.021         A01    NONE         PASS
+```
+
+sIgA is then joined to methylation/fragment features by participant ID. It should not be normalized like a sequencing count matrix or treated as a surrogate for local mucosal IgA.
+
+## 9. The contract between pipelines
+
+The final integration layer should be narrow and explicit:
+
+| Output object | Unit | Typical columns |
+|---|---|---|
+| methylation regions | participant × DMR | estimate, coverage, uncertainty, specimen |
+| fragment summary | participant × feature | normalized count/proportion, plasma QC |
+| sIgA summary | participant | concentration, CV, censor/QC flags |
+| phenotype table | participant | group, inflammation, covariates, batch |
+
+Joining all rows into one table does not remove their different error models. High-dimensional discovery occurs with count-aware methods; sIgA and fragment summaries enter association or small integrated models only after QC and dimension reduction.
+
+::: {.callout-important title="Expert takeaway"}
+The pipeline preserves the observation model at every handoff: converted paired reads become coordinate-aware methylated/total counts; only native plasma alignments become fragmentomics; ELISA wells become one calibrated sIgA estimate; and all technical replicates collapse to—or are modeled under—the participant, the biological unit.
+:::
+
+[See the complete study design →](../research.qmd) · [Inspect example processed tables →](three-data-streams-one-study.qmd) · [Read the ML framing →](study-for-machine-learning-scientists.qmd) · [Read the statistical framing →](study-for-statisticians.qmd) · [Open the sequencing methods page →](../sequencing-methods.qmd)
+
+## References
+
+::: {#refs}
+:::

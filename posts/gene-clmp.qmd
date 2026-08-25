@@ -1,0 +1,37 @@
+---
+title: "CLMP: an adhesion molecule with intestinal consequences"
+description: "Cell contact, intestinal development, and what reduced expression could mean"
+date: 2026-08-25
+categories: [gene profile, CLMP, epithelial barrier, methylation]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/pathway-network.webp"
+---
+
+## Function
+
+CLMP encodes an immunoglobulin-superfamily cell-adhesion protein associated with cell–cell contacts and epithelial organization. Biallelic human loss-of-function variants are linked to congenital short-bowel syndrome, making intestinal relevance more than a pathway guess.
+
+::: {.gene-mechanism}
+::: {.gene-state}
+**CLMP at cell contacts**
+
+Supports organized epithelial relationships and intestinal development.
+:::
+::: {.gene-flow-arrow}
+→
+:::
+::: {.gene-state .gene-state-off}
+**CLMP function lost**
+
+Severe developmental intestinal phenotypes can occur; adult inflammatory downregulation may be subtler and is not equivalent to a germline knockout.
+:::
+:::
+
+The presentation’s UC finding is hypomethylation, not demonstrated loss. Depending on locus, lower methylation could accompany more expression, less expression, or a changing mix of epithelial and immune cells.
+
+<details><summary><strong>How to test barrier relevance</strong></summary>
+
+Measure CLMP in epithelial cells, junction localization, transepithelial resistance, permeability, and wound repair while resolving the associated CpGs.
+</details>
+
+[Back to the gene overview →](silenced-and-inflammatory-genes-in-colitis.qmd) · [NCBI Gene →](https://www.ncbi.nlm.nih.gov/gene/79827)

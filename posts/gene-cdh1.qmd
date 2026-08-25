@@ -1,0 +1,37 @@
+---
+title: "CDH1: E-cadherin and the architecture of an epithelium"
+description: "Adherens junctions, β-catenin, tissue cohesion, and the consequences of reduced expression"
+date: 2026-08-25
+categories: [gene profile, CDH1, epithelial barrier, cancer]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/pathway-network.webp"
+---
+
+## Function
+
+CDH1 encodes **E-cadherin**, a calcium-dependent adhesion protein central to epithelial adherens junctions. Its cytoplasmic partners connect cell–cell adhesion to the actin cytoskeleton and intersect with β-catenin biology.
+
+::: {.gene-mechanism}
+::: {.gene-state}
+**E-cadherin at junctions**
+
+Epithelial cells maintain cohesion, polarity, and organized tissue boundaries.
+:::
+::: {.gene-flow-arrow}
+→
+:::
+::: {.gene-state .gene-state-off}
+**CDH1 reduced or lost**
+
+Adhesion weakens; motility, invasion, and epithelial plasticity may increase.
+:::
+:::
+
+In inflamed colon, junction disruption can arise without CDH1 promoter methylation, and bulk expression can change with epithelial loss. In neoplasia, CDH1 silencing may cooperate with many other alterations; it is not sufficient by itself.
+
+<details><summary><strong>Best evidence chain</strong></summary>
+
+Promoter DMR → lower CDH1 RNA → reduced/mislocalized E-cadherin protein → altered junction and permeability phenotype, all in the same relevant cells.
+</details>
+
+[Back to the gene overview →](silenced-and-inflammatory-genes-in-colitis.qmd) · [NCBI Gene →](https://www.ncbi.nlm.nih.gov/gene/999)

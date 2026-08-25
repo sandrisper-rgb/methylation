@@ -1,0 +1,41 @@
+---
+title: "KIAA1614: a candidate link to polarity, still largely uncharacterized"
+description: "UC-associated promoter methylation, predicted cellular roles, and the limits of mechanistic inference"
+date: 2026-08-25
+categories: [gene profile, KIAA1614, methylation, ulcerative colitis]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/pathway-network.webp"
+---
+
+## Why it appeared
+
+**KIAA1614** had the highest methylation frequency of the three validated promoter-panel genes in the cited UC series, with reduced RNA expression [Kang et al.](https://pmc.ncbi.nlm.nih.gov/articles/PMC5000688/).
+
+::: {.gene-mechanism}
+::: {.gene-state}
+**Expressed**
+
+Predicted participation in cell polarity, localization, and the centrosome cycle.
+:::
+::: {.gene-flow-arrow}
+→
+:::
+::: {.gene-state .gene-state-off}
+**Expression reduced**
+
+A plausible polarity phenotype exists, but it has not been demonstrated in UC epithelium.
+:::
+:::
+
+## Function and loss
+
+[NCBI’s curated record](https://www.ncbi.nlm.nih.gov/gene/57710) lists predicted involvement in centrosome cycle, establishment or maintenance of cell polarity, and regulation of cellular localization, with predicted activity at the apical membrane, cortex, and nucleus. Much of this annotation is computational rather than direct human intestinal evidence.
+
+If genuine loss disrupted epithelial polarity, one could imagine altered apical–basal organization or repair. That is a **testable hypothesis**, not a result. Lower bulk-tissue RNA could also reflect fewer expressing cells rather than repression within each cell.
+
+<details><summary><strong>Best next experiment</strong></summary>
+
+Localize KIAA1614 in colon cell types, perturb it in polarized organoids, and measure junction placement, centrosomes, wound closure, and rescue while confirming the promoter methylation state.
+</details>
+
+[Back to the gene overview →](silenced-and-inflammatory-genes-in-colitis.qmd) · [NCBI Gene →](https://www.ncbi.nlm.nih.gov/gene/57710)

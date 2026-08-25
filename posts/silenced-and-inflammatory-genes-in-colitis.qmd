@@ -21,9 +21,9 @@ The presentation cites [Kang and colleagues' UC methylation study](https://pmc.n
 
 | Gene | What the cited study observed | What can safely be concluded |
 |---|---|---|
-| **FAM217B** | Promoter hypermethylation in UC and lower RNA expression in tested UC tissue | A candidate UC methylation marker; its role in disease was not established |
-| **KIAA1614** | The highest reported methylation frequency of the three in the validation series, plus lower expression | Strong panel member in that dataset, not proof of causal silencing in progression |
-| **RIBC2** | Promoter hypermethylation and reduced expression in tested UC tissue | A reproducible association within that study; biological function remained uncertain |
+| [**FAM217B**](gene-fam217b.qmd) | Promoter hypermethylation in UC and lower RNA expression in tested UC tissue | A candidate UC methylation marker; its role in disease was not established |
+| [**KIAA1614**](gene-kiaa1614.qmd) | The highest reported methylation frequency of the three in the validation series, plus lower expression | Strong panel member in that dataset, not proof of causal silencing in progression |
+| [**RIBC2**](gene-ribc2.qmd) | Promoter hypermethylation and reduced expression in tested UC tissue | A reproducible association within that study; biological function remained uncertain |
 
 The important result is the **methylation–expression relationship**: promoter methylation was higher while measured transcription was lower. That is consistent with epigenetic repression. It does not show that losing these transcripts causes UC, dysplasia, or cancer. The authors themselves noted that the genes' human disease functions were unknown.
 
@@ -50,11 +50,11 @@ Nor is an epigenetic mark necessarily permanent. Cell mixture, inflammatory cyto
 
 The slides also list **IL10, SIGLEC5, CD86, CLMP, NLRP3, and NLRC4** as hypomethylated in severe UC. Hypomethylation means lower methylation at the reported sites—not automatically higher expression. Their broad biological contexts make them plausible inflammation markers:
 
-- **IL10** encodes a central anti-inflammatory cytokine that restrains excessive immune responses.
-- **SIGLEC5** encodes an inhibitory receptor found on innate immune cells and involved in sensing sialylated structures.
-- **CD86** provides a co-stimulatory signal used by antigen-presenting cells to shape T-cell activation.
-- **CLMP** encodes a cell-adhesion protein relevant to epithelial organization and intestinal development.
-- **NLRP3** and **NLRC4** encode innate immune sensors that can assemble inflammasomes and promote inflammatory cytokine processing.
+- [**IL10**](gene-il10.qmd) encodes a central anti-inflammatory cytokine that restrains excessive immune responses.
+- [**SIGLEC5**](gene-siglec5.qmd) encodes an inhibitory receptor found on innate immune cells and involved in sensing sialylated structures.
+- [**CD86**](gene-cd86.qmd) provides a co-stimulatory signal used by antigen-presenting cells to shape T-cell activation.
+- [**CLMP**](gene-clmp.qmd) encodes a cell-adhesion protein relevant to epithelial organization and intestinal development.
+- [**NLRP3**](gene-nlrp3.qmd) and [**NLRC4**](gene-nlrc4.qmd) encode innate immune sensors that can assemble inflammasomes and promote inflammatory cytokine processing.
 
 This set is biologically coherent with immune activation and epithelial stress. It is not a validated cancer panel, and some differences could reflect more immune cells in an inflamed biopsy rather than epigenetic change within the same cell type.
 
@@ -64,10 +64,10 @@ The cited paper also summarizes prior evidence for methylation of **CDKN2A/p16**
 
 | Gene/process | Why methylation could matter | Boundary |
 |---|---|---|
-| **CDKN2A/p16** · cell-cycle brake | Promoter silencing can weaken control of cell division | A methylated locus is not sufficient to create a tumor |
-| **CDH1** · epithelial adhesion | Reduced E-cadherin may weaken tissue architecture and increase invasive potential | Expression and protein localization need direct measurement |
-| **GDNF** · cell survival/signaling | Altered regulation may change epithelial and neural-support signaling | Context-dependent and not specific to UC-associated cancer |
-| **FOXE1/SYNE1** · candidate neoplasia panel | Methylation has been evaluated as a marker of colitis-associated colorectal neoplasia | Biomarker association is not proof of driver function |
+| [**CDKN2A/p16**](gene-cdkn2a.qmd) · cell-cycle brake | Promoter silencing can weaken control of cell division | A methylated locus is not sufficient to create a tumor |
+| [**CDH1**](gene-cdh1.qmd) · epithelial adhesion | Reduced E-cadherin may weaken tissue architecture and increase invasive potential | Expression and protein localization need direct measurement |
+| [**GDNF**](gene-gdnf.qmd) · cell survival/signaling | Altered regulation may change epithelial and neural-support signaling | Context-dependent and not specific to UC-associated cancer |
+| [**FOXE1**](gene-foxe1.qmd) / [**SYNE1**](gene-syne1.qmd) · candidate neoplasia panel | Methylation has been evaluated as a marker of colitis-associated colorectal neoplasia | Biomarker association is not proof of driver function |
 
 ## How this project should test the genes
 

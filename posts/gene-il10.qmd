@@ -1,0 +1,39 @@
+---
+title: "IL10: the intestinal immune brake"
+description: "How IL-10 restrains inflammation and why methylation does not automatically report its activity"
+date: 2026-08-25
+categories: [gene profile, IL10, immunity, ulcerative colitis]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/pathway-network.webp"
+---
+
+## Function
+
+**IL10** encodes a cytokine that limits excessive inflammatory programs, including antigen-presentation and pro-inflammatory cytokine output, while supporting aspects of B-cell biology. Its receptor activates JAK–STAT signaling. The [NCBI Gene summary](https://www.ncbi.nlm.nih.gov/gene/3586) highlights its essential intestinal immunoregulatory role in knockout studies.
+
+::: {.gene-mechanism}
+::: {.gene-state}
+**IL-10 signaling**
+
+Immune activation is restrained; tissue-damaging responses can resolve.
+:::
+::: {.gene-flow-arrow}
+→
+:::
+::: {.gene-state .gene-state-off}
+**IL-10 pathway lost**
+
+Uncontrolled intestinal inflammation can follow; human IL-10/IL-10R defects cause severe early-onset enterocolitis.
+:::
+:::
+
+## How to read this study’s methylation signal
+
+The presentation lists IL10 among hypomethylated immune genes in severe UC. That does not guarantee more IL10 RNA or protein: the result depends on CpG location, responding cell type, and immune-cell abundance. IL10 may rise as a compensatory brake during inflammation even when disease remains active.
+
+<details><summary><strong>Measurements needed</strong></summary>
+
+Resolve the DMR location, cell composition, IL10 transcript, circulating/local protein, and STAT3 pathway response before claiming functional activation.
+</details>
+
+[Back to the gene overview →](silenced-and-inflammatory-genes-in-colitis.qmd) · [NCBI Gene →](https://www.ncbi.nlm.nih.gov/gene/3586)

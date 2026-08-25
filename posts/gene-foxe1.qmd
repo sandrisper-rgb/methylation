@@ -1,0 +1,37 @@
+---
+title: "FOXE1: a developmental transcription factor used as a methylation marker"
+description: "Strong developmental biology, limited colon mechanism, and a potentially useful neoplasia signal"
+date: 2026-08-25
+categories: [gene profile, FOXE1, transcription factor, biomarker]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/pathway-network.webp"
+---
+
+## Function
+
+FOXE1 encodes a forkhead transcription factor with established roles in thyroid and craniofacial development. Its promoter methylation has also been investigated as a marker in several cancers and in colitis-associated neoplasia.
+
+::: {.gene-mechanism}
+::: {.gene-state}
+**FOXE1 expressed in its developmental context**
+
+Coordinates lineage-specific transcriptional programs.
+:::
+::: {.gene-flow-arrow}
+→
+:::
+::: {.gene-state .gene-state-off}
+**FOXE1 methylated in colon samples**
+
+May be a robust epigenetic marker even if the downstream colon-specific mechanism is unclear.
+:::
+:::
+
+This distinction matters: a locus can classify tissue state because its methylation is reproducible, without its protein being a driver in that tissue. The cited UC panel paper reported FOXE1 methylation in a subset of UC samples but did not establish functional silencing as a progression mechanism.
+
+<details><summary><strong>Biomarker versus driver test</strong></summary>
+
+Confirm colon-cell expression and regulons before proposing a driver role; assess replicated methylation and prospective outcome association for biomarker use.
+</details>
+
+[Back to the gene overview →](silenced-and-inflammatory-genes-in-colitis.qmd) · [NCBI Gene →](https://www.ncbi.nlm.nih.gov/gene/2304)

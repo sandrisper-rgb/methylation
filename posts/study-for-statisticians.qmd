@@ -1,0 +1,125 @@
+---
+title: "This methylation study, explained to a statistician"
+description: "Experimental units, estimands, contrasts, pairing, count models, technical replication, and multiplicity"
+date: 2026-08-25
+categories: [statistics, methylation, multi-omics, study design]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/cover-limma-dss.webp"
+---
+
+::: {.lead-panel}
+## The statistical problem
+
+This is an exploratory, cross-sectional, three-group study with paired tissue and plasma specimens, high-dimensional methylation counts, a lower-dimensional serum sIgA outcome, and laboratory technical replication nested within 18 participants.
+:::
+
+Alignment and methylation calling are treated as given. The analysis begins with genomic coordinates, methylated counts $M$, informative coverage $N$, specimen and replicate identifiers, assay QC, and participant covariates.
+
+## Design and hierarchy
+
+The planned groups are [high-risk UC ($n=8$), CRC ($n=5$), and healthy comparators ($n=5$)](../research.qmd#planned-design). Plasma and colonic tissue are paired within participant. Three technical replicates characterize laboratory variability.
+
+```{mermaid}
+flowchart TD
+  G[Clinical group] --> P[Participant: independent unit]
+  P --> A[Plasma assay]
+  P --> B[Tissue assay]
+  P --> C[sIgA assay]
+  A --> AR[Three technical replicates]
+  B --> BR[Three technical replicates]
+  C --> CR[Three technical replicates]
+  AR --> AF[CpG and region summaries]
+  BR --> BF[CpG and region summaries]
+  CR --> CF[One QC-controlled concentration]
+```
+
+Reads are binomial sampling units conditional on a biological specimen; CpGs are repeated genomic features; technical replicates are nested measurements; participants are the biological replicates. Any analysis that treats reads, CpGs, or technical replicates as independent patients is pseudoreplication.
+
+## Primary estimands should be explicit
+
+For each tissue type and CpG or region, sensible estimands include:
+
+- mean methylation difference: UC minus healthy;
+- mean methylation difference: CRC minus healthy;
+- mean methylation difference: CRC minus UC;
+- tissue–plasma difference within participant; and
+- difference in tissue–plasma concordance across clinical groups.
+
+For sIgA, the natural estimands are group differences in an appropriately transformed concentration and associations with pre-specified methylation summaries after adjustment for group and inflammation.
+
+An ordered “healthy → UC → CRC” contrast may be explored, but it does not estimate progression: the groups are different people observed once, not repeated stages in the same individuals.
+
+## Why methylation is a count problem
+
+At CpG $g$ for sample $i$:
+
+$$M_{gi}\mid N_{gi},p_{gi}\sim\operatorname{Binomial}(N_{gi},p_{gi}),$$
+
+with biological heterogeneity motivating a beta-binomial extension. Coverage $N_{gi}$ varies substantially, especially in plasma. A site observed as $1/2$ and one observed as $50/100$ both have beta value 0.5 but radically different precision.
+
+For raw EM-seq counts, a count-aware model such as DSS is therefore a defensible primary approach. A transformed continuous model can be a sensitivity analysis when its weights and mean–variance assumptions are explicit. [The limma-versus-DSS post develops this distinction with executable real-data R code.](limma-versus-dss-for-methylation.qmd)
+
+## Contrasts and multiplicity
+
+A minimal group parameterization can use healthy as reference:
+
+$$g\{p_{gi}\}=\alpha_g+\beta_{g,UC}I(UC_i)+\beta_{g,CRC}I(CRC_i)+\boldsymbol\gamma_g^T\mathbf z_i,$$
+
+where $\mathbf z_i$ contains only defensible, pre-specified nuisance variables. With 18 participants, every adjustment consumes scarce information; batch must be prevented from becoming aliased with clinical group by design wherever possible.
+
+The three key contrasts are:
+
+| Contrast | Interpretation |
+|---|---|
+| $\beta_{g,UC}$ | UC versus healthy |
+| $\beta_{g,CRC}$ | CRC versus healthy |
+| $\beta_{g,CRC}-\beta_{g,UC}$ | CRC versus UC |
+
+Report methylation differences with confidence intervals or compatible uncertainty measures, coverage, and FDR. Region calling should require coherent neighboring CpGs and pre-specified thresholds. Nominal $p<0.05$ across millions of CpGs is not evidence control.
+
+## How to handle the three technical replicates
+
+Replicates serve QC and precision estimation. A pre-specified workflow should:
+
+1. retain replicate-level provenance and QC metrics;
+2. identify failures using assay-specific rules without looking at group outcomes;
+3. quantify concordance and batch/library effects;
+4. combine valid sequencing replicates at the count level when scientifically appropriate, so coverage is preserved; and
+5. reduce ELISA replicates to a dilution-corrected participant estimate with replicate CV and quantification-limit flags.
+
+If replicate-specific variability is itself important, use an explicit hierarchical model. Do not enter three replicate rows into an ordinary group test and claim 54 degrees of biological replication.
+
+## Pairing tissue and plasma
+
+Tissue and plasma are different measurement regimes, not interchangeable repeated assays. A joint model should allow specimen-specific mean, variance, coverage, and mixture effects while using participant pairing.
+
+At a reduced set of regions, one interpretable model is:
+
+$$y_{is}=\alpha+\beta_1 Group_i+\beta_2 Specimen_s+\beta_3(Group_i\times Specimen_s)+b_i+\varepsilon_{is},$$
+
+where $b_i$ captures participant pairing. The interaction asks whether group differences transfer from tissue to plasma. For raw CpG counts, the analogous structure needs a suitable count likelihood or a carefully constructed region-level response.
+
+Plasma-only effects may reflect systemic or hematopoietic composition; tissue-only effects may be locally strong but too diluted in blood. Neither disagreement pattern is automatically a technical failure.
+
+## Integrating sIgA without manufacturing significance
+
+sIgA is one immune-axis variable, not another omics matrix. Useful analyses include:
+
+- robust descriptive group comparisons with raw participant points;
+- regression of sIgA on a small number of pre-specified DMR/pathway scores;
+- partial association adjusted for group, inflammation, and assay batch; and
+- incremental-model comparisons with honest cross-validation if prediction is explored.
+
+Testing sIgA against every CpG recreates the multiplicity problem with little power. Dimension reduction should be biologically or externally specified, or performed within a fully nested validation procedure.
+
+## Missingness, sensitivity, and reporting
+
+Coverage-dependent missingness is structural, not generic tabular NA. Report callable loci by specimen and group; pre-specify minimum coverage and sample-presence rules; examine whether filtering changes the estimand. Sensitivity analyses should address technical-replicate combination, coverage thresholds, region definitions, influential participants, and plausible confounding.
+
+The most informative deliverable is a compact results object containing effect, interval, FDR, coverage, replicate QC, genomic annotation, tissue–plasma agreement, and sIgA association—not a binary “significant” column.
+
+::: {.callout-important title="The statistical takeaway"}
+The study is strongest as effect estimation and candidate-feature discovery under a transparent hierarchy. Its inferential bottleneck is 18 biological units, not the number of reads, CpGs, or technical replicates.
+:::
+
+[See the study design →](../research.qmd) · [Inspect the three processed data streams →](three-data-streams-one-study.qmd) · [Read the ML companion →](study-for-machine-learning-scientists.qmd) · [Review the statistical analysis overview →](statistical-analysis-of-methylation-data.qmd)

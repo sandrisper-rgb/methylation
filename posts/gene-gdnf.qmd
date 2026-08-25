@@ -1,0 +1,37 @@
+---
+title: "GDNF: trophic signaling across nerves, stroma, and epithelium"
+description: "RET/GFRα signaling, enteric biology, and why loss has context-dependent effects"
+date: 2026-08-25
+categories: [gene profile, GDNF, signaling, intestinal biology]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/pathway-network.webp"
+---
+
+## Function
+
+GDNF is a secreted trophic ligand best known for supporting neuronal survival and development through GFRα co-receptors and RET signaling. It is especially relevant to the enteric nervous system, while stromal, neural, epithelial, and tumour contexts can respond differently.
+
+::: {.gene-mechanism}
+::: {.gene-state}
+**GDNF signaling available**
+
+Supports survival, differentiation, and tissue–nerve communication in suitable receptor-bearing cells.
+:::
+::: {.gene-flow-arrow}
+→
+:::
+::: {.gene-state .gene-state-off}
+**GDNF reduced**
+
+Trophic support may decline; the phenotype depends on which cell supplied and received the signal.
+:::
+:::
+
+Promoter methylation in UC-associated literature is interesting, but “GDNF off” cannot be translated into one universal cancer effect. RET signaling can be beneficial in normal development yet co-opted in malignancy.
+
+<details><summary><strong>Resolve the signaling circuit</strong></summary>
+
+Measure ligand source, GFRA/RET receptor expression, phospho-RET pathway activity, spatial context, and methylation–expression coupling.
+</details>
+
+[Back to the gene overview →](silenced-and-inflammatory-genes-in-colitis.qmd) · [NCBI Gene →](https://www.ncbi.nlm.nih.gov/gene/2668)

@@ -1,10 +1,10 @@
 ---
-title: "Why pair colonic tissue and plasma?"
-description: "How the study uses anatomical context, liquid biopsy, methylation, and fragmentomics to triangulate colitis-associated change"
+title: "Tissue versus plasma methylation sequencing: why compare both?"
+description: "Tissue is the close-up; plasma is the blood-borne mixture. Pairing them reveals which colon methylation signals might become accessible biomarkers."
 date: 2026-08-24
-categories: [study design, tissue of origin, fragmentomics, colitis]
+categories: [study design, methylation, liquid biopsy, tissue of origin, colitis]
 author: "Methylation & Colitis team"
-image: "../media/illustrations/tissue-plasma-pairing.webp"
+image: "../media/illustrations/tissue-plasma-methylation-bridge.png"
 ---
 
 ::: {.lead-panel}
@@ -13,9 +13,36 @@ image: "../media/illustrations/tissue-plasma-pairing.webp"
 Colonic tissue shows molecular change where disease occurs. Plasma cell-free DNA offers a less-invasive but mixed signal from cells throughout the body. Studying both within the same participant creates a bridge between **anatomical relevance** and **potential clinical accessibility**.
 :::
 
-![Paired colonic tissue and plasma provide complementary views of the same participant's biology.](../media/illustrations/tissue-plasma-pairing.webp){.science-visual fig-alt="Scientific illustration connecting colonic tissue, a participant, and plasma cfDNA molecules"}
+![Tissue provides a concentrated local methylation pattern; plasma contains a diluted mixture in which some matching colon-derived fragments may be found.](../media/illustrations/tissue-plasma-methylation-bridge.png){.science-visual fig-alt="Educational biomedical illustration comparing a colon tissue biopsy rich in methylation signal with mixed, diluted plasma cell-free DNA from the same person"}
 
-## The paired design
+Think of **tissue as a close-up photograph of one neighborhood** and **plasma as a bag of postcards arriving from the whole body**. The close-up makes local changes easy to see. The postcards are easier to collect repeatedly, but most do not come from the colon. Comparing them asks whether a recognizable part of the local pattern survives in circulation.
+
+## The benefit in one table
+
+| If we sequence… | We learn… | Main limitation |
+|---|---|---|
+| **Tissue only** | What is changing in the affected mucosa, at strong signal-to-noise | A biopsy is invasive, local, heterogeneous, and hard to repeat |
+| **Plasma only** | What is detectable through a blood draw and may reflect the whole-body disease state | Colon-derived cfDNA may be rare and diluted by blood-cell DNA |
+| **Paired tissue + plasma** | Which local methylation changes cross into blood in the same person | Small paired cohorts discover candidates; they do not validate a screening test |
+
+The key gain is not simply “twice as much data.” Pairing gives each plasma signal a matched anatomical reference. It helps separate three explanations: a colon-linked signal that reaches blood, a local signal too diluted to observe in plasma, or a plasma signal driven by blood cells or systemic inflammation.
+
+::: {.callout-important title="What this design can honestly claim"}
+Paired sequencing can discover a **tissue-informed plasma fingerprint**. Demonstrating a classifier requires independent held-out samples; demonstrating early detection requires pre-diagnostic or prospective screening samples.
+:::
+
+## What published studies teach us
+
+Four studies make the rationale concrete:
+
+- A human cell-type methylation atlas showed why methylation can trace cfDNA back to contributing cell types. In a controlled mixing experiment, colon-cancer plasma remained detectable after dilution to a 3% mixture—proof of principle, not a clinical limit of detection [@moss2018atlas].
+- A plasma methylome study showed that broad, tissue- and cancer-associated methylation patterns can support tumour detection and classification even when input DNA is low [@shen2018plasma].
+- A 2024 colorectal study began with tumour-versus-adjacent-tissue DMR discovery, filtered candidates against leukocyte and cfDNA evidence, then evaluated plasma markers. Its three-DMR combination achieved AUC 0.763, 64.21% sensitivity, and 78.38% specificity in 95 CRC cases and 74 controls—promising, but also a useful reminder that tissue signal does not transfer perfectly into plasma [@long2024crc].
+- A direct comparison in clinically relevant samples found that patient-matched cfDNA usually resembled normal samples more than tumour tissue, while some tumour-hypermethylated regions were still visible in plasma. The same study found enzymatic methylation sequencing preserved library complexity better than bisulfite conversion, supporting EM-seq for fragile, low-input cfDNA [@nuttall2025comparison].
+
+Together, these papers support a disciplined sequence: use tissue to discover and interpret, use plasma to test accessibility, explicitly model leukocyte/background contributions, and reserve diagnostic claims for external validation.
+
+## How this connects to our study
 
 The planned study includes 18 participants across three comparison groups—high-risk ulcerative colitis, colorectal cancer, and healthy comparators—with plasma cfDNA and colonic tissue collected from each participant. Serum sIgA and inflammatory measurements provide a separate immune data stream.
 
@@ -127,7 +154,7 @@ The current study can establish feasibility, estimate cross-sectional contrasts,
 Paired tissue anchors the biology, plasma tests accessibility and tissue-of-origin clues, and sIgA supplies an independent immune context—together producing a stronger, more falsifiable hypothesis than any one specimen or assay alone.
 :::
 
-[Explore the full study design →](../research.qmd) · [Follow the sequencing pipeline →](../sequencing-methods.qmd) · [Understand the sIgA rationale →](../siga-methods.qmd)
+[Explore the full study design →](../research.qmd) · [See how differential methylation is tested →](limma-versus-dss-for-methylation.qmd) · [Follow the sequencing pipeline →](../sequencing-methods.qmd) · [Understand the sIgA rationale →](../siga-methods.qmd)
 
 ## References
 

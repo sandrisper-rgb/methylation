@@ -1,0 +1,37 @@
+---
+title: "NLRC4: detecting bacterial invasion machinery"
+description: "NAIP–NLRC4 inflammasomes, epithelial defense, and the cost of losing the response"
+date: 2026-08-25
+categories: [gene profile, NLRC4, inflammasome, mucosal immunity]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/pathway-network.webp"
+---
+
+## Function
+
+NAIP proteins recognize bacterial flagellin or type-III secretion-system components and recruit NLRC4 to assemble an inflammasome. Caspase-1 activation then promotes IL-1-family cytokine maturation and pyroptotic defense.
+
+::: {.gene-mechanism}
+::: {.gene-state}
+**NAIP–NLRC4 intact**
+
+Invasive bacterial structures can trigger rapid epithelial/innate defense.
+:::
+::: {.gene-flow-arrow}
+→
+:::
+::: {.gene-state .gene-state-off}
+**NLRC4 lost**
+
+Defense against relevant pathogens may weaken; excessive inflammatory injury may also fall.
+:::
+:::
+
+NLRC4 and NLRP3 are not redundant synonyms: their upstream triggers differ. Hypomethylation in severe UC may mark immune-cell abundance or regulatory change, but it does not demonstrate inflammasome activity.
+
+<details><summary><strong>Interpret with NLRP3, not as NLRP3</strong></summary>
+
+Measure sensor-specific triggers and complexes, caspase-1 products, pyroptosis, and cellular origin. A shared downstream cytokine is not proof of which inflammasome fired.
+</details>
+
+[Back to the gene overview →](silenced-and-inflammatory-genes-in-colitis.qmd) · [NCBI Gene →](https://www.ncbi.nlm.nih.gov/gene/58484)

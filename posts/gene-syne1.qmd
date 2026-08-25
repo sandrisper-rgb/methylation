@@ -1,0 +1,37 @@
+---
+title: "SYNE1: mechanically linking the nucleus to the cell"
+description: "Nesprin-1, nuclear architecture, giant-gene complexity, and methylation as a candidate marker"
+date: 2026-08-25
+categories: [gene profile, SYNE1, nuclear envelope, biomarker]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/pathway-network.webp"
+---
+
+## Function
+
+SYNE1 is a very large gene encoding nesprin-1 isoforms. Through the LINC complex, major isoforms connect the nuclear envelope to cytoskeletal systems, contributing to nuclear positioning, mechanics, and cellular organization.
+
+::: {.gene-mechanism}
+::: {.gene-state}
+**Nesprin-1 network intact**
+
+Mechanical information and nuclear position are coordinated with the cytoskeleton.
+:::
+::: {.gene-flow-arrow}
+→
+:::
+::: {.gene-state .gene-state-off}
+**Relevant isoform lost**
+
+Nuclear architecture, positioning, migration, or mechanotransduction may change—depending strongly on isoform and cell type.
+:::
+:::
+
+Because SYNE1 is enormous and has many isoforms, “SYNE1 methylated” is underspecified. A CpG may mark one promoter or transcript without silencing the entire locus. Its value in colitis-associated neoplasia may be biomarker-like rather than a direct driver mechanism.
+
+<details><summary><strong>Necessary annotation</strong></summary>
+
+Report exact CpGs, promoter/isoform, transcript expression, nesprin-1 protein localization, and nuclear-shape/mechanics phenotype.
+</details>
+
+[Back to the gene overview →](silenced-and-inflammatory-genes-in-colitis.qmd) · [NCBI Gene →](https://www.ncbi.nlm.nih.gov/gene/23345)

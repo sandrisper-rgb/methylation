@@ -1,0 +1,39 @@
+---
+title: "SIGLEC5: reading sialic-acid identity with an inhibitory receptor"
+description: "Innate immune restraint, paired-Siglec complexity, and the meaning of UC hypomethylation"
+date: 2026-08-25
+categories: [gene profile, SIGLEC5, innate immunity, methylation]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/pathway-network.webp"
+---
+
+## Function
+
+SIGLEC-5 is a sialic-acid-binding receptor expressed mainly on myeloid cells. Its cytoplasmic inhibitory motifs recruit phosphatases that dampen activation when the receptor engages appropriate sialylated ligands. It operates in a complicated locus alongside activating SIGLEC-14, whose similar extracellular region can complicate interpretation.
+
+::: {.gene-mechanism}
+::: {.gene-state}
+**Inhibitory signal intact**
+
+Myeloid activation is tuned rather than simply switched on.
+:::
+::: {.gene-flow-arrow}
+→
+:::
+::: {.gene-state .gene-state-off}
+**SIGLEC5 reduced**
+
+Inhibitory tone may fall, but phenotype depends on ligands, cell type, and SIGLEC14 genotype/expression.
+:::
+:::
+
+## Relevance here
+
+Hypomethylation in inflamed UC tissue could reflect altered regulation **or more SIGLEC5-expressing myeloid cells**. Bulk methylation cannot distinguish these explanations. Expression, cell deconvolution, and locus-aware genotyping are important.
+
+<details><summary><strong>Why “less methylation = more inhibition” is too simple</strong></summary>
+
+The CpG may not control the promoter, RNA may not track it, receptor occupancy matters, and the paired activating Siglec changes the biological balance.
+</details>
+
+[Back to the gene overview →](silenced-and-inflammatory-genes-in-colitis.qmd) · [NCBI Gene →](https://www.ncbi.nlm.nih.gov/gene/8778)

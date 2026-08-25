@@ -1,0 +1,43 @@
+---
+title: "FAM217B: an honest gene profile at the edge of knowledge"
+description: "What is known, what UC promoter hypermethylation showed, and why mechanism should not be invented"
+date: 2026-08-25
+categories: [gene profile, FAM217B, methylation, ulcerative colitis]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/pathway-network.webp"
+---
+
+## Why FAM217B is in the study
+
+In the UC study highlighted by the presentation, **FAM217B promoter hypermethylation coincided with lower RNA expression**. The panel was discovered on 450K arrays in 8 UC and 3 control tissues and technically validated in a larger UC series [Kang et al.](https://pmc.ncbi.nlm.nih.gov/articles/PMC5000688/).
+
+::: {.gene-mechanism}
+::: {.gene-state}
+**Promoter accessible**
+
+FAM217B transcript can be produced.
+:::
+::: {.gene-flow-arrow}
+→
+:::
+::: {.gene-state .gene-state-off}
+**Promoter hypermethylated**
+
+Lower transcript was observed in UC tissue; downstream consequences remain unknown.
+:::
+:::
+
+## What does it do?
+
+The scientifically important answer is: **its human function is not established**. [NCBI Gene](https://www.ncbi.nlm.nih.gov/gene/63939) classifies it as protein coding and places the product in cytosol and nucleoplasm; curated pathway-level mechanism is lacking. “Family with sequence similarity” is a naming placeholder, not a functional description.
+
+## What happens if expression stops?
+
+No credible colon-specific loss-of-function mechanism can currently be asserted. Silencing could be biologically consequential, neutral, a marker of altered cell composition, or a passenger of inflammatory chromatin remodeling. The correct experiment is to confirm methylation–RNA–protein coupling in defined cell types and perturb the gene in an appropriate epithelial model.
+
+<details><summary><strong>What would move the mechanism forward?</strong></summary>
+
+Single-cell localization, CRISPRi/CRISPR knockout, rescue, epithelial barrier phenotyping, and replicated tissue–plasma methylation are more informative than pathway guesses based on the name.
+</details>
+
+[Back to the gene overview →](silenced-and-inflammatory-genes-in-colitis.qmd) · [NCBI Gene →](https://www.ncbi.nlm.nih.gov/gene/63939)

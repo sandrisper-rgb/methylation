@@ -39,6 +39,10 @@ THESIS ADVISOR
 :::
 ## Dr. Sandra Perdomo
 
+![Dr. Sandra Perdomo at Universidad El Bosque.](media/team-sandra-perdomo.jpg){.team-portrait fig-alt="Dr. Sandra Perdomo wearing a laboratory coat at Universidad El Bosque"}
+
+<small>Photo: [Universidad El Bosque](https://www.unbosque.edu.co/centro-informacion/noticias/minciencias-apoyara-tecnologia-desarrollada-por-ueb).</small>
+
 **Advisor · Universidad El Bosque**
 
 Sandra provides scientific and translational direction:

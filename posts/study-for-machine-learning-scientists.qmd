@@ -1,0 +1,122 @@
+---
+title: "This methylation study, explained to a machine-learning scientist"
+description: "Inputs, targets, feature spaces, valid ML tasks, and why 18 participants demand restraint"
+date: 2026-08-25
+categories: [machine learning, multi-omics, methylation, study design]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/cfdna-analysis-fingerprint.webp"
+---
+
+::: {.lead-panel}
+## The task in one sentence
+
+Given paired plasma and colonic-tissue methylation features plus serum sIgA from 18 participants, characterize differences among high-risk ulcerative colitis, colorectal cancer, and healthy comparators—and discover a small, biologically coherent candidate signature for later validation.
+:::
+
+This post starts **after alignment and methylation calling**. FASTQ processing, conversion-aware alignment, duplicate handling, and CpG extraction are assumed to be complete and quality controlled. The ML boundary begins with participant-linked count matrices and assay summaries.
+
+## What is one observation?
+
+The independent unit is a **participant**, not a read, CpG, tissue/plasma pair, or technical replicate. The planned groups are [8 high-risk UC, 5 CRC, and 5 healthy participants](../research.qmd#planned-design).
+
+Each participant contributes three views:
+
+```{mermaid}
+flowchart LR
+  P[Participant] --> PL[Plasma cfDNA]
+  P --> TI[Colonic tissue DNA]
+  P --> SI[Serum sIgA]
+  PL --> PF[CpG counts + DMRs<br/>fragment features]
+  TI --> TF[CpG counts + DMRs<br/>genomic annotations]
+  SI --> SF[QC-controlled<br/>concentration]
+  PF --> X[Participant-level feature set]
+  TF --> X
+  SF --> X
+```
+
+Three laboratory technical replicates per participant estimate measurement stability. They do not turn $n=18$ into $n=54$. Replicate handling and QC occur before—or explicitly inside—the participant-level model.
+
+## Inputs
+
+| Object | Approximate shape | Important fields |
+|---|---|---|
+| Participant table | 18 × covariates | group, age, sex, inflammation, treatment, batch |
+| Plasma CpG counts | CpGs × 18 | methylated reads `M`, total coverage `N` |
+| Tissue CpG counts | CpGs × 18 | `M`, `N`, paired participant ID |
+| Region matrices | selected DMRs × 18 | methylation estimate, coverage, uncertainty |
+| Plasma fragment features | features × 18 | length bins, end motifs, regional coverage |
+| sIgA table | 18 × assay summaries | concentration, replicate CV, plate/QC flags |
+
+The raw CpG space may contain millions of variables. The statistically usable feature space must be dramatically smaller: pre-specified regions, training-fold-only selected DMRs, pathway summaries, or stable low-dimensional representations.
+
+## Possible outputs
+
+There is no single “model output.” Different tasks produce different artifacts:
+
+| Task | Output | Appropriate claim |
+|---|---|---|
+| Differential discovery | ranked CpGs/DMRs, effects, FDR | candidate disease-associated features |
+| Unsupervised exploration | PCA coordinates, distances, clusters | structure worth investigating |
+| Three-group classification | probability for UC, CRC, healthy | exploratory discrimination only |
+| One-v-rest classification | e.g. $P(\mathrm{CRC})$ | exploratory class-specific score |
+| Continuous modeling | predicted sIgA or inflammation | cross-sectional association/prediction |
+| Multi-view integration | shared/stream-specific latent factors | candidate joint fingerprint |
+
+An **early detector** is not an output supported by this cross-sectional dataset. That requires samples collected at the intended early-detection moment and prospective or pre-diagnostic validation.
+
+## Which kinds of ML make sense?
+
+### 1. Unsupervised learning—for QC and exploration
+
+PCA, robust PCA, sample–sample distances, and carefully annotated heatmaps can reveal batch structure, outliers, tissue separation, or dominant coverage effects. UMAP may be visually helpful, but with 18 observations it is unstable and should not be presented as evidence of naturally separated diseases.
+
+### 2. Sparse supervised learning—for an exploratory signature
+
+Penalized logistic or multinomial regression is the most defensible starting family. It can constrain a small panel and produces inspectable coefficients. Sparse PLS can relate multi-view features to group or sIgA, but tuning and interpretation must remain inside resampling.
+
+Random forests, boosted trees, deep networks, and large transformers are technically possible and scientifically implausible here: their flexibility greatly exceeds the number of independent participants.
+
+### 3. Multi-view learning—for complementary assays
+
+Three integration strategies are possible:
+
+| Strategy | How it works | Tradeoff here |
+|---|---|---|
+| Early fusion | concatenate plasma, tissue, and sIgA features | simple, but scales and missingness differ |
+| Intermediate fusion | learn a small latent representation per view | attractive scientifically, fragile at $n=18$ |
+| Late fusion | build one score per stream, then combine scores | auditable and easier to validate |
+
+For this cohort, late fusion is often the safest: reduce each high-dimensional assay to a locked, biologically motivated score, then ask whether plasma, tissue, and sIgA contribute nonredundant information.
+
+## The validation design matters more than the algorithm
+
+```{mermaid}
+flowchart TD
+  D[Participant-level data] --> O[Outer split: hold out participants]
+  O --> I[Inner training data only]
+  I --> F[Filter CpGs + call/select DMRs]
+  F --> T[Tune preprocessing and model]
+  T --> L[Lock pipeline]
+  L --> H[Predict outer held-out participants]
+  H --> R[Aggregate honest performance + uncertainty]
+```
+
+All outcome-aware steps—including DMR discovery, imputation, scaling, feature selection, and hyperparameter tuning—belong inside the training split. Tissue, plasma, and all technical replicates from one participant must remain in the same fold.
+
+Leave-one-participant-out or repeated stratified folds can provide an exploratory internal estimate, but five CRC and five healthy participants make class metrics extremely discrete and uncertain. Report the full prediction table, confusion matrix, balanced accuracy, per-class sensitivity, calibration where possible, and uncertainty—not a single optimistic AUC.
+
+## A practical first model
+
+1. Use count-aware differential analysis to nominate DMRs inside each training fold.
+2. Restrict to a very small number of stable, interpretable regions.
+3. Create separate plasma and tissue scores using coverage-aware summaries.
+4. Add sIgA and a small set of pre-specified clinical covariates.
+5. Fit penalized multinomial regression or three transparent one-v-rest models.
+6. Evaluate only on held-out participants and record feature-selection stability.
+7. Lock the panel and test it in an independent cohort.
+
+::: {.callout-important title="The ML takeaway"}
+This is a small-$n$, huge-$p$, multi-view, grouped-data problem. The near-term output is a stable candidate fingerprint and an honest estimate of uncertainty—not a production classifier.
+:::
+
+[See the study design →](../research.qmd) · [Inspect the three processed data streams →](three-data-streams-one-study.qmd) · [Read the statistical companion →](study-for-statisticians.qmd) · [Follow the downstream analysis roadmap →](../roadmap.qmd)
