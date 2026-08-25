@@ -29,6 +29,14 @@ Defense against relevant pathogens may weaken; excessive inflammatory injury may
 
 NLRC4 and NLRP3 are not redundant synonyms: their upstream triggers differ. Hypomethylation in severe UC may mark immune-cell abundance or regulatory change, but it does not demonstrate inflammasome activity.
 
+## What is distinctive about NLRC4
+
+NAIPs provide ligand recognition and nucleate NLRC4 oligomerization; bacterial flagellin and type-III-secretion-system proteins are canonical triggers. Reactome curates this neighborhood as the IPAF inflammasome [@milacic2024reactome]. The response can rapidly activate caspase-1 and expel or kill infected cells. Human and mouse NAIP repertoires differ, so ligand specificity cannot always be transferred directly between species.
+
+## Relevance and evidence gap in UC
+
+NLRC4 is biologically plausible where barrier breach increases bacterial access, but a severe-UC DMR does not identify ligand, assembled complex, or cellular source. Demonstrating the pathway requires sensor-specific stimulation or complex capture alongside cleaved caspase-1, gasdermin D, IL-18/IL-1β, and epithelial versus myeloid localization. Without those measurements, the locus is an inflammatory-context marker.
+
 <details><summary><strong>Interpret with NLRP3, not as NLRP3</strong></summary>
 
 Measure sensor-specific triggers and complexes, caspase-1 products, pyroptosis, and cellular origin. A shared downstream cytokine is not proof of which inflammasome fired.

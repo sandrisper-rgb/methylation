@@ -11,6 +11,8 @@ image: "../media/illustrations/pathway-network.webp"
 
 The highlighted UC study found **RIBC2 promoter hypermethylation and reduced transcript abundance** [Kang et al.](https://pmc.ncbi.nlm.nih.gov/articles/PMC5000688/).
 
+The UC evidence is one small discovery/technical-validation pipeline: 8 UC and 3 control tissues on 450K arrays, targeted testing in 79 UC samples, and bulk transcript measurement [@kang2016ucpanel]. It supports a reproducible locus within that study, not a validated cilia mechanism or clinical test.
+
 ::: {.gene-mechanism}
 ::: {.gene-state}
 **RIBC2 present**
@@ -28,6 +30,8 @@ Xenopus experiments showed disorganized axonemes and impaired ciliary beating.
 :::
 
 The functional evidence comes from an [RFX2 ciliogenesis study](https://pmc.ncbi.nlm.nih.gov/articles/PMC3889689/), not UC colon. The ordinary colonic surface epithelium is not a classic motile-ciliated tissue, so importing that phenotype directly would be misleading. RIBC2 may mark a cell population, have a different intracellular role, or be an epigenetic passenger here.
+
+In the cited *Xenopus* work, RIBC2 was an RFX2-dependent multiciliated-cell gene; knockdown disrupted axonemal organization and ciliary beating [@chung2014ribc2]. That is valuable functional evidence with a sharp tissue boundary. Its best use here is to generate localization experiments, not to fill an unobserved step in UC pathogenesis.
 
 ## If expression stops in this context
 

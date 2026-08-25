@@ -31,6 +31,14 @@ Inhibitory tone may fall, but phenotype depends on ligands, cell type, and SIGLE
 
 Hypomethylation in inflamed UC tissue could reflect altered regulation **or more SIGLEC5-expressing myeloid cells**. Bulk methylation cannot distinguish these explanations. Expression, cell deconvolution, and locus-aware genotyping are important.
 
+## The paired-receptor complication
+
+SIGLEC-5 carries inhibitory ITIM motifs, whereas the closely related SIGLEC-14 signals through DAP12. Human genetic variation can produce a SIGLEC14-null fusion genotype, changing the balance between receptors with similar ligand-binding domains. Functional work with group B *Streptococcus* showed that this paired system can alter neutrophil inflammatory responses [@ali2014siglecs].
+
+## Consequence for a UC biomarker
+
+An assay that does not resolve cell type and the SIGLEC5/SIGLEC14 locus can misattribute both methylation and expression. The most informative design combines genotype-aware mapping, neutrophil/monocyte abundance, receptor-specific protein reagents, ligand sialylation, and downstream phosphatase or DAP12 signaling.
+
 <details><summary><strong>Why “less methylation = more inhibition” is too simple</strong></summary>
 
 The CpG may not control the promoter, RNA may not track it, receptor occupancy matters, and the paired activating Siglec changes the biological balance.

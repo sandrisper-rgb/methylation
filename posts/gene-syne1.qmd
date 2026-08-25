@@ -29,6 +29,14 @@ Nuclear architecture, positioning, migration, or mechanotransduction may change�
 
 Because SYNE1 is enormous and has many isoforms, “SYNE1 methylated” is underspecified. A CpG may mark one promoter or transcript without silencing the entire locus. Its value in colitis-associated neoplasia may be biomarker-like rather than a direct driver mechanism.
 
+## Evidence as a neoplasia marker
+
+In 93 people with long-standing IBD plus 30 controls, Papadia et al. found SYNE1 promoter methylation absent in controls and present in 80% of colitis-associated colorectal cancers, with frequency increasing across disease groups [@papadia2014foxesyne]. That makes the assayed region a plausible tissue marker, but the cross-sectional design did not establish prospective prediction or functional loss of nesprin-1.
+
+## Why gene size changes the question
+
+SYNE1 uses alternative promoters and extensive splicing. Giant nesprin-1 can bridge actin to SUN proteins in the LINC complex, while shorter isoforms have different domains and distributions [@starr2018linc]. Validation must therefore report genomic coordinates and transcript consequences; a gene-level label hides the actual molecular hypothesis.
+
 <details><summary><strong>Necessary annotation</strong></summary>
 
 Report exact CpGs, promoter/isoform, transcript expression, nesprin-1 protein localization, and nuclear-shape/mechanics phenotype.

@@ -29,6 +29,14 @@ T-cell priming may weaken, but inflammatory output can also change because CTLA-
 
 The UC hypomethylation signal is biologically compatible with abundant/activated antigen-presenting cells, but does not prove CD86 overexpression. Bulk biopsy composition is a major competing explanation.
 
+## What the evidence adds
+
+CD86 is not simply an “on” switch. CD28 and CTLA-4 share CD80/CD86 ligands but drive different outcomes, and B7-2/CD86 tends to appear early during antigen-presenting-cell activation [@sharpe2002b7]. More recent cell-biological work shows that CTLA-4 can physically remove CD86 from neighboring cells by transendocytosis; defects in that process can contribute to autoimmunity [@kennedy2022cd86]. A biopsy methylation value therefore sits several regulatory steps upstream of the biologically relevant quantity: receptor engagement at an APC–T-cell contact.
+
+## Biomarker interpretation
+
+A useful CD86 result would distinguish within-cell epigenetic change from recruitment of CD86-positive dendritic cells, monocytes, or B cells. Paired single-cell or spatial expression, immune-cell proportions, and protein localization would make a bulk DMR interpretable. Until then, CD86 hypomethylation is best described as an immune-state candidate marker, not evidence of net CD28 or CTLA-4 signaling.
+
 <details><summary><strong>Best paired measurements</strong></summary>
 
 Cell-type-resolved methylation, CD86 RNA/protein, APC abundance, CD28/CTLA-4 context, and tissue inflammatory state.

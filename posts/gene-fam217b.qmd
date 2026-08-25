@@ -11,6 +11,8 @@ image: "../media/illustrations/pathway-network.webp"
 
 In the UC study highlighted by the presentation, **FAM217B promoter hypermethylation coincided with lower RNA expression**. The panel was discovered on 450K arrays in 8 UC and 3 control tissues and technically validated in a larger UC series [Kang et al.](https://pmc.ncbi.nlm.nih.gov/articles/PMC5000688/).
 
+The primary study used 3 normal controls and 8 UC tissues for array discovery, then methylation-specific PCR and bisulfite sequencing in 79 UC samples. FAM217B was one of three promoters selected for validation, and bulk qRT-PCR supported lower transcript abundance [@kang2016ucpanel]. This is discovery-plus-technical-validation evidence, not an independent diagnostic validation cohort, and the design did not resolve cell composition.
+
 ::: {.gene-mechanism}
 ::: {.gene-state}
 **Promoter accessible**
@@ -34,6 +36,10 @@ The scientifically important answer is: **its human function is not established*
 ## What happens if expression stops?
 
 No credible colon-specific loss-of-function mechanism can currently be asserted. Silencing could be biologically consequential, neutral, a marker of altered cell composition, or a passenger of inflammatory chromatin remodeling. The correct experiment is to confirm methylation–RNA–protein coupling in defined cell types and perturb the gene in an appropriate epithelial model.
+
+## Biomarker status
+
+FAM217B is presently more defensible as a candidate *state marker* than as a mechanistic driver. A useful next study would preregister CpGs and thresholds, include inflammation-matched non-UC controls, validate in an external cohort, and report whether the marker adds information beyond histology, medication, age, and epithelial fraction.
 
 <details><summary><strong>What would move the mechanism forward?</strong></summary>
 

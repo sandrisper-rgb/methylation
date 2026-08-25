@@ -31,6 +31,14 @@ Uncontrolled intestinal inflammation can follow; human IL-10/IL-10R defects caus
 
 The presentation lists IL10 among hypomethylated immune genes in severe UC. That does not guarantee more IL10 RNA or protein: the result depends on CpG location, responding cell type, and immune-cell abundance. IL10 may rise as a compensatory brake during inflammation even when disease remains active.
 
+## Human causal evidence
+
+The strongest evidence for pathway necessity is genetic rather than epigenetic. Biallelic IL10RA or IL10RB variants that abolished IL-10-induced STAT3 phosphorylation were identified in children with severe infantile-onset enterocolitis; patient immune cells released excessive inflammatory cytokines [@glocker2009il10r]. These rare monogenic cases establish that intact IL-10 signaling is essential, but they should not be equated with common adult UC or with a modest IL10 DMR.
+
+## What to measure next
+
+IL-10 concentration alone is insufficient because abundant ligand can coexist with receptor resistance. A useful paired assay would measure cell-specific IL10 transcription, secreted protein, IL10RA/IL10RB abundance, and phospho-STAT3 after ex vivo stimulation. That separates compensatory production from effective anti-inflammatory signaling.
+
 <details><summary><strong>Measurements needed</strong></summary>
 
 Resolve the DMR location, cell composition, IL10 transcript, circulating/local protein, and STAT3 pathway response before claiming functional activation.

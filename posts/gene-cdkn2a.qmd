@@ -29,6 +29,12 @@ RB and/or p53 safeguards weaken, making inappropriate proliferation easier.
 
 Deletion, mutation, and promoter methylation can disable this locus in cancer. In long-standing UC, methylation can be a field-change marker, but a methylated read does not prove both products are lost or that a clone will become malignant.
 
+## Evidence across the UC field
+
+An early colectomy study sampled 89 sites from three patients with long-standing extensive UC. p16^INK4a^ promoter hypermethylation was detected in 12.7% of nondysplastic samples, 70% of dysplastic samples, and every sampled carcinoma [@hsieh1998p16]. The gradient is consistent with an early field alteration, but the patient count was only three and multiple sites from one colon are not independent patients.
+
+The biology is also stage-dependent: regenerative UC crypts can induce p16 as a stress-associated “emergency brake” before epigenetic loss occurs. That makes protein interpretation non-monotonic—high p16 may mark stress or senescence, whereas promoter-silenced clones may later lose the safeguard. Exact promoter and isoform resolution is essential.
+
 <details><summary><strong>Required resolution</strong></summary>
 
 Identify the promoter/transcript affected, verify p16/p14 RNA and protein, map the epithelial clone, and assess RB/p53 pathway state.

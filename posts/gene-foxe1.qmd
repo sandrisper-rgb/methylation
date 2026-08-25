@@ -29,6 +29,14 @@ May be a robust epigenetic marker even if the downstream colon-specific mechanis
 
 This distinction matters: a locus can classify tissue state because its methylation is reproducible, without its protein being a driver in that tissue. The cited UC panel paper reported FOXE1 methylation in a subset of UC samples but did not establish functional silencing as a progression mechanism.
 
+## The tissue biomarker evidence
+
+Papadia et al. tested FOXE1 and SYNE1 promoter methylation in 93 people with long-standing IBD under surveillance plus 30 controls. FOXE1 methylation was absent from controls and detected in 60% of colitis-associated colorectal cancers; frequency rose across the ordered disease groups [@papadia2014foxesyne]. This supports association with neoplastic state, but the cross-sectional study does not show how early the signal appears or whether it improves prospective surveillance.
+
+## Driver or passenger?
+
+FOXE1 has strong lineage-specific functions in thyroid and craniofacial development, whereas a colon epithelial regulon has not been established. For biomarker development, reproducible locus methylation may be enough. For a causal claim, the chain must extend through colon-cell FOXE1 expression, target-gene regulation, perturbation, and rescue.
+
 <details><summary><strong>Biomarker versus driver test</strong></summary>
 
 Confirm colon-cell expression and regulons before proposing a driver role; assess replicated methylation and prospective outcome association for biomarker use.

@@ -29,6 +29,14 @@ Severe developmental intestinal phenotypes can occur; adult inflammatory downreg
 
 The presentation’s UC finding is hypomethylation, not demonstrated loss. Depending on locus, lower methylation could accompany more expression, less expression, or a changing mix of epithelial and immune cells.
 
+## Strong genetics, limited adult-colitis evidence
+
+The clearest causal evidence comes from rare biallelic loss-of-function disease and mouse models, not UC. Human congenital short-bowel syndrome combines impaired intestinal elongation and frequent malrotation; experimental work also links CLMP loss to disturbed smooth-muscle gap-junction signaling and peristalsis [@rathjen2023clmp]. That establishes intestinal importance but does not imply that modest adult mucosal methylation differences recreate a developmental syndrome.
+
+## What would make it relevant to UC?
+
+The first question is cellular: epithelial, stromal, smooth-muscle, and enteric-neural compartments could contribute very different signals. Spatial CLMP protein plus CpG-resolved methylation and expression should precede barrier claims. Adult organoid perturbation could then test epithelial adhesion, while contractility models would be needed for the motility hypothesis.
+
 <details><summary><strong>How to test barrier relevance</strong></summary>
 
 Measure CLMP in epithelial cells, junction localization, transepithelial resistance, permeability, and wound repair while resolving the associated CpGs.

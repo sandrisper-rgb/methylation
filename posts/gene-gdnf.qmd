@@ -29,6 +29,14 @@ Trophic support may decline; the phenotype depends on which cell supplied and re
 
 Promoter methylation in UC-associated literature is interesting, but “GDNF off” cannot be translated into one universal cancer effect. RET signaling can be beneficial in normal development yet co-opted in malignancy.
 
+## What UC tissue studies show
+
+In 28 UC colectomy specimens, GDNF methylation was higher in actively inflamed than paired quiescent mucosa, and active inflammation remained an independent correlate in the authors’ model [@saito2011ucmethylation]. This supports inflammation-associated epigenetic remodeling, but it does not show that GDNF protein or RET signaling fell in the same cells. Indeed, inflammatory tissue can contain simultaneous ligand induction in one compartment and promoter methylation in another.
+
+## A spatial signaling problem
+
+GDNF is secreted, so bulk abundance cannot identify sender and receiver. Spatial RNA/protein should map GDNF-producing stromal or neural cells against GFRA1/RET-bearing targets, followed by phospho-RET and downstream ERK/AKT readouts. Only then can methylation be linked to loss of trophic signaling rather than tissue-composition change.
+
 <details><summary><strong>Resolve the signaling circuit</strong></summary>
 
 Measure ligand source, GFRA/RET receptor expression, phospho-RET pathway activity, spatial context, and methylation–expression coupling.

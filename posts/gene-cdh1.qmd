@@ -29,6 +29,14 @@ Adhesion weakens; motility, invasion, and epithelial plasticity may increase.
 
 In inflamed colon, junction disruption can arise without CDH1 promoter methylation, and bulk expression can change with epithelial loss. In neoplasia, CDH1 silencing may cooperate with many other alterations; it is not sufficient by itself.
 
+## Evidence in colitis-associated neoplasia
+
+In a small study of 14 UC-associated and 14 sporadic colorectal cancers, CDH1 promoter hypermethylation occurred in 57% and 36%, respectively, and methylation correlated with reduced E-cadherin protein [@wheeler2001cdh1]. A separate UC colectomy series found CDH1 methylation higher in actively inflamed than paired quiescent mucosa, with active inflammation remaining associated after multivariable analysis [@saito2011ucmethylation]. Together these studies support both inflammation-linked field change and cancer-associated silencing, but their small, selected tissue cohorts do not establish prospective predictive performance.
+
+## Why localization matters
+
+Total E-cadherin abundance can look preserved while the protein is internalized or displaced from lateral junctions. An informative assay should therefore combine exact promoter CpGs with epithelial-cell RNA, membrane-localized protein, β-catenin distribution, and permeability—not methylation alone.
+
 <details><summary><strong>Best evidence chain</strong></summary>
 
 Promoter DMR → lower CDH1 RNA → reduced/mislocalized E-cadherin protein → altered junction and permeability phenotype, all in the same relevant cells.
