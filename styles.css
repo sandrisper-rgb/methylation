@@ -187,6 +187,17 @@ a { color: var(--teal); }
 .model-panel-dss { background: linear-gradient(145deg, #176b74, var(--teal)); border-top-color: #f4c66e; }
 .model-panel h3 { margin-top: 0; color: white; }
 .model-panel p { margin-bottom: .65rem; }
+.sequence-compare { display: grid; gap: 1rem; margin: 1.7rem 0 2.4rem; }
+.sequence-row { padding: 1.4rem 1.6rem; border-radius: 1rem; border-left: 6px solid var(--teal); background: #edf7f4; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: clamp(.95rem, 2vw, 1.3rem); overflow-wrap: anywhere; }
+.sequence-row-high { border-left-color: var(--gold); background: #fff8eb; }
+.sequence-label { margin-bottom: .75rem; color: var(--ocean); font-family: "DM Sans", sans-serif; font-size: .74rem; font-weight: 700; letter-spacing: .13em; }
+.sequence-row p:last-child { margin: .8rem 0 0; color: var(--muted); font-family: "DM Sans", sans-serif; font-size: .88rem; }
+.cpg-site { display: inline-block; padding: .05em .2em; border-radius: .25rem; color: white; background: var(--teal); }
+.methylated-site { color: #3c2d16; background: var(--gold); box-shadow: 0 0 0 4px rgba(211,154,56,.14); }
+.gene-switch { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2rem 0 2.5rem; }
+.gene-switch > div { padding: 1.5rem; border-radius: 1rem; box-shadow: 0 10px 28px rgba(16,47,59,.09); }
+.gene-switch-open { border-top: 5px solid var(--teal); background: #edf7f4; }
+.gene-switch-closed { border-top: 5px solid var(--gold); background: #fff8eb; }
 
 .download-grid, .lab-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.2rem; margin: 1.5rem 0 2.5rem; }
 .role-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.4rem; margin: 1.5rem 0 2.5rem; }
@@ -235,6 +246,7 @@ thead { background: var(--ocean); color: white; }
   .signal-center { top: 175px; }
   .signal-orbit-siga { top: 345px; }
   .model-compare { grid-template-columns: 1fr; }
+  .gene-switch { grid-template-columns: 1fr; }
   .institution-band { grid-template-columns: 1fr; margin-left: 1.2rem; margin-right: 1.2rem; }
   .institution-action { white-space: normal; }
 }

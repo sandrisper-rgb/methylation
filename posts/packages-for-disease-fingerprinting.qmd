@@ -4,7 +4,7 @@ description: "A pragmatic open-source stack for EM-seq, fragment features, pathw
 date: 2026-08-24
 categories: [software, statistics, reproducibility]
 author: "Methylation & Colitis team"
-image: "../media/illustrations/emseq-fragmentomics.webp"
+image: "../media/illustrations/cover-package-stack.webp"
 ---
 
 ::: {.lead-panel}

@@ -4,7 +4,7 @@ description: "From inflammatory signaling and epithelial repair to CpG islands, 
 date: 2026-08-24
 categories: [ulcerative colitis, DNA methylation, CpG islands, gene regulation]
 author: "Methylation & Colitis team"
-image: "../media/illustrations/emseq-fragmentomics.webp"
+image: "../media/illustrations/cover-colitis-methylation.webp"
 ---
 
 ::: {.lead-panel}
@@ -18,6 +18,27 @@ Ulcerative colitis does not simply “switch methylation on.” Chronic inflamma
 ## First: what is being methylated?
 
 DNA methylation commonly adds a methyl group to carbon 5 of cytosine, creating **5-methylcytosine (5mC)**. In human DNA, this most often occurs at a **CpG dinucleotide**:
+
+The synthetic sequences below contain the same bases. Gold `5mC` marks show methylated cytosines specifically where a **C is followed by G**. They are an educational example, not a real patient locus.
+
+::: {.sequence-compare}
+::: {.sequence-row}
+::: {.sequence-label}
+LOW CpG METHYLATION
+:::
+`5′–AT`<span class="cpg-site">C</span>`GTTAC`<span class="cpg-site">C</span>`GGAAT`<span class="cpg-site">C</span>`GCT`<span class="cpg-site">C</span>`G–3′`
+
+CpGs are present; most cytosines are unmarked.
+:::
+::: {.sequence-row .sequence-row-high}
+::: {.sequence-label}
+HIGH CpG METHYLATION
+:::
+`5′–AT`<span class="cpg-site methylated-site">5mC</span>`GTTAC`<span class="cpg-site methylated-site">5mC</span>`GGAAT`<span class="cpg-site methylated-site">5mC</span>`GCT`<span class="cpg-site methylated-site">5mC</span>`G–3′`
+
+The same CpGs carry methyl groups on most cytosines.
+:::
+:::
 
 ::: {.cpg-animation role="img" aria-label="Animated CpG sequence gaining a methyl group and changing from an open to a more compact regulatory state"}
 ::: {.cpg-sequence}

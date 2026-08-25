@@ -235,6 +235,8 @@ For the clinical context, read [how long-standing colitis can progress toward co
 
 For the mechanism, explore [how inflammation can reshape DNA methylation →](posts/how-colitis-reshapes-dna-methylation.qmd)
 
+For the candidate biology, review [which silenced and inflammatory genes appear in the project evidence →](posts/silenced-and-inflammatory-genes-in-colitis.qmd)
+
 For analysis, see [how the software stack evolved from limma to fragmentomics →](posts/how-methylation-software-evolved.qmd) and [how beta-binomial and regional procedures work →](posts/statistical-analysis-of-methylation-data.qmd)
 
 For a deeper statistical treatment, compare [limma's moderated linear models with DSS's beta-binomial approach →](posts/limma-versus-dss-for-methylation.qmd)

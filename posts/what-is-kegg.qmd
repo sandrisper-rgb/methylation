@@ -4,7 +4,7 @@ description: "A short guide to KEGG pathways, enrichment analysis, and responsib
 date: 2026-08-24
 categories: [pathways, bioinformatics, methylation, statistics]
 author: "Methylation & Colitis team"
-image: "../media/illustrations/cfdna-analysis-fingerprint.webp"
+image: "../media/illustrations/cover-kegg.webp"
 ---
 
 ::: {.lead-panel}
@@ -13,7 +13,7 @@ image: "../media/illustrations/cfdna-analysis-fingerprint.webp"
 The **Kyoto Encyclopedia of Genes and Genomes (KEGG)** organizes genes, proteins, metabolites, diseases, and drugs into manually drawn pathway maps. It helps researchers ask whether a result list contains more members of a known biological system than expected by chance. KEGG does not measure pathway activity and does not prove that a pathway causes disease.
 :::
 
-![Genomic, immune, and clinical features can be interpreted through pathway maps only after careful statistical testing and annotation.](../media/illustrations/cfdna-analysis-fingerprint.webp){.science-visual fig-alt="Scientific illustration of molecular signals converging into an interpretable biological fingerprint"}
+![A pathway connects receptors, signaling proteins, gene regulation, immune responses, and epithelial outcomes. This original illustration is conceptual rather than a KEGG map.](../media/illustrations/pathway-network.webp){.science-visual fig-alt="Scientific pathway illustration connecting membrane receptors, signaling proteins, nuclear gene regulation, immune cells, and epithelial tissue"}
 
 ## What a KEGG pathway contains
 

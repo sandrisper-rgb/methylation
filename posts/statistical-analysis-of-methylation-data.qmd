@@ -4,7 +4,7 @@ description: "From beta-binomial CpG models and DMRs to paired tissue–plasma c
 date: 2026-08-24
 categories: [statistics, methylation, fragmentomics, study design]
 author: "Methylation & Colitis team"
-image: "../media/illustrations/cfdna-analysis-fingerprint.webp"
+image: "../media/illustrations/cover-methylation-statistics.webp"
 ---
 
 ::: {.lead-panel}

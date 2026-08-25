@@ -4,7 +4,7 @@ description: "How the size, ends, and genomic positions of cfDNA fragments provi
 date: 2026-08-24
 categories: [fragmentomics, cfDNA, liquid biopsy, methods]
 author: "Methylation & Colitis team"
-image: "../media/illustrations/cfdna-analysis-fingerprint.webp"
+image: "../media/illustrations/cfdna-fragment-sequencing.webp"
 ---
 
 ::: {.lead-panel}
@@ -13,7 +13,7 @@ image: "../media/illustrations/cfdna-analysis-fingerprint.webp"
 Fragmentomics studies the physical patterns of cell-free DNA molecules: how long they are, where they begin and end, which sequences appear at their ends, and how fragments are distributed across the genome. These patterns can carry clues about chromatin organization, nucleases, cell death, and the tissues that released the DNA [@lo2021fragmentomics].
 :::
 
-![Fragment lengths, molecular ends, methylation, pathways, and statistical summaries converge into an interpretable cfDNA fingerprint.](../media/illustrations/cfdna-analysis-fingerprint.webp){.science-visual fig-alt="Scientific illustration of cfDNA fragments, length distributions, molecular networks, and analytical outputs"}
+![Conceptual view of nucleosome-protected DNA being cut into plasma fragments and read from both ends, with methyl groups retained as a second information layer.](../media/illustrations/cfdna-fragment-sequencing.webp){.science-visual fig-alt="Scientific illustration of DNA wrapped around nucleosomes, nuclease cleavage, cfDNA fragments, methyl groups, and paired-end sequencing"}
 
 ## Why fragments are not random
 

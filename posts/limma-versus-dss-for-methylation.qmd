@@ -4,7 +4,7 @@ description: "Linear-model empirical Bayes versus beta-binomial count modelingâ€
 date: 2026-08-24
 categories: [statistics, Bioconductor, methylation, software]
 author: "Methylation & Colitis team"
-image: "../media/illustrations/cfdna-analysis-fingerprint.webp"
+image: "../media/illustrations/cover-limma-dss.webp"
 ---
 
 ::: {.lead-panel}
