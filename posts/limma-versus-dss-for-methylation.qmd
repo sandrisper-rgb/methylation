@@ -23,6 +23,47 @@ execute:
 
 ![The appropriate statistical engine depends on whether the evidence arrives as normalized continuous measurements or methylated reads conditional on coverage.](../media/illustrations/cfdna-analysis-fingerprint.webp){.science-visual fig-alt="Scientific illustration of molecular evidence entering statistical analysis"}
 
+## What problem are limma and DSS solving?
+
+In plain language, this is a **group-comparison and feature-discovery analysis**. It asks:
+
+> At each CpG, is methylation systematically different between the biological groups after accounting for other variables in the design?
+
+For this study, a useful model might compare colitis, colorectal cancer, and controls while adjusting for factors such as age, sex, batch, or cell composition. The output is an effect estimate and uncertainty for every CpG. Nearby CpGs can then be joined into differentially methylated regions (DMRs).
+
+It is easy to call the resulting loci a “fingerprint,” but that word can hide several distinct goals:
+
+| Goal | Question | What the result looks like | Do limma/DSS solve it alone? |
+|---|---|---|---|
+| **Differential methylation** | Which CpGs or regions differ between groups? | Effect sizes, p-values, FDR, DMLs and DMRs | **Yes—this is their main job** |
+| **Biological fingerprint discovery** | Is there a reproducible pattern associated with colitis or cancer? | A candidate set of loci/regions and pathways | **Partly**; they nominate features, but replication is required |
+| **Classifier** | Can an unknown sample be assigned to the correct group? | One prediction per sample, with sensitivity, specificity and ROC/PR performance | **No**; a prediction model and held-out validation are needed |
+| **Early detector** | Can disease be detected before symptoms or routine diagnosis? | Performance in the intended screening population, ideally using pre-diagnostic samples | **No**; this is a clinical-use claim requiring a separate study |
+
+::: {.callout-important title="The correct label for this analysis"}
+This limma-versus-DSS comparison is about **differential methylation discovery**. It can supply candidates for a colitis/cancer methylation fingerprint. It is not yet a classifier, and it cannot establish early detection from case–control samples collected after diagnosis.
+:::
+
+### How discovery could become a detector
+
+```{mermaid}
+flowchart LR
+  A[EM-seq reads] --> B[Filtered CpG counts]
+  B --> C[DSS differential analysis]
+  C --> D[Candidate CpGs and DMRs]
+  D --> E[Locked feature panel]
+  E --> F[Classifier trained without leakage]
+  F --> G[Held-out external validation]
+  G --> H[Prospective early-detection study]
+
+  classDef now fill:#dcefee,stroke:#167d78,color:#123b5d
+  classDef later fill:#f7efe4,stroke:#b8634f,color:#49352e
+  class A,B,C,D now
+  class E,F,G,H later
+```
+
+The current analysis occupies the first four boxes. To move farther right, feature selection must occur **inside** training resamples; otherwise, using all samples to find CpGs before cross-validation leaks outcome information and exaggerates accuracy. A convincing detector also needs independent samples representing the population and clinical moment in which the test would actually be used.
+
 ## limma: feature-wise linear models with moderated variance
 
 For feature $g$, [`limma`](https://bioconductor.org/packages/limma/) fits the familiar model
@@ -172,15 +213,23 @@ gr <- granges(RRBS)
 limma_result$chr <- as.character(seqnames(gr))
 limma_result$pos <- start(gr)
 
+# A reader-friendly biological effect: mean methylation in SLE minus HC.
+# The design is balanced across cell state, so this is useful for visualization;
+# inference still comes from the adjusted models above.
+beta <- methylated / coverage
+delta_beta <- rowMeans(beta[, design$case == "SLE"], na.rm = TRUE) -
+  rowMeans(beta[, design$case == "HC"], na.rm = TRUE)
+limma_result$delta_beta <- delta_beta
+
 comparison <- merge(
   dss_result[, c("chr", "pos", "stat", "pvals", "fdrs")],
-  limma_result[, c("chr", "pos", "logFC", "t", "P.Value", "adj.P.Val")],
+  limma_result[, c("chr", "pos", "delta_beta", "logFC", "t", "P.Value", "adj.P.Val")],
   by = c("chr", "pos")
 )
 
-names(comparison)[3:9] <- c(
+names(comparison)[3:10] <- c(
   "DSS_stat", "DSS_p", "DSS_FDR",
-  "limma_logFC", "limma_t", "limma_p", "limma_FDR"
+  "delta_beta", "limma_logFC", "limma_t", "limma_p", "limma_FDR"
 )
 
 comparison <- comparison[
@@ -196,7 +245,7 @@ knitr::kable(
 
 ```{r}
 #| label: fig-limma-dss-real-data
-#| fig-cap: "The methods broadly agree on direction, but their evidence is not interchangeable. Dashed lines mark nominal p = 0.05; color identifies FDR calls."
+#| fig-cap: "Explore biological effect and method agreement separately. Hover for locus-level results; drag to zoom; double-click to reset."
 
 hit <- ifelse(
   comparison$DSS_FDR < 0.05 & comparison$limma_FDR < 0.05, "both",
@@ -211,67 +260,104 @@ palette <- c(
   "both" = "#b8634f"
 )
 
-x <- sign(comparison$DSS_stat) * -log10(comparison$DSS_p)
-y <- sign(comparison$limma_t) * -log10(comparison$limma_p)
-
 plot_data <- transform(
   comparison,
-  DSS_evidence = x,
-  limma_evidence = y,
+  delta_percent = 100 * delta_beta,
+  DSS_evidence = -log10(pmax(DSS_p, .Machine$double.xmin)),
   call = factor(hit, levels = names(palette)),
   hover = sprintf(
     paste(
       "<b>%s:%s</b>",
       "Call: %s",
+      "Mean methylation difference: %+.1f percentage points",
       "DSS statistic: %.2f | p: %.3g | FDR: %.3g",
       "limma logFC: %.2f | t: %.2f | p: %.3g | FDR: %.3g",
       sep = "<br>"
     ),
     chr, pos, hit,
+    100 * delta_beta,
     DSS_stat, DSS_p, DSS_FDR,
     limma_logFC, limma_t, limma_p, limma_FDR
   )
 )
 
-limit <- max(abs(c(x, y)), na.rm = TRUE) * 1.04
-threshold <- -log10(0.05)
+plot_points <- function(p, x, y) {
+  for (group in levels(plot_data$call)) {
+    d <- plot_data[plot_data$call == group, ]
+    emphasized <- group != "neither"
+    p <- plotly::add_trace(
+      p, data = d, x = x, y = y, name = group,
+      text = ~hover, hoverinfo = "text",
+      type = "scattergl", mode = "markers",
+      marker = list(
+        color = unname(palette[group]),
+        size = if (emphasized) 10 else 5,
+        opacity = if (emphasized) 0.9 else 0.22,
+        line = list(width = if (emphasized) 1 else 0, color = "white")
+      )
+    )
+  }
+  p
+}
 
-plotly::plot_ly(
-  plot_data,
-  x = ~DSS_evidence,
-  y = ~limma_evidence,
-  color = ~call,
-  colors = unname(palette),
-  text = ~hover,
-  hoverinfo = "text",
-  type = "scattergl",
-  mode = "markers",
-  marker = list(size = 7, opacity = 0.68)
+volcano <- plot_points(
+  plotly::plot_ly(), ~delta_percent, ~DSS_evidence
 ) |>
   plotly::layout(
-    xaxis = list(title = "DSS: signed -log10(p)", range = c(-limit, limit)),
-    yaxis = list(title = "limma: signed -log10(p)", range = c(-limit, limit)),
-    legend = list(orientation = "h", x = 0, y = 1.08),
-    hovermode = "closest",
+    title = list(text = "DSS: biological effect versus evidence", x = 0.03),
+    xaxis = list(title = "SLE − HC mean methylation (percentage points)", zeroline = TRUE),
+    yaxis = list(title = "DSS −log10(p)"),
+    legend = list(orientation = "h", x = 0, y = 1.12),
+    shapes = list(list(
+      type = "line", x0 = min(plot_data$delta_percent), x1 = max(plot_data$delta_percent),
+      y0 = -log10(0.05), y1 = -log10(0.05),
+      line = list(color = "#718386", dash = "dot")
+    ))
+  )
+
+agreement <- plot_points(
+  plotly::plot_ly(), ~DSS_stat, ~limma_t
+) |>
+  plotly::layout(
+    title = list(text = "Do the methods agree on direction and strength?", x = 0.03),
+    xaxis = list(title = "DSS test statistic", zeroline = TRUE),
+    yaxis = list(title = "limma moderated t", zeroline = TRUE),
+    showlegend = FALSE,
     shapes = list(
-      list(type = "line", x0 = -limit, x1 = limit, y0 = -limit, y1 = limit,
-           line = list(color = "#123b5d", dash = "dash")),
-      list(type = "line", x0 = -threshold, x1 = -threshold, y0 = -limit, y1 = limit,
+      list(type = "line", x0 = 0, x1 = 0,
+           y0 = min(plot_data$limma_t), y1 = max(plot_data$limma_t),
            line = list(color = "#718386", dash = "dot")),
-      list(type = "line", x0 = threshold, x1 = threshold, y0 = -limit, y1 = limit,
-           line = list(color = "#718386", dash = "dot")),
-      list(type = "line", x0 = -limit, x1 = limit, y0 = -threshold, y1 = -threshold,
-           line = list(color = "#718386", dash = "dot")),
-      list(type = "line", x0 = -limit, x1 = limit, y0 = threshold, y1 = threshold,
+      list(type = "line", y0 = 0, y1 = 0,
+           x0 = min(plot_data$DSS_stat), x1 = max(plot_data$DSS_stat),
            line = list(color = "#718386", dash = "dot"))
     )
-  ) |>
-  plotly::config(
-    displaylogo = FALSE,
-    responsive = TRUE,
-    modeBarButtonsToRemove = c("lasso2d", "select2d")
   )
+
+widget_config <- list(
+  displaylogo = FALSE, responsive = TRUE,
+  modeBarButtonsToRemove = c("lasso2d", "select2d")
+)
 ```
+
+::: {.panel-tabset}
+### Effect + DSS evidence
+
+```{r}
+#| label: fig-dss-volcano
+do.call(plotly::config, c(list(volcano), widget_config))
+```
+
+The x-axis is now interpretable as **percentage-point methylation change**. Colored, larger points survive 5% FDR in at least one method; quiet grey points provide context without hiding the signal.
+
+### DSS–limma agreement
+
+```{r}
+#| label: fig-dss-limma-agreement
+do.call(plotly::config, c(list(agreement), widget_config))
+```
+
+Points in the upper-right and lower-left quadrants agree in direction. Distance from the origin represents stronger standardized evidence—not methylation magnitude. The highlighted points make disagreements visible without forcing 5,000 loci into equally prominent marks.
+:::
 
 ```{r}
 #| label: limma-dss-summary
