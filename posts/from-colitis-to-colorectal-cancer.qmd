@@ -17,6 +17,8 @@ Symptoms of an inflammatory flare and colorectal cancer can overlap, and cancer 
 Ulcerative colitis (UC) produces chronic inflammation in the lining of the colon. Over many years, repeated injury and repair can allow abnormal cell clones to accumulate, sometimes leading through dysplasia to colitis-associated colorectal cancer. **Most people with UC do not develop colorectal cancer**, but long-standing colonic disease requires risk-based surveillance.
 :::
 
+![Illustrative colonoscopy-style comparison of normal colonic lining, active ulcerative colitis, and colorectal cancer. This is an original medical visualization, not a participant image, and it does not imply that every case of colitis progresses to cancer.](../media/illustrations/colitis-colon-cancer-clinical.webp){.science-visual fig-alt="Three illustrative colon views showing healthy mucosa, diffuse inflamed ulcerative-colitis mucosa, and an irregular colorectal tumor"}
+
 ![Paired colonic tissue and plasma help connect local inflammatory change with accessible molecular signals.](../media/illustrations/tissue-plasma-pairing.webp){.science-visual fig-alt="Scientific illustration connecting inflamed colonic tissue, a participant, and plasma cell-free DNA"}
 
 ## A biological continuum, not a stopwatch

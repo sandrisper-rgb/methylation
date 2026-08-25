@@ -4,7 +4,7 @@ description: "How Reactome's curated reaction network supports pathway enrichmen
 date: 2026-08-24
 categories: [pathways, bioinformatics, methylation, statistics]
 author: "Methylation & Colitis team"
-image: "../media/illustrations/emseq-fragmentomics.webp"
+image: "../media/illustrations/pathway-network.webp"
 ---
 
 ::: {.lead-panel}
@@ -13,7 +13,7 @@ image: "../media/illustrations/emseq-fragmentomics.webp"
 **Reactome** is a free, curated, peer-reviewed knowledgebase of human biological pathways. Its basic unit is a reaction: an event in which molecules interact, move, change state, or regulate another event. Those reactions are assembled into a hierarchy from detailed mechanisms to broad processes.
 :::
 
-![Methylation and fragment evidence can be connected to genes and then placed within curated reaction pathways.](../media/illustrations/emseq-fragmentomics.webp){.science-visual fig-alt="Scientific illustration linking methylated DNA, fragments, sequencing, and genomic features"}
+![Reactome-like thinking connects molecular participants, locations, reactions, and downstream cell states. This original illustration is not an exported Reactome diagram.](../media/illustrations/pathway-network.webp){.science-visual fig-alt="Scientific pathway illustration showing receptors, molecular reactions, nuclear regulation, immune cells, and epithelial outcomes"}
 
 ## What makes Reactome distinctive
 

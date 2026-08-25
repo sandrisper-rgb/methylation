@@ -1,0 +1,86 @@
+---
+title: "Which methylated genes matter in colitis-to-cancer progression?"
+description: "The candidate silenced and immune genes highlighted in the project presentation—and what the evidence does and does not show"
+date: 2026-08-24
+categories: [genes, methylation, ulcerative colitis, colorectal cancer]
+author: "Methylation & Colitis team"
+image: "../media/illustrations/pathway-network.webp"
+---
+
+::: {.lead-panel}
+## There is no single “colitis-to-cancer gene”
+
+The project presentation highlights two kinds of signal: a **three-gene promoter-hypermethylation panel** whose expression was lower in ulcerative-colitis tissue, and a set of **hypomethylated immune genes** reported in severe UC. They may mark different parts of inflammatory biology, but none has been shown to drive cancer progression by itself.
+:::
+
+![Candidate genes sit inside interacting immune, epithelial, signaling, and gene-regulatory pathways. This is an original scientific illustration, not a measured pathway from this cohort.](../media/illustrations/pathway-network.webp){.science-visual fig-alt="Scientific illustration of receptors, signaling proteins, nuclear gene regulation, immune cells, and epithelial repair connected in a molecular pathway"}
+
+## The most directly supported silenced panel
+
+The presentation cites [Kang and colleagues' UC methylation study](https://pmc.ncbi.nlm.nih.gov/articles/PMC5000688/). The researchers screened 450K methylation arrays in 3 normal-colon controls and 8 UC samples, then performed technical validation in 79 UC samples. Three promoter CpG-island candidates survived their validation:
+
+| Gene | What the cited study observed | What can safely be concluded |
+|---|---|---|
+| **FAM217B** | Promoter hypermethylation in UC and lower RNA expression in tested UC tissue | A candidate UC methylation marker; its role in disease was not established |
+| **KIAA1614** | The highest reported methylation frequency of the three in the validation series, plus lower expression | Strong panel member in that dataset, not proof of causal silencing in progression |
+| **RIBC2** | Promoter hypermethylation and reduced expression in tested UC tissue | A reproducible association within that study; biological function remained uncertain |
+
+The important result is the **methylation–expression relationship**: promoter methylation was higher while measured transcription was lower. That is consistent with epigenetic repression. It does not show that losing these transcripts causes UC, dysplasia, or cancer. The authors themselves noted that the genes' human disease functions were unknown.
+
+::: {.gene-switch}
+::: {.gene-switch-open}
+**Accessible promoter**
+
+fewer methyl marks → transcription can proceed
+:::
+::: {.gene-switch-closed}
+**Hypermethylated promoter**
+
+dense CpG methylation → reduced transcription may follow
+:::
+:::
+
+## What “silenced” means—and what it does not
+
+Promoter CpG-island hypermethylation can reduce transcription-factor access or recruit proteins associated with compact chromatin. “Silenced” should describe measured low transcription linked to a specific promoter context. It should not be inferred from methylation anywhere in a gene: gene-body methylation, enhancer methylation, and promoter methylation can relate differently to expression.
+
+Nor is an epigenetic mark necessarily permanent. Cell mixture, inflammatory cytokines, tissue repair, medication, and disease activity can all change the measured average. A colon biopsy contains epithelial, stromal, and immune cells; plasma cfDNA mixes DNA from several tissues.
+
+## The immune genes highlighted in severe UC
+
+The slides also list **IL10, SIGLEC5, CD86, CLMP, NLRP3, and NLRC4** as hypomethylated in severe UC. Hypomethylation means lower methylation at the reported sites—not automatically higher expression. Their broad biological contexts make them plausible inflammation markers:
+
+- **IL10** encodes a central anti-inflammatory cytokine that restrains excessive immune responses.
+- **SIGLEC5** encodes an inhibitory receptor found on innate immune cells and involved in sensing sialylated structures.
+- **CD86** provides a co-stimulatory signal used by antigen-presenting cells to shape T-cell activation.
+- **CLMP** encodes a cell-adhesion protein relevant to epithelial organization and intestinal development.
+- **NLRP3** and **NLRC4** encode innate immune sensors that can assemble inflammasomes and promote inflammatory cytokine processing.
+
+This set is biologically coherent with immune activation and epithelial stress. It is not a validated cancer panel, and some differences could reflect more immune cells in an inflamed biopsy rather than epigenetic change within the same cell type.
+
+## Genes with clearer links to neoplastic progression
+
+The cited paper also summarizes prior evidence for methylation of **CDKN2A/p16**, **CDH1 (E-cadherin)**, and **GDNF** in long-standing UC, plus methylated **FOXE1/SYNE1** in colitis-associated neoplasia.
+
+| Gene/process | Why methylation could matter | Boundary |
+|---|---|---|
+| **CDKN2A/p16** · cell-cycle brake | Promoter silencing can weaken control of cell division | A methylated locus is not sufficient to create a tumor |
+| **CDH1** · epithelial adhesion | Reduced E-cadherin may weaken tissue architecture and increase invasive potential | Expression and protein localization need direct measurement |
+| **GDNF** · cell survival/signaling | Altered regulation may change epithelial and neural-support signaling | Context-dependent and not specific to UC-associated cancer |
+| **FOXE1/SYNE1** · candidate neoplasia panel | Methylation has been evaluated as a marker of colitis-associated colorectal neoplasia | Biomarker association is not proof of driver function |
+
+## How this project should test the genes
+
+1. Preserve methylated and total read counts at every covered CpG.
+2. Test loci and regions with a coverage-aware model such as DSS.
+3. Require coherent direction across several CpGs in a promoter or regulatory region.
+4. Compare tissue with paired plasma detectability; do not treat them as identical specimens.
+5. Check whether effects survive adjustment for inflammation, batch, and estimated cell mixture.
+6. When possible, pair methylation with RNA or protein evidence before calling a gene silenced.
+7. Validate a locked panel in an independent, longitudinal cohort before connecting it to progression risk.
+
+::: {.callout-important title="Best working hypothesis"}
+The `FAM217B–KIAA1614–RIBC2` panel is the presentation's clearest experimentally supported example of promoter hypermethylation associated with reduced transcription in UC. The immune-gene set may reflect severe inflammatory state. Cancer-relevant genes such as `CDKN2A` and `CDH1` provide mechanistic context. Test them as candidate signals—do not assume any is the culprit.
+:::
+
+[See how colitis reshapes methylation →](how-colitis-reshapes-dna-methylation.qmd) · [Follow progression from colitis to cancer →](from-colitis-to-colorectal-cancer.qmd) · [Understand the statistics →](statistical-analysis-of-methylation-data.qmd)

@@ -15,6 +15,8 @@ DNA sequence tells us which bases are present. **DNA methylation** adds another 
 
 ![EM-seq carries nucleosome-protected cfDNA through enzymatic conversion, paired-end sequencing, and joint methylation–fragmentomics analysis.](../media/illustrations/emseq-fragmentomics.webp){.science-visual fig-alt="Scientific illustration of nucleosomes, DNA fragments, enzymatic methyl sequencing, paired reads, and analytical profiles"}
 
+![At molecule level, paired-end reads preserve fragment geometry while enzymatic conversion reveals methylated CpG evidence.](../media/illustrations/cfdna-fragment-sequencing.webp){.science-visual .science-visual-compact fig-alt="Molecular illustration of chromatin, nucleosome-protected cfDNA fragments, CpG methyl groups, and paired-end reads"}
+
 ## Why methylation needs special chemistry
 
 A sequencing instrument normally reads cytosine whether it carries a methyl group or not. The assay therefore needs a way to make modified and unmodified cytosines produce different sequencing results.
