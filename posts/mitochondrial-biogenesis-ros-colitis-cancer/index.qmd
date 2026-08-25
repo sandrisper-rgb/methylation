@@ -1,0 +1,233 @@
+---
+title: "More mitochondria, less efficient respiration"
+subtitle: "COX3, ND1, reactive oxygen species, and the path from colitis to colorectal cancer"
+description: "How inflammation-driven mitochondrial turnover can amplify mtDNA damage, sustain colitis, and reshape cancer risk."
+date: 2026-08-25
+author: "Methylation & Colitis team"
+categories: [mitochondria, colitis, colorectal cancer, oxidative stress, biomarkers]
+bibliography: ../../references.bib
+csl: ../../apa.csl
+link-citations: true
+link-bibliography: true
+code-fold: true
+code-summary: "Show reproducible Python code"
+execute:
+  echo: true
+  warning: false
+  cache: false
+jupyter: project-python
+---
+
+An inflamed epithelial cell can make more mitochondria while extracting less useful energy from each one. That apparent paradox matters because respiratory-chain stress is not only a consequence of inflammation: it can become an amplifier. Higher mitochondrial turnover and electron flow create more opportunities for reactive oxygen species (ROS) to damage mitochondrial DNA (mtDNA), weaken oxidative phosphorylation (OXPHOS), and release signals that keep mucosal immunity active. Over years of repeated injury and repair, that loop can help create a tissue environment permissive to colitis-associated colorectal cancer.
+
+## Mitochondrial biogenesis in inflammation
+
+Mitochondrial biogenesis is coordinated rather than spontaneous. PGC-1α coactivates nuclear respiratory factors including NRF1; these induce TFAM and other proteins needed to replicate, package, and transcribe mtDNA. Inflammatory and redox signals can engage this repair-and-replacement program, although cytokines such as TNF-α and IL-6 can also suppress or distort it depending on dose, timing, cell type, and disease stage. Thus, biogenesis is better understood as a stress response than as proof of healthy respiration [@cherry2015biogenesis; @cunningham2016pgc1a]. @fig-biogenesis shows the compensatory logic.
+
+```{python}
+#| label: fig-biogenesis
+#| fig-cap: "Inflammatory signaling can engage the PGC-1α–NRF1–TFAM biogenesis program, increasing mitochondrial number without guaranteeing respiratory quality."
+#| fig-width: 11
+#| fig-height: 5.3
+from pathlib import Path
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from matplotlib.patches import Circle, Ellipse, FancyBboxPatch, FancyArrowPatch, Rectangle
+from scipy import stats
+
+OUT = Path("images")
+OUT.mkdir(exist_ok=True)
+sns.set_theme(style="whitegrid", context="notebook")
+navy, teal, coral, gold, pale = "#17324D", "#17807E", "#D95D4F", "#E5A93D", "#EAF3F2"
+
+fig, ax = plt.subplots(figsize=(11, 5.3))
+ax.set(xlim=(0, 12), ylim=(0, 6)); ax.axis("off")
+steps = [(0.3, 4.65, 2.2, 0.75, "TNF-α · IL-6\nredox stress", coral),
+         (3.15, 4.65, 2.2, 0.75, "PGC-1α", teal),
+         (6.0, 4.65, 2.2, 0.75, "NRF1", teal),
+         (8.85, 4.65, 2.2, 0.75, "TFAM + mtDNA\nreplication", teal)]
+for x, y, w, h, txt, col in steps:
+    ax.add_patch(FancyBboxPatch((x,y),w,h,boxstyle="round,pad=.08",fc=col,ec="none"))
+    ax.text(x+w/2,y+h/2,txt,ha="center",va="center",color="white",weight="bold")
+for x in [2.55,5.4,8.25]:
+    ax.add_patch(FancyArrowPatch((x,5.03),(x+.55,5.03),arrowstyle="-|>",mutation_scale=16,color=navy,lw=2))
+for cx, label, count in [(2.7,"Before: fewer",3),(9.0,"After: more",8)]:
+    ax.add_patch(Circle((cx,2.15),1.65,fc="#F7FAFC",ec=navy,lw=2))
+    coords = [(cx-0.75+(i%4)*0.5,1.65+(i//4)*0.85) for i in range(count)]
+    for mx,my in coords:
+        ax.add_patch(Ellipse((mx,my),.7,.34,angle=15,fc=gold,ec=coral,lw=1.4))
+        ax.plot([mx-.2,mx+.2],[my,my],color="white",lw=1)
+    ax.text(cx,.2,label+" mitochondria",ha="center",weight="bold",color=navy)
+ax.add_patch(FancyArrowPatch((4.55,2.15),(7.15,2.15),arrowstyle="-|>",mutation_scale=22,color=teal,lw=3))
+ax.text(5.85,2.5,"compensatory\nbiogenesis",ha="center",color=teal,weight="bold")
+ax.text(5.85,.65,"More organelles ≠ more efficient OXPHOS",ha="center",color=coral,weight="bold")
+fig.tight_layout(); fig.savefig(OUT/"figure-1-biogenesis.png",dpi=220,bbox_inches="tight")
+plt.show()
+```
+
+## Why COX3 and ND1 are vulnerable
+
+MT-ND1 encodes a core membrane subunit of Complex I, where electrons enter from NADH; MT-CO3 encodes cytochrome-c-oxidase subunit III in Complex IV, where oxygen is reduced. Both genes reside on the compact mitochondrial genome. Compared with nuclear DNA, mtDNA is not organized in canonical histone chromatin, has a narrower repair repertoire, and lies close to respiratory ROS production. Those features make oxidative lesions and replication errors consequential, but not uniquely confined to these two genes: COX3 and ND1 are mechanistically useful sentinels within a genome-wide vulnerability [@nishikawa2005mtdna; @turrens2003ros]. Their ETC positions are highlighted in @fig-etc.
+
+```{python}
+#| label: fig-etc
+#| fig-cap: "Electron flow through the inner mitochondrial membrane. MT-ND1 in Complex I and MT-CO3 in Complex IV are mtDNA-encoded; ROS leakage is shown at the principal Complex I and III sites."
+#| fig-width: 11
+#| fig-height: 5.2
+fig, ax = plt.subplots(figsize=(11,5.2)); ax.set(xlim=(0,12),ylim=(0,6)); ax.axis("off")
+ax.add_patch(Rectangle((.2,2.25),11.6,1.35,fc="#DCECF2",ec="#8BAAB5",lw=1.5))
+ax.text(.35,3.75,"Intermembrane space",color=navy); ax.text(.35,1.85,"Matrix",color=navy)
+xs=[1.3,4.2,6.8,9.6]; labels=["Complex I\nND1","Complex II","Complex III","Complex IV\nCOX3"]
+for x,lbl in zip(xs,labels):
+    hi = x in (1.3,9.6)
+    ax.add_patch(FancyBboxPatch((x,2.0),1.45,2.1,boxstyle="round,pad=.08",fc=coral if hi else navy,ec="white",lw=2))
+    ax.text(x+.725,3.05,lbl,ha="center",va="center",color="white",weight="bold")
+for a,b in [(2.78,4.05),(5.68,6.65),(8.28,9.45)]:
+    ax.add_patch(FancyArrowPatch((a,3.05),(b,3.05),arrowstyle="-|>",mutation_scale=18,color=gold,lw=2.5))
+ax.text(5.9,4.55,"electron flow  →  O₂ → H₂O",ha="center",color=navy,weight="bold")
+for x in [2.0,7.5]:
+    ax.add_patch(FancyArrowPatch((x,2.05),(x,1.2),arrowstyle="-|>",mutation_scale=15,color=coral,lw=2))
+    ax.text(x,0.95,"ROS leak",ha="center",color=coral,weight="bold")
+ax.text(5.9,5.55,"MT-ND1 and MT-CO3: mtDNA-encoded",ha="center",fontsize=13,color=coral,weight="bold")
+ax.text(5.9,5.05,"no canonical histone protection · limited repair repertoire · near ROS source",ha="center",color=navy)
+fig.tight_layout(); fig.savefig(OUT/"figure-2-etc.png",dpi=220,bbox_inches="tight"); plt.show()
+```
+
+## The ROS feedback loop
+
+Greater ETC throughput can raise electron leakage, especially when respiratory complexes are damaged or substrate supply exceeds downstream capacity. ROS then damage mtDNA, including MT-CO3 and MT-ND1; dysfunctional complexes lower coupling efficiency and can generate still more ROS. Permeabilized or dying cells release mtDNA and mitochondrial formyl peptides, adding immune stimulation to metabolic failure [@turrens2003ros; @boyapati2018damp]. This is the cycle summarized in @fig-loop. It is a plausible integrated mechanism, not proof that every arrow occurs in every cell at every stage.
+
+```{python}
+#| label: fig-loop
+#| fig-cap: "A proposed feed-forward loop linking inflammation, mitochondrial turnover, respiratory stress, DAMP release, chronic colitis, and cancer risk."
+#| fig-width: 10
+#| fig-height: 8
+fig, ax = plt.subplots(figsize=(10,8)); ax.set(xlim=(-5,5),ylim=(-4.5,4.8)); ax.axis("off")
+nodes=["Inflammation","Biogenesis","ETC activity","ROS","mtDNA damage\nCOX3 / ND1","OXPHOS decline","DAMP release"]
+angles=np.linspace(np.pi/2,np.pi/2-2*np.pi,len(nodes),endpoint=False); pts=[]
+for i,(lab,a) in enumerate(zip(nodes,angles)):
+    x,y=3.25*np.cos(a),3.25*np.sin(a); pts.append((x,y))
+    col=coral if lab in ("ROS","mtDNA damage\nCOX3 / ND1") else teal
+    ax.add_patch(FancyBboxPatch((x-1.0,y-.38),2,.76,boxstyle="round,pad=.08",fc=col,ec="white",lw=1.5))
+    ax.text(x,y,lab,ha="center",va="center",color="white",weight="bold",fontsize=10)
+for (x1,y1),(x2,y2) in zip(pts,pts[1:]+pts[:1]):
+    ax.add_patch(FancyArrowPatch((x1,y1),(x2,y2),connectionstyle="arc3,rad=-.13",arrowstyle="-|>",mutation_scale=15,color=navy,lw=2,shrinkA=45,shrinkB=45))
+ax.text(0,0,"self-reinforcing\nmitochondrial stress",ha="center",va="center",color=navy,weight="bold",fontsize=14)
+ax.add_patch(FancyArrowPatch((3.0,-2.1),(4.25,-3.35),arrowstyle="-|>",mutation_scale=18,color=coral,lw=2))
+ax.text(4.05,-3.8,"chronic colitis",ha="center",color=coral,weight="bold")
+ax.add_patch(FancyArrowPatch((-2.7,-2.45),(-4.1,-3.45),arrowstyle="-|>",mutation_scale=18,color=coral,lw=2))
+ax.text(-3.55,-4.05,"genomic instability\n→ colon cancer risk",ha="center",color=coral,weight="bold")
+fig.tight_layout(); fig.savefig(OUT/"figure-3-feedback-loop.png",dpi=220,bbox_inches="tight"); plt.show()
+```
+
+## Link to colitis
+
+The intestinal epithelium depends heavily on mitochondrial metabolism to maintain ion transport, mucus production, tight-junction renewal, and rapid repair. Respiratory dysfunction therefore weakens the barrier while inflammatory infiltrates increase oxidant exposure. Released mtDNA, with bacterial-like CpG motifs, can signal through TLR9; cytosolic oxidized mtDNA can also promote NLRP3 inflammasome activation. Mitochondrial formyl peptides recruit and activate innate immune cells. In active IBD, plasma and fecal mtDNA, circulating formyl peptides, damaged mucosal mitochondria, and TLR9-positive lamina propria cells have all been observed together, supporting—without by itself proving—a self-sustaining DAMP circuit [@boyapati2018damp].
+
+## Direct evidence from OXPHOS protein studies
+
+Schneider et al. examined 286 colonic biopsies from 124 pediatric and adult participants with Crohn's disease, ulcerative colitis, or no IBD. Immunohistochemistry measured representative subunits from all five OXPHOS complexes plus VDAC1 as a marker of mitochondrial mass. Inflamed IBD mucosa showed disease-, age-, and compartment-dependent changes, including reduced epithelial respiratory-complex staining and altered VDAC1. This is unusually direct tissue-level evidence that respiratory machinery and mitochondrial mass change in inflamed colon [@schneider2022oxphos]. It complements sequencing studies, which identify mtDNA alterations but generally infer rather than directly measure respiratory protein function. Earlier biochemical work likewise reported ETC-complex dysfunction in UC mucosa [@santhanam2012etc].
+
+## Link to colon cancer
+
+Repeated oxidative injury can damage nuclear as well as mitochondrial DNA while proliferative repair expands altered epithelial clones. Nishikawa et al. found higher mucosal 8-OHdG and mtDNA mutation frequencies in UC and colitic cancer [@nishikawa2005mtdna]; MitoChip analysis also detected somatic mtDNA changes in gastrointestinal preneoplasia [@sui2006mitochip]. Circulating MT-ND1 copy number and variants have consequently been explored as CRC biomarkers [@xu2021mtnd1].
+
+This does not mean “cancer equals failed OXPHOS.” In a staged CRC cell-line model, advanced cells retained substantial oxidative metabolism and acquired greater metabolic flexibility, alongside altered mitochondrial networks [@legge2024crcmetabolism]. Separately, 5-FU-resistant colon-cancer cells shifted toward OXPHOS dependence, connecting mitochondrial plasticity to chemoresistance [@denise2015oxphos]. The apparent contrast is temporal and selective: inflamed mucosa may lose respiratory capacity, whereas surviving neoplastic clones can rewire or restore mitochondrial metabolism. Baker et al. add a crucial qualification: mtDNA mutations rose in UC preneoplasia but tended to be negatively selected in established cancers [@baker2019mtdna]. The trajectory is therefore non-monotonic.
+
+## Toy data analysis
+
+::: {.callout-warning title="Simulation disclaimer"}
+Every number below is simulated for pedagogical illustration. None comes from a patient, clinical cohort, GEO record, or the cited studies; the simulations reproduce only broad qualitative patterns and cannot estimate biological effect sizes.
+:::
+
+### Relative mtDNA copy number
+
+This two-group simulation follows the requested means and variances and is loosely motivated by the heterogeneous mtDNA-copy-number/IBD literature, including causal-inference evidence in Crohn's disease [@cai2023mtdnacn]. Tissue injury can deplete mtDNA even when surviving cells activate compensatory biogenesis, so direction depends on specimen, cell mixture, timing, and normalization.
+
+```{python}
+#| label: fig-copy-number
+#| fig-cap: "Simulated relative mtDNA copy number in healthy and inflamed colon (n = 30 per group). Points are synthetic."
+#| fig-width: 7
+#| fig-height: 5
+rng = np.random.default_rng(20260825)
+copy = pd.DataFrame({
+    "group": np.repeat(["Healthy", "Inflamed / IBD"], 30),
+    "mtDNA_copy_number": np.r_[rng.normal(205,70,30), rng.normal(95,30,30)]
+})
+t_copy, p_copy = stats.ttest_ind(copy.loc[copy.group=="Healthy","mtDNA_copy_number"], copy.loc[copy.group=="Inflamed / IBD","mtDNA_copy_number"], equal_var=False)
+print(f"Welch t = {t_copy:.2f}; p = {p_copy:.3g}")
+fig, ax = plt.subplots(figsize=(7,5))
+sns.violinplot(data=copy,x="group",y="mtDNA_copy_number",inner=None,color="#B9DCD8",ax=ax)
+sns.boxplot(data=copy,x="group",y="mtDNA_copy_number",width=.25,showfliers=False,color="white",ax=ax)
+sns.stripplot(data=copy,x="group",y="mtDNA_copy_number",color=navy,alpha=.7,jitter=.16,size=5,ax=ax)
+ax.set(xlabel="",ylabel="Relative mtDNA copy number (a.u.)",title=f"Welch p = {p_copy:.2g}")
+sns.despine(); plt.show()
+```
+
+In this synthetic draw, inflamed tissue has lower relative mtDNA copy number (Welch p reported above), illustrating depletion despite a possible compensatory biogenesis signal.
+
+### ROS and COX3/ND1 mutation frequency
+
+The next simulation encodes a positive association inspired by oxidative-adduct and mtDNA-mutation findings in UC mucosa [@nishikawa2005mtdna].
+
+```{python}
+#| label: fig-ros-mutation
+#| fig-cap: "Simulated ROS level versus combined COX3/ND1 mutation frequency (n = 50), with ordinary least-squares fit and 95% confidence band."
+#| fig-width: 7
+#| fig-height: 5
+ros = rng.uniform(.15,1.25,50)
+mut = np.clip(.02 + .15*ros + rng.normal(0,.025,50),0,None)
+fit = stats.linregress(ros,mut)
+ros_df = pd.DataFrame({"ROS":ros,"Mutation frequency":mut})
+print(f"R² = {fit.rvalue**2:.3f}; slope p = {fit.pvalue:.3g}")
+fig, ax = plt.subplots(figsize=(7,5))
+sns.regplot(data=ros_df,x="ROS",y="Mutation frequency",color=coral,scatter_kws={"s":42,"alpha":.75},ax=ax)
+ax.set(xlabel="Relative ROS level (a.u.)",ylabel="COX3 + ND1 mutation frequency",title=f"R² = {fit.rvalue**2:.2f}; p = {fit.pvalue:.2g}")
+sns.despine(); plt.show()
+```
+
+The simulated regression is positive, as constructed; it demonstrates how correlation and uncertainty would be displayed, not a measured dose-response.
+
+### mtDNA DAMP marker across disease activity
+
+This simulation mirrors the direction of the active-IBD plasma/fecal mtDNA finding, with deliberately greater heterogeneity in active disease [@boyapati2018damp].
+
+```{python}
+#| label: fig-damp-severity
+#| fig-cap: "Simulated mtDNA DAMP marker across non-IBD, mild/inactive IBD, and active IBD groups (n = 24 each)."
+#| fig-width: 8
+#| fig-height: 5
+groups = ["Non-IBD", "Mild / inactive IBD", "Active IBD"]
+damp = pd.DataFrame({"group":np.repeat(groups,24), "mtDNA_DAMP":np.r_[rng.normal(18,4,24),rng.normal(31,8,24),rng.normal(62,20,24)]})
+samples=[damp.loc[damp.group==g,"mtDNA_DAMP"] for g in groups]
+f_damp,p_damp=stats.f_oneway(*samples)
+print(f"One-way ANOVA F = {f_damp:.2f}; p = {p_damp:.3g}")
+fig, ax = plt.subplots(figsize=(8,5))
+sns.boxplot(data=damp,x="group",y="mtDNA_DAMP",hue="group",palette=["#AFC5D5",gold,coral],legend=False,showfliers=False,ax=ax)
+sns.stripplot(data=damp,x="group",y="mtDNA_DAMP",color=navy,alpha=.6,jitter=.18,size=4,ax=ax)
+ax.set(xlabel="",ylabel="mtDNA DAMP marker (a.u.)",title=f"One-way ANOVA p = {p_damp:.2g}")
+sns.despine(); plt.show()
+```
+
+The synthetic group difference increases with activity and variance, matching the intended illustration rather than estimating a clinical threshold.
+
+## Emerging methods: EM-seq as a future tool
+
+Enzymatic methyl-sequencing (EM-seq) measures cytosine methylation; it is not a mutation assay and therefore is not a direct extension of COX3/ND1 mutation-biomarker studies. Traditional bisulfite conversion is harsh, fragments DNA, and can bias recovery and mapping—problems that are particularly relevant to low-input, low-methylation mtDNA. EM-seq uses milder enzymatic conversion and preserves more usable molecules [@vaisvila2021emseq]. Targeted plasma cfDNA EM-seq has already supported an HCC classifier in 596 samples, based on nuclear differentially methylated CpGs [@guo2023hcc]. Applying it specifically to mitochondrial methylation in plasma from colitis or CRC is promising but forward-looking: to our knowledge, no published study has yet established that application.
+
+## Biomarkers and methods at a glance
+
+| Study | Focus | Methods & data | Key biomarker |
+|---|---|---|---|
+| Nishikawa et al. [@nishikawa2005mtdna] | mtDNA mutation accumulation in UC-associated cancer | Mucosal biopsy sequencing + 8-OHdG oxidative stress assay | 8-OHdG, mtDNA mutation frequency |
+| Sui et al. (MitoChip study) [@sui2006mitochip] | mtDNA mutations in GI preneoplasia incl. colitis-dysplasia | Whole mitochondrial genome microarray sequencing (MitoChip) on preneoplastic tissue vs. matched normal | Somatic mtDNA sequence alterations |
+| Baker et al., *Mol Cancer Res* 2019 [@baker2019mtdna] | mtDNA mutation dynamics from UC to cancer | Duplex Sequencing (ultra-accurate NGS) on 46 colon biopsies across dysplastic stages | Clonal/subclonal mtDNA mutation burden |
+| Boyapati et al., *Inflamm Bowel Dis* 2018 [@boyapati2018damp] | mtDNA as a released inflammatory DAMP in active IBD | Fecal/plasma mtDNA quantification, formylpeptide detection, TLR9+ cell counts | Circulating/fecal mtDNA + TLR9 expression |
+| Xu et al., *Bosn J Basic Med Sci* 2021 [@xu2021mtnd1] | Circulating MT-ND1 as a CRC biomarker | Droplet digital PCR on plasma cfDNA, variant + copy number analysis | Plasma cfDNA MT-ND1 copy number & variants |
+| Cai et al., *Sci Rep* 2023 [@cai2023mtdnacn] | mtDNA copy number and IBD risk | Mendelian randomization (MR-Egger, IVW, weighted median) meta-analysis | Genetically predicted mtDNA copy number |
+| Schneider et al., *Mediators Inflamm* 2022 [@schneider2022oxphos] | Direct OXPHOS protein and mitochondrial mass changes in IBD tissue | Immunohistochemistry for all 5 OXPHOS complexes + VDAC1 on 286 biopsies from 124 subjects (CD, UC, controls) | OXPHOS complex expression + VDAC1 (mitochondrial mass) |
+| Targeted EM-seq/HCC study, 2023 [@guo2023hcc] | Plasma cfDNA methylation detection via enzymatic conversion (methodological reference, not colitis/CRC-specific) | Targeted EM-seq + capture on 596 plasma samples, methylation-based classifier | Panel of differentially methylated CpGs (nuclear, not mtDNA) |
+
+#### References
