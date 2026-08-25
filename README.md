@@ -73,6 +73,8 @@ The clarified design includes **18 participants and 36 paired specimens**: plasm
 Install [Quarto](https://quarto.org/docs/get-started/) and run:
 
 ```bash
+python -m pip install -r requirements-quarto.txt
+python -m ipykernel install --user --name project-python --display-name "Python (methylation project)"
 quarto preview
 ```
 

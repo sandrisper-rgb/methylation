@@ -78,7 +78,7 @@ format:
     css: styles.css
     toc: true
     code-copy: true
-    code-fold: show
+    code-fold: true
     link-external-newwindow: true
 
 execute:
@@ -87,3 +87,5 @@ execute:
 
 bibliography: references.bib
 csl: apa.csl
+link-citations: true
+link-bibliography: true

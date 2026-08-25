@@ -8,6 +8,7 @@ renv/library/
 renv/staging/
 *.html
 .tools/
+**/*_files/
 
 
 **/*.quarto_ipynb
