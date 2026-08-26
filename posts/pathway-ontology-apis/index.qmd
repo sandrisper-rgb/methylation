@@ -1,0 +1,201 @@
+---
+title: "One gene list, four biological lenses"
+subtitle: "Gene Ontology, KEGG, Reactome, and DAVID—from interpretation to reproducible APIs"
+description: "A practical guide to choosing and combining GO, KEGG, Reactome, and DAVID without confusing annotations, pathways, and analysis tools."
+date: 2026-08-26
+author: "Methylation & Colitis team"
+categories: [bioinformatics, pathways, gene ontology, enrichment, APIs]
+image: "images/pathway-ontology-api-hero.png"
+bibliography: ../../references.bib
+csl: ../../apa.csl
+link-citations: true
+link-bibliography: true
+code-fold: true
+code-summary: "Show API code"
+execute:
+  echo: true
+  eval: false
+---
+
+::: {.lead-panel}
+## The shortest useful distinction
+
+**Gene Ontology (GO)** defines reusable terms for molecular functions, biological processes, and cellular locations. **KEGG** draws systems-level maps. **Reactome** models curated reactions and their hierarchy. **DAVID** is an analysis environment that maps an uploaded gene list to many annotation collections—including GO and pathways—and tests for enrichment.
+
+They overlap, but they are not four interchangeable pathway databases.
+:::
+
+![A gene list connects to complementary ontology, pathway, reaction, and analysis views through programmable interfaces. Original conceptual illustration; it is not an export from any named database.](images/pathway-ontology-api-hero.png){.science-visual fig-alt="Central gene list branching to an ontology graph, pathway map, reaction hierarchy, and enrichment dashboard"}
+
+```{mermaid}
+flowchart LR
+  A["DMLs / DMRs"] --> B["Documented region-to-gene rule"]
+  B --> L["Candidate genes"]
+  U["All testable genes"] --> T
+  L --> T{"Question"}
+  T -->|"What do they do?"| GO["GO<br/>terms + annotations"]
+  T -->|"Which system map?"| K["KEGG<br/>pathway maps"]
+  T -->|"Which reaction chain?"| R["Reactome<br/>reaction hierarchy"]
+  T -->|"One integrated report?"| D["DAVID<br/>analysis service"]
+  GO --> E["Effect size + FDR + overlap genes"]
+  K --> E
+  R --> E
+  D --> E
+```
+
+## Four resources, four jobs
+
+| Resource | What it primarily is | Best question | Programmatic access | Important caution |
+|---|---|---|---|---|
+| **GO** | Species-independent ontology plus gene-product annotations | Which functions, processes, and cellular components describe these genes? | GO API/data downloads; GO enrichment is exposed through PANTHER | Related parent and child terms are statistically dependent |
+| **KEGG** | Linked genes, orthologs, reactions, diseases, drugs, and manually drawn maps | Which canonical system or metabolic map contains these genes? | KEGG REST API | Academic-use and rate-limit conditions apply |
+| **Reactome** | Curated, peer-reviewed human reactions arranged as pathways | Which molecular events and pathway neighborhoods connect the genes? | Content Service and Analysis Service | A result may repeat across nested parent/child pathways |
+| **DAVID** | Identifier mapping, annotation, clustering, and enrichment platform | Can one service summarize a list across several annotation sources? | Authenticated DAVID Web Service | “DAVID result” is not a database provenance label; report each annotation category and release |
+
+GO's three aspects are **molecular function** (an activity), **biological process** (a larger biological program), and **cellular component** (where a gene product acts). GO terms form a graph rather than a simple list: one term can have more than one parent. A pathway is different. KEGG emphasizes a navigable map of interacting components; Reactome represents explicit molecular events, participants, compartments, catalysts, and regulators [@geneontology2021; @kanehisa2025; @milacic2024reactome].
+
+DAVID sits one level above these knowledge sources. It accepts identifiers, resolves them through the DAVID Knowledgebase, and produces annotation tables, enrichment charts, and clusters [@sherman2022david]. Its convenience does not remove the need to name the exact underlying category—for example, a GO Biological Process collection versus a KEGG pathway collection.
+
+## What “enriched” actually means
+
+For over-representation analysis, let the candidate list contain $n$ genes, of which $k$ carry a term. Let the background contain $N$ testable genes, of which $K$ carry that term. The hypergeometric tail asks how surprising it is to observe at least $k$ annotated genes:
+
+$$
+P(X \ge k)=\sum_{i=k}^{\min(n,K)}
+\frac{\binom{K}{i}\binom{N-K}{n-i}}{\binom{N}{n}}.
+$$
+
+The test is only as credible as **$N$**, the background. In a methylation study, the defensible universe is usually the genes that could have been selected after coverage filtering and the same CpG/DMR-to-gene mapping—not every gene in the genome. Correct p-values across all tested terms, retain the overlap genes, and report an effect such as fold enrichment or an odds ratio.
+
+::: {.callout-warning title="A common category error"}
+An enriched term does not demonstrate pathway activation. Methylation can be activating, repressive, neutral, or cell-composition driven depending on genomic context. Enrichment prioritizes hypotheses; RNA, protein, cell-type, and functional measurements test them.
+:::
+
+## A reproducible API pattern
+
+The examples below use three human Entrez Gene identifiers: **3553** (*IL1B*), **114548** (*NLRP3*), and **29108** (*PYCARD*). They intentionally separate **retrieval** (which records contain a gene?) from **inference** (is a term enriched against a specified universe?). Official endpoints and parameters can change, so save the access date, raw response, identifiers, and database release with every analysis.
+
+### 1. KEGG: retrieve gene-to-pathway links
+
+The [KEGG REST API](https://www.kegg.jp/kegg/rest/) provides `info`, `list`, `find`, `get`, `conv`, and `link` operations. The following request retrieves pathways linked to human *IL1B*. KEGG asks academic users to stay at or below three calls per second and directs other uses to its licensing guidance.
+
+```python
+import requests
+
+url = "https://rest.kegg.jp/link/pathway/hsa:3553"
+response = requests.get(url, timeout=30)
+response.raise_for_status()
+gene_pathway_pairs = [line.split("\t") for line in response.text.splitlines()]
+print(gene_pathway_pairs[:5])
+```
+
+For many genes, batch identifiers into supported requests instead of sending a rapid loop. `link` returns membership; it does **not** perform an enrichment test.
+
+### 2. GO: run over-representation through PANTHER
+
+The GO Consortium's [enrichment interface](https://geneontology.org/docs/go-enrichment-analysis/) delegates statistical testing to PANTHER. Its API accepts the gene list, taxon, GO aspect, test, and correction. `GO:0008150` requests the complete Biological Process ontology.
+
+```python
+import requests
+
+params = {
+    "geneInputList": "3553,114548,29108",
+    "organism": "9606",
+    "annotDataSet": "GO:0008150",
+    "enrichmentTestType": "FISHER",
+    "correction": "FDR",
+}
+url = "https://pantherdb.org/services/oai/pantherdb/enrich/overrep"
+response = requests.get(url, params=params, timeout=60)
+response.raise_for_status()
+go_results = response.json()["results"]["result"]
+```
+
+For production analysis, supply a study-specific reference list if the service/client supports it; otherwise the default genome-wide background may not match what the assay could detect.
+
+### 3. Reactome: submit identifiers for pathway analysis
+
+Reactome separates content retrieval from statistical analysis. The [Content Service](https://reactome.org/dev/content-service) retrieves curated entities and pathways; the Analysis Service accepts identifiers and returns a token plus pathway results.
+
+```python
+import requests
+
+genes = "3553\n114548\n29108"
+url = "https://reactome.org/AnalysisService/identifiers/projection"
+params = {"interactors": "false", "pageSize": 20, "page": 1}
+response = requests.post(
+    url, params=params, data=genes,
+    headers={"Content-Type": "text/plain"}, timeout=60
+)
+response.raise_for_status()
+reactome_results = response.json()
+token = reactome_results["summary"]["token"]
+```
+
+Set `interactors=false` when the claim should be limited to submitted identifiers. Otherwise, interaction partners can broaden the apparent biological story.
+
+### 4. DAVID: authenticate, then request a report
+
+DAVID exposes an active SOAP-style [Web Service](https://davidbioinformatics.nih.gov/webservice/services/listServices). Registration is required; keep the email in an environment variable rather than a notebook. The official service lists operations including `authenticate`, `addList`, `setCategories`, and `getChartReport`.
+
+```python
+import os
+from zeep import Client
+
+wsdl = (
+    "https://davidbioinformatics.nih.gov/"
+    "webservice/services/DAVIDWebService?wsdl"
+)
+client = Client(wsdl)
+email = os.environ["DAVID_EMAIL"]
+
+if not client.service.authenticate(email):
+    raise RuntimeError("Register this email with the DAVID Web Service first")
+
+ids = "3553,114548,29108"
+mapped = client.service.addList(ids, "ENTREZ_GENE_ID", "inflammasome", 0)
+client.service.setCategories("GOTERM_BP_DIRECT,KEGG_PATHWAY")
+chart = client.service.getChartReport(0.1, 2)
+```
+
+Do not commit credentials, and do not build a workflow around an undocumented legacy URL merely because it once returned a table. The supported service, current knowledgebase version, identifier type, categories, thresholds, and background belong in the methods section.
+
+## A workflow that survives peer review
+
+1. Freeze the input table: feature ID, effect size, uncertainty, direction, and QC state.
+2. Map CpGs or DMRs to genes once, with genome build and annotation release recorded.
+3. Create the background with the identical mapping rule.
+4. Preserve stable identifiers; use symbols only as readable labels.
+5. Query GO, KEGG, and Reactome as complementary lenses—or DAVID as an orchestrator—without counting agreement as independent experimental replication.
+6. Adjust for multiplicity within each declared analysis family and show the genes behind every reported term.
+7. Collapse redundant terms transparently, retaining the full machine-readable result.
+8. Validate the leading hypothesis with orthogonal data.
+
+```{mermaid}
+flowchart TB
+  I["Frozen identifiers + statistics"] --> M["Versioned ID mapping"]
+  M --> C["Candidate list"]
+  M --> B["Assay-aware background"]
+  C --> Q["Versioned API requests"]
+  B --> Q
+  Q --> RAW["Immutable raw JSON / text"]
+  RAW --> S["FDR + effect + overlap genes"]
+  S --> RED["Transparent redundancy reduction"]
+  RED --> V["RNA / protein / cell-type validation"]
+```
+
+## Which one should you choose?
+
+- Choose **GO** when the question is broad function, process, or location—especially across species.
+- Choose **KEGG** when a familiar map-centered view of metabolism, signaling, disease, or drugs is useful.
+- Choose **Reactome** when reaction-level detail, compartments, and a navigable pathway hierarchy matter.
+- Choose **DAVID** when identifier conversion and a rapid multi-source functional report are the priority.
+- Use more than one only when each answers a pre-declared question. Database overlap makes a four-tool vote look more independent than it is.
+
+::: {.callout-important title="Bottom line"}
+The reliable unit of interpretation is not the pathway name. It is the complete chain from testable feature, to mapped gene, to versioned annotation, to background-aware statistic, to overlap genes, to independent validation. APIs make that chain repeatable—but only if their inputs, releases, and raw outputs are saved.
+:::
+
+#### References
+
+The API examples were checked against the official services on **26 August 2026**. See also the focused explainers: [What is KEGG?](../what-is-kegg.qmd) and [What is Reactome?](../what-is-reactome.qmd).
