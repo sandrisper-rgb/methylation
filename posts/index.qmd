@@ -2,7 +2,7 @@
 title: "Field notes"
 description: "Methods explainers, comparisons, and practical analysis guidance"
 listing:
-  contents: "*.qmd"
+  contents: ["*.qmd", "*/index.qmd"]
   sort: "date desc"
   type: grid
   categories: true
