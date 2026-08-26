@@ -60,7 +60,7 @@ This sequence prevents technology from outrunning the biological question. With 
 4. **Control the analytical search space.** Small cohorts favor pre-specified regions, pathway-level summaries, shrinkage, and resampling over unconstrained classifiers.
 5. **Separate discovery from validation.** Internal cross-validation estimates model stability; it does not substitute for a new cohort, prospective follow-up, or clinical-utility testing.
 
-[Open the literature review →](publications.qmd)
+[Open the literature review →](publications.qmd) · [Where this could fit in a clinic →](posts/clinical-applications-of-methylation-siga-fingerprint/index.qmd)
 
 ::: {.callout-important title="Translation boundary"}
 These platforms demonstrate what cfDNA can reveal in oncology and organ-injury settings. Their inclusion is a technology landscape, not evidence that they diagnose UC, predict colitis-associated CRC, or outperform colonoscopic surveillance.
