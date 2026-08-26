@@ -36,7 +36,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from matplotlib.patches import (Circle, Ellipse, FancyBboxPatch, FancyArrowPatch,
-                                Rectangle, Polygon, Wedge)
+                                Rectangle, Polygon)
 from matplotlib.lines import Line2D
 
 OUT = Path("images")
@@ -347,7 +347,9 @@ plt.show()
 
 There is a published bar to clear. Medicare's national coverage determination for colorectal cancer screening tests ([NCD 210.3](https://www.cms.gov/medicare-coverage-database/view/ncd.aspx?NCDId=281)) requires a blood-based biomarker screening test to show at least **74% sensitivity** for colorectal cancer and at least **90% specificity**, based on the pivotal studies in FDA labelling, and covers such a test once every three years. That bar was calibrated against average-risk screening, and a surveillance test for high-risk colitis would ultimately need its own threshold—but it is the only concrete number the field has, and it is a reasonable place to start reasoning.
 
-Specificity is the constraint that bites, because prevalence in a surveillance population is low. Dysplasia is found at a low single-digit rate per examination in most surveillance cohorts, and at 5% prevalence a test with 85% sensitivity and 90% specificity yields a positive predictive value near 31%—roughly three colonoscopies triggered per true finding. That may still be a good trade when the alternative is scoping everyone, but it is the arithmetic a clinician should see before a test is described as "accurate". @fig-results makes the trade-off explicit.
+Specificity is the constraint that bites, and how hard it bites depends on prevalence—which in surveillance is neither negligible nor well pinned down. Reported per-procedure dysplasia detection varies widely with population and technique: a real-world Latin American surveillance series spanning Colombia, Costa Rica, Peru, Ecuador and the Dominican Republic found dysplasia in 12.5% of 144 surveillance colonoscopies, with digital chromoendoscopy detecting roughly five times more than white light [@parraizquierdo2025latam], while population-based cohorts report considerably lower rates [@choi2015surveillance]. That spread matters more than any single figure, and it cuts in the technology's favour: a surveillance population is enriched relative to average-risk screening, so the same test yields a better positive predictive value here than it would in a screening programme.
+
+The arithmetic is still worth seeing before a test is called "accurate". At 5% prevalence, a test with 85% sensitivity and 90% specificity returns a positive predictive value near 31%—about three colonoscopies per true finding. At the 12.5% observed in that Latin American series, the same test returns roughly 55%. @fig-results shows the whole curve rather than a single operating point, because the honest answer depends on which population is being tested.
 
 ::: {.callout-warning title="Simulation disclaimer"}
 Panels (b) and (c) of @fig-results contain **no data from this study or any other**. Panel (b) is drawn from a binormal model at chosen AUC values to illustrate the shape of the trade-off. Panel (c) is exact arithmetic — Bayes' rule applied to stated sensitivity and specificity — and is true of any test with those characteristics, including tests that do not exist.
@@ -382,8 +384,9 @@ def roc_from_auc(auc, n=400):
 def ppv(se, sp, prev):
     return se * prev / (se * prev + (1 - sp) * (1 - prev))
 
-print(f"Illustrative check — PPV at 5% prevalence, se=0.85, sp=0.90: {ppv(0.85, 0.90, 0.05):.3f}")
-print(f"Colonoscopies per true positive at that point: {1 / ppv(0.85, 0.90, 0.05):.1f}")
+for pv in (0.05, 0.125):
+    v = ppv(0.85, 0.90, pv)
+    print(f"prevalence {pv:.1%}: PPV {v:.3f} → {1 / v:.1f} colonoscopies per true positive")
 
 fig, axes = plt.subplots(1, 3, figsize=(15, 5.6),
                          gridspec_kw={"width_ratios": [1.25, 1.0, 1.0]})
@@ -429,14 +432,16 @@ prev = np.linspace(0.005, 0.20, 300)
 for se, sp, col, ls in [(0.85, 0.90, coral, "-"), (0.85, 0.95, teal, "-"), (0.74, 0.90, gray, (0, (5, 3)))]:
     axc.plot(prev * 100, ppv(se, sp, prev) * 100, color=col, lw=2.4, linestyle=ls,
              label=f"se {se:.2f} · sp {sp:.2f}")
-axc.axvspan(2, 8, color=gold, alpha=0.16, zorder=0)
-axc.text(5, 97, "plausible dysplasia\nprevalence per\nsurveillance exam", ha="center", va="top",
-         color="#8a6a1f", fontsize=8.4, weight="bold")
-p0 = 0.05; y0 = ppv(0.85, 0.90, p0) * 100
-axc.plot([p0 * 100], [y0], marker="o", color=coral, ms=8, zorder=5)
-axc.annotate(f"PPV {y0:.0f}%  →  {100 / y0:.1f} colonoscopies\nper true positive",
-             xy=(p0 * 100, y0), xytext=(7.6, 26), fontsize=8.8, color=coral, weight="bold",
-             arrowprops=dict(arrowstyle="-|>", color=coral, lw=1.3))
+axc.axvspan(2, 12.5, color=gold, alpha=0.16, zorder=0)
+axc.text(7.2, 97, "reported dysplasia detection\nper surveillance colonoscopy\n(population-based → referral)",
+         ha="center", va="top", color="#8a6a1f", fontsize=8.4, weight="bold")
+axc.axvline(12.5, color="#8a6a1f", lw=1.2, linestyle=(0, (4, 3)), zorder=1)
+for p0, dx, dy in [(0.05, 6.4, 18), (0.125, 14.2, 34)]:
+    y0 = ppv(0.85, 0.90, p0) * 100
+    axc.plot([p0 * 100], [y0], marker="o", color=coral, ms=8, zorder=5)
+    axc.annotate(f"PPV {y0:.0f}%  →  {100 / y0:.1f} scopes\nper true positive",
+                 xy=(p0 * 100, y0), xytext=(dx, dy), fontsize=8.6, color=coral, weight="bold",
+                 arrowprops=dict(arrowstyle="-|>", color=coral, lw=1.3))
 axc.set(xlim=(0, 20), ylim=(0, 100), xlabel="prevalence in the tested population (%)",
         ylabel="positive predictive value (%)")
 axc.set_title("(c) Why specificity dominates", color=navy, weight="bold", loc="left", fontsize=11.5)
