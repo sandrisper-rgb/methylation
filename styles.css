@@ -300,6 +300,11 @@ a { color: var(--teal); }
 table { border-radius: .6rem; overflow: hidden; box-shadow: 0 8px 24px rgba(16,47,59,.06); }
 thead { background: var(--ocean); color: white; }
 .callout { border-radius: .7rem; }
+/* In dark mode Quarto swaps in darkly, which paints callout headers a dark tint,
+   but `body` above still pins the text to --ink — dark title on a dark bar. Quarto
+   marks dark mode with `body.quarto-dark`, so restore a light title there. */
+body.quarto-dark .callout.callout-style-default > .callout-header,
+body.quarto-dark .callout.callout-style-default > .callout-header a { color: var(--paper); }
 .metadata { color: var(--muted); font-size: .92rem; }
 
 @media (max-width: 900px) {
