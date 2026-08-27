@@ -242,7 +242,9 @@ body.quarto-dark .quiz-widget .qz-btn-primary { color: #10212b; }
       answer: 1,
       explain: "Both encode innate immune sensors that assemble inflammasomes, activating caspase-1 and driving processing of IL-1β and IL-18. NLRC4 works with NAIP proteins to detect bacterial ligands such as flagellin and is curated as the IPAF inflammasome.",
       href: "posts/gene-nlrp3.html",
-      hrefText: "NLRP3"
+      hrefText: "NLRP3",
+      href2: "posts/gene-nlrc4.html",
+      hrefText2: "NLRC4"
     },
     {
       theme: "Neoplasia genes",
@@ -284,7 +286,9 @@ body.quarto-dark .quiz-widget .qz-btn-primary { color: #10212b; }
       answer: 1,
       explain: "Methylation of both genes was absent from controls, with FOXE1 detected in 60% and SYNE1 in 80% of colitis-associated colorectal cancers, and frequency rising across the ordered disease groups. This is association with neoplastic state; the cross-sectional design cannot show how early the signal appears.",
       href: "posts/gene-foxe1.html",
-      hrefText: "FOXE1"
+      hrefText: "FOXE1",
+      href2: "posts/gene-syne1.html",
+      hrefText2: "SYNE1"
     },
     {
       theme: "sIgA",
@@ -506,9 +510,11 @@ body.quarto-dark .quiz-widget .qz-btn-primary { color: #10212b; }
         "The median survival after a colitis-associated cancer diagnosis"
       ],
       answer: 1,
-      explain: "The eight-year point is a surveillance threshold, not a prediction that cancer develops in eight years. Most people with UC do not develop colorectal cancer; in the longest-running surveillance cohort, 72 of 1,375 patients developed CRC over 15,234 patient-years, an incidence of 4.7 per 1,000 patient-years.",
+      explain: "The eight-year point is a surveillance threshold, not a prediction that cancer develops in eight years — cancer can occur earlier, later, or never, and most people with UC do not develop colorectal cancer. In the longest-running surveillance cohort, 72 of 1,375 patients developed CRC over 15,234 patient-years, an incidence of 4.7 per 1,000 patient-years.",
       href: "posts/from-colitis-to-colorectal-cancer.html",
-      hrefText: "From colitis to colorectal cancer"
+      hrefText: "From colitis to colorectal cancer",
+      href2: "posts/clinical-applications-of-methylation-siga-fingerprint/index.html",
+      hrefText2: "Could a blood draw ever replace part of a colonoscopy?"
     },
     {
       theme: "Clinical",
@@ -550,13 +556,13 @@ body.quarto-dark .quiz-widget .qz-btn-primary { color: #10212b; }
     return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
 
-  function render() {
+  function render(initial) {
     var q = Q[idx];
     locked = false;
     elTheme.textContent = q.theme;
     elCount.textContent = "Question " + (idx + 1) + " of " + Q.length;
     elScore.textContent = "Score " + score;
-    elFill.style.width = (idx / Q.length * 100) + "%";
+    elFill.style.width = ((idx + 1) / Q.length * 100) + "%";
     elStem.textContent = q.stem;
     elFeedback.innerHTML = "";
     elOptions.innerHTML = q.options.map(function (opt, i) {
@@ -568,6 +574,7 @@ body.quarto-dark .quiz-widget .qz-btn-primary { color: #10212b; }
     elCheck.disabled = true;
     elNext.hidden = true;
     elNext.textContent = (idx === Q.length - 1) ? "See results" : "Next question";
+    if (!initial) elStem.focus();
   }
 
   function chosen() {
@@ -612,10 +619,12 @@ body.quarto-dark .quiz-widget .qz-btn-primary { color: #10212b; }
     elFeedback.innerHTML =
       '<p class="qz-explain"><span class="qz-verdict ' + (right ? "qz-verdict-yes" : "qz-verdict-no") + '">' +
       (right ? "✓ Correct" : "✗ Not quite") + '</span>' + esc(q.explain) +
-      '<a class="qz-source" href="' + q.href + '">Read the source: ' + esc(q.hrefText) + ' →</a></p>';
+      '<a class="qz-source" href="' + q.href + '">Read the source: ' + esc(q.hrefText) + ' →</a>' +
+      (q.href2 ? '<a class="qz-source" href="' + q.href2 + '">Also: ' + esc(q.hrefText2) + ' →</a>' : '') +
+      '</p>';
     elCheck.hidden = true;
     elNext.hidden = false;
-    elNext.focus();
+    elFeedback.focus();
   });
 
   elNext.addEventListener("click", function () {
@@ -626,7 +635,6 @@ body.quarto-dark .quiz-widget .qz-btn-primary { color: #10212b; }
   function finish() {
     shell.hidden = true;
     elResults.hidden = false;
-    elFill.style.width = "100%";
     var pct = Math.round(score / Q.length * 100);
     elFinal.textContent = score + " out of " + Q.length + " (" + pct + "%).";
     var rows = Object.keys(byTheme).map(function (t) {
@@ -654,7 +662,9 @@ body.quarto-dark .quiz-widget .qz-btn-primary { color: #10212b; }
   });
 
   document.getElementById("qz-results-title").setAttribute("tabindex", "-1");
-  render();
+  elStem.setAttribute("tabindex", "-1");
+  elFeedback.setAttribute("tabindex", "-1");
+  render(true);
 })();
 </script>
 
