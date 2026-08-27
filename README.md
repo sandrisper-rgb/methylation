@@ -73,10 +73,13 @@ The clarified design includes **18 participants and 36 paired specimens**: plasm
 Install [Quarto](https://quarto.org/docs/get-started/) and run:
 
 ```bash
+python3 -m venv .venv && source .venv/bin/activate
 python -m pip install -r requirements-quarto.txt
 python -m ipykernel install --user --name project-python --display-name "Python (methylation project)"
 quarto preview
 ```
+
+The `project-python` kernel is required for *any* render, not just the Python posts: Quarto indexes every post to build the Field Notes listing. The virtual environment keeps the install off the system Python, which Fedora and other distributions mark as externally managed.
 
 For a production build:
 

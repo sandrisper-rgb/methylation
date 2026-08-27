@@ -12,3 +12,4 @@ renv/staging/
 
 
 **/*.quarto_ipynb
+/.venv/
