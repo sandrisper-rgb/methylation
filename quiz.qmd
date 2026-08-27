@@ -1,0 +1,671 @@
+---
+title: "Test your reading"
+pagetitle: "Test your reading | Methylation + sIgA"
+description: "Thirty questions on the candidate genes, the sIgA assay, pathway enrichment, the statistics, and the clinical setting behind the study."
+page-layout: full
+toc: false
+---
+
+::: {.section-intro}
+## Thirty questions for researchers
+
+Every answer below is drawn from a page on this site, and every explanation links back to
+the note it came from. The questions deliberately target the distinctions this project
+works hardest to keep straight: hypo- versus hypermethylation, association versus
+mechanism, assay development versus plate acceptance, and a surveillance threshold versus
+a prediction.
+:::
+
+::: {.callout-note title="How to read your score"}
+This is self-assessment against the site's own text, not an examination and not clinical
+guidance. A missed question usually points at a page worth rereading rather than at a
+fact worth memorising.
+:::
+
+::: {.quiz-widget}
+<div class="qz-shell" id="qz-shell">
+<div class="qz-bar"><span class="qz-chip" id="qz-theme">Genes</span><span class="qz-count" id="qz-count">Question 1 of 30</span><span class="qz-score" id="qz-score">Score 0</span></div>
+<div class="qz-progress" role="presentation"><span class="qz-progress-fill" id="qz-progress-fill"></span></div>
+<form id="qz-form" novalidate>
+<fieldset class="qz-fieldset"><legend class="qz-stem" id="qz-stem">Loading&hellip;</legend><div class="qz-options" id="qz-options"></div></fieldset>
+</form>
+<div class="qz-feedback" id="qz-feedback" aria-live="polite"></div>
+<div class="qz-actions"><button type="button" class="qz-btn qz-btn-primary" id="qz-check">Check answer</button><button type="button" class="qz-btn" id="qz-next" hidden>Next question</button></div>
+</div>
+<div class="qz-results" id="qz-results" hidden>
+<h3 id="qz-results-title">Your result</h3>
+<p class="qz-final" id="qz-final"></p>
+<div class="qz-breakdown" id="qz-breakdown"></div>
+<div class="qz-missed" id="qz-missed"></div>
+<div class="qz-actions"><button type="button" class="qz-btn qz-btn-primary" id="qz-restart">Start over</button></div>
+</div>
+:::
+
+<style>
+.quiz-widget {
+  --qz-bg: #fbfcfa; --qz-fg: #102f3b; --qz-muted: #63737a;
+  --qz-line: #d9e2e8; --qz-accent: #167d78; --qz-warn: #bc6159;
+  --qz-chip: #dff1ec; --qz-sand: #f7f1e7; --qz-ocean: #123b5d;
+  margin: 2rem 0 2.5rem; max-width: 780px; padding: 1.4rem 1.5rem;
+  border: 1px solid var(--qz-line); border-radius: .9rem;
+  background: var(--qz-bg); color: var(--qz-fg);
+}
+body.quarto-dark .quiz-widget {
+  --qz-bg: #1f2933; --qz-fg: #e6edf3; --qz-muted: #9fb0bd;
+  --qz-line: #37444f; --qz-accent: #4fd1c5; --qz-warn: #f0876a;
+  --qz-chip: #2b3742; --qz-sand: #2b3742; --qz-ocean: #cfe0ee;
+}
+.quiz-widget .qz-bar { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; justify-content: space-between; }
+.quiz-widget .qz-chip { background: var(--qz-chip); color: var(--qz-ocean); border-radius: 999px; padding: .2rem .75rem; font-size: .78rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+.quiz-widget .qz-count { color: var(--qz-muted); font-size: .85rem; }
+.quiz-widget .qz-score { font-weight: 700; font-size: .9rem; color: var(--qz-accent); }
+.quiz-widget .qz-progress { height: 5px; border-radius: 999px; background: var(--qz-line); margin: .85rem 0 1.25rem; overflow: hidden; }
+.quiz-widget .qz-progress-fill { display: block; height: 100%; width: 0; background: var(--qz-accent); transition: width .25s ease; }
+.quiz-widget .qz-fieldset { border: 0; margin: 0; padding: 0; }
+.quiz-widget .qz-stem { font-size: 1.12rem; font-weight: 600; line-height: 1.45; margin: 0 0 1rem; padding: 0; width: 100%; }
+.quiz-widget .qz-options { display: grid; gap: .55rem; }
+.quiz-widget .qz-option { display: flex; gap: .7rem; align-items: flex-start; padding: .7rem .85rem; border: 1px solid var(--qz-line); border-radius: .6rem; cursor: pointer; line-height: 1.45; }
+.quiz-widget .qz-option:hover { border-color: var(--qz-accent); }
+.quiz-widget .qz-option input { margin: .3rem 0 0; flex: 0 0 auto; accent-color: var(--qz-accent); }
+.quiz-widget .qz-option input:disabled:not(:checked) { opacity: .3; }
+.quiz-widget .qz-option.is-correct { border-color: var(--qz-accent); background: var(--qz-chip); }
+.quiz-widget .qz-option.is-wrong { border-color: var(--qz-warn); }
+.quiz-widget .qz-option.is-locked { cursor: default; }
+.quiz-widget .qz-mark { font-weight: 700; margin-left: auto; padding-left: .5rem; }
+.quiz-widget .qz-option.is-correct .qz-mark { color: var(--qz-accent); }
+.quiz-widget .qz-option.is-wrong .qz-mark { color: var(--qz-warn); }
+.quiz-widget .qz-feedback { margin-top: 1rem; }
+.quiz-widget .qz-feedback:empty { margin-top: 0; }
+.quiz-widget .qz-verdict { font-weight: 700; display: block; margin-bottom: .3rem; }
+.quiz-widget .qz-verdict-yes { color: var(--qz-accent); }
+.quiz-widget .qz-verdict-no { color: var(--qz-warn); }
+.quiz-widget .qz-explain { background: var(--qz-sand); border-left: 3px solid var(--qz-accent); border-radius: .3rem; padding: .8rem 1rem; font-size: .95rem; line-height: 1.55; }
+.quiz-widget .qz-explain a { font-weight: 600; }
+.quiz-widget .qz-source { display: block; margin-top: .55rem; font-size: .88rem; }
+.quiz-widget .qz-actions { display: flex; gap: .6rem; flex-wrap: wrap; margin-top: 1.2rem; }
+.quiz-widget .qz-btn { font: inherit; font-weight: 600; padding: .5rem 1.15rem; border-radius: .45rem; border: 1px solid var(--qz-accent); background: transparent; color: var(--qz-accent); cursor: pointer; }
+.quiz-widget .qz-btn-primary { background: var(--qz-accent); color: #fff; }
+body.quarto-dark .quiz-widget .qz-btn-primary { color: #10212b; }
+.quiz-widget .qz-btn:disabled { opacity: .45; cursor: not-allowed; }
+.quiz-widget .qz-btn:focus-visible, .quiz-widget .qz-option input:focus-visible { outline: 3px solid var(--qz-ocean); outline-offset: 2px; }
+.quiz-widget .qz-final { font-size: 1.15rem; font-weight: 600; }
+.quiz-widget .qz-breakdown { display: grid; gap: .4rem; margin: 1rem 0; }
+.quiz-widget .qz-breakdown-row { display: flex; justify-content: space-between; gap: 1rem; border-bottom: 1px dotted var(--qz-line); padding-bottom: .35rem; font-size: .95rem; }
+.quiz-widget .qz-missed h4 { font-size: 1rem; margin: 1.2rem 0 .5rem; }
+.quiz-widget .qz-missed ol { padding-left: 1.2rem; }
+.quiz-widget .qz-missed li { margin-bottom: .5rem; font-size: .93rem; line-height: 1.5; }
+@media (max-width: 520px) {
+  .quiz-widget { padding: 1.1rem; }
+  .quiz-widget .qz-bar { gap: .4rem; }
+  .quiz-widget .qz-stem { font-size: 1.02rem; }
+}
+</style>
+
+<script>
+(function () {
+  var Q = [
+    {
+      theme: "Genes",
+      stem: "Which set of genes does the project presentation list as hypomethylated in severe ulcerative colitis?",
+      options: [
+        "FAM217B, KIAA1614, RIBC2",
+        "CDKN2A, CDH1, GDNF",
+        "IL10, SIGLEC5, CD86, CLMP, NLRP3, NLRC4",
+        "FOXE1, SYNE1, RUNX3"
+      ],
+      answer: 2,
+      explain: "Six immune genes are listed as hypomethylated in severe UC: IL10, SIGLEC5, CD86, CLMP, NLRP3 and NLRC4. Every other option is a hypermethylation finding: the validated promoter panel, the cancer-relevant genes, and the colitis-associated neoplasia markers.",
+      href: "posts/silenced-and-inflammatory-genes-in-colitis.html",
+      hrefText: "Which methylated genes matter in colitis-to-cancer progression?"
+    },
+    {
+      theme: "Genes",
+      stem: "Which three-gene promoter CpG-island panel survived technical validation in the cited Kang study as hypermethylated in UC?",
+      options: [
+        "FAM217B, KIAA1614, RIBC2",
+        "IL10, CD86, NLRP3",
+        "CDKN2A, CDH1, GDNF",
+        "FOXE1, SYNE1, ESR1"
+      ],
+      answer: 0,
+      explain: "FAM217B, KIAA1614 and RIBC2 are described as the presentation's clearest experimentally supported example of promoter hypermethylation associated with reduced transcription in UC. The authors noted that the genes' human disease functions were unknown.",
+      href: "posts/silenced-and-inflammatory-genes-in-colitis.html",
+      hrefText: "Which methylated genes matter in colitis-to-cancer progression?"
+    },
+    {
+      theme: "Genes",
+      stem: "A colleague lists five genes as hypomethylated in severe UC: IL10, SIGLEC5, CD86, NLRC4 and RIBC2. Which one does not belong, and why?",
+      options: [
+        "NLRC4 — it is an adaptor, not a sensor",
+        "SIGLEC5 — it is only reported in colorectal cancer",
+        "RIBC2 — it is part of the hypermethylated promoter panel, the opposite direction",
+        "IL10 — it is hypermethylated in UC and hypomethylated in CRC"
+      ],
+      answer: 2,
+      explain: "RIBC2 belongs to the FAM217B–KIAA1614–RIBC2 panel, where promoter hypermethylation was accompanied by reduced expression. Mixing it into the hypomethylated immune set inverts the direction of the finding — which is exactly why direction of methylation change has to be reported alongside any gene list.",
+      href: "posts/silenced-and-inflammatory-genes-in-colitis.html",
+      hrefText: "Which methylated genes matter in colitis-to-cancer progression?"
+    },
+    {
+      theme: "Genes",
+      stem: "How was that three-gene panel discovered and validated?",
+      options: [
+        "Whole-genome bisulfite sequencing of 18 paired tissue and plasma specimens",
+        "EM-seq in 79 UC samples with no control group",
+        "450K methylation arrays in 3 normal-colon controls and 8 UC samples, then technical validation in 79 UC samples",
+        "A meta-analysis of 12 previously published UC methylation studies"
+      ],
+      answer: 2,
+      explain: "The screen used 450K arrays in 3 normal-colon controls and 8 UC samples; technical validation followed in 79 UC samples. The small discovery arm is worth remembering when judging how much weight the panel can carry.",
+      href: "posts/silenced-and-inflammatory-genes-in-colitis.html",
+      hrefText: "Which methylated genes matter in colitis-to-cancer progression?"
+    },
+    {
+      theme: "Genes",
+      stem: "The immune genes are hypomethylated at the reported sites. What follows from that?",
+      options: [
+        "Their expression is necessarily increased",
+        "They are necessarily silenced",
+        "The change is permanent and cannot be reversed",
+        "Only that methylation is lower there — higher expression does not automatically follow"
+      ],
+      answer: 3,
+      explain: "Hypomethylation means lower methylation at the reported sites, not automatically higher expression. Some of the difference could also reflect more immune cells in an inflamed biopsy rather than epigenetic change within the same cell type.",
+      href: "posts/silenced-and-inflammatory-genes-in-colitis.html",
+      hrefText: "Which methylated genes matter in colitis-to-cancer progression?"
+    },
+    {
+      theme: "Gene function",
+      stem: "What does IL10 encode, and why does its appearance in a severe-UC gene list matter?",
+      options: [
+        "A pro-inflammatory cytokine released by activated neutrophils",
+        "A central anti-inflammatory cytokine that restrains excessive immune responses",
+        "An inhibitory receptor on innate immune cells",
+        "A cell-adhesion protein of the intestinal epithelium"
+      ],
+      answer: 1,
+      explain: "IL10 encodes a central anti-inflammatory cytokine that restrains excessive immune responses; biallelic defects in its receptors IL10RA and IL10RB cause infantile-onset enterocolitis. A regulatory brake appearing in a severe-disease list is biologically coherent but not by itself evidence of mechanism.",
+      href: "posts/gene-il10.html",
+      hrefText: "IL10"
+    },
+    {
+      theme: "Gene function",
+      stem: "SIGLEC5 encodes which kind of molecule?",
+      options: [
+        "A co-stimulatory ligand on antigen-presenting cells",
+        "An inhibitory receptor on innate immune cells that senses sialylated structures",
+        "An inflammasome sensor that recruits caspase-1",
+        "A transcription factor controlling epithelial identity"
+      ],
+      answer: 1,
+      explain: "SIGLEC5 is an inhibitory receptor found on innate immune cells, signalling through an ITIM motif and paired against the activating SIGLEC-14, which signals through DAP12. Its dampening role is part of why it reads as an anti-inflammatory member of the set.",
+      href: "posts/gene-siglec5.html",
+      hrefText: "SIGLEC5"
+    },
+    {
+      theme: "Gene function",
+      stem: "What is CD86's role?",
+      options: [
+        "It provides a co-stimulatory signal used by antigen-presenting cells to shape T-cell activation",
+        "It degrades bacterial peptidoglycan in the mucus layer",
+        "It is the receptor for secretory IgA on epithelial cells",
+        "It transports methyl groups to CpG dinucleotides"
+      ],
+      answer: 0,
+      explain: "CD86 provides a co-stimulatory signal from antigen-presenting cells that shapes T-cell activation, engaging CD28 and CTLA-4 — the latter removing CD86 from the cell surface by transendocytosis.",
+      href: "posts/gene-cd86.html",
+      hrefText: "CD86"
+    },
+    {
+      theme: "Gene function",
+      stem: "CLMP is the odd one out among the hypomethylated immune genes. What does it encode?",
+      options: [
+        "A cell-adhesion protein relevant to epithelial organisation and intestinal development",
+        "A cytokine receptor subunit shared with IL10",
+        "A pattern-recognition receptor for bacterial flagellin",
+        "A mitochondrial transcription factor"
+      ],
+      answer: 0,
+      explain: "CLMP encodes a cell-adhesion protein relevant to epithelial organisation and intestinal development; loss-of-function variants cause congenital short-bowel syndrome. It points at barrier structure rather than immune signalling.",
+      href: "posts/gene-clmp.html",
+      hrefText: "CLMP"
+    },
+    {
+      theme: "Gene function",
+      stem: "NLRP3 and NLRC4 share which function?",
+      options: [
+        "They are anti-inflammatory cytokines",
+        "They are innate immune sensors that can assemble inflammasomes and promote inflammatory cytokine processing",
+        "They are DNA methyltransferases",
+        "They are epithelial tight-junction proteins"
+      ],
+      answer: 1,
+      explain: "Both encode innate immune sensors that assemble inflammasomes, activating caspase-1 and driving processing of IL-1β and IL-18. NLRC4 works with NAIP proteins to detect bacterial ligands such as flagellin and is curated as the IPAF inflammasome.",
+      href: "posts/gene-nlrp3.html",
+      hrefText: "NLRP3",
+      href2: "posts/gene-nlrc4.html",
+      hrefText2: "NLRC4"
+    },
+    {
+      theme: "Neoplasia genes",
+      stem: "In the early colectomy study of three patients with long-standing extensive UC, how did p16 (CDKN2A) promoter hypermethylation distribute across 89 sampled sites?",
+      options: [
+        "Absent from nondysplastic tissue and present in 100% of dysplastic samples",
+        "Uniformly around 50% regardless of histology",
+        "70% of nondysplastic samples and 12.7% of carcinomas",
+        "12.7% of nondysplastic samples, 70% of dysplastic samples, and every sampled carcinoma"
+      ],
+      answer: 3,
+      explain: "The gradient — 12.7% nondysplastic, 70% dysplastic, and every sampled carcinoma — is what makes CDKN2A interesting as a cell-cycle brake losing control across progression. Three patients is still three patients.",
+      href: "posts/gene-cdkn2a.html",
+      hrefText: "CDKN2A"
+    },
+    {
+      theme: "Neoplasia genes",
+      stem: "CDH1 encodes E-cadherin. Why might its promoter hypermethylation matter in colitis-associated cancer?",
+      options: [
+        "E-cadherin is the enzyme that adds methyl groups at CpG islands",
+        "E-cadherin directly triggers inflammasome assembly",
+        "E-cadherin is the serum protein measured by the sIgA ELISA",
+        "Reduced E-cadherin may weaken tissue architecture and increase invasive potential"
+      ],
+      answer: 3,
+      explain: "CDH1 governs epithelial adhesion, so reduced E-cadherin may weaken tissue architecture and increase invasive potential. In one small study CDH1 promoter hypermethylation occurred in 57% of UC-associated and 36% of sporadic colorectal cancers — but expression and protein localisation still need direct measurement.",
+      href: "posts/gene-cdh1.html",
+      hrefText: "CDH1"
+    },
+    {
+      theme: "Neoplasia genes",
+      stem: "Papadia and colleagues tested FOXE1 and SYNE1 promoter methylation in 93 people with long-standing IBD under surveillance plus 30 controls. What did they find?",
+      options: [
+        "Both markers were common in controls and rare in cancers",
+        "Methylation was absent from controls and detected in 60% (FOXE1) and 80% (SYNE1) of colitis-associated colorectal cancers",
+        "Both markers were detected in exactly half of every group",
+        "Only FOXE1 was informative; SYNE1 was undetectable throughout"
+      ],
+      answer: 1,
+      explain: "Methylation of both genes was absent from controls, with FOXE1 detected in 60% and SYNE1 in 80% of colitis-associated colorectal cancers, and frequency rising across the ordered disease groups. This is association with neoplastic state; the cross-sectional design cannot show how early the signal appears.",
+      href: "posts/gene-foxe1.html",
+      hrefText: "FOXE1",
+      href2: "posts/gene-syne1.html",
+      hrefText2: "SYNE1"
+    },
+    {
+      theme: "sIgA",
+      stem: "Why does the study measure serum sIgA alongside DNA methylation rather than relying on methylation alone?",
+      options: [
+        "Because sIgA is a cheaper substitute that can replace methylation profiling",
+        "Because sIgA is required to normalise the methylation beta values",
+        "Because it tests whether immune state helps interpret epigenetic variation, rather than forcing one marker to stand in for the other",
+        "Because sIgA directly measures the methylation of immune genes"
+      ],
+      answer: 2,
+      explain: "The sequencing arm asks what information is carried by DNA; the sIgA arm asks what an accessible antibody measurement suggests about mucosal immune-barrier biology. Combining them tests whether immune state helps interpret epigenetic variation — and helps separate inflammation-associated cfDNA signals from candidate neoplastic ones.",
+      href: "siga-methods.html",
+      hrefText: "sIgA data source & rationale"
+    },
+    {
+      theme: "sIgA",
+      stem: "The presentation reports a seven-point calibration curve from 1.250 to 0 µg/ml with R² = 0.959. What does that establish?",
+      options: [
+        "That every plate run with this kit is automatically acceptable",
+        "That the assay is validated for individual cancer-risk prediction",
+        "That it is an assay-development result, not sufficient acceptance by itself",
+        "That serum sIgA equals mucosal sIgA within 4% error"
+      ],
+      answer: 2,
+      explain: "The curve describes assay development, not automatic plate acceptance. Blank behaviour, standard recovery, replicate coefficient of variation, LLOQ/ULOQ, dilutional parallelism and plate effects all have to be assessed before biological comparisons — acceptance should not rest on R² alone.",
+      href: "posts/protocol-siga-elisa.html",
+      hrefText: "Protocol 8: serum sIgA by ELISA"
+    },
+    {
+      theme: "sIgA",
+      stem: "A well fails QC and one participant's value falls below the lower limit of quantification. What does the protocol say to do?",
+      options: [
+        "Set the sub-LLOQ value to zero and average the failed well into the result",
+        "Drop the participant from the study entirely",
+        "Extrapolate the calibration curve below its lowest standard",
+        "Flag them — do not silently turn sub-LLOQ values into zero, and do not average a failed well into the result"
+      ],
+      answer: 3,
+      explain: "The QC gate is explicit: do not silently turn values below LLOQ into zero or average a failed well into the result. Censored and failed values are flagged rather than imputed, so the analysis table carries one reviewed value plus QC flags per participant.",
+      href: "posts/protocol-siga-elisa.html",
+      hrefText: "Protocol 8: serum sIgA by ELISA"
+    },
+    {
+      theme: "sIgA",
+      stem: "Each serum sample is read in three technical replicate wells. What does that do to the study's statistical power?",
+      options: [
+        "It raises the biological sample size from 18 to 54",
+        "It increases confidence in each measurement but does not increase the biological sample size",
+        "It permits treating each well as an independent patient in the model",
+        "It removes the need to adjust for plate effects"
+      ],
+      answer: 1,
+      explain: "Technical replicates increase confidence in the measurement; they do not turn 18 participants into 54. Treating reads, CpGs or technical replicates as independent patients is pseudoreplication.",
+      href: "posts/three-data-streams-one-study.html",
+      hrefText: "Three data streams, one study"
+    },
+    {
+      theme: "sIgA",
+      stem: "Which of these does the serum sIgA ELISA explicitly not generate?",
+      options: [
+        "A serum concentration with assay uncertainty",
+        "A blank-corrected optical density per well",
+        "A coefficient of variation across replicates",
+        "A direct measurement of stool IgA coating and intestinal secretion"
+      ],
+      answer: 3,
+      explain: "The assay does not count mucosal plasma cells, sequence IgA, measure stool IgA coating, or directly report intestinal secretion. Serum sIgA can be influenced by systemic production, clearance, infection and medication — it is accessible, not equivalent to the mucosal surface.",
+      href: "posts/protocol-siga-elisa.html",
+      hrefText: "Protocol 8: serum sIgA by ELISA"
+    },
+    {
+      theme: "Enrichment",
+      stem: "How does KEGG over-representation analysis identify pathways affected by methylation changes?",
+      options: [
+        "It measures pathway activity directly from methylation levels",
+        "It ranks pathways by the average beta value of their member genes",
+        "It compares the fraction of candidate genes in a pathway with the fraction in a background universe, typically by hypergeometric or Fisher exact test with FDR correction across pathways",
+        "It simulates the pathway kinetics implied by each differentially methylated region"
+      ],
+      answer: 2,
+      explain: "Over-representation analysis compares two proportions — candidate genes in a pathway versus the background universe — using a hypergeometric or Fisher exact test, followed by false-discovery-rate correction across pathways. KEGG does not measure pathway activity and does not prove that a pathway causes disease.",
+      href: "posts/what-is-kegg.html",
+      hrefText: "What is KEGG?"
+    },
+    {
+      theme: "Enrichment",
+      stem: "Why does the choice of background universe matter so much for this study's enrichment results?",
+      options: [
+        "It determines which false-discovery-rate procedure is valid",
+        "It sets the colour scale on the pathway map",
+        "Using the whole genome can make enrichment appear stronger simply because many genes were never testable",
+        "It has little effect once FDR correction is applied"
+      ],
+      answer: 2,
+      explain: "The background should represent genes that could have been discovered after coverage, filtering and region-to-gene mapping — not every human gene. Using the whole genome inflates apparent enrichment because many genes were never testable in the first place.",
+      href: "posts/what-is-kegg.html",
+      hrefText: "What is KEGG?"
+    },
+    {
+      theme: "Enrichment",
+      stem: "Which item is essential to report so that a KEGG result can be interpreted correctly?",
+      options: [
+        "The direction of methylation change, so hyper- and hypomethylated biology are not mixed",
+        "The colour palette used for the pathway diagram",
+        "The number of participants who consented to pathway analysis",
+        "The p-value before multiplicity correction only"
+      ],
+      answer: 0,
+      explain: "Direction of methylation change is one of seven items the site says must be reported, alongside the KEGG release date, genome build, CpG/DMR-to-gene rule, tested-feature background, overlap genes and counts, and the effect measure with adjusted p-value. Reactome guidance makes the same point: separate hypermethylated and hypomethylated sets when direction matters.",
+      href: "posts/what-is-kegg.html",
+      hrefText: "What is KEGG?"
+    },
+    {
+      theme: "Enrichment",
+      stem: "A Reactome run returns ten significant terms. What is the most likely interpretation?",
+      options: [
+        "Ten independent biological discoveries",
+        "Ten separate experimental confirmations of the same hypothesis",
+        "Evidence that the pathways are causally involved",
+        "One biological theme appearing across related parent and child terms"
+      ],
+      answer: 3,
+      explain: "Because a gene may appear in several related parent and child terms, ten significant Reactome terms may represent one biological theme, not ten independent discoveries. Running KEGG and Reactome together is complementary interpretation, not repeated confirmation by independent experimental data.",
+      href: "posts/what-is-reactome.html",
+      hrefText: "What is Reactome?"
+    },
+    {
+      theme: "Statistics",
+      stem: "You have raw EM-seq methylated and total read counts per CpG. Which modelling approach fits, and why?",
+      options: [
+        "limma, because moderated linear models handle count data natively",
+        "DSS, because it models methylated reads conditional on coverage with a beta-binomial distribution and shrinks CpG-wise dispersion",
+        "Either, since 50% from 2 reads and 50% from 100 reads carry the same information",
+        "Neither; raw counts must be converted to beta values and compared with a t-test"
+      ],
+      answer: 1,
+      explain: "DSS models methylated reads conditional on coverage using a beta-binomial and shrinks CpG-wise biological dispersion, which is what preserves the precision difference between 1/2 and 50/100 — binomial standard errors of roughly 0.354 and 0.050. limma is the right tool for normalised array M-values or approximately Gaussian region summaries.",
+      href: "posts/limma-versus-dss-for-methylation.html",
+      hrefText: "limma versus DSS for methylation"
+    },
+    {
+      theme: "Statistics",
+      stem: "One mistyped measurement is introduced into a dataset of 343 observations. What happens to Pearson's r compared with Kendall's tau?",
+      options: [
+        "Pearson loses about 96% of its estimate while Kendall's tau moves by about 1.8%",
+        "Both collapse by roughly the same proportion",
+        "Kendall's tau collapses while Pearson is unaffected",
+        "Neither changes, because n is large enough to absorb one point"
+      ],
+      answer: 0,
+      explain: "A single bad row destroys about 96% of Pearson's estimate while Kendall's tau moves by 1.8%. The mechanism is structural: one aberrant point participates in exactly n−1 of the n-choose-2 pairs, so its influence on tau is bounded at roughly 2/n by construction.",
+      href: "posts/beyond-correlation-association-vs-concordance/index.html",
+      hrefText: "Beyond correlation: association versus concordance"
+    },
+    {
+      theme: "Statistics",
+      stem: "Bill depth and body mass correlate at −0.472 across the penguin dataset, but at +0.576, +0.604 and +0.719 within each species. What is the right response?",
+      options: [
+        "Stratify — the fix is the stratification, not the statistic",
+        "Switch to a rank-based statistic, which is immune to the problem",
+        "Report the pooled estimate, since it uses all the data",
+        "Discard the smallest species and recompute"
+      ],
+      answer: 0,
+      explain: "This is Simpson's paradox: the pooled sign reverses because species is a confounder. No choice of correlation coefficient repairs it — the fix is the stratification, not the statistic. The same logic applies to cell composition and batch in methylation data.",
+      href: "posts/beyond-correlation-association-vs-concordance/index.html",
+      hrefText: "Beyond correlation: association versus concordance"
+    },
+    {
+      theme: "Statistics",
+      stem: "A test with 85% sensitivity and 90% specificity is applied where dysplasia prevalence is 5%, then where it is 12.5%. How does positive predictive value change?",
+      options: [
+        "It stays near 85%, because sensitivity is unchanged",
+        "It rises from about 31% to about 55%",
+        "It falls from about 55% to about 31%",
+        "PPV does not depend on prevalence"
+      ],
+      answer: 1,
+      explain: "At 5% prevalence the PPV is near 31% — about three colonoscopies per true finding. At the 12.5% dysplasia rate observed in a Latin American surveillance series of 144 colonoscopies, the same test returns roughly 55%. This is exact Bayes arithmetic and holds for any test with those characteristics, including tests that do not exist.",
+      href: "posts/clinical-applications-of-methylation-siga-fingerprint/index.html",
+      hrefText: "Could a blood draw ever replace part of a colonoscopy?"
+    },
+    {
+      theme: "Statistics",
+      stem: "A classifier is cross-validated on DMRs that were called once on the complete cohort. What is wrong?",
+      options: [
+        "It leaks outcome information into every test fold; feature discovery must be repeated within each training fold, or the feature set locked separately",
+        "Nothing, provided the folds are stratified by group",
+        "The error is only in the choice of classifier, not the procedure",
+        "It is acceptable if the false-discovery rate was controlled during DMR calling"
+      ],
+      answer: 0,
+      explain: "Calling DMRs on the complete cohort and then cross-validating leaks outcome information into every test fold. All outcome-aware steps — DMR discovery, imputation, scaling, feature selection, tuning — belong inside the training split, and tissue, plasma and every technical replicate from one participant must stay in the same fold.",
+      href: "posts/statistical-analysis-of-methylation-data.html",
+      hrefText: "Statistical analysis of methylation data"
+    },
+    {
+      theme: "Clinical",
+      stem: "When do the cited guidelines recommend beginning endoscopic dysplasia surveillance in long-standing ulcerative colitis?",
+      options: [
+        "At diagnosis, then annually for life",
+        "Twenty years after diagnosis, regardless of disease extent",
+        "Only once symptoms such as bleeding or weight loss appear",
+        "AGA: about 8–10 years after diagnosis, earlier when PSC is present; ECCO: a screening colonoscopy eight years after the onset of first symptoms"
+      ],
+      answer: 3,
+      explain: "The AGA advises beginning dysplasia screening about 8–10 years after diagnosis unless primary sclerosing cholangitis is present, when surveillance starts earlier; ECCO recommends a screening colonoscopy eight years after the onset of first symptoms. Surveillance is intended to find dysplasia or cancer even when symptoms are absent.",
+      href: "posts/from-colitis-to-colorectal-cancer.html",
+      hrefText: "From colitis to colorectal cancer"
+    },
+    {
+      theme: "Clinical",
+      stem: "What does the eight-year mark actually represent?",
+      options: [
+        "A prediction that cancer develops around eight years after diagnosis",
+        "A surveillance threshold — cancer can occur earlier, later, or never",
+        "The point at which surveillance can safely stop",
+        "The median survival after a colitis-associated cancer diagnosis"
+      ],
+      answer: 1,
+      explain: "The eight-year point is a surveillance threshold, not a prediction that cancer develops in eight years — cancer can occur earlier, later, or never, and most people with UC do not develop colorectal cancer. In the longest-running surveillance cohort, 72 of 1,375 patients developed CRC over 15,234 patient-years, an incidence of 4.7 per 1,000 patient-years.",
+      href: "posts/from-colitis-to-colorectal-cancer.html",
+      hrefText: "From colitis to colorectal cancer",
+      href2: "posts/clinical-applications-of-methylation-siga-fingerprint/index.html",
+      hrefText2: "Could a blood draw ever replace part of a colonoscopy?"
+    },
+    {
+      theme: "Clinical",
+      stem: "Beyond disease duration, which factors refine an individual's risk of colitis-associated colorectal cancer?",
+      options: [
+        "Disease extent, cumulative inflammatory burden, PSC, family history, stricture and prior dysplasia",
+        "Age at first colonoscopy and body mass index alone",
+        "Only the presence of active symptoms",
+        "Serum sIgA concentration, which sets a validated risk threshold"
+      ],
+      answer: 0,
+      explain: "Duration identifies when surveillance becomes especially important, but disease extent, cumulative inflammatory burden, PSC, family history, stricture, prior dysplasia and examination quality refine the risk. Dysplasia is the key established precursor finding; there is no validated sIgA threshold that predicts an individual's cancer risk.",
+      href: "posts/from-colitis-to-colorectal-cancer.html",
+      hrefText: "From colitis to colorectal cancer"
+    }
+  ];
+
+  var shell = document.getElementById("qz-shell");
+  if (!shell) return;
+  var elTheme = document.getElementById("qz-theme");
+  var elCount = document.getElementById("qz-count");
+  var elScore = document.getElementById("qz-score");
+  var elFill = document.getElementById("qz-progress-fill");
+  var elStem = document.getElementById("qz-stem");
+  var elOptions = document.getElementById("qz-options");
+  var elFeedback = document.getElementById("qz-feedback");
+  var elCheck = document.getElementById("qz-check");
+  var elNext = document.getElementById("qz-next");
+  var elResults = document.getElementById("qz-results");
+  var elFinal = document.getElementById("qz-final");
+  var elBreakdown = document.getElementById("qz-breakdown");
+  var elMissed = document.getElementById("qz-missed");
+  var elRestart = document.getElementById("qz-restart");
+  var elForm = document.getElementById("qz-form");
+
+  var idx = 0, score = 0, locked = false, missed = [], byTheme = {};
+
+  function esc(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  function render(initial) {
+    var q = Q[idx];
+    locked = false;
+    elTheme.textContent = q.theme;
+    elCount.textContent = "Question " + (idx + 1) + " of " + Q.length;
+    elScore.textContent = "Score " + score;
+    elFill.style.width = ((idx + 1) / Q.length * 100) + "%";
+    elStem.textContent = q.stem;
+    elFeedback.innerHTML = "";
+    elOptions.innerHTML = q.options.map(function (opt, i) {
+      return '<label class="qz-option" for="qz-opt-' + i + '">' +
+        '<input type="radio" name="qz-answer" id="qz-opt-' + i + '" value="' + i + '">' +
+        '<span>' + esc(opt) + '</span><span class="qz-mark" aria-hidden="true"></span></label>';
+    }).join("");
+    elCheck.hidden = false;
+    elCheck.disabled = true;
+    elNext.hidden = true;
+    elNext.textContent = (idx === Q.length - 1) ? "See results" : "Next question";
+    if (!initial) elStem.focus();
+  }
+
+  function chosen() {
+    var picked = elOptions.querySelector('input[name="qz-answer"]:checked');
+    return picked ? Number(picked.value) : -1;
+  }
+
+  elOptions.addEventListener("change", function () {
+    if (!locked) elCheck.disabled = chosen() < 0;
+  });
+
+  elForm.addEventListener("submit", function (e) { e.preventDefault(); });
+
+  elCheck.addEventListener("click", function () {
+    if (locked) return;
+    var pick = chosen();
+    if (pick < 0) return;
+    locked = true;
+    var q = Q[idx];
+    var right = pick === q.answer;
+    if (right) score++;
+    if (!byTheme[q.theme]) byTheme[q.theme] = { right: 0, total: 0 };
+    byTheme[q.theme].total++;
+    if (right) byTheme[q.theme].right++;
+    else missed.push({ n: idx + 1, stem: q.stem, href: q.href, hrefText: q.hrefText });
+
+    var labels = elOptions.querySelectorAll(".qz-option");
+    for (var i = 0; i < labels.length; i++) {
+      var input = labels[i].querySelector("input");
+      input.disabled = true;
+      labels[i].classList.add("is-locked");
+      if (i === q.answer) {
+        labels[i].classList.add("is-correct");
+        labels[i].querySelector(".qz-mark").textContent = "✓";
+      } else if (i === pick) {
+        labels[i].classList.add("is-wrong");
+        labels[i].querySelector(".qz-mark").textContent = "✗";
+      }
+    }
+
+    elScore.textContent = "Score " + score;
+    elFeedback.innerHTML =
+      '<p class="qz-explain"><span class="qz-verdict ' + (right ? "qz-verdict-yes" : "qz-verdict-no") + '">' +
+      (right ? "✓ Correct" : "✗ Not quite") + '</span>' + esc(q.explain) +
+      '<a class="qz-source" href="' + q.href + '">Read the source: ' + esc(q.hrefText) + ' →</a>' +
+      (q.href2 ? '<a class="qz-source" href="' + q.href2 + '">Also: ' + esc(q.hrefText2) + ' →</a>' : '') +
+      '</p>';
+    elCheck.hidden = true;
+    elNext.hidden = false;
+    elFeedback.focus();
+  });
+
+  elNext.addEventListener("click", function () {
+    if (idx < Q.length - 1) { idx++; render(); elStem.scrollIntoView({ block: "nearest" }); }
+    else finish();
+  });
+
+  function finish() {
+    shell.hidden = true;
+    elResults.hidden = false;
+    var pct = Math.round(score / Q.length * 100);
+    elFinal.textContent = score + " out of " + Q.length + " (" + pct + "%).";
+    var rows = Object.keys(byTheme).map(function (t) {
+      return '<div class="qz-breakdown-row"><span>' + esc(t) + '</span><strong>' +
+        byTheme[t].right + " / " + byTheme[t].total + "</strong></div>";
+    });
+    elBreakdown.innerHTML = rows.join("");
+    if (missed.length) {
+      elMissed.innerHTML = "<h4>Worth rereading</h4><ol>" + missed.map(function (m) {
+        return "<li>Q" + m.n + ". " + esc(m.stem) +
+          '<br><a href="' + m.href + '">' + esc(m.hrefText) + " →</a></li>";
+      }).join("") + "</ol>";
+    } else {
+      elMissed.innerHTML = "<p>Nothing missed — every answer matched the source.</p>";
+    }
+    document.getElementById("qz-results-title").focus();
+  }
+
+  elRestart.addEventListener("click", function () {
+    idx = 0; score = 0; missed = []; byTheme = {};
+    elResults.hidden = true;
+    shell.hidden = false;
+    render();
+    elStem.scrollIntoView({ block: "nearest" });
+  });
+
+  document.getElementById("qz-results-title").setAttribute("tabindex", "-1");
+  elStem.setAttribute("tabindex", "-1");
+  elFeedback.setAttribute("tabindex", "-1");
+  render(true);
+})();
+</script>
+
+[Back to the study design →](research.qmd) · [Browse the Field Notes →](posts/index.qmd)

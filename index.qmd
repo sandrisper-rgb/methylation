@@ -262,6 +262,12 @@ Connect this Colombian project with complementary IBD programs worldwide.
 :::
 ::::
 
+## Check your understanding
+
+Thirty questions on the candidate genes, the sIgA assay, pathway enrichment, the statistics, and the clinical setting—each answer explained and linked back to the note it came from.
+
+[Take the quiz](quiz.qmd){.btn .btn-primary}
+
 ## From the Field Notes
 
 Practical, illustrated explainers connect the study design to the wider cfDNA field.
@@ -321,4 +327,6 @@ For a deeper statistical treatment, compare [limma's moderated linear models wit
 For biological interpretation, start with [what KEGG is →](posts/what-is-kegg.qmd) and [how Reactome represents pathways →](posts/what-is-reactome.qmd)
 
 For the immune signal, read the plain-language guide to [what sIgA is and why the study tracks it →](posts/what-is-siga.qmd)
+
+Want to check what stuck? [Take the 30-question quiz →](quiz.qmd)
 :::
