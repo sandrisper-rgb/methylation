@@ -5,14 +5,14 @@ description: "A biological signature uses a small set of molecular features to d
 author: "Ravi Kalia"
 date: "2026-08-27"
 categories: [biology, genomics, machine learning, statistics]
-image: "cover.png"
+image: "cover.webp"
 format:
   html:
     toc: false
     css: [../../styles.css, signature.css]
 ---
 
-![Thousands of molecular measurements narrowing into a small biological signature.](cover.png){.science-visual fig-alt="A dense field of genes, proteins, metabolites, and molecular measurements passes through a selection funnel to become a compact molecular fingerprint"}
+![Thousands of molecular measurements narrowing into a small biological signature.](cover.webp){.science-visual fig-alt="A dense field of genes, proteins, metabolites, and molecular measurements passes through a selection funnel to become a compact molecular fingerprint"}
 
 ::: {.callout-note title="Cross-post"}
 This article was originally published on the [Project Delphi ML Blog](https://project-delphi.github.io/ml-blog/posts/what-is-a-biological-signature/).
@@ -43,7 +43,7 @@ costly to enrol. A gene chip, or microarray, hands you 20,000 readings on 70
 people, nearly all of them noise for your question, and a model given all 20,000
 will fit that noise perfectly. The signature is the short list you keep.
 
-<figure class="signature-figure column-page" role="img" aria-label="A large cloud of measured biological features passes through a selection funnel and becomes a compact five-feature signature">
+<figure class="signature-figure column-page" aria-label="A large cloud of measured biological features passes through a selection funnel and becomes a compact five-feature signature">
 <div class="signature-funnel">
 <div class="signature-stage">
 <span class="signature-kicker">Measure wide</span>
@@ -85,7 +85,7 @@ will fit that noise perfectly. The signature is the short list you keep.
    cross-validation, and each turn is a fold. Redo the selection inside every
    fold.
 
-<figure class="signature-figure column-page" role="img" aria-label="Comparison of leaky and honest validation workflows">
+<figure class="signature-figure column-page" aria-label="Comparison of leaky and honest validation workflows">
 <div class="validation-compare">
 <div class="validation-path validation-path-leaky">
 <h3>Leaky validation</h3>
@@ -116,9 +116,9 @@ will fit that noise perfectly. The signature is the short list you keep.
 Skip step 4 and the number you report is too good. Choose the genes using all
 your samples and the ones you held back are no longer fresh: those genes were
 chosen *because* they split those exact samples.
-Ambroise and McLachlan [1] showed this bias drags the reported cross-validation
-error towards zero, and that redoing selection inside each fold pushes it back
-up.
+Ambroise and McLachlan <a class="citation" href="#ref-1">[1]</a> showed this
+bias drags the reported cross-validation error towards zero, and that redoing
+selection inside each fold pushes it back up.
 
 When the groups themselves are discovered by clustering, the same principle
 applies: derive the clusters using training data and assign held-out samples
@@ -130,12 +130,13 @@ cohort.
 Dodging that trap is what made the founding example credible. Two kinds of acute
 leukemia, ALL and AML, look alike down a microscope but take opposite
 chemotherapies, and the call rested on four separate specialist lab tests —
-good, yet errors happened. Golub and colleagues [2] measured 6,817 genes in 38
-samples from acute leukemia patients. Clustering, told nothing about who had
-which disease, nearly found the split on its own: it sorted the patients into
-two groups, one holding 24 ALL patients and a single AML, the other holding 10
-AML patients and 3 ALL. They then trained a 50-gene predictor and tested it on
-34 fresh samples from other leukemia banks. Fifty features out of 6,817: a
+good, yet errors happened. Golub and colleagues
+<a class="citation" href="#ref-2">[2]</a> measured 6,817 genes in 38 samples
+from acute leukemia patients. Clustering, told nothing about who had which
+disease, nearly found the split on its own: it sorted the patients into two
+groups, one holding 24 ALL patients and a single AML, the other holding 10 AML
+patients and 3 ALL. They then trained a 50-gene predictor and tested it on 34
+fresh samples from other leukemia banks. Fifty features out of 6,817: a
 signature.
 
 <div class="signature-number-grid column-page" role="group" aria-label="Key numbers from the Golub leukemia study">
@@ -149,22 +150,24 @@ marker sequences in a river sample say a jaguar was there. Read from starlight,
 an exoplanet's atmosphere can show gases that chemistry alone would struggle to
 produce.
 
-**Further reading:** Guyon and Elisseeff [3] on feature selection; Meinshausen
-and Bühlmann [4] on keeping only features that survive resampling.
+**Further reading:** Guyon and Elisseeff
+<a class="citation" href="#ref-3">[3]</a> on feature selection; Meinshausen and
+Bühlmann <a class="citation" href="#ref-4">[4]</a> on keeping only features
+that survive resampling.
 
 ## References
 
-1. Ambroise C, McLachlan GJ. Selection bias in gene extraction on the basis of
+1. <span id="ref-1"></span>Ambroise C, McLachlan GJ. Selection bias in gene extraction on the basis of
    microarray gene-expression data. *Proceedings of the National Academy of
    Sciences*. 2002;99(10):6562–6566.
    [doi:10.1073/pnas.102102699](https://doi.org/10.1073/pnas.102102699)
-2. Golub TR, Slonim DK, Tamayo P, et al. Molecular classification of cancer:
+2. <span id="ref-2"></span>Golub TR, Slonim DK, Tamayo P, et al. Molecular classification of cancer:
    class discovery and class prediction by gene expression monitoring.
    *Science*. 1999;286(5439):531–537.
    [doi:10.1126/science.286.5439.531](https://doi.org/10.1126/science.286.5439.531)
-3. Guyon I, Elisseeff A. An introduction to variable and feature selection.
+3. <span id="ref-3"></span>Guyon I, Elisseeff A. An introduction to variable and feature selection.
    *Journal of Machine Learning Research*. 2003;3:1157–1182.
    [jmlr.org/papers/v3/guyon03a.html](https://www.jmlr.org/papers/v3/guyon03a.html)
-4. Meinshausen N, Bühlmann P. Stability selection. *Journal of the Royal
+4. <span id="ref-4"></span>Meinshausen N, Bühlmann P. Stability selection. *Journal of the Royal
    Statistical Society: Series B*. 2010;72(4):417–473.
    [doi:10.1111/j.1467-9868.2010.00740.x](https://doi.org/10.1111/j.1467-9868.2010.00740.x)
