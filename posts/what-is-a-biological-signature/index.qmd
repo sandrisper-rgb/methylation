@@ -5,16 +5,25 @@ description: "A biological signature uses a small set of molecular features to d
 author: "Ravi Kalia"
 date: "2026-08-27"
 categories: [biology, genomics, machine learning, statistics]
-image: "cover.png"
+image: "cover.webp"
 format:
   html:
     toc: false
+    css: [../../styles.css, signature.css]
 ---
 
-![What is a Biological Signature?](cover.png)
+![Thousands of molecular measurements narrowing into a small biological signature.](cover.webp){.science-visual fig-alt="A dense field of genes, proteins, metabolites, and molecular measurements passes through a selection funnel to become a compact molecular fingerprint"}
 
 ::: {.callout-note title="Cross-post"}
 This article was originally published on the [Project Delphi ML Blog](https://project-delphi.github.io/ml-blog/posts/what-is-a-biological-signature/).
+:::
+
+::: {.lead-panel}
+## The whole idea in one line
+
+A biological signature is a **small, reproducible set of measurements** that
+retains enough information to distinguish one biological condition from another.
+The science lies as much in proving that the short list generalizes as in finding it.
 :::
 
 A fingerprint identifies you from a patch of skin the size of a stamp. That is
@@ -34,6 +43,32 @@ costly to enrol. A gene chip, or microarray, hands you 20,000 readings on 70
 people, nearly all of them noise for your question, and a model given all 20,000
 will fit that noise perfectly. The signature is the short list you keep.
 
+<figure class="signature-figure column-page" aria-label="A large cloud of measured biological features passes through a selection funnel and becomes a compact five-feature signature">
+<div class="signature-funnel">
+<div class="signature-stage">
+<span class="signature-kicker">Measure wide</span>
+<div class="feature-cloud" aria-hidden="true">
+<span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+<span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+<span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+<span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+</div>
+</div>
+<div class="selection-gate" aria-hidden="true"><strong>screen · penalize · resample</strong></div>
+<div class="signature-stage signature-panel">
+<span class="signature-kicker">Keep the stable signal</span>
+<div class="signature-chips">
+<div class="signature-chip">Gene 04</div>
+<div class="signature-chip">CpG 17</div>
+<div class="signature-chip">Protein 09</div>
+<div class="signature-chip">Gene 31</div>
+<div class="signature-chip">Metabolite 06</div>
+</div>
+</div>
+</div>
+<figcaption>Feature selection is compression with a biological purpose: reduce thousands of measurements to a small panel without throwing away the distinction that matters.</figcaption>
+</figure>
+
 1. **Measure wide.** Every feature on every sample.
 2. **Find the groups.** If you already know who belongs to which group, you
    have what the next two steps need. If you don't, let a clustering method
@@ -50,34 +85,89 @@ will fit that noise perfectly. The signature is the short list you keep.
    cross-validation, and each turn is a fold. Redo the selection inside every
    fold.
 
+<figure class="signature-figure column-page" aria-label="Comparison of leaky and honest validation workflows">
+<div class="validation-compare">
+<div class="validation-path validation-path-leaky">
+<h3>Leaky validation</h3>
+<div class="validation-flow">
+<div class="validation-step">All samples</div>
+<span class="validation-arrow">→</span>
+<div class="validation-step">Select features</div>
+<span class="validation-arrow">→</span>
+<div class="validation-step">Cross-validate</div>
+</div>
+<p class="validation-verdict"><strong>Too optimistic:</strong> the held-out samples already influenced which features were chosen.</p>
+</div>
+<div class="validation-path validation-path-honest">
+<h3>Honest validation</h3>
+<div class="validation-flow">
+<div class="validation-step">Training fold</div>
+<span class="validation-arrow">→</span>
+<div class="validation-step">Select features</div>
+<span class="validation-arrow">→</span>
+<div class="validation-step">Held-out fold</div>
+</div>
+<p class="validation-verdict"><strong>Defensible:</strong> every fold repeats selection before the untouched samples are evaluated.</p>
+</div>
+</div>
+<figcaption>The held-out fold must remain invisible to every outcome-informed step—not only model fitting, but also feature screening, tuning, scaling, and imputation.</figcaption>
+</figure>
+
 Skip step 4 and the number you report is too good. Choose the genes using all
 your samples and the ones you held back are no longer fresh: those genes were
 chosen *because* they split those exact samples.
-[Ambroise and McLachlan (2002)](https://doi.org/10.1073/pnas.102102699) showed
-this bias drags the reported cross-validation error towards zero, and that
-redoing selection inside each fold pushes it back up.
+Ambroise and McLachlan <a class="citation" href="#ref-1">[1]</a> showed this
+bias drags the reported cross-validation error towards zero, and that redoing
+selection inside each fold pushes it back up.
+
+When the groups themselves are discovered by clustering, the same principle
+applies: derive the clusters using training data and assign held-out samples
+without refitting, or confirm the proposed groups in a genuinely external
+cohort.
 
 ## Golub's fifty genes are the canonical case
 
 Dodging that trap is what made the founding example credible. Two kinds of acute
 leukemia, ALL and AML, look alike down a microscope but take opposite
 chemotherapies, and the call rested on four separate specialist lab tests —
-good, yet errors happened. [Golub and colleagues
-(1999)](https://doi.org/10.1126/science.286.5439.531) measured 6,817 genes in 38
-samples from acute leukemia patients. Clustering, told nothing about who had
-which disease, nearly found the split on its own: it sorted the patients into
-two groups, one holding 24 ALL patients and a single AML, the other holding 10
-AML patients and 3 ALL. They then trained a 50-gene predictor and tested it on
-34 fresh samples from other leukemia banks. Fifty features out of
-6,817: a signature.
+good, yet errors happened. Golub and colleagues
+<a class="citation" href="#ref-2">[2]</a> measured 6,817 genes in 38 samples
+from acute leukemia patients. Clustering, told nothing about who had which
+disease, nearly found the split on its own: it sorted the patients into two
+groups, one holding 24 ALL patients and a single AML, the other holding 10 AML
+patients and 3 ALL. They then trained a 50-gene predictor and tested it on 34
+fresh samples from other leukemia banks. Fifty features out of 6,817: a
+signature.
+
+<div class="signature-number-grid column-page" role="group" aria-label="Key numbers from the Golub leukemia study">
+<div class="signature-number"><strong>6,817</strong><span>genes measured in the discovery experiment</span></div>
+<div class="signature-number"><strong>50</strong><span>genes retained in the predictive signature</span></div>
+<div class="signature-number"><strong>34</strong><span>fresh samples used for independent testing</span></div>
+</div>
 
 The same four steps run on other data. Animals shed DNA into water, and a few
 marker sequences in a river sample say a jaguar was there. Read from starlight,
 an exoplanet's atmosphere can show gases that chemistry alone would struggle to
 produce.
 
-**Further reading:** [Guyon and Elisseeff
-(2003)](https://www.jmlr.org/papers/v3/guyon03a.html) on feature selection;
-[Meinshausen and Bühlmann
-(2010)](https://doi.org/10.1111/j.1467-9868.2010.00740.x) on keeping only
-features that survive resampling.
+**Further reading:** Guyon and Elisseeff
+<a class="citation" href="#ref-3">[3]</a> on feature selection; Meinshausen and
+Bühlmann <a class="citation" href="#ref-4">[4]</a> on keeping only features
+that survive resampling.
+
+## References
+
+1. <span id="ref-1"></span>Ambroise C, McLachlan GJ. Selection bias in gene extraction on the basis of
+   microarray gene-expression data. *Proceedings of the National Academy of
+   Sciences*. 2002;99(10):6562–6566.
+   [doi:10.1073/pnas.102102699](https://doi.org/10.1073/pnas.102102699)
+2. <span id="ref-2"></span>Golub TR, Slonim DK, Tamayo P, et al. Molecular classification of cancer:
+   class discovery and class prediction by gene expression monitoring.
+   *Science*. 1999;286(5439):531–537.
+   [doi:10.1126/science.286.5439.531](https://doi.org/10.1126/science.286.5439.531)
+3. <span id="ref-3"></span>Guyon I, Elisseeff A. An introduction to variable and feature selection.
+   *Journal of Machine Learning Research*. 2003;3:1157–1182.
+   [jmlr.org/papers/v3/guyon03a.html](https://www.jmlr.org/papers/v3/guyon03a.html)
+4. <span id="ref-4"></span>Meinshausen N, Bühlmann P. Stability selection. *Journal of the Royal
+   Statistical Society: Series B*. 2010;72(4):417–473.
+   [doi:10.1111/j.1467-9868.2010.00740.x](https://doi.org/10.1111/j.1467-9868.2010.00740.x)
