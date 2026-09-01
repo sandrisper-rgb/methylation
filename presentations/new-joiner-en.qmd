@@ -288,7 +288,7 @@ C · Plasma cfDNA methylation, tissue methylation, and serum ELISA sIgA come fro
 :::
 ::: {.metric}
 **18**
-<span>consented participants</span>
+<span>participants planned</span>
 :::
 ::: {.metric}
 **36**

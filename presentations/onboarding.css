@@ -127,21 +127,6 @@
   border-color: var(--ocean);
 }
 
-.brand-row {
-  display: flex;
-  gap: 0.8rem;
-  align-items: center;
-  margin-top: 1.2rem;
-}
-
-.brand-row img {
-  height: 52px;
-  width: auto;
-  border-radius: 0.4rem;
-  background: white;
-  padding: 0.2rem 0.4rem;
-}
-
 .reveal ul,
 .reveal ol {
   margin-top: 0.35em;
@@ -157,22 +142,6 @@
 .reveal .progress {
   color: var(--teal);
   height: 4px;
-}
-
-.es {
-  display: block;
-  color: var(--muted);
-  font-size: 0.62em;
-  font-weight: 500;
-  line-height: 1.35;
-  margin: 0.12em 0 0.55em;
-}
-
-h2 + .es,
-h1 + .es {
-  margin-top: 0.08em;
-  margin-bottom: 0.7em;
-  font-size: 0.52em;
 }
 
 .kicker {
@@ -197,43 +166,6 @@ h1 + .es {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-}
-
-.act-banner {
-  display: grid;
-  place-items: center;
-  min-height: 620px;
-  padding: 2rem;
-  border-radius: 1.2rem;
-  color: #fff;
-  text-align: center;
-  background:
-    radial-gradient(circle at 82% 18%, rgba(211, 154, 56, 0.28), transparent 24%),
-    linear-gradient(125deg, #0d3048 0%, #14546a 58%, #167d78 100%);
-}
-
-.act-banner h2,
-.act-banner p {
-  color: #fff;
-}
-
-.act-banner h2 {
-  font-size: 2.4em;
-  margin: 0.15em 0 0.2em;
-}
-
-.act-banner .es {
-  color: #cfe7e2;
-  font-size: 0.48em;
-}
-
-.act-banner .act-time {
-  margin-top: 1.4rem;
-  color: #f4c66e;
-  font-size: 0.55em;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  font-weight: 700;
 }
 
 .plate {
@@ -264,27 +196,6 @@ h1 + .es {
   display: none;
 }
 
-.caption-bi {
-  margin-top: 0.15em;
-  color: var(--muted);
-  font-size: 0.42em;
-  line-height: 1.4;
-}
-
-.two-col {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.85rem;
-  margin-top: 0.35em;
-}
-
-.three-col {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.7rem;
-  margin-top: 0.4em;
-}
-
 .card {
   padding: 0.75rem 0.85rem;
   border: 1px solid rgba(18, 59, 93, 0.12);
@@ -302,11 +213,6 @@ h1 + .es {
 .card li {
   font-size: 0.58em;
   margin: 0.15em 0;
-}
-
-.card .es {
-  font-size: 0.86em;
-  margin-bottom: 0.35em;
 }
 
 .card-teal { border-top: 5px solid var(--teal); }
@@ -344,16 +250,17 @@ h1 + .es {
   color: var(--ink);
 }
 
-.metric .es {
-  font-size: 0.9em;
-  margin: 0.1em 0 0;
+.chip-row {
+  margin: 0.45em 0 0.6em;
 }
 
-.chip-row {
+/* Consecutive spans inside the fenced div become one Pandoc paragraph, so the
+   flex container has to be that <p> rather than .chip-row itself. */
+.chip-row p {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
-  margin: 0.45em 0 0.6em;
+  margin: 0;
 }
 
 .chip {
@@ -363,11 +270,6 @@ h1 + .es {
   color: var(--ocean);
   font-size: 0.42em;
   font-weight: 700;
-}
-
-.term {
-  font-weight: 700;
-  color: var(--ocean);
 }
 
 .check {
@@ -400,11 +302,6 @@ h1 + .es {
   background: var(--paper);
 }
 
-.opt .es {
-  font-size: 0.9em;
-  margin: 0.1em 0 0;
-}
-
 .answer {
   margin-top: 0.75em;
   padding: 0.7em 0.85em;
@@ -430,11 +327,6 @@ h1 + .es {
   background: var(--ocean);
   color: #e8f4f1;
   font-size: 0.48em;
-}
-
-.pause .es {
-  color: #c5ddd8;
-  margin: 0.15em 0 0;
 }
 
 .claims {
@@ -471,35 +363,6 @@ h1 + .es {
   outline: 2px solid var(--teal);
 }
 
-.gene-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.7rem;
-}
-
-.gene-item {
-  display: grid;
-  grid-template-columns: 7.2rem 1fr;
-  gap: 0.55rem;
-  align-items: start;
-  padding: 0.45rem 0.55rem;
-  border-radius: 0.5rem;
-  background: #fff;
-  border: 1px solid rgba(18, 59, 93, 0.1);
-}
-
-.gene-item code {
-  font-size: 0.52em;
-  font-weight: 700;
-  color: var(--ocean);
-}
-
-.gene-item p {
-  font-size: 0.48em;
-  margin: 0;
-}
-
-.tool-table,
 .reveal .slides table {
   width: 100%;
   font-size: 0.5em;
@@ -507,7 +370,6 @@ h1 + .es {
   margin-top: 0.35em;
 }
 
-.tool-table th,
 .reveal .slides th {
   text-align: left;
   color: var(--teal);
@@ -518,7 +380,6 @@ h1 + .es {
   border-bottom: 2px solid var(--teal);
 }
 
-.tool-table td,
 .reveal .slides td {
   padding: 0.4em 0.4em;
   border-bottom: 1px solid rgba(18, 59, 93, 0.1);
@@ -526,44 +387,9 @@ h1 + .es {
   line-height: 1.3;
 }
 
-.tool-table code,
 .reveal .slides td code {
   color: var(--ocean);
   font-weight: 700;
-}
-
-.agenda {
-  display: grid;
-  gap: 0.45rem;
-  margin-top: 0.4em;
-}
-
-.agenda-row {
-  display: grid;
-  grid-template-columns: 5.4rem 1fr 4.2rem;
-  gap: 0.7rem;
-  align-items: center;
-  padding: 0.45rem 0.65rem;
-  border-radius: 0.55rem;
-  background: #fff;
-  border-left: 6px solid var(--teal);
-}
-
-.agenda-row span {
-  font-size: 0.52em;
-  font-weight: 700;
-  color: var(--gold);
-}
-
-.agenda-row p {
-  margin: 0;
-  font-size: 0.62em;
-}
-
-.agenda-row small {
-  font-size: 0.42em;
-  color: var(--muted);
-  text-align: right;
 }
 
 .rule {
@@ -572,10 +398,6 @@ h1 + .es {
   border-left: 5px solid var(--coral);
   background: #f8eeec;
   font-size: 0.52em;
-}
-
-.rule .es {
-  margin: 0.15em 0 0;
 }
 
 .reveal #title-slide h1 {
@@ -597,11 +419,6 @@ h1 + .es {
   margin: 0.28em 0;
 }
 
-.small-list .es {
-  font-size: 0.88em;
-  margin: 0.05em 0 0.15em;
-}
-
 .copy .claims {
   grid-template-columns: 1fr 1fr;
 }
@@ -616,16 +433,9 @@ h1 + .es {
 }
 
 @media (max-width: 900px) {
-  .two-col,
-  .three-col,
   .metric-row,
   .claims,
-  .gene-grid,
   .split {
-    grid-template-columns: 1fr;
-  }
-  .agenda-row,
-  .gene-item {
     grid-template-columns: 1fr;
   }
   .visual img,

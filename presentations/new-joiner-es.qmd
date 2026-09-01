@@ -288,7 +288,7 @@ C · Metilación de cfDNA plasmático, metilación de tejido y sIgA ELISA séric
 :::
 ::: {.metric}
 **18**
-<span>participantes con consentimiento</span>
+<span>participantes previstos</span>
 :::
 ::: {.metric}
 **36**

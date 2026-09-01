@@ -4,7 +4,7 @@
   <desc id="d4">Four steps: starting DNA, TET2 and T4-BGT protection, APOBEC conversion of unmodified C, and C versus T sequencing readout.</desc>
   <rect width="1200" height="250" fill="#f7f4ee"/>
   <rect x="12" y="12" width="1176" height="226" fill="#fffaf3" stroke="#123b5d" stroke-width="2"/>
-  <text x="32" y="42" font-family="Georgia, serif" font-size="18" fill="#123b5d" font-weight="700">PLATE IV | EM-seq chemistry / Quimica de EM-seq</text>
+  <text x="32" y="42" font-family="Georgia, serif" font-size="18" fill="#123b5d" font-weight="700">PLATE IV | EM-seq chemistry / Química de EM-seq</text>
   <g font-family="Helvetica, sans-serif">
     <g transform="translate(40,70)">
       <circle cx="70" cy="48" r="40" fill="#123b5d"/>

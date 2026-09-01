@@ -5,7 +5,7 @@
   <rect width="1200" height="430" fill="#f7f4ee"/>
   <rect x="18" y="18" width="1164" height="394" fill="#fffaf3" stroke="#123b5d" stroke-width="2"/>
   <text x="40" y="52" font-family="Georgia, serif" font-size="22" fill="#123b5d" font-weight="700">PLATE V | Wet-lab path / Ruta de laboratorio</text>
-  <text x="40" y="76" font-family="Helvetica, sans-serif" font-size="13" fill="#5a6d74">Shear tissue DNA. Do not shear plasma cfDNA if fragmentomics is planned. / Fragmentar el ADN de tejido. No fragmentar el cfDNA plasmatico si se planea fragmentomica.</text>
+  <text x="40" y="76" font-family="Helvetica, sans-serif" font-size="13" fill="#5a6d74">Shear tissue DNA. Do not shear plasma cfDNA if fragmentomics is planned. / Fragmentar el ADN de tejido. No fragmentar el cfDNA plasmático si se planea fragmentómica.</text>
   <g font-family="Helvetica, sans-serif" font-size="13">
     <rect x="40" y="110" width="160" height="70" rx="12" fill="#123b5d"/>
     <text x="120" y="140" text-anchor="middle" fill="#fff" font-weight="700">Blood / Sangre</text>
@@ -24,7 +24,7 @@
     <text x="340" y="332" text-anchor="middle" fill="#fff" font-weight="700">UltraShear</text>
     <rect x="500" y="160" width="200" height="90" rx="12" fill="#14546a"/>
     <text x="600" y="198" text-anchor="middle" fill="#fff" font-weight="700">NEBNext EM-seq</text>
-    <text x="600" y="220" text-anchor="middle" fill="#cfe7e2" font-size="12">library / libreria</text>
+    <text x="600" y="220" text-anchor="middle" fill="#cfe7e2" font-size="12">library / librería</text>
     <rect x="770" y="160" width="180" height="90" rx="12" fill="#0d3048"/>
     <text x="860" y="198" text-anchor="middle" fill="#fff" font-weight="700">NovaSeq 6000</text>
     <text x="860" y="220" text-anchor="middle" fill="#f4c66e" font-size="12">paired-end FASTQ</text>

@@ -21,7 +21,7 @@
     <text x="475" y="218" text-anchor="middle" fill="#cfe7e2" font-size="11">reproducible assoc.</text>
   </g>
   <text x="60" y="270" font-family="Helvetica, sans-serif" font-size="13" fill="#123b5d">Promoter methylation up and transcription down is consistent with repression, not with causing cancer.</text>
-  <text x="60" y="290" font-family="Helvetica, sans-serif" font-size="12" fill="#5a6d74">Metilacion del promotor alta y transcripcion baja encaja con represion, no con causar cancer.</text>
+  <text x="60" y="290" font-family="Helvetica, sans-serif" font-size="12" fill="#5a6d74">Metilación del promotor alta y transcripción baja encaja con represión, no con causar cáncer.</text>
   <rect x="610" y="96" width="550" height="220" rx="14" fill="#f7efe1" stroke="#d39a38"/>
   <text x="630" y="128" font-family="Helvetica, sans-serif" font-size="13" font-weight="700" fill="#8a5a12">HYPOMETHYLATED IN SEVERE UC / HIPOMETILADOS EN CU GRAVE</text>
   <g font-family="Helvetica, sans-serif" font-size="13" font-weight="700" fill="#123b5d">
@@ -33,5 +33,5 @@
     <rect x="950" y="196" width="150" height="36" rx="8" fill="#fff"/><text x="1025" y="219" text-anchor="middle">NLRC4</text>
   </g>
   <text x="630" y="262" font-family="Helvetica, sans-serif" font-size="13" fill="#123b5d">Lower methylation is not higher expression. Cell mixture can mimic a gene effect.</text>
-  <text x="630" y="282" font-family="Helvetica, sans-serif" font-size="12" fill="#5a6d74">Menos metilacion no es mas expresion. La mezcla celular puede imitar un efecto genico.</text>
+  <text x="630" y="282" font-family="Helvetica, sans-serif" font-size="12" fill="#5a6d74">Menos metilación no es más expresión. La mezcla celular puede imitar un efecto génico.</text>
 </svg>

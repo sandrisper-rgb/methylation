@@ -5,7 +5,7 @@
   <rect width="1200" height="430" fill="#f7f4ee"/>
   <rect x="18" y="18" width="1164" height="394" fill="#fffaf3" stroke="#123b5d" stroke-width="2"/>
   <text x="40" y="52" font-family="Georgia, serif" font-size="22" fill="#123b5d" font-weight="700">PLATE I | Disease path / Trayectoria de la enfermedad</text>
-  <text x="40" y="76" font-family="Helvetica, sans-serif" font-size="13" fill="#5a6d74">Most people with UC never reach the last panel. / La mayoria de las personas con CU no llega al ultimo panel.</text>
+  <text x="40" y="76" font-family="Helvetica, sans-serif" font-size="13" fill="#5a6d74">Most people with UC never reach the last panel. / La mayoría de las personas con CU no llega al último panel.</text>
   <g transform="translate(40,100)">
     <rect width="250" height="250" rx="18" fill="#e9f5f2" stroke="#167d78" stroke-width="2"/>
     <ellipse cx="125" cy="118" rx="78" ry="58" fill="#d8efe8" stroke="#167d78" stroke-width="6"/>
@@ -20,7 +20,7 @@
     <path d="M70 118 C90 90, 160 90, 180 118 C160 146, 90 146, 70 118" fill="#bc6159" opacity="0.35"/>
     <ellipse cx="125" cy="118" rx="36" ry="22" fill="#fffaf3"/>
     <text x="125" y="210" text-anchor="middle" font-family="Helvetica, sans-serif" font-size="16" font-weight="700" fill="#123b5d">2 | Persistent inflammation</text>
-    <text x="125" y="230" text-anchor="middle" font-family="Helvetica, sans-serif" font-size="12" fill="#5a6d74">Inflamacion persistente</text>
+    <text x="125" y="230" text-anchor="middle" font-family="Helvetica, sans-serif" font-size="12" fill="#5a6d74">Inflamación persistente</text>
   </g>
   <text x="615" y="228" font-size="28" fill="#167d78">-&gt;</text>
   <g transform="translate(640,100)">

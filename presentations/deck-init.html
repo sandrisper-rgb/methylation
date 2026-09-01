@@ -9,10 +9,21 @@
 // recomputes the class from settled styles: the title slide keeps it, every other slide
 // loses it, and the theme's own light/dark handling (footer, slide number, links) then
 // behaves as designed.
-window.addEventListener("load", function () {
-  if (typeof Reveal === "undefined" || !Reveal.isReady()) return;
-  var indices = Reveal.getIndices();
-  Reveal.sync();
-  Reveal.slide(indices.h, indices.v, indices.f);
-});
+//
+// The deck's own background images are usually what delays `load`, so `load` can also
+// land before Reveal is ready — plugins initialize asynchronously. Returning in that
+// case would leave the bug in place with nothing in the console, so wait for `ready`
+// rather than giving up.
+(function () {
+  function resync() {
+    var indices = Reveal.getIndices();
+    Reveal.sync();
+    Reveal.slide(indices.h, indices.v, indices.f);
+  }
+  window.addEventListener("load", function () {
+    if (typeof Reveal === "undefined") return;
+    if (Reveal.isReady()) resync();
+    else Reveal.on("ready", resync);
+  });
+})();
 </script>

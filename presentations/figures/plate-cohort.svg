@@ -5,7 +5,7 @@
   <rect width="1200" height="430" fill="#f7f4ee"/>
   <rect x="18" y="18" width="1164" height="394" fill="#fffaf3" stroke="#123b5d" stroke-width="2"/>
   <text x="40" y="52" font-family="Georgia, serif" font-size="22" fill="#123b5d" font-weight="700">PLATE III | Planned cohort / Cohorte prevista</text>
-  <text x="40" y="76" font-family="Helvetica, sans-serif" font-size="13" fill="#5a6d74">18 people, 36 paired DNA specimens, plus serum for sIgA ELISA / 18 personas, 36 especimenes de ADN pareados, mas suero para ELISA de sIgA</text>
+  <text x="40" y="76" font-family="Helvetica, sans-serif" font-size="13" fill="#5a6d74">18 people, 36 paired DNA specimens, plus serum for sIgA ELISA / 18 personas, 36 especímenes de ADN pareados, más suero para ELISA de sIgA</text>
   <g font-family="Helvetica, sans-serif">
     <text x="60" y="118" font-size="15" font-weight="700" fill="#167d78">UC / CU | 8</text>
     <g fill="#167d78">
@@ -20,7 +20,7 @@
       <circle cx="380" cy="195" r="16"/><circle cx="420" cy="195" r="16"/>
     </g>
     <text x="360" y="238" font-size="12" fill="#5a6d74">neoplastic comparator</text>
-    <text x="360" y="256" font-size="12" fill="#5a6d74">comparador neoplasico</text>
+    <text x="360" y="256" font-size="12" fill="#5a6d74">comparador neoplásico</text>
     <text x="640" y="118" font-size="15" font-weight="700" fill="#d39a38">Healthy / Sanos | 5</text>
     <g fill="#d39a38">
       <circle cx="660" cy="155" r="16"/><circle cx="700" cy="155" r="16"/><circle cx="740" cy="155" r="16"/>
