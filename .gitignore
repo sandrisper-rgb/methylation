@@ -15,3 +15,8 @@ renv/staging/
 
 **/*.quarto_ipynb
 /.venv/
+
+# Quarto ships reveal.js and rewrites this cache on every render. The other
+# _freeze/site_libs entries are committed because they come from R packages CI
+# cannot install; this one CI produces for itself.
+/_freeze/site_libs/revealjs/
