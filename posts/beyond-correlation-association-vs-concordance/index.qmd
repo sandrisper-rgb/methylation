@@ -39,8 +39,9 @@ survive with no missing values.
    Pearson looked suspicious buys you nothing here.
 3. **What ranking buys is immunity to the scale you chose.** Converting beta values to
    M-values — a step in almost every methylation pipeline — moves Pearson's $r$ by
-   $0.007$ on average and by $0.031$ for the cancer line. It moves Spearman's $\rho$ by
-   $2 \times 10^{-11}$, which is to say it cannot move it at all.
+   $0.002$ on average across the mucosa pairs, and by $0.031$ for the cancer line. It
+   moves Spearman's $\rho$ by $2 \times 10^{-11}$, which is to say it cannot move it at
+   all.
 4. **Ranking starts to earn its keep once you choose the CpGs.** On the 10% most variable
    probes, the gap between same-group and cross-group pairs is $0.100$ under Pearson and
    $0.150$ under Spearman. Narrow to the top 1% and both gaps go *negative*.
@@ -117,9 +118,10 @@ of being methylated. It stretches the crowded ends of the scale out and leaves t
 roughly where it was. It measures the same molecules; it just puts them on a different
 ruler.
 
-Change the ruler and Pearson's $r$ changes. Across the mucosa pairs it shifts by $0.007$
-on average, and for the cancer line it moves from $0.715$ to $0.746$. Nothing was
-remeasured. The only thing that changed was which axis the same data was plotted against.
+Change the ruler and Pearson's $r$ changes. Across the mucosa pairs it shifts by $0.002$
+on average, and for the cancer line it moves from $0.715$ to $0.746$ — a shift of $0.031$,
+more than ten times larger. Nothing was remeasured. The only thing that changed was which
+axis the same data was plotted against.
 
 Spearman's $\rho$ does not move at all — by $2 \times 10^{-11}$, which is floating-point
 noise rather than a real difference. The M-value transform is *monotone*: it can stretch
@@ -195,8 +197,8 @@ gone, what is left is a handful of probes with large swings, and Pearson spends 
 attention on the size of those swings while Spearman only asks whether the samples agree
 about direction.
 
-Then it reverses. Past the top 2% the gap goes negative — samples from the *same* group
-now correlate less than samples from different ones. Nothing biological changed at that
+Then it reverses. Somewhere between the top 5% and the top 2% the gap turns negative —
+samples from the *same* group now correlate less than samples from different ones. Nothing biological changed at that
 threshold. The set simply got small enough that a few probes dominate, and the coefficient
 starts describing those probes rather than the samples. The filter that made the signal
 visible will, pushed a little further, manufacture the opposite one.

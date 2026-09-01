@@ -440,7 +440,7 @@ body.quarto-dark .quiz-widget .qz-btn-primary { color: #10212b; }
         "Neither changes, because the underlying molecules are identical"
       ],
       answer: 0,
-      explain: "The M-value transform is monotone: it stretches the scale but cannot reorder anything. In GSE81211 it moves Pearson by 0.007 on average across the mucosa pairs, and by 0.031 for the cancer cell line, while Spearman moves by 2×10⁻¹¹ — floating-point noise. Pearson is partly a claim about the units you stored the data in; a rank correlation is only ever a claim about ordering.",
+      explain: "The M-value transform is monotone: it stretches the scale but cannot reorder anything. In GSE81211 it moves Pearson by 0.002 on average across the mucosa pairs, and by 0.031 for the cancer cell line, while Spearman moves by 2×10⁻¹¹ — floating-point noise. Pearson is partly a claim about the units you stored the data in; a rank correlation is only ever a claim about ordering.",
       href: "posts/beyond-correlation-association-vs-concordance/index.html",
       hrefText: "What ranking does to a correlation"
     },

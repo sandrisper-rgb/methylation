@@ -216,10 +216,25 @@ def main() -> None:
     }
 
     # The post's central claim: a monotone transform leaves Spearman untouched.
+    # The Pearson shift is reported two ways, because pooling them is misleading:
+    # the cancer-line pairs move an order of magnitude more than the mucosa pairs,
+    # so an all-pairs mean is dominated by the eleven comparisons against HCT116.
     drift = np.abs(b_spearman - m_spearman).max()
-    shift = np.abs(offdiag(b_pearson) - offdiag(m_pearson)).mean()
+    delta = np.abs(b_pearson - m_pearson)
+    n_s = len(groups)
+    muc_shift, line_shift = [], []
+    for i in range(n_s):
+        for j in range(i + 1, n_s):
+            target = line_shift if "cancer-line" in (groups[i], groups[j]) else muc_shift
+            target.append(delta[i, j])
+    shift_mucosa = float(np.mean(muc_shift))
+    shift_line = float(np.mean(line_shift))
+    shift_all = float(np.abs(offdiag(b_pearson) - offdiag(m_pearson)).mean())
     print(f"\n  Spearman drift beta -> M-value: max {drift:.2e}")
-    print(f"  Pearson mean absolute shift:    {shift:.4f}")
+    print(f"  Pearson shift, mucosa pairs:    {shift_mucosa:.4f} "
+          f"(max {max(muc_shift):.4f})")
+    print(f"  Pearson shift, cancer-line:     {shift_line:.4f}")
+    print(f"  Pearson shift, all pairs:       {shift_all:.4f}")
 
     # Shape of the beta distribution, pooled across mucosa samples.
     mucosa_cols = [i for i, g in enumerate(groups) if g != "cancer-line"]
@@ -273,7 +288,9 @@ def main() -> None:
         "full_stats": stats,
         "variability_sweep": sweep,
         "spearman_drift_beta_to_mval": float(drift),
-        "pearson_shift_beta_to_mval": float(shift),
+        "pearson_shift_beta_to_mval_mucosa": shift_mucosa,
+        "pearson_shift_beta_to_mval_cancer_line": shift_line,
+        "pearson_shift_beta_to_mval_all_pairs": shift_all,
         "matrices": {
             "labels": labels,
             "groups": groups,

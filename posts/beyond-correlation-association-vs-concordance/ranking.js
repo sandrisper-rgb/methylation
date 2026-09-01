@@ -187,7 +187,12 @@
     /* Recompute the point cloud: which CpGs survive the filter, where they sit in
        value space and in rank space, and the two coefficients. Ranks come from the
        beta values in every case -- the M-value transform is monotone, so it cannot
-       reorder anything, and that is precisely the point the figure is making. */
+       reorder anything, and that is precisely the point the figure is making.
+
+       The filter ranks probes by their spread across the eleven mucosa samples only,
+       never including the cancer line, so the CpG set stays fixed no matter which two
+       samples are on screen. The readout says so, because it is not obvious when
+       HCT116 is one of them. */
     function recompute() {
       var pct = STOPS[state.stop];
       var keep;
@@ -316,7 +321,7 @@
       outN.textContent = view.n.toLocaleString();
       outKept.textContent = view.kept >= 100
         ? "every CpG in the sample"
-        : "the most variable " + view.kept + "%";
+        : "the most variable " + view.kept + "% across the eleven mucosa samples";
     }
 
     function render(t) {
@@ -433,10 +438,19 @@
       .then(init)
       .catch(function (err) {
         console.error("[ranking] could not load methylation-subset.json", err);
-        var w = document.getElementById("rk-widget");
-        if (w) w.innerHTML =
-          '<p class="rk-hint">The methylation extract could not be loaded, so the ' +
-          'figures on this page are unavailable.</p>';
+        // Every figure on the page is drawn from that file, and each one has a caption
+        // asserting what it shows. Leaving them blank would leave those claims standing
+        // over empty boxes, so replace the lot.
+        var note = 'The methylation extract could not be loaded, so this figure is ' +
+          'unavailable.';
+        ["rk-widget", "rk-heatpair", "rk-histogram"].forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el) el.innerHTML = '<p class="rk-hint">' + note + '</p>';
+        });
+        document.querySelectorAll(".rk-scale, .rk-axis, .rk-axis-title")
+          .forEach(function (el) { el.hidden = true; });
+        document.querySelectorAll(".rank-figure figcaption")
+          .forEach(function (el) { el.textContent = note; });
       });
   }
 
