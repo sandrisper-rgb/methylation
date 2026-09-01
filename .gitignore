@@ -7,6 +7,8 @@
 renv/library/
 renv/staging/
 *.html
+# Deck partials pulled in via `include-after-body`; they are source, not render output.
+!presentations/*.html
 .tools/
 **/*_files/
 

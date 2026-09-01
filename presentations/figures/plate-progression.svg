@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 430" role="img" aria-labelledby="t1 d1">
+  <title id="t1">Ulcerative colitis to colitis-associated colorectal cancer is a possible path, not an inevitable one</title>
+  <desc id="d1">Four labeled stages: ulcerative colitis, persistent inflammation, dysplasia, and colitis-associated colorectal cancer.</desc>
+  <rect width="1200" height="430" fill="#f7f4ee"/>
+  <rect x="18" y="18" width="1164" height="394" fill="#fffaf3" stroke="#123b5d" stroke-width="2"/>
+  <text x="40" y="52" font-family="Georgia, serif" font-size="22" fill="#123b5d" font-weight="700">PLATE I | Disease path / Trayectoria de la enfermedad</text>
+  <text x="40" y="76" font-family="Helvetica, sans-serif" font-size="13" fill="#5a6d74">Most people with UC never reach the last panel. / La mayoria de las personas con CU no llega al ultimo panel.</text>
+  <g transform="translate(40,100)">
+    <rect width="250" height="250" rx="18" fill="#e9f5f2" stroke="#167d78" stroke-width="2"/>
+    <ellipse cx="125" cy="118" rx="78" ry="58" fill="#d8efe8" stroke="#167d78" stroke-width="6"/>
+    <ellipse cx="125" cy="118" rx="42" ry="28" fill="#fffaf3"/>
+    <text x="125" y="210" text-anchor="middle" font-family="Helvetica, sans-serif" font-size="16" font-weight="700" fill="#123b5d">1 | UC diagnosed</text>
+    <text x="125" y="230" text-anchor="middle" font-family="Helvetica, sans-serif" font-size="12" fill="#5a6d74">CU diagnosticada</text>
+  </g>
+  <text x="315" y="228" font-size="28" fill="#167d78">-&gt;</text>
+  <g transform="translate(340,100)">
+    <rect width="250" height="250" rx="18" fill="#f7efe1" stroke="#d39a38" stroke-width="2"/>
+    <ellipse cx="125" cy="118" rx="78" ry="58" fill="#f0d9a8" stroke="#d39a38" stroke-width="7"/>
+    <path d="M70 118 C90 90, 160 90, 180 118 C160 146, 90 146, 70 118" fill="#bc6159" opacity="0.35"/>
+    <ellipse cx="125" cy="118" rx="36" ry="22" fill="#fffaf3"/>
+    <text x="125" y="210" text-anchor="middle" font-family="Helvetica, sans-serif" font-size="16" font-weight="700" fill="#123b5d">2 | Persistent inflammation</text>
+    <text x="125" y="230" text-anchor="middle" font-family="Helvetica, sans-serif" font-size="12" fill="#5a6d74">Inflamacion persistente</text>
+  </g>
+  <text x="615" y="228" font-size="28" fill="#167d78">-&gt;</text>
+  <g transform="translate(640,100)">
+    <rect width="250" height="250" rx="18" fill="#f3e6e4" stroke="#bc6159" stroke-width="2"/>
+    <ellipse cx="125" cy="118" rx="78" ry="58" fill="#e8c4bf" stroke="#bc6159" stroke-width="6"/>
+    <circle cx="108" cy="108" r="14" fill="#bc6159"/>
+    <circle cx="142" cy="126" r="10" fill="#8f3f3a"/>
+    <ellipse cx="125" cy="118" rx="28" ry="16" fill="#fffaf3"/>
+    <text x="125" y="210" text-anchor="middle" font-family="Helvetica, sans-serif" font-size="16" font-weight="700" fill="#123b5d">3 | Dysplasia</text>
+    <text x="125" y="230" text-anchor="middle" font-family="Helvetica, sans-serif" font-size="12" fill="#5a6d74">Displasia</text>
+  </g>
+  <text x="915" y="228" font-size="28" fill="#167d78">-&gt;</text>
+  <g transform="translate(910,100)">
+    <rect width="250" height="250" rx="18" fill="#123b5d" stroke="#123b5d" stroke-width="2"/>
+    <ellipse cx="125" cy="118" rx="78" ry="58" fill="#1b536e" stroke="#f4c66e" stroke-width="6"/>
+    <path d="M92 128 C110 78, 168 86, 170 128 C150 168, 96 160, 92 128" fill="#bc6159"/>
+    <text x="125" y="210" text-anchor="middle" font-family="Helvetica, sans-serif" font-size="16" font-weight="700" fill="#fff">4 | Colitis-associated CRC</text>
+    <text x="125" y="230" text-anchor="middle" font-family="Helvetica, sans-serif" font-size="12" fill="#cfe7e2">CCR asociado a colitis</text>
+  </g>
+</svg>

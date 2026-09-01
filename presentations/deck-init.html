@@ -1,0 +1,18 @@
+<script>
+// Reveal computes each slide's `has-dark-background` once during init, by reading that
+// slide background's *computed* colour. On a cold load that check can run before the
+// deck stylesheet has applied, and every slide is stamped dark — after which the Quarto
+// theme paints headings, body text and links white on a white slide. Reveal never
+// re-evaluates the class on its own.
+//
+// `window.load` fires only once every stylesheet has been applied, so re-syncing there
+// recomputes the class from settled styles: the title slide keeps it, every other slide
+// loses it, and the theme's own light/dark handling (footer, slide number, links) then
+// behaves as designed.
+window.addEventListener("load", function () {
+  if (typeof Reveal === "undefined" || !Reveal.isReady()) return;
+  var indices = Reveal.getIndices();
+  Reveal.sync();
+  Reveal.slide(indices.h, indices.v, indices.f);
+});
+</script>

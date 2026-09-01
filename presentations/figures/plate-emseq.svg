@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 250" role="img" aria-labelledby="t4 d4">
+  <title id="t4">NEBNext enzymatic methyl-seq converts unmodified cytosines while protecting 5mC and 5hmC</title>
+  <desc id="d4">Four steps: starting DNA, TET2 and T4-BGT protection, APOBEC conversion of unmodified C, and C versus T sequencing readout.</desc>
+  <rect width="1200" height="250" fill="#f7f4ee"/>
+  <rect x="12" y="12" width="1176" height="226" fill="#fffaf3" stroke="#123b5d" stroke-width="2"/>
+  <text x="32" y="42" font-family="Georgia, serif" font-size="18" fill="#123b5d" font-weight="700">PLATE IV | EM-seq chemistry / Quimica de EM-seq</text>
+  <g font-family="Helvetica, sans-serif">
+    <g transform="translate(40,70)">
+      <circle cx="70" cy="48" r="40" fill="#123b5d"/>
+      <text x="70" y="54" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">DNA</text>
+      <text x="70" y="112" text-anchor="middle" font-size="14" font-weight="700" fill="#123b5d">1 | Start</text>
+      <text x="70" y="130" text-anchor="middle" font-size="11" fill="#5a6d74">Inicio | C and 5mC/5hmC</text>
+    </g>
+    <text x="196" y="124" font-size="28" fill="#167d78">-&gt;</text>
+    <g transform="translate(230,70)">
+      <circle cx="90" cy="48" r="40" fill="#167d78"/>
+      <text x="90" y="54" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">5mC</text>
+      <text x="90" y="112" text-anchor="middle" font-size="14" font-weight="700" fill="#123b5d">2 | Protect</text>
+      <text x="90" y="130" text-anchor="middle" font-size="11" fill="#5a6d74">Proteger | TET2 + T4-BGT</text>
+    </g>
+    <text x="416" y="124" font-size="28" fill="#167d78">-&gt;</text>
+    <g transform="translate(450,70)">
+      <circle cx="90" cy="48" r="40" fill="#d39a38"/>
+      <text x="90" y="54" text-anchor="middle" fill="#123b5d" font-size="15" font-weight="700">C-&gt;U</text>
+      <text x="90" y="112" text-anchor="middle" font-size="14" font-weight="700" fill="#123b5d">3 | Convert</text>
+      <text x="90" y="130" text-anchor="middle" font-size="11" fill="#5a6d74">Convertir | APOBEC</text>
+    </g>
+    <text x="636" y="124" font-size="28" fill="#167d78">-&gt;</text>
+    <g transform="translate(670,70)">
+      <circle cx="90" cy="48" r="40" fill="#bc6159"/>
+      <text x="90" y="54" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">C / T</text>
+      <text x="90" y="112" text-anchor="middle" font-size="14" font-weight="700" fill="#123b5d">4 | Read</text>
+      <text x="90" y="130" text-anchor="middle" font-size="11" fill="#5a6d74">Leer | protected C, converted T</text>
+    </g>
+    <g transform="translate(900,78)">
+      <rect width="260" height="120" rx="12" fill="#123b5d"/>
+      <text x="130" y="36" text-anchor="middle" fill="#f4c66e" font-size="12" font-weight="700">STANDARD EM-SEQ</text>
+      <text x="130" y="62" text-anchor="middle" fill="#fff" font-size="13">5mC + 5hmC together</text>
+      <text x="130" y="84" text-anchor="middle" fill="#cfe7e2" font-size="12">5mC y 5hmC juntos</text>
+      <text x="130" y="108" text-anchor="middle" fill="#cfe7e2" font-size="11">not separated / no se separan</text>
+    </g>
+  </g>
+</svg>
