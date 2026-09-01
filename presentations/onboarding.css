@@ -1,0 +1,501 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap");
+
+:root {
+  --ink: #102f3b;
+  --ocean: #123b5d;
+  --teal: #167d78;
+  --mint: #dff1ec;
+  --sand: #f7f1e7;
+  --gold: #d39a38;
+  --coral: #bc6159;
+  --paper: #f7f4ee;
+  --muted: #5a6d74;
+}
+
+.reveal {
+  font-family: "DM Sans", sans-serif;
+  color: var(--ink);
+  font-size: 30px;
+  font-weight: 450;
+  -webkit-font-smoothing: antialiased;
+}
+
+.reveal .slides {
+  text-align: left;
+}
+
+.reveal .slides section {
+  padding: 0.2em 0.15em 0.4em;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3 {
+  font-family: "Source Serif 4", serif;
+  color: var(--ocean);
+  text-transform: none;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+.reveal h2 {
+  font-size: 1.62em;
+  margin: 0 0 0.18em;
+  line-height: 1.08;
+  max-width: 18em;
+}
+
+.reveal p,
+.reveal li {
+  line-height: 1.38;
+}
+
+.lede {
+  font-size: 0.78em;
+  line-height: 1.42;
+  max-width: 38em;
+  margin: 0 0 0.7em;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: 1.15rem;
+  align-items: center;
+  margin-top: 0.15em;
+}
+
+.split-wide {
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+}
+
+.visual img,
+.visual .plate,
+.visual .plate-photo {
+  width: 100%;
+  max-height: 560px;
+  height: 520px;
+  object-fit: cover;
+  margin: 0;
+  border-radius: 1rem;
+  box-shadow: 0 18px 40px rgba(16, 47, 59, 0.18);
+}
+
+.visual .plate {
+  object-fit: contain;
+  background: #fffaf3;
+  height: auto;
+  max-height: 520px;
+}
+
+.copy .lede {
+  font-size: 0.72em;
+}
+
+.copy ul {
+  margin: 0;
+  padding-left: 1.05em;
+}
+
+.copy li {
+  font-size: 0.64em;
+  margin: 0.28em 0;
+}
+
+.lang-switch {
+  display: inline-flex;
+  gap: 0.45rem;
+  margin: 0.35em 0 0.8em;
+}
+
+.lang-switch a {
+  padding: 0.22em 0.7em;
+  border-radius: 999px;
+  font-size: 0.42em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid rgba(18, 59, 93, 0.16);
+  color: var(--ocean);
+  background: white;
+}
+
+.lang-switch a.is-on {
+  background: var(--ocean);
+  color: white;
+  border-color: var(--ocean);
+}
+
+.reveal ul,
+.reveal ol {
+  margin-top: 0.35em;
+}
+
+.reveal .slide-number {
+  font-family: "DM Sans", sans-serif;
+  color: var(--muted);
+  background: transparent;
+  font-size: 0.55em;
+}
+
+.reveal .progress {
+  color: var(--teal);
+  height: 4px;
+}
+
+.kicker {
+  display: inline-block;
+  font-size: 0.42em;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 0.35em;
+}
+
+.clock {
+  float: right;
+  margin-top: 0.15em;
+  padding: 0.18em 0.55em;
+  border: 1px solid rgba(18, 59, 93, 0.18);
+  border-radius: 999px;
+  background: var(--sand);
+  color: var(--ocean);
+  font-size: 0.42em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.plate {
+  display: block;
+  width: 100%;
+  max-height: 340px;
+  height: auto;
+  object-fit: contain;
+  margin: 0.15em 0 0.3em;
+  border-radius: 0.7rem;
+  box-shadow: 0 14px 36px rgba(16, 47, 59, 0.14);
+  background: #fffaf3;
+}
+
+.plate-photo {
+  display: block;
+  width: 100%;
+  max-height: 240px;
+  object-fit: cover;
+  object-position: center;
+  margin: 0.15em 0 0.35em;
+  border-radius: 0.7rem;
+  box-shadow: 0 14px 36px rgba(16, 47, 59, 0.16);
+}
+
+.reveal figcaption,
+.reveal .figure-caption {
+  display: none;
+}
+
+.card {
+  padding: 0.75rem 0.85rem;
+  border: 1px solid rgba(18, 59, 93, 0.12);
+  border-radius: 0.75rem;
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(16, 47, 59, 0.07);
+}
+
+.card h3 {
+  margin: 0 0 0.2em;
+  font-size: 0.72em;
+}
+
+.card p,
+.card li {
+  font-size: 0.58em;
+  margin: 0.15em 0;
+}
+
+.card-teal { border-top: 5px solid var(--teal); }
+.card-gold { border-top: 5px solid var(--gold); }
+.card-coral { border-top: 5px solid var(--coral); }
+.card-ocean { border-top: 5px solid var(--ocean); }
+
+.metric-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.65rem;
+  margin: 0.5em 0 0.7em;
+}
+
+.metric {
+  padding: 0.7rem 0.75rem 0.8rem;
+  border-top: 4px solid var(--gold);
+  background: var(--sand);
+}
+
+.metric strong {
+  display: block;
+  font-family: "Source Serif 4", serif;
+  font-size: 1.55em;
+  line-height: 1;
+  color: var(--ocean);
+}
+
+.metric span {
+  display: block;
+  margin-top: 0.25em;
+  font-size: 0.42em;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+.chip-row {
+  margin: 0.45em 0 0.6em;
+}
+
+/* Consecutive spans inside the fenced div become one Pandoc paragraph, so the
+   flex container has to be that <p> rather than .chip-row itself. */
+.chip-row p {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+}
+
+.chip {
+  padding: 0.18em 0.55em;
+  border-radius: 999px;
+  background: var(--mint);
+  color: var(--ocean);
+  font-size: 0.42em;
+  font-weight: 700;
+}
+
+.check {
+  margin-top: 0.6em;
+  padding: 1rem 1.1rem;
+  border-radius: 0.9rem;
+  background: #fff;
+  border: 1px solid rgba(18, 59, 93, 0.14);
+  box-shadow: 0 12px 30px rgba(16, 47, 59, 0.08);
+}
+
+.check-q {
+  font-family: "Source Serif 4", serif;
+  font-size: 1.05em;
+  color: var(--ocean);
+  line-height: 1.25;
+}
+
+.check-options {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 0.7em;
+}
+
+.opt {
+  padding: 0.45em 0.7em;
+  border-radius: 0.55rem;
+  border: 1px solid rgba(18, 59, 93, 0.14);
+  font-size: 0.62em;
+  background: var(--paper);
+}
+
+.answer {
+  margin-top: 0.75em;
+  padding: 0.7em 0.85em;
+  border-radius: 0.65rem;
+  font-size: 0.62em;
+  line-height: 1.4;
+}
+
+.answer-yes {
+  background: #e4f4ef;
+  border-left: 6px solid var(--teal);
+}
+
+.answer-no {
+  background: #f8eaea;
+  border-left: 6px solid var(--coral);
+}
+
+.pause {
+  margin-top: 0.8em;
+  padding: 0.55em 0.8em;
+  border-radius: 0.55rem;
+  background: var(--ocean);
+  color: #e8f4f1;
+  font-size: 0.48em;
+}
+
+.claims {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.55rem;
+  margin-top: 0.5em;
+}
+
+.claim {
+  padding: 0.7rem;
+  border-radius: 0.65rem;
+  min-height: 8.2em;
+}
+
+.claim strong {
+  display: block;
+  font-size: 0.62em;
+  margin-bottom: 0.25em;
+}
+
+.claim p {
+  font-size: 0.46em;
+  margin: 0;
+  line-height: 1.35;
+}
+
+.claim-1 { background: var(--mint); }
+.claim-2 { background: #e8eef5; }
+.claim-3 { background: var(--sand); opacity: 0.85; }
+.claim-4 { background: #f3e6e4; opacity: 0.75; }
+
+.claim-now {
+  outline: 2px solid var(--teal);
+}
+
+.reveal .slides table {
+  width: 100%;
+  font-size: 0.5em;
+  border-collapse: collapse;
+  margin-top: 0.35em;
+}
+
+.reveal .slides th {
+  text-align: left;
+  color: var(--teal);
+  font-size: 0.85em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.35em 0.4em;
+  border-bottom: 2px solid var(--teal);
+}
+
+.reveal .slides td {
+  padding: 0.4em 0.4em;
+  border-bottom: 1px solid rgba(18, 59, 93, 0.1);
+  vertical-align: top;
+  line-height: 1.3;
+}
+
+.reveal .slides td code {
+  color: var(--ocean);
+  font-weight: 700;
+}
+
+.rule {
+  margin: 0.7em 0 0;
+  padding: 0.65em 0.8em;
+  border-left: 5px solid var(--coral);
+  background: #f8eeec;
+  font-size: 0.52em;
+}
+
+.reveal #title-slide h1 {
+  color: #fff !important;
+  font-size: 2.15em;
+  max-width: 16em;
+}
+
+.reveal #title-slide h2,
+.reveal #title-slide .subtitle,
+.reveal #title-slide p,
+.reveal #title-slide .author,
+.reveal #title-slide .date {
+  color: #d7ebe7 !important;
+}
+
+.small-list li {
+  font-size: 0.62em;
+  margin: 0.28em 0;
+}
+
+.copy .claims {
+  grid-template-columns: 1fr 1fr;
+}
+
+.copy .claim {
+  min-height: 0;
+}
+
+.reveal:focus,
+.reveal:focus-visible {
+  outline: none;
+}
+
+@media (max-width: 900px) {
+  .metric-row,
+  .claims,
+  .split {
+    grid-template-columns: 1fr;
+  }
+  .visual img,
+  .visual .plate-photo {
+    height: 280px;
+  }
+}
+
+.reveal code {
+  color: var(--ocean);
+  background: rgba(18, 59, 93, 0.06);
+  border-radius: 0.25em;
+  padding: 0.05em 0.22em;
+  font-size: 0.92em;
+}
+
+.reveal pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+}
+
+/* Reveal ships `.reveal section img { max-height: 95% }`, which outspecifies the
+   single-class .plate / .plate-photo caps above and let the wet-lab slide's photo
+   grow to 392px, pushing the slide past its 780px box. Restate the caps here at
+   deck specificity. */
+.reveal .slides .plate-photo {
+  max-height: 240px;
+}
+
+.reveal .slides .visual .plate-photo {
+  max-height: 560px;
+  height: 520px;
+}
+
+/* Same override hit the full-width .plate (authored cap 340px, actually rendering at
+   543px). Capping at the authored value would shrink these infographics below reading
+   size, so cap at 480px: keeps them large, and gives the longer Spanish captions room
+   instead of running them into the footer. */
+.reveal .slides .plate {
+  max-height: 480px;
+}
+
+.reveal .slides .visual .plate {
+  max-height: 520px;
+}
+
+/* Reveal decides `has-dark-background` per slide by reading that slide background's
+   computed colour once, during init. On a cold load that check can run before this
+   stylesheet has applied, and every slide gets stamped dark; the Quarto theme's
+   `section.has-dark-background h1..h6 { color: #fff }` then paints the whole deck white
+   on white. The class is never re-evaluated afterwards, so pin the deck's own colours
+   above it. The title slide is excluded — its background really is dark. Only the
+   section and the headings are set, so components that carry their own colours on a
+   dark panel (.pause, .card-ocean, .metric) are untouched. */
+.reveal .slides > section:not(#title-slide).has-dark-background {
+  color: var(--ink);
+}
+
+.reveal .slides > section:not(#title-slide).has-dark-background :is(h1, h2, h3, h4, h5, h6) {
+  color: var(--ocean);
+}

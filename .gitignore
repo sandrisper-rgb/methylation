@@ -7,9 +7,16 @@
 renv/library/
 renv/staging/
 *.html
+# Deck partials pulled in via `include-after-body`; they are source, not render output.
+!presentations/*.html
 .tools/
 **/*_files/
 
 
 **/*.quarto_ipynb
 /.venv/
+
+# Quarto ships reveal.js and rewrites this cache on every render. The other
+# _freeze/site_libs entries are committed because they come from R packages CI
+# cannot install; this one CI produces for itself.
+/_freeze/site_libs/revealjs/
