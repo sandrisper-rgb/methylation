@@ -432,31 +432,31 @@ body.quarto-dark .quiz-widget .qz-btn-primary { color: #10212b; }
     },
     {
       theme: "Statistics",
-      stem: "One mistyped measurement is introduced into a dataset of 343 observations. What happens to Pearson's r compared with Kendall's tau?",
+      stem: "The same methylation data is correlated twice, once on beta values and once after converting to M-values. What happens to the two coefficients?",
       options: [
-        "Pearson loses about 96% of its estimate while Kendall's tau moves by about 1.8%",
-        "Both collapse by roughly the same proportion",
-        "Kendall's tau collapses while Pearson is unaffected",
-        "Neither changes, because n is large enough to absorb one point"
+        "Pearson's r shifts; Spearman's rho cannot change at all",
+        "Both shift by roughly the same amount",
+        "Spearman's rho shifts; Pearson's r is unaffected",
+        "Neither changes, because the underlying molecules are identical"
       ],
       answer: 0,
-      explain: "A single bad row destroys about 96% of Pearson's estimate while Kendall's tau moves by 1.8%. The mechanism is structural: one aberrant point participates in exactly n−1 of the n-choose-2 pairs, so its influence on tau is bounded at roughly 2/n by construction.",
+      explain: "The M-value transform is monotone: it stretches the scale but cannot reorder anything. In GSE81211 it moves Pearson by 0.007 on average across the mucosa pairs, and by 0.031 for the cancer cell line, while Spearman moves by 2×10⁻¹¹ — floating-point noise. Pearson is partly a claim about the units you stored the data in; a rank correlation is only ever a claim about ordering.",
       href: "posts/beyond-correlation-association-vs-concordance/index.html",
-      hrefText: "Beyond correlation: association versus concordance"
+      hrefText: "What ranking does to a correlation"
     },
     {
       theme: "Statistics",
-      stem: "Bill depth and body mass correlate at −0.472 across the penguin dataset, but at +0.576, +0.604 and +0.719 within each species. What is the right response?",
+      stem: "Correlating colonic mucosa samples on progressively more variable CpG subsets, the same-group advantage grows to +0.150 at the top 10% of probes, then turns negative at the top 1%. What does the reversal show?",
       options: [
-        "Stratify — the fix is the stratification, not the statistic",
-        "Switch to a rank-based statistic, which is immune to the problem",
-        "Report the pooled estimate, since it uses all the data",
-        "Discard the smallest species and recompute"
+        "The probe filter is a free parameter that can produce whichever answer is wanted",
+        "Rank correlations are unreliable below about 5,000 observations",
+        "The most variable CpGs are the disease-relevant ones, so the top 1% is the correct set",
+        "The samples were mislabelled, and the groups should be reassigned"
       ],
       answer: 0,
-      explain: "This is Simpson's paradox: the pooled sign reverses because species is a confounder. No choice of correlation coefficient repairs it — the fix is the stratification, not the statistic. The same logic applies to cell composition and batch in methylation data.",
+      explain: "Nothing biological changes at that threshold. The CpG set simply gets small enough that a few probes dominate, so the coefficient starts describing those probes rather than the samples. The filter that made the signal visible will, pushed further, manufacture the opposite one — which is why the probe set has to be fixed before the outcome is looked at, and reported alongside any coefficient.",
       href: "posts/beyond-correlation-association-vs-concordance/index.html",
-      hrefText: "Beyond correlation: association versus concordance"
+      hrefText: "What ranking does to a correlation"
     },
     {
       theme: "Statistics",

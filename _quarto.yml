@@ -9,6 +9,8 @@ project:
     - presentations/files/**
     - publications/files/**
     - media/**
+    # Data files posts fetch at runtime; not discoverable from the rendered HTML.
+    - posts/**/*.json
   preview:
     port: 4200
     browser: true

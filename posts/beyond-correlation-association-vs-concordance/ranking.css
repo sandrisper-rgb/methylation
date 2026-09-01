@@ -1,0 +1,264 @@
+/* Figures and widget for "What ranking does to a correlation".
+   Every custom surface below needs a body.quarto-dark override -- the site marks
+   dark mode with that class and never uses prefers-color-scheme. */
+
+.rank-figure {
+  --rk-line: #d9e2e8;
+  --rk-muted: #63737a;
+  --rk-low: #f2f6f7;
+  --rk-high: #123b5d;
+  --rk-accent: #167d78;
+  --rk-warm: #bc6159;
+  --rk-panel: #ffffff;
+  margin: 2rem 0 2.5rem;
+}
+
+.rank-figure figcaption {
+  font-size: .86rem;
+  line-height: 1.6;
+  color: var(--rk-muted);
+  margin-top: .9rem;
+  max-width: 46rem;
+}
+
+/* ---- paired correlation heatmaps ---- */
+
+.rk-heatpair {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+  gap: 1.75rem;
+}
+
+.rk-heat-title {
+  font-size: .85rem;
+  font-weight: 600;
+  margin: 0 0 .7rem;
+  color: var(--rk-muted);
+}
+
+.rk-grid {
+  display: grid;
+  grid-template-columns: 1.9rem repeat(var(--n, 12), minmax(0, 1fr));
+  gap: 2px;
+  align-items: center;
+}
+
+.rk-cell {
+  aspect-ratio: 1;
+  border-radius: 2px;
+  /* --t is 0 at the bottom of the colour scale and 1 at r = 1. */
+  background: color-mix(in srgb, var(--rk-high) calc(var(--t) * 100%), var(--rk-low));
+}
+
+.rk-collab, .rk-rowlab {
+  font-size: .58rem;
+  color: var(--rk-muted);
+  text-align: center;
+  letter-spacing: -.02em;
+}
+
+.rk-rowlab { text-align: right; padding-right: .35rem; font-size: .62rem; }
+
+.rk-scale {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: .72rem;
+  color: var(--rk-muted);
+  margin-top: 1rem;
+  max-width: 18rem;
+}
+
+.rk-scale-bar {
+  flex: 1;
+  height: .5rem;
+  border-radius: 1rem;
+  background: linear-gradient(to right, var(--rk-low), var(--rk-high));
+  border: 1px solid var(--rk-line);
+}
+
+/* ---- beta distribution ---- */
+
+.rk-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 11rem;
+  border-bottom: 1px solid var(--rk-line);
+}
+
+.rk-bar {
+  flex: 1;
+  height: var(--h);
+  min-height: 1px;
+  border-radius: 2px 2px 0 0;
+  background: linear-gradient(to top, var(--rk-accent), color-mix(in srgb, var(--rk-accent) 55%, white));
+}
+
+.rk-axis {
+  display: flex;
+  justify-content: space-between;
+  font-size: .72rem;
+  color: var(--rk-muted);
+  margin-top: .4rem;
+}
+
+.rk-axis-title {
+  font-size: .75rem;
+  color: var(--rk-muted);
+  text-align: center;
+  margin: .2rem 0 0;
+}
+
+/* ---- the interactive widget ---- */
+
+.rank-widget {
+  --rk-line: #d9e2e8;
+  --rk-muted: #63737a;
+  --rk-fg: #102f3b;
+  --rk-bg: #ffffff;
+  --rk-chip: #eef4f5;
+  --rk-accent: #167d78;
+  --rk-warm: #bc6159;
+  margin: 2rem 0 2.5rem;
+  padding: 1.25rem;
+  border: 1px solid var(--rk-line);
+  border-radius: .9rem;
+  background: var(--rk-bg);
+  color: var(--rk-fg);
+}
+
+.rk-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.1rem 1.75rem;
+  margin-bottom: 1.1rem;
+  align-items: flex-end;
+}
+
+.rk-control { display: flex; flex-direction: column; gap: .35rem; }
+
+.rk-control > label, .rk-control > span.rk-label {
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--rk-muted);
+}
+
+.rk-control select {
+  font: inherit;
+  font-size: .88rem;
+  padding: .3rem .5rem;
+  border: 1px solid var(--rk-line);
+  border-radius: .4rem;
+  background: var(--rk-bg);
+  color: var(--rk-fg);
+}
+
+.rk-toggle { display: flex; gap: .3rem; }
+
+.rk-toggle button {
+  font: inherit;
+  font-size: .84rem;
+  padding: .32rem .85rem;
+  cursor: pointer;
+  border: 1px solid var(--rk-line);
+  background: var(--rk-chip);
+  color: var(--rk-fg);
+  border-radius: 2rem;
+  transition: background .15s, border-color .15s, color .15s;
+}
+
+.rk-toggle button:hover { border-color: var(--rk-accent); }
+
+.rk-toggle button[aria-pressed="true"] {
+  background: var(--rk-accent);
+  border-color: var(--rk-accent);
+  color: #fff;
+  font-weight: 600;
+}
+
+.rk-control input[type="range"] { width: 11rem; accent-color: var(--rk-accent); }
+
+.rk-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* CSS owns the box; the script only syncs the backing store to it. Driving the
+   height from JS instead lets a stale width measurement feed back into the layout. */
+.rk-canvas-wrap canvas {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  height: auto;
+  display: block;
+  border: 1px solid var(--rk-line);
+  border-radius: .5rem;
+  background: var(--rk-bg);
+}
+
+.rk-readout { display: flex; flex-direction: column; gap: .8rem; }
+
+.rk-stat {
+  border: 1px solid var(--rk-line);
+  border-radius: .6rem;
+  padding: .7rem .9rem;
+  background: var(--rk-chip);
+}
+
+.rk-stat-name {
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--rk-muted);
+}
+
+/* Uppercasing turns rho into a capital that reads as "P", and r into "R".
+   The symbols have to keep their own case. */
+.rk-stat-name em, .rk-control .rk-label em { text-transform: none; }
+
+.rk-stat-value {
+  font-size: 1.65rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.15;
+  color: var(--rk-accent);
+}
+
+.rk-stat-value.is-frozen { color: var(--rk-warm); }
+
+.rk-stat-note { font-size: .74rem; color: var(--rk-muted); margin-top: .15rem; }
+
+.rk-hint { font-size: .78rem; color: var(--rk-muted); margin: .6rem 0 0; }
+
+@media (max-width: 44rem) {
+  .rk-main { grid-template-columns: 1fr; }
+  .rk-readout { flex-direction: row; flex-wrap: wrap; }
+  .rk-stat { flex: 1 1 8rem; }
+}
+
+/* ---- dark mode ---- */
+
+body.quarto-dark .rank-figure,
+body.quarto-dark .rank-widget {
+  --rk-line: #37444f;
+  --rk-muted: #9fb0bd;
+  --rk-fg: #e6edf3;
+  --rk-bg: #1f2933;
+  --rk-chip: #2b3742;
+  --rk-low: #263039;
+  --rk-high: #7fd8ce;
+  --rk-accent: #4fd1c5;
+  --rk-warm: #f0876a;
+  --rk-panel: #1f2933;
+}
+
+body.quarto-dark .rk-bar {
+  background: linear-gradient(to top, var(--rk-accent), color-mix(in srgb, var(--rk-accent) 45%, #1f2933));
+}
+
+body.quarto-dark .rk-toggle button[aria-pressed="true"] { color: #10242b; }

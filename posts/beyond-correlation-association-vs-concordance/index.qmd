@@ -1,12 +1,13 @@
 ---
-title: "Beyond Correlation: Association vs. Concordance in Non-Linear Data"
-description: "Concordant and discordant pairs counted by hand, three correlation coefficients rebuilt from scratch, and what happens when the data is shaped like a dinosaur"
-date: 2026-08-26
+title: "What Ranking Does to a Correlation"
+subtitle: "Eleven colonic mucosa methylomes, one number that means almost nothing, and what changes when you throw the values away"
+description: "Every pair of samples in a real ulcerative colitis methylation study correlates above 0.95. Ranking the data does not fix that — but it does something more specific, and more useful."
+date: 2026-08-31
 author:
   - name: "Methylation & Colitis team"
   - name: "Ravi Kalia"
     affiliation: "Visiting Scientist"
-categories: [statistics, correlation, non-linear, methods, reproducibility]
+categories: [statistics, correlation, methylation, colitis, methods]
 image: "../../media/illustrations/cover-methylation-statistics.webp"
 bibliography: ../../references.bib
 csl: ../../apa.csl
@@ -14,1086 +15,250 @@ link-citations: true
 link-bibliography: true
 format:
   html:
-    code-fold: show
-    code-copy: true
-    code-summary: "Show the R code"
     toc: true
-    toc-depth: 3
+    toc-depth: 2
     smooth-scroll: true
-    fig-width: 8
-    fig-height: 5
-execute:
-  echo: true
-  eval: true
-  message: false
-  warning: false
+    css: [../../styles.css, ranking.css]
 ---
 
 ::: {.lead-panel}
 ## The conclusion first
 
-**Association** is any statistical dependence between two variables. **Concordance** is
-the much narrower claim that when one variable rises, the other rises too — measured by
-counting how many pairs of observations agree in their ordering. Pearson's $r$ measures
-neither: it measures *linear* association, and it is the least robust of the three
-coefficients in common use.
+Every figure on this page is built from GEO series **GSE81211** [@gse81211]:
+Illumina 450K methylation on colonic mucosa from three people without inflammatory bowel
+disease and eight with ulcerative colitis, plus one colon cancer cell line. 478,440 CpGs
+survive with no missing values.
 
-This post rebuilds concordant-pair counting, Kendall's $\tau$, Spearman's $\rho$,
-distance correlation, and mutual information from scratch in base R, validates each
-against the reference implementation, and runs them on two real datasets. Three results
-matter for this project:
-
-1. A **single mistyped measurement** collapses Pearson's $r$ from $+0.66$ to $+0.03$
-   while Kendall's $\tau$ moves from $+0.483$ to $+0.475$.
-2. In the Datasaurus, concordant and discordant pairs come out nearly equal
-   ($C = 4{,}710$ vs. $D = 5{,}191$), so $\tau \approx 0$ despite obvious structure.
-3. Distance correlation and mutual information have **positive bias floors** — they never
-   read zero, even under genuine independence — so an uncalibrated "dCor $= 0.16$, therefore
-   dependence" claim is unsound. Permutation calibration is not optional.
+1. **The correlation is useless before you do anything to it.** Across all 478,440 CpGs,
+   every pair of the eleven mucosa samples correlates between $0.957$ and $0.990$. Two
+   people with ulcerative colitis average $0.984$. A person with colitis and a person
+   without average $0.975$. That gap — **0.008** — is the entire visible effect of the
+   disease.
+2. **Ranking does not fix it.** Swap every value for its rank and the same comparison
+   gives $0.981$ against $0.973$. The gap is still 0.008. Reaching for Spearman because
+   Pearson looked suspicious buys you nothing here.
+3. **What ranking buys is immunity to the scale you chose.** Converting beta values to
+   M-values — a step in almost every methylation pipeline — moves Pearson's $r$ by
+   $0.007$ on average and by $0.031$ for the cancer line. It moves Spearman's $\rho$ by
+   $2 \times 10^{-11}$, which is to say it cannot move it at all.
+4. **Ranking starts to earn its keep once you choose the CpGs.** On the 10% most variable
+   probes, the gap between same-group and cross-group pairs is $0.100$ under Pearson and
+   $0.150$ under Spearman. Narrow to the top 1% and both gaps go *negative*.
 :::
 
-![Every coefficient in this post answers a different question about the same scatter plot. Choosing one is a modelling decision, not a formatting decision.](../../media/illustrations/cover-methylation-statistics.webp){.science-visual fig-alt="Illustration of statistical analysis applied to methylation data"}
-
-```{r}
-#| label: setup
-#| code-summary: "Show setup and package versions"
-
-library(dplyr)
-library(ggplot2)
-library(knitr)
-library(datasauRus)
-library(palmerpenguins)
-
-set.seed(2026)
-
-theme_set(
-  theme_minimal(base_size = 12) +
-    theme(
-      panel.grid.minor = element_blank(),
-      plot.title       = element_text(face = "bold"),
-      plot.subtitle    = element_text(colour = "grey35"),
-      legend.position  = "top"
-    )
-)
-
-# A consistent palette across every figure in this post.
-pal <- c(Adelie = "#167d78", Chinstrap = "#b8634f", Gentoo = "#123b5d")
-```
-
-## Q: What's the fundamental difference between Association, Concordance, and Discordance?
-
-The three words describe progressively stronger claims about a pair of variables
-$(X, Y)$.
-
-**Association** is the weakest and most general: $X$ and $Y$ are associated if they are
-not statistically independent, i.e. $P(X, Y) \neq P(X)\,P(Y)$. Nothing is said about
-direction, shape, or monotonicity. A perfect ring, a parabola, and a straight line are
-all strongly associated.
-
-**Concordance** and **discordance** are properties of a *pair of observations*, not of
-the dataset as a whole. Take any two distinct observations $(x_i, y_i)$ and
-$(x_j, y_j)$. The pair is
-
-$$
-\begin{aligned}
-\textbf{concordant} \quad &\text{if} \quad (x_i - x_j)(y_i - y_j) > 0, \\[2pt]
-\textbf{discordant} \quad &\text{if} \quad (x_i - x_j)(y_i - y_j) < 0, \\[2pt]
-\textbf{tied} \quad &\text{if} \quad (x_i - x_j)(y_i - y_j) = 0.
-\end{aligned}
-$$
-
-A concordant pair agrees on the ordering — the observation with the larger $x$ also has
-the larger $y$. A discordant pair disagrees. Counting these across all
-$\binom{n}{2}$ pairs and taking the normalised difference gives Kendall's
-$\tau$ [@kendall1938]. Spearman's $\rho$ [@spearman1904] takes a related but distinct
-route: it applies Pearson's formula to the *ranks* rather than the raw values.
-
-The critical asymmetry: **concordance implies association, but association does not
-imply concordance.** A perfectly symmetric parabola has $C = D$ exactly, so
-$\tau = 0$, while $X$ determines $Y$ completely.
-
-| | **Pearson's $r$** | **Spearman's $\rho$** | **Kendall's $\tau$** | **dCor / MI** |
-|---|---|---|---|---|
-| **Measures** | Linear association | Monotone association | Concordance | Any association |
-| **Mathematical condition** | $\dfrac{\operatorname{cov}(X,Y)}{\sigma_X \sigma_Y}$ | Pearson's $r$ on $\operatorname{rank}(X), \operatorname{rank}(Y)$ | $\dfrac{C - D}{C + D}$ | $\dfrac{\operatorname{dCov}}{\sqrt{\operatorname{dVar}_X \operatorname{dVar}_Y}}$ / $\sum p \log \frac{p_{xy}}{p_x p_y}$ |
-| **Operates on** | Raw values | Ranks | Pairwise orderings | Distances / binned densities |
-| **Rank sensitivity** | None — uses magnitudes | Full — magnitudes discarded | Full — only orderings used | Partial (dCor uses distances) |
-| **Outlier handling** | **Fragile.** One point can dominate | Robust — an outlier moves one rank | **Most robust** — an outlier flips few pairs | dCor fragile; MI depends on binning |
-| **Detects non-monotone structure** | No | No | No | **Yes** |
-| **Zero means** | No *linear* relation | No *monotone* relation | $C = D$ | Independence (in the population) |
-| **Reads zero under independence?** | Approximately | Approximately | Approximately | **No — positive bias floor** |
-| **Cost** | $O(n)$ | $O(n \log n)$ | $O(n^2)$ naive, $O(n \log n)$ optimal | $O(n^2)$ |
-
-The last two rows are where practitioners get hurt, and §3 is devoted to them.
-
-## Q: How do these metrics perform on biological morphometrics?
-
-The Palmer Archipelago penguin dataset records body measurements for three species across
-three islands — a genuine morphometric dataset with the awkward properties real biology
-tends to have.
-
-```{r}
-#| label: penguins-load
-#| code-summary: "Load and check the morphometric data"
-
-peng <- penguins %>%
-  select(species, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g) %>%
-  na.omit()
-
-normality <- data.frame(
-  Trait = c("Bill length (mm)", "Flipper length (mm)"),
-  n     = nrow(peng),
-  `Shapiro-Wilk W` = c(
-    shapiro.test(peng$bill_length_mm)$statistic,
-    shapiro.test(peng$flipper_length_mm)$statistic
-  ),
-  `p-value` = format.pval(
-    c(shapiro.test(peng$bill_length_mm)$p.value,
-      shapiro.test(peng$flipper_length_mm)$p.value),
-    digits = 3
-  ),
-  check.names = FALSE
-)
-
-kable(normality, digits = c(0, 0, 4, 0), align = "lrrr",
-      caption = "Both traits reject normality decisively. The cause is structural, not contamination.")
-```
-
-Both traits fail a normality test, and it is worth being precise about *why*: this is a
-**mixture of three species**, each with its own mean. The pooled distribution is
-multimodal by construction. No transformation fixes this, because there is nothing
-pathological to fix — the data is behaving exactly as a three-population sample should.
-
-```{r}
-#| label: penguins-coefficients
-#| code-summary: "Compute all three coefficients, pooled and within species"
-
-coef_row <- function(df, label) {
-  x <- df$bill_length_mm; y <- df$flipper_length_mm
-  data.frame(
-    Group      = label,
-    n          = nrow(df),
-    Pearson    = cor(x, y, method = "pearson"),
-    Spearman   = cor(x, y, method = "spearman"),
-    Kendall    = cor(x, y, method = "kendall")
-  )
-}
-
-by_species <- bind_rows(
-  coef_row(peng, "All species (pooled)"),
-  lapply(levels(peng$species), function(s) coef_row(filter(peng, species == s), s))
-)
-
-kable(by_species, digits = 3,
-      caption = "Bill length vs. flipper length. The pooled estimate is inflated by between-species separation.")
-```
-
-The pooled $r = 0.656$ is substantially larger than the within-species correlations
-($0.326$, $0.472$, $0.661$). Most of the pooled association is not a within-animal
-relationship between bill and flipper at all — it is the fact that Gentoos are simply
-bigger than Adélies on both axes. Pooling three clusters manufactures correlation.
-
-```{r}
-#| label: fig-penguins
-#| fig-cap: "Bill length against flipper length. The dashed line is a LOESS fit to the pooled data; the solid coloured lines are per-species linear fits. The pooled trend is steeper than any individual species' trend."
-#| code-summary: "Show the scatter plot code"
-
-ggplot(peng, aes(bill_length_mm, flipper_length_mm)) +
-  geom_smooth(method = "loess", formula = y ~ x, se = TRUE,
-              colour = "grey25", fill = "grey85",
-              linetype = "dashed", size = 0.8) +
-  geom_point(aes(colour = species), alpha = 0.75, size = 2) +
-  geom_smooth(aes(colour = species), method = "lm", formula = y ~ x,
-              se = FALSE, size = 0.9) +
-  scale_colour_manual(values = pal, name = NULL) +
-  labs(
-    title    = "Three species, three relationships, one misleading pooled trend",
-    subtitle = "Dashed grey: LOESS on pooled data. Solid: per-species linear fits.",
-    x        = "Bill length (mm)",
-    y        = "Flipper length (mm)"
-  )
-```
-
-### The stratification trap runs deeper than inflation
-
-Pooling does not merely exaggerate associations. It can **reverse their sign**.
-
-```{r}
-#| label: simpson
-#| code-summary: "Bill depth vs. body mass, pooled and stratified"
-
-simpson <- bind_rows(
-  data.frame(Group = "All species (pooled)", n = nrow(peng),
-             Pearson = cor(peng$bill_depth_mm, peng$body_mass_g)),
-  lapply(levels(peng$species), function(s) {
-    d <- filter(peng, species == s)
-    data.frame(Group = s, n = nrow(d),
-               Pearson = cor(d$bill_depth_mm, d$body_mass_g))
-  })
-)
-
-kable(simpson, digits = 3,
-      caption = "Simpson's paradox: bill depth and body mass are negatively correlated overall and positively correlated within every single species.")
-```
-
-Bill depth and body mass correlate at $-0.472$ across the dataset and at $+0.576$,
-$+0.604$, and $+0.719$ *within each species*. Every subgroup shows the opposite of the
-aggregate. No choice of coefficient rescues this — swapping Pearson for Kendall changes
-the number but not the sign reversal. **The fix is the stratification, not the statistic.**
-This is directly relevant to the project's design, where clinical group is exactly such a
-stratifying variable.
-
-### Why rank-based concordance survives contamination
-
-Here is the practical argument for $\tau$, stated as an experiment rather than an
-assertion. We inject one impossible observation — a 200 mm bill on a 100 mm flipper, the
-kind of column-swap or decimal-slip a real data-entry pipeline produces — and recompute.
-
-```{r}
-#| label: outlier-demo
-#| code-summary: "Inject one data-entry error and recompute"
-
-x_clean <- peng$bill_length_mm
-y_clean <- peng$flipper_length_mm
-
-# One implausible record appended to 342 good ones (0.29% contamination).
-x_dirty <- c(x_clean, 200)
-y_dirty <- c(y_clean, 100)
-
-robustness <- data.frame(
-  Coefficient = c("Pearson r", "Spearman rho", "Kendall tau"),
-  Clean = c(cor(x_clean, y_clean),
-            cor(x_clean, y_clean, method = "spearman"),
-            cor(x_clean, y_clean, method = "kendall")),
-  `With 1 bad record` = c(cor(x_dirty, y_dirty),
-                          cor(x_dirty, y_dirty, method = "spearman"),
-                          cor(x_dirty, y_dirty, method = "kendall")),
-  check.names = FALSE
-) %>%
-  mutate(`% change` = 100 * (`With 1 bad record` - Clean) / Clean)
-
-kable(robustness, digits = c(0, 3, 3, 1),
-      caption = "One contaminated record in 343. Pearson loses 96% of its signal; the rank measures lose about 2%.")
-```
-
-A single bad row out of 343 destroys **96%** of Pearson's estimate, taking it from
-$+0.656$ to $+0.028$ — from "strong relationship" to "no relationship." Kendall's $\tau$
-moves by 1.8%.
-
-The mechanism follows directly from the definitions. Pearson's $r$ is built from
-$\sum (x_i - \bar{x})(y_i - \bar{y})$, so a point far from the centroid contributes a
-term proportional to its distance in *both* coordinates — its leverage is unbounded.
-Kendall's $\tau$ only ever asks whether each pair agrees in ordering. One aberrant point
-participates in exactly $n - 1$ of the $\binom{n}{2}$ pairs, and no matter how absurd its
-value, it can flip at most those $n-1$ pair verdicts. Its influence is bounded by
-construction, at roughly $2/n$.
-
-For this project's data — methylation proportions with heavy tails, coverage-driven
-heteroscedasticity, and occasional sites with wild estimates from thin coverage — that
-bounded-influence property is the whole argument. See
-[the statistician's view of this study](../study-for-statisticians.qmd) for how these
-concerns propagate into the modelling choices.
-
-## Q: What happens when data takes a shape like the Datasaurus?
-
-The Datasaurus Dozen [@matejka2017datasaurus] is a set of thirteen datasets that share
-their means, standard deviations, and Pearson correlation to two decimal places while
-looking nothing alike — a modern, deliberately extreme extension of Anscombe's quartet
-[@anscombe1973].
-
-```{r}
-#| label: dino-load
-#| code-summary: "Load the dinosaur"
-
-dino <- datasaurus_dozen %>% filter(dataset == "dino")
-cat("Observations:", nrow(dino), "| Pairs to examine:", choose(nrow(dino), 2), "\n")
-```
-
-### Counting concordant and discordant pairs explicitly
-
-Rather than calling `cor(method = "kendall")`, we implement the definition directly:
-a double loop over every pair, classifying each one.
-
-```{r}
-#| label: count-cd
-#| code-summary: "Show the pair-counting algorithm"
-
-#' Count concordant, discordant, and tied pairs by brute force.
-#'
-#' Examines all n(n-1)/2 unordered pairs. Deliberately written as an explicit
-#' loop to mirror the definition; O(n^2) and not intended for large n.
-#'
-#' @return list with C, D, tied-on-x-only, tied-on-y-only, and tied-on-both counts
-count_cd <- function(x, y) {
-  n <- length(x)
-  C <- 0L; D <- 0L; Tx <- 0L; Ty <- 0L; Txy <- 0L
-
-  for (i in seq_len(n - 1L)) {
-    for (j in (i + 1L):n) {
-      dx <- x[i] - x[j]
-      dy <- y[i] - y[j]
-      s  <- sign(dx) * sign(dy)
-
-      if (s > 0) {
-        C <- C + 1L                      # same ordering on both axes
-      } else if (s < 0) {
-        D <- D + 1L                      # opposite ordering
-      } else if (dx == 0 && dy == 0) {
-        Txy <- Txy + 1L                  # tied on both: informative for neither
-      } else if (dx == 0) {
-        Tx <- Tx + 1L                    # tied on x only
-      } else {
-        Ty <- Ty + 1L                    # tied on y only
-      }
-    }
-  }
-  list(C = C, D = D, Tx = Tx, Ty = Ty, Txy = Txy,
-       n_pairs = n * (n - 1L) / 2L)
-}
-
-cd_dino <- count_cd(dino$x, dino$y)
-str(cd_dino)
-```
-
-Now the two forms of Kendall's coefficient. The textbook definition,
-$\tau_a = (C-D)/(C+D)$, assumes no ties. Real data has ties, and R's `cor()` returns the
-tie-corrected $\tau_b$:
-
-$$
-\tau_a = \frac{C - D}{C + D}
-\qquad\qquad
-\tau_b = \frac{C - D}{\sqrt{(C + D + T_x)\,(C + D + T_y)}}
-$$
-
-```{r}
-#| label: tau-implementations
-#| code-summary: "Kendall's tau, both variants, validated against base R"
-
-tau_a <- function(cd) (cd$C - cd$D) / (cd$C + cd$D)
-
-tau_b <- function(cd) {
-  (cd$C - cd$D) /
-    sqrt((cd$C + cd$D + cd$Tx) * (cd$C + cd$D + cd$Ty))
-}
-
-# Pearson and Spearman rebuilt from their definitions.
-pearson_r <- function(x, y) {
-  xc <- x - mean(x); yc <- y - mean(y)
-  sum(xc * yc) / sqrt(sum(xc^2) * sum(yc^2))
-}
-
-spearman_rho <- function(x, y) pearson_r(rank(x), rank(y))
-
-# Validate every hand-written function against the reference implementation.
-# A mismatch aborts the render, so a clean build is proof of correctness.
-stopifnot(
-  all.equal(tau_b(cd_dino),                cor(dino$x, dino$y, method = "kendall")),
-  all.equal(pearson_r(dino$x, dino$y),     cor(dino$x, dino$y, method = "pearson")),
-  all.equal(spearman_rho(dino$x, dino$y),  cor(dino$x, dino$y, method = "spearman"))
-)
-
-cat("All hand-written implementations match base R.\n")
-```
-
-```{r}
-#| label: dino-pair-table
-#| code-summary: "Show the pair-count breakdown"
-
-kable(
-  data.frame(
-    Quantity = c("Concordant pairs (C)", "Discordant pairs (D)",
-                 "Tied on x only", "Tied on y only", "Total pairs",
-                 "tau_a = (C-D)/(C+D)", "tau_b (tie-corrected)"),
-    # Character column: the counts are integers and the taus are not,
-    # so a numeric column would force one shared number format on both.
-    Value = c(format(c(cd_dino$C, cd_dino$D, cd_dino$Tx, cd_dino$Ty,
-                       cd_dino$n_pairs), big.mark = ","),
-              sprintf("%.4f", tau_a(cd_dino)),
-              sprintf("%.4f", tau_b(cd_dino)))
-  ),
-  align = c("l", "r"),
-  caption = "The dinosaur's pairs are almost evenly split between agreement and disagreement."
-)
-```
-
-Out of 10,011 pairs, 4,710 agree on ordering and 5,191 disagree. The near-balance is
-what drives $\tau$ to $-0.048$. Kendall's $\tau$ is not malfunctioning — it is correctly
-reporting that the dinosaur has no monotone trend. The failure is one of *interpretation*:
-reading "$\tau \approx 0$" as "no relationship" rather than "no monotone relationship."
-
-```{r}
-#| label: fig-dino
-#| fig-cap: "The dinosaur, with a LOESS fit (dashed) and a linear fit (solid). Both smoothers are essentially flat. Every monotone-association measure reports approximately zero."
-#| code-summary: "Show the dinosaur plot code"
-
-ggplot(dino, aes(x, y)) +
-  geom_point(colour = "#167d78", alpha = 0.8, size = 2.2) +
-  geom_smooth(method = "lm", formula = y ~ x, se = FALSE,
-              colour = "#b8634f", size = 1) +
-  geom_smooth(method = "loess", formula = y ~ x, se = FALSE,
-              colour = "#123b5d", linetype = "dashed", size = 1) +
-  labs(
-    title    = "Obvious structure, invisible to every correlation coefficient",
-    subtitle = sprintf("r = %.3f   rho = %.3f   tau = %.3f",
-                       cor(dino$x, dino$y),
-                       cor(dino$x, dino$y, method = "spearman"),
-                       tau_b(cd_dino)),
-    x = NULL, y = NULL
-  )
-```
-
-```{r}
-#| label: fig-dozen
-#| fig-cap: "Six members of the Datasaurus Dozen. Their summary statistics agree to two decimal places; their shapes do not."
-#| fig-height: 6
-#| code-summary: "Show the small-multiples code"
-
-shown <- c("dino", "star", "circle", "bullseye", "x_shape", "slant_up")
-
-datasaurus_dozen %>%
-  filter(dataset %in% shown) %>%
-  mutate(dataset = factor(dataset, levels = shown)) %>%
-  ggplot(aes(x, y)) +
-  geom_point(colour = "#167d78", alpha = 0.75, size = 1.4) +
-  facet_wrap(~dataset, ncol = 3) +
-  labs(title = "Same mean, same SD, same correlation", x = NULL, y = NULL) +
-  theme(axis.text = element_blank())
-```
-
-```{r}
-#| label: dozen-stats
-#| code-summary: "Confirm the summary statistics really are identical"
-
-datasaurus_dozen %>%
-  filter(dataset %in% shown) %>%
-  group_by(dataset) %>%
-  summarise(
-    `mean x` = mean(x), `mean y` = mean(y),
-    `sd x`   = sd(x),   `sd y`   = sd(y),
-    `r`      = cor(x, y),
-    `tau`    = cor(x, y, method = "kendall"),
-    .groups  = "drop"
-  ) %>%
-  arrange(match(dataset, shown)) %>%
-  kable(digits = 2, caption = "Identical to two decimals on every classical summary. Kendall's tau is equally uninformative here — it is a monotone-association measure, not a shape detector.")
-```
-
-### Measures that see arbitrary dependence — and their bias floor
-
-To detect the dinosaur we need measures of *general* association. Two standard choices,
-both implemented here from their definitions.
-
-**Distance correlation** [@szekely2007dcor; see also @reshef2011mic for the surrounding
-literature] replaces covariance of values with covariance of pairwise *distances*.
-Double-centre the two distance matrices, and the resulting statistic is zero if and only
-if the variables are independent — in the population.
-
-```{r}
-#| label: dcor
-#| code-summary: "Distance correlation from scratch"
-
-#' Szekely-Rizzo distance correlation (the V-statistic form).
-dcor_manual <- function(x, y) {
-  A <- as.matrix(dist(x))
-  B <- as.matrix(dist(y))
-
-  # Double-centre: subtract row means, column means, add back the grand mean.
-  double_centre <- function(M) {
-    M - rowMeans(M)[row(M)] - colMeans(M)[col(M)] + mean(M)
-  }
-  A <- double_centre(A)
-  B <- double_centre(B)
-
-  n     <- length(x)
-  dcov2 <- sum(A * B) / n^2      # squared distance covariance
-  dvarx <- sum(A * A) / n^2
-  dvary <- sum(B * B) / n^2
-
-  sqrt(dcov2) / sqrt(sqrt(dvarx * dvary))
-}
-
-# Sanity checks on cases with known answers.
-t_grid <- seq(-1, 1, length.out = 200)
-
-# Draw the independent noise ONCE, so both coefficients describe the same data.
-noise_x <- rnorm(200)
-noise_y <- rnorm(200)
-
-cases <- list(
-  "Perfect linear: y = 2x + 3" = list(t_grid, 2 * t_grid + 3),
-  "Parabola: y = x^2"          = list(t_grid, t_grid^2),
-  "Circle"                     = list(cos(pi * t_grid), sin(pi * t_grid)),
-  "Independent noise"          = list(noise_x, noise_y)
-)
-
-kable(
-  data.frame(
-    Case    = names(cases),
-    Pearson = sapply(cases, function(p) cor(p[[1]], p[[2]])),
-    dCor    = sapply(cases, function(p) dcor_manual(p[[1]], p[[2]])),
-    row.names = NULL
-  ),
-  digits = 3,
-  caption = "Distance correlation recovers non-monotone structure that Pearson misses. Note the last row: under genuine independence dCor is NOT zero."
-)
-```
-
-That final row is the warning. The two variables are genuinely independent, Pearson
-correctly reports essentially zero — and dCor does not. The V-statistic estimator is
-**positively biased**: it is bounded below by zero, so sampling noise can only push it
-upward, and it approaches zero only asymptotically. Any dCor value must therefore be read
-against its own null, never against zero.
-
-**Mutual information** measures dependence in bits, comparing the joint distribution
-against the product of the marginals:
-
-$$I(X;Y) = \sum_{x}\sum_{y} p(x,y)\, \log_2 \frac{p(x,y)}{p(x)\,p(y)}$$
-
-For continuous data it requires discretisation, and the choice of bin count matters
-enormously.
-
-```{r}
-#| label: mutual-info
-#| code-summary: "Histogram mutual information, with a bin-sensitivity sweep"
-
-#' Plug-in mutual information via equal-width binning, in bits.
-mutual_info <- function(x, y, bins = 8L) {
-  bx  <- cut(x, breaks = bins, labels = FALSE)
-  by  <- cut(y, breaks = bins, labels = FALSE)
-  pxy <- table(bx, by) / length(x)      # joint
-  px  <- rowSums(pxy)                   # marginals
-  py  <- colSums(pxy)
-  indep <- outer(px, py)                # what we'd see under independence
-  nz  <- pxy > 0                        # 0 log 0 := 0
-  sum(pxy[nz] * log2(pxy[nz] / indep[nz]))
-}
-
-# Compare the dinosaur against a shuffled version of itself. Shuffling y
-# destroys any dependence while preserving both marginal distributions,
-# so it is the correct null for this comparison.
-sweep <- lapply(c(4, 6, 8, 10, 12, 16), function(b) {
-  null_mi <- mean(replicate(200, mutual_info(dino$x, sample(dino$y), b)))
-  data.frame(
-    Bins            = b,
-    `MI (observed)` = mutual_info(dino$x, dino$y, b),
-    `MI (shuffled)` = null_mi,
-    Excess          = mutual_info(dino$x, dino$y, b) - null_mi,
-    check.names     = FALSE
-  )
-}) %>% bind_rows()
-
-kable(sweep, digits = 3,
-      caption = "Raw MI rises with bin count for BOTH the real data and the shuffled null. Only the excess over the null is interpretable.")
-```
-
-Raw mutual information climbs steadily with bin count — but so does the mutual
-information of data with all dependence destroyed. At 16 bins, shuffled data scores
-higher than the real data did at 8 bins. **A raw MI value is close to meaningless without
-its null.** The excess column is the interpretable quantity, and it peaks in the middle of
-the range.
-
-### Calibrating against a permutation null
-
-Both general-association measures have bias floors, so both need calibration. A
-permutation test supplies it without distributional assumptions: shuffle $y$, recompute,
-repeat, and ask where the observed value falls in that null distribution.
-
-```{r}
-#| label: permutation
-#| code-summary: "Permutation test for all four measures"
-
-perm_test <- function(x, y, stat_fn, B = 999) {
-  observed <- stat_fn(x, y)
-  null_dist <- replicate(B, stat_fn(x, sample(y)))
-  # +1 in numerator and denominator: the observed value is one valid arrangement.
-  list(observed = observed,
-       null_mean = mean(null_dist),
-       p_value  = (sum(null_dist >= observed) + 1) / (B + 1))
-}
-
-measures <- list(
-  "Pearson |r|"          = function(x, y) abs(cor(x, y)),
-  "Spearman |rho|"       = function(x, y) abs(cor(x, y, method = "spearman")),
-  "Kendall |tau|"        = function(x, y) abs(cor(x, y, method = "kendall")),
-  "Distance correlation" = dcor_manual,
-  "Mutual information"   = function(x, y) mutual_info(x, y, bins = 8L)
-)
-
-results <- lapply(names(measures), function(nm) {
-  r <- perm_test(dino$x, dino$y, measures[[nm]], B = 999)
-  data.frame(
-    Measure        = nm,
-    Observed       = r$observed,
-    `Null mean`    = r$null_mean,
-    `p-value`      = r$p_value,
-    check.names    = FALSE
-  )
-}) %>% bind_rows()
-
-kable(results, digits = c(0, 4, 4, 4),
-      caption = "Permutation test on the dinosaur, B = 999. Only mutual information detects the structure at this sample size.")
-```
-
-This table is the honest result, and it is more interesting than the tidy story:
-
-- **Pearson, Spearman, and Kendall are blind**, exactly as predicted. Their $p$-values
-  sit near $0.4$–$0.5$ — entirely consistent with independence.
-- **Mutual information detects the dinosaur decisively**, with $p \approx 0.001$. Its
-  observed value sits far above its own null mean.
-- **Distance correlation does *not* reach significance** at $n = 142$, despite an
-  observed value of $0.16$ that looks encouraging in isolation. Its null mean is nearly
-  as large. Reporting "dCor $= 0.16$" without the permutation test would have been an
-  unsupported claim.
-
-The dCor result deserves emphasis because it contradicts the tidy version of this story
-usually told. Distance correlation is consistent against all dependence *asymptotically*;
-at 142 points, against a shape whose marginals are engineered to look ordinary, it does
-not have the power. **Consistency is not power.**
-
-::: {.callout-note title="On the Maximal Information Coefficient"}
-MIC [@reshef2011mic] searches over grid resolutions and reports the best normalised
-mutual information, aiming for a measure that scores diverse relationship types on a
-comparable scale. The R implementation is the `minerva` package. It is cited here rather
-than computed: it requires a compiled dependency, and the bin-sweep above already makes
-the underlying point — the grid resolution is a free parameter, and any statistic that
-optimises over it needs its own null calibration just as much as plain MI does. MIC has
-also drawn substantive criticism on statistical-power grounds, so it is not a drop-in
-upgrade.
-:::
-
-## Q: Can I watch a coefficient break in real time?
-
-Static tables make the argument; watching it happen makes it stick. The widget below
-carries the real datasets used in this post — the Datasaurus shapes, the penguin
-morphometrics, and two synthetic controls — and recomputes Pearson's $r$, Spearman's
-$\rho$, and Kendall's $\tau_b$ in the browser, along with the raw concordant and
-discordant pair counts.
-
-**Click anywhere on the plot to add an outlier.** Watch which coefficients survive it.
-
-```{r}
-#| label: widget-data
-#| echo: true
-#| results: asis
-#| code-summary: "Show how the widget's data is exported"
-
-# Export the genuine datasets to the browser. Nothing here is hand-typed:
-# each series is the same data analysed in the sections above.
-widget_sets <- list()
-
-for (shape in c("dino", "circle", "star", "x_shape", "slant_up")) {
-  d <- datasaurus_dozen[datasaurus_dozen$dataset == shape, ]
-  widget_sets[[shape]] <- list(
-    label = shape, x = round(d$x, 3), y = round(d$y, 3),
-    xlab = "x", ylab = "y"
-  )
-}
-
-widget_sets[["penguins"]] <- list(
-  label = "penguins", x = peng$bill_length_mm, y = peng$flipper_length_mm,
-  xlab = "Bill length (mm)", ylab = "Flipper length (mm)"
-)
-
-# Two synthetic controls with known answers, for calibration by eye.
-tt <- seq(-1, 1, length.out = 120)
-widget_sets[["linear"]] <- list(
-  label = "linear + noise",
-  x = round(tt, 3), y = round(2 * tt + rnorm(120, 0, 0.35), 3),
-  xlab = "x", ylab = "y"
-)
-widget_sets[["parabola"]] <- list(
-  label = "parabola",
-  x = round(tt, 3), y = round(tt^2 + rnorm(120, 0, 0.05), 3),
-  xlab = "x", ylab = "y"
-)
-
-cat("<script>window.CORR_DATA = ",
-    jsonlite::toJSON(widget_sets, auto_unbox = TRUE, digits = 6),
-    ";</script>", sep = "")
-```
-
-::: {.corr-widget}
-<div class="cw-shell">
-<div class="cw-picker" id="cw-picker"></div>
-<div class="cw-main">
-<div class="cw-canvas-wrap">
-<canvas id="cw-canvas" width="560" height="420" aria-label="Interactive scatter plot"></canvas>
-<p class="cw-hint">Click the plot to add an outlier · <button id="cw-reset" type="button">Reset</button></p>
+![](../../media/illustrations/cover-methylation-statistics.webp){.science-visual fig-alt="Abstract illustration of overlapping statistical distributions"}
+
+## Everything correlates with everything
+
+Take two colonic biopsies, measure methylation at half a million CpGs, and ask how well
+they agree. The answer is $r = 0.98$. Take two biopsies from people with different disease
+status and ask again: $r = 0.98$. Take the two most dissimilar mucosa samples in the whole
+series and you still get $r = 0.96$.
+
+<figure class="rank-figure column-page" aria-label="Correlation between every pair of samples, computed on the values and on their ranks">
+<div class="rk-heatpair" id="rk-heatpair"></div>
+<div class="rk-scale" aria-hidden="true"><span>0.65</span><span class="rk-scale-bar"></span><span>1.00</span></div>
+<figcaption>Every pair of the twelve samples — N1&ndash;N3 without colitis, U1&ndash;U8 with ulcerative colitis, HCT a colon cancer cell line — across all 478,440 CpGs. Hover any cell for its value. The eleven-by-eleven mucosa block is one flat colour under both coefficients, and swapping values for ranks does not change that. The only contrast either panel can produce is the sample that did not come from a person.</figcaption>
+</figure>
+
+These are the samples from the panel study that reported a set of newly hypermethylated
+genes in ulcerative colitis [@kang2016ucpanel], so there is a real signal in them
+somewhere. It is simply not what a whole-array correlation reports.
+
+The matrix is not lying. Those samples genuinely are that similar: they are all human
+colon, and the methylome of human colon is largely fixed regardless of who is inflamed.
+The problem is that $0.98$ is being read as evidence of similarity when it is mostly a
+statement about the *shape* of the numbers.
+
+## The values are stacked at the ends
+
+A methylation beta value is the fraction of molecules methylated at one CpG: 0 means none,
+1 means all. Biology does not spread those fractions evenly.
+
+<figure class="rank-figure" aria-label="Distribution of beta values across the eleven mucosa samples">
+<div class="rk-hist">
+<div id="rk-histogram"></div>
+<div class="rk-axis"><span>0.0</span><span>0.25</span><span>0.5</span><span>0.75</span><span>1.0</span></div>
+<p class="rk-axis-title">methylation fraction (beta)</p>
 </div>
-<div class="cw-readout" id="cw-readout"></div>
+<figcaption>All 478,440 CpGs pooled across the eleven mucosa samples. Two peaks — one near 0.06, a broader one near 0.84 — with a shallow valley between them. Just over half of every measurement sits below 0.2 or above 0.8.</figcaption>
+</figure>
+
+Most CpGs are switched firmly off or firmly on. That produces two dense clouds a long way
+apart on both axes, and two distant clouds produce a high correlation *by construction* —
+before any biology is involved. The coefficient is mostly reporting that both samples
+agree about which CpGs are the "off" ones, which is a fact about being human colon, not
+about being inflamed.
+
+## Ranking does not rescue it
+
+The standard reflex when a correlation looks untrustworthy is to rank the data. Sort the
+CpGs from least to most methylated, replace each value with its position in that order,
+and correlate the positions instead. That is all Spearman's $\rho$ is: Pearson's $r$,
+computed after ranking.
+
+It changes almost nothing here. The mucosa pairs go from a mean of $0.980$ to $0.978$, and
+the disease gap stays at 0.008. Ranking removes the influence of *how far apart* the two
+clouds are, but the ordering was never in dispute — both samples put the same CpGs at the
+bottom and the same CpGs at the top. The clouds were an accurate picture of genuine
+agreement about ordering. Ranking cannot subtract a problem that was not there.
+
+This is worth stating plainly, because the reflex is so common: **a rank correlation is
+not a more conservative version of a correlation.** It answers a different question, and
+on this data the two questions happen to have nearly the same answer.
+
+## What ranking does guarantee
+
+Here is what ranking is actually for.
+
+Nobody tests for differential methylation on beta values. Beta is bounded between 0 and 1
+and its variance collapses at both ends, so the standard move is the M-value: the log-odds
+of being methylated. It stretches the crowded ends of the scale out and leaves the middle
+roughly where it was. It measures the same molecules; it just puts them on a different
+ruler.
+
+Change the ruler and Pearson's $r$ changes. Across the mucosa pairs it shifts by $0.007$
+on average, and for the cancer line it moves from $0.715$ to $0.746$. Nothing was
+remeasured. The only thing that changed was which axis the same data was plotted against.
+
+Spearman's $\rho$ does not move at all — by $2 \times 10^{-11}$, which is floating-point
+noise rather than a real difference. The M-value transform is *monotone*: it can stretch
+the scale but it cannot reorder anything, and rank correlation sees only the order.
+
+That is the honest division of labour. Pearson's $r$ is partly a claim about your data and
+partly a claim about the units you happened to store it in. Spearman's $\rho$ is only ever
+a claim about ordering. If your analysis would give a different answer depending on
+whether the pipeline handed you beta or M, that is a fact worth knowing before you
+publish.
+
+::: {.callout-note title="One detail"}
+The M-value is undefined at beta = 0 and beta = 1, which a 450K array does reach. The
+values here are clipped to $[0.001, 0.999]$ first, which is the usual guard. Ranks are
+always computed from the beta values, so the clip cannot quietly reorder anything.
+:::
+
+## Watch it happen
+
+Two samples, 3,000 CpGs drawn at random from the 478,440. **Pearson's $r$ is computed on
+whatever is currently plotted** — so pressing *Ranks* makes the number travel, in real
+time, from Pearson to Spearman, because that is the whole of the difference between them.
+
+The *beta / M-value* switch is the other half of the argument: in the value view it moves
+$r$ and leaves $\rho$ alone, and in the rank view it does nothing whatsoever, because the
+picture is already made of orderings.
+
+::: {.rank-widget .column-page #rk-widget}
+<div class="rk-controls">
+<div class="rk-control"><label for="rk-x">Horizontal</label><select id="rk-x"></select></div>
+<div class="rk-control"><label for="rk-y">Vertical</label><select id="rk-y"></select></div>
+<div class="rk-control"><span class="rk-label">Plot</span><div class="rk-toggle" role="group" aria-label="Plot values or ranks"><button type="button" data-rank="value" aria-pressed="true">Values</button><button type="button" data-rank="rank" aria-pressed="false">Ranks</button></div></div>
+<div class="rk-control"><span class="rk-label">Scale</span><div class="rk-toggle" role="group" aria-label="Beta or M-value scale"><button type="button" data-scale="beta" aria-pressed="true">Beta</button><button type="button" data-scale="mval" aria-pressed="false">M-value</button></div></div>
+<div class="rk-control"><label for="rk-filter">CpGs kept</label><input type="range" id="rk-filter" min="0" max="7" step="1" value="0"></div>
+</div>
+<div class="rk-main">
+<div class="rk-canvas-wrap">
+<canvas id="rk-canvas" width="620" height="470" aria-label="Scatter plot of two methylation profiles, switching between measured values and ranks"></canvas>
+<p class="rk-hint">Showing <span id="rk-n">—</span> CpGs — <span id="rk-kept">—</span>.</p>
+</div>
+<div class="rk-readout">
+<div class="rk-stat"><div class="rk-stat-name">Pearson <em>r</em>, as plotted</div><div class="rk-stat-value" id="rk-r">—</div><div class="rk-stat-note">Follows the picture. Slides onto <em>&rho;</em> when the plot is ranked.</div></div>
+<div class="rk-stat"><div class="rk-stat-name">Spearman <em>&rho;</em></div><div class="rk-stat-value is-frozen" id="rk-rho">—</div><div class="rk-stat-note">Identical in every view, on either scale.</div></div>
 </div>
 </div>
-
-<style>
-.corr-widget {
-  --cw-bg: #ffffff; --cw-fg: #123b5d; --cw-muted: #6b7c8c;
-  --cw-line: #d9e2e8; --cw-accent: #167d78; --cw-warn: #b8634f;
-  --cw-chip: #eef4f5;
-  margin: 2rem 0 2.5rem; padding: 1.25rem; border: 1px solid var(--cw-line);
-  border-radius: .9rem; background: var(--cw-bg); color: var(--cw-fg);
-}
-body.quarto-dark .corr-widget {
-  --cw-bg: #1f2933; --cw-fg: #e6edf3; --cw-muted: #9fb0bd;
-  --cw-line: #37444f; --cw-accent: #4fd1c5; --cw-warn: #f0876a;
-  --cw-chip: #2b3742;
-}
-.cw-picker { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: 1rem; }
-.cw-picker button {
-  font: inherit; font-size: .85rem; padding: .35rem .8rem; cursor: pointer;
-  border: 1px solid var(--cw-line); background: var(--cw-chip);
-  color: var(--cw-fg); border-radius: 2rem; transition: all .15s;
-}
-.cw-picker button:hover { border-color: var(--cw-accent); }
-.cw-picker button[aria-pressed="true"] {
-  background: var(--cw-accent); border-color: var(--cw-accent); color: #fff; font-weight: 600;
-}
-.cw-main { display: grid; grid-template-columns: minmax(0,1.4fr) minmax(0,1fr); gap: 1.5rem; align-items: start; }
-.cw-canvas-wrap canvas {
-  width: 100%; height: auto; display: block; cursor: crosshair;
-  border: 1px solid var(--cw-line); border-radius: .5rem; background: var(--cw-bg);
-}
-.cw-hint { font-size: .8rem; color: var(--cw-muted); margin: .5rem 0 0; }
-.cw-hint button {
-  font: inherit; font-size: .8rem; padding: .15rem .6rem; cursor: pointer;
-  border: 1px solid var(--cw-line); background: var(--cw-chip);
-  color: var(--cw-fg); border-radius: .3rem;
-}
-.cw-metric { margin-bottom: .9rem; }
-.cw-metric-top { display: flex; justify-content: space-between; align-items: baseline; font-size: .85rem; }
-.cw-metric-name { color: var(--cw-muted); }
-.cw-metric-val { font-variant-numeric: tabular-nums; font-weight: 700; font-size: 1.15rem; }
-.cw-bar { position: relative; height: 7px; background: var(--cw-chip); border-radius: 4px; margin-top: .3rem; overflow: hidden; }
-.cw-bar-mid { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--cw-line); }
-.cw-bar-fill { position: absolute; top: 0; bottom: 0; border-radius: 4px; transition: all .18s ease; }
-.cw-pairs { border-top: 1px solid var(--cw-line); margin-top: 1rem; padding-top: .8rem; font-size: .85rem; }
-.cw-pairs div { display: flex; justify-content: space-between; padding: .15rem 0; }
-.cw-pairs .cw-pv { font-variant-numeric: tabular-nums; font-weight: 600; }
-.cw-note { font-size: .78rem; color: var(--cw-muted); margin-top: .8rem; line-height: 1.5; }
-@media (max-width: 760px) { .cw-main { grid-template-columns: 1fr; } }
-</style>
-
-<script>
-(function () {
-  var DATA = window.CORR_DATA;
-  if (!DATA) return;
-
-  var order = ["dino", "circle", "star", "x_shape", "slant_up", "penguins", "linear", "parabola"];
-  var keys  = order.filter(function (k) { return DATA[k]; });
-  var current = keys[0];
-  var extra = [];   // user-added outliers, cleared on dataset change / reset
-
-  // ---- statistics, all computed client-side ----------------------------
-  function pearson(x, y) {
-    var n = x.length, mx = 0, my = 0, i;
-    for (i = 0; i < n; i++) { mx += x[i]; my += y[i]; }
-    mx /= n; my /= n;
-    var sxy = 0, sxx = 0, syy = 0, dx, dy;
-    for (i = 0; i < n; i++) {
-      dx = x[i] - mx; dy = y[i] - my;
-      sxy += dx * dy; sxx += dx * dx; syy += dy * dy;
-    }
-    return (sxx === 0 || syy === 0) ? NaN : sxy / Math.sqrt(sxx * syy);
-  }
-
-  // Average ranks, so ties are handled the way R's rank() handles them.
-  function ranks(v) {
-    var idx = v.map(function (val, i) { return [val, i]; });
-    idx.sort(function (a, b) { return a[0] - b[0]; });
-    var r = new Array(v.length), i = 0;
-    while (i < idx.length) {
-      var j = i;
-      while (j + 1 < idx.length && idx[j + 1][0] === idx[i][0]) j++;
-      var avg = (i + j) / 2 + 1;
-      for (var k = i; k <= j; k++) r[idx[k][1]] = avg;
-      i = j + 1;
-    }
-    return r;
-  }
-
-  function spearman(x, y) { return pearson(ranks(x), ranks(y)); }
-
-  // Explicit O(n^2) pair classification - the same algorithm as the R version.
-  function pairCounts(x, y) {
-    var n = x.length, C = 0, D = 0, Tx = 0, Ty = 0;
-    for (var i = 0; i < n - 1; i++) {
-      for (var j = i + 1; j < n; j++) {
-        var dx = x[i] - x[j], dy = y[i] - y[j], s = Math.sign(dx) * Math.sign(dy);
-        if (s > 0) C++;
-        else if (s < 0) D++;
-        else if (dx === 0 && dy === 0) { /* tied on both */ }
-        else if (dx === 0) Tx++;
-        else Ty++;
-      }
-    }
-    return { C: C, D: D, Tx: Tx, Ty: Ty };
-  }
-
-  function tauB(p) {
-    var d = Math.sqrt((p.C + p.D + p.Tx) * (p.C + p.D + p.Ty));
-    return d === 0 ? NaN : (p.C - p.D) / d;
-  }
-
-  // ---- rendering --------------------------------------------------------
-  var canvas = document.getElementById("cw-canvas");
-  var ctx = canvas.getContext("2d");
-  var PAD = 46;
-
-  function css(name) {
-    return getComputedStyle(document.querySelector(".corr-widget")).getPropertyValue(name).trim();
-  }
-
-  function series() {
-    var d = DATA[current];
-    var x = d.x.slice(), y = d.y.slice();
-    for (var i = 0; i < extra.length; i++) { x.push(extra[i][0]); y.push(extra[i][1]); }
-    return { x: x, y: y, n0: d.x.length, meta: d };
-  }
-
-  function scales(s) {
-    var xs = s.x, ys = s.y;
-    var x0 = Math.min.apply(null, xs), x1 = Math.max.apply(null, xs);
-    var y0 = Math.min.apply(null, ys), y1 = Math.max.apply(null, ys);
-    var px = (x1 - x0) * 0.08 || 1, py = (y1 - y0) * 0.08 || 1;
-    x0 -= px; x1 += px; y0 -= py; y1 += py;
-    var W = canvas.width, H = canvas.height;
-    return {
-      sx: function (v) { return PAD + (v - x0) / (x1 - x0) * (W - PAD * 1.4); },
-      sy: function (v) { return H - PAD - (v - y0) / (y1 - y0) * (H - PAD * 1.5); },
-      ix: function (p) { return x0 + (p - PAD) / (W - PAD * 1.4) * (x1 - x0); },
-      iy: function (p) { return y0 + (H - PAD - p) / (H - PAD * 1.5) * (y1 - y0); }
-    };
-  }
-
-  function draw() {
-    var s = series(), sc = scales(s);
-    var fg = css("--cw-fg"), line = css("--cw-line"),
-        accent = css("--cw-accent"), warn = css("--cw-warn"), muted = css("--cw-muted");
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // axes
-    ctx.strokeStyle = line; ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.moveTo(PAD, PAD * 0.5); ctx.lineTo(PAD, canvas.height - PAD);
-    ctx.lineTo(canvas.width - PAD * 0.4, canvas.height - PAD);
-    ctx.stroke();
-
-    // axis labels
-    ctx.fillStyle = muted; ctx.font = "12px system-ui, sans-serif";
-    ctx.textAlign = "center";
-    ctx.fillText(s.meta.xlab, (canvas.width + PAD) / 2, canvas.height - 12);
-    ctx.save();
-    ctx.translate(14, (canvas.height - PAD) / 2);
-    ctx.rotate(-Math.PI / 2);
-    ctx.fillText(s.meta.ylab, 0, 0);
-    ctx.restore();
-
-    // original points
-    ctx.fillStyle = accent;
-    for (var i = 0; i < s.n0; i++) {
-      ctx.beginPath();
-      ctx.arc(sc.sx(s.x[i]), sc.sy(s.y[i]), 3.1, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    // user-added outliers, visually distinct
-    ctx.fillStyle = warn;
-    for (var j = s.n0; j < s.x.length; j++) {
-      ctx.beginPath();
-      ctx.arc(sc.sx(s.x[j]), sc.sy(s.y[j]), 5.4, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.strokeStyle = css("--cw-bg"); ctx.lineWidth = 1.6; ctx.stroke();
-    }
-    return s;
-  }
-
-  function bar(v) {
-    // Map a coefficient in [-1,1] onto a centre-anchored bar.
-    var pct = Math.min(Math.abs(v), 1) * 50;
-    var left = v >= 0 ? 50 : 50 - pct;
-    var col = Math.abs(v) < 0.15 ? "var(--cw-muted)" : "var(--cw-accent)";
-    return '<div class="cw-bar"><div class="cw-bar-mid"></div>' +
-           '<div class="cw-bar-fill" style="left:' + left + '%;width:' + pct +
-           '%;background:' + col + '"></div></div>';
-  }
-
-  function metric(name, v) {
-    return '<div class="cw-metric"><div class="cw-metric-top">' +
-           '<span class="cw-metric-name">' + name + '</span>' +
-           '<span class="cw-metric-val">' + (isNaN(v) ? "--" : v.toFixed(3)) + '</span>' +
-           '</div>' + bar(v) + '</div>';
-  }
-
-  function update() {
-    var s = draw();
-    var r = pearson(s.x, s.y), rho = spearman(s.x, s.y);
-    var p = pairCounts(s.x, s.y), t = tauB(p);
-
-    var html =
-      metric("Pearson r", r) +
-      metric("Spearman rho", rho) +
-      metric("Kendall tau-b", t) +
-      '<div class="cw-pairs">' +
-        '<div><span>n</span><span class="cw-pv">' + s.x.length +
-          (extra.length ? " (+" + extra.length + " added)" : "") + '</span></div>' +
-        '<div><span>Concordant C</span><span class="cw-pv">' + p.C.toLocaleString() + '</span></div>' +
-        '<div><span>Discordant D</span><span class="cw-pv">' + p.D.toLocaleString() + '</span></div>' +
-        '<div><span>C - D</span><span class="cw-pv">' + (p.C - p.D).toLocaleString() + '</span></div>' +
-      '</div>' +
-      '<p class="cw-note">All three coefficients are computed in your browser from the ' +
-      'same definitions given above, including average ranks for ties and the ' +
-      'tie-corrected tau-b denominator.</p>';
-
-    document.getElementById("cw-readout").innerHTML = html;
-  }
-
-  // ---- controls ---------------------------------------------------------
-  var picker = document.getElementById("cw-picker");
-  keys.forEach(function (k) {
-    var b = document.createElement("button");
-    b.type = "button";
-    b.textContent = DATA[k].label;
-    b.setAttribute("aria-pressed", k === current ? "true" : "false");
-    b.addEventListener("click", function () {
-      current = k; extra = [];
-      Array.prototype.forEach.call(picker.children, function (c) {
-        c.setAttribute("aria-pressed", c === b ? "true" : "false");
-      });
-      update();
-    });
-    picker.appendChild(b);
-  });
-
-  canvas.addEventListener("click", function (ev) {
-    var rect = canvas.getBoundingClientRect();
-    // The canvas is CSS-scaled, so map client pixels back to canvas pixels.
-    var px = (ev.clientX - rect.left) * (canvas.width / rect.width);
-    var py = (ev.clientY - rect.top) * (canvas.height / rect.height);
-    var sc = scales(series());
-    extra.push([sc.ix(px), sc.iy(py)]);
-    update();
-  });
-
-  document.getElementById("cw-reset").addEventListener("click", function () {
-    extra = []; update();
-  });
-
-  update();
-  // Redraw on theme toggle so canvas colours track the active Quarto theme.
-  new MutationObserver(update).observe(document.body, {
-    attributes: true, attributeFilter: ["class"]
-  });
-})();
-</script>
 :::
 
-Three things are worth trying deliberately:
+The widget recomputes on its own 3,000-CpG sample, so its numbers land near — not exactly
+on — the whole-array figures quoted in the prose.
 
-1. **Select `parabola`.** All three coefficients sit near zero ($r = -0.002$,
-   $\rho = 0.004$, $\tau_b = 0.014$) while the relationship is deterministic. The pair
-   counts show the mechanism directly: $C = 3{,}618$ against $D = 3{,}517$.
-2. **Select `linear + noise`, then add one point in a far corner.** Pearson drops from
-   $0.959$ to roughly $0.73$; $\tau_b$ moves from $0.826$ to about $0.80$. One point
-   costs Pearson around a quarter of its estimate and Kendall a few percent.
-3. **Select `dino` and watch $C - D$.** A single added point shifts it by only one or two
-   hundred out of 10,011 pairs, because that point participates in just $n - 1$ of them.
-   Keep clicking in the same corner, though, and $\tau_b$ does eventually climb — bounded
-   influence per observation is not immunity to systematic contamination.
+## Where ranking starts to pay
 
-## Q: Which metric should I use for my AI/ML research?
+The disease signal was never going to survive being averaged over half a million CpGs,
+most of which have nothing to do with inflammation. Throw the uninformative ones away and
+the picture changes. Below, *gap* is how much more two samples from the same group agree
+than two samples from different groups — the thing a correlation would need to see for it
+to be worth computing.
 
-```{mermaid}
-flowchart TD
-  A[Two continuous variables] --> B{Is the relationship<br/>plausibly monotone?}
-  B -->|No / unknown| C[Use dCor or MI<br/>with a permutation null]
-  B -->|Yes| D{Outliers, heavy tails,<br/>or ordinal data?}
-  D -->|Yes| E[Kendall's tau<br/>or Somers' d]
-  D -->|No| F{Is linearity itself<br/>the claim?}
-  F -->|Yes| G[Pearson's r]
-  F -->|No| H[Spearman's rho]
-  C --> I{Is n large enough<br/>for adequate power?}
-  I -->|No| J[Report the null<br/>calibration honestly]
-  I -->|Yes| K[Report effect + p-value]
+| CpGs kept | Number | Pearson gap | Spearman gap |
+|---|---:|---:|---:|
+| all | 478,440 | +0.008 | +0.008 |
+| most variable 50% | 239,220 | +0.031 | +0.036 |
+| most variable 25% | 119,610 | +0.065 | +0.086 |
+| most variable 10% | 47,844 | +0.100 | **+0.150** |
+| most variable 5% | 23,922 | +0.080 | +0.115 |
+| most variable 2% | 9,569 | −0.007 | −0.016 |
+| most variable 1% | 4,785 | −0.077 | −0.079 |
 
-  classDef robust fill:#dcefee,stroke:#167d78,color:#123b5d
-  classDef fragile fill:#f7efe4,stroke:#b8634f,color:#49352e
-  class C,E,H,J,K robust
-  class G fragile
+Two things happen at once. The gap grows as the CpG set narrows, and it grows *faster
+under ranking* — at the top 10% the rank-based gap is half again as large as the value-based
+one. This is where Spearman earns its place: once the constant, uninformative CpGs are
+gone, what is left is a handful of probes with large swings, and Pearson spends its
+attention on the size of those swings while Spearman only asks whether the samples agree
+about direction.
+
+Then it reverses. Past the top 2% the gap goes negative — samples from the *same* group
+now correlate less than samples from different ones. Nothing biological changed at that
+threshold. The set simply got small enough that a few probes dominate, and the coefficient
+starts describing those probes rather than the samples. The filter that made the signal
+visible will, pushed a little further, manufacture the opposite one.
+
+The widget shows one pair at a time rather than the group average, but the effect is
+visible in it. At the top 10%, Normal 1 against Normal 2 reads $\rho = 0.84$ while Normal 1
+against UC 1 reads $0.60$. Push the slider to the top 1% and roughly thirty CpGs remain,
+at which point the readout is describing those thirty probes.
+
+## What ranking throws away
+
+Ranking costs you something, and the cancer cell line shows what.
+
+HCT116 is the one sample here that is genuinely, structurally different from the rest. Its
+Pearson correlation with the mucosa samples is $0.715$; its Spearman correlation is
+$0.676$. Under ranks it looks *further* from the mucosa samples than it does under values,
+because a rank correlation cannot see that its disagreements are concentrated in a
+comparatively small number of CpGs with very large differences. A rank knows that one
+sample is higher than another. It does not know by how much.
+
+That matters because "do these two measurements agree?" and "do these two measurements
+rank things the same way?" are different questions, and only the first is a question about
+**concordance**. A tissue assay and a plasma assay could rank every participant
+identically and still disagree about every value — one reading systematically half the
+other. Spearman would report a perfect result. The assays would not be interchangeable.
+
+The same caution applies in the other direction, to grouping. Every number in this post is
+computed *within* a defined comparison: normal against normal, colitis against colitis,
+normal against colitis. Pool them and the disease difference dissolves into an average.
+Pooling groups is the fastest way to manufacture — or erase — a correlation, and no choice
+of coefficient protects against it. That is a design decision, not a statistical one.
+
+## For this study
+
+- Report a correlation with the CpG set attached. "$\rho = 0.98$ across all probes" and
+  "$\rho = 0.80$ across the 10% most variable" describe the same samples and mean opposite
+  things.
+- Fix the probe filter before looking at the outcome. The table above shows how far a
+  threshold can be pushed until it produces whatever answer is wanted.
+- For tissue–plasma agreement, a rank correlation answers whether the two assays order
+  participants the same way. It does not answer whether they can be substituted for one
+  another. If the claim is substitution, the magnitudes have to be compared directly.
+- State whether coefficients were computed on beta or M-values. It changes Pearson and it
+  cannot change Spearman, so saying which one was used is enough to make the number
+  reproducible.
+
+::: {.callout-tip title="Reproducing this"}
+`prepare-data.py` in this post's directory downloads the GSE81211 series matrix from GEO,
+computes every number quoted above on the full 478,440 CpGs, and writes the committed
+`methylation-subset.json` that the figures and widget read. It is not run when the site
+builds; this page executes no code. Re-run it by hand to regenerate the data:
+
+```bash
+source .venv/bin/activate
+python posts/beyond-correlation-association-vs-concordance/prepare-data.py
 ```
 
-| Metric | Assumes | Detects | Outlier-robust | Cost | Use when |
-|---|---|---|---|---|---|
-| **Pearson's $r$** | Linearity; finite variance | Linear association only | **No** | $O(n)$ | Linearity is the actual scientific claim, and the data supports it |
-| **Spearman's $\rho$** | Monotonicity | Monotone association | Yes | $O(n \log n)$ | Monotone but non-linear relationships; a robust default |
-| **Kendall's $\tau$** | Monotonicity | Concordance directly | **Most** | $O(n^2)$ naive | Small $n$, many ties, ordinal data, heavy contamination |
-| **Somers' $d$** | Monotonicity | Directional concordance | Most | $O(n^2)$ | An asymmetric predictor→outcome relationship; equals the rank-based reading of a binary AUC |
-| **Distance correlation** | None beyond finite moments | Any dependence | No | $O(n^2)$ | Non-monotone structure is plausible **and** $n$ is comfortably large |
-| **Mutual information** | None (needs discretisation) | Any dependence | Depends on binning | $O(n^2)$ | Arbitrary dependence; always with a bin sweep and a permutation null |
-
-Four rules follow from the results above.
-
-**1. Never report a general-association measure without its null.** dCor and MI have
-positive bias floors. "dCor $= 0.16$" is not evidence of anything; "dCor $= 0.16$,
-permutation $p = 0.17$, $B = 999$" is an interpretable — and in that case negative —
-result.
-
-**2. Prefer $\tau$ over $r$ whenever magnitudes are not trustworthy.** One bad record in
-343 cost Pearson 96% of its estimate and Kendall 1.6%. In high-throughput assays where
-manual inspection of every point is impossible, bounded influence is worth more than
-statistical efficiency.
-
-**3. Stratify before you correlate.** The penguin data produced both an inflated pooled
-correlation and a full sign reversal. Neither is a coefficient-selection problem. For
-this study, clinical group and tissue type are the stratifying variables that must be
-handled in the model rather than averaged over.
-
-**4. Zero has a specific meaning, and it is narrow.** $\tau = 0$ means $C = D$. It does
-not mean independence. The dinosaur has $\tau = -0.048$ and a completely determined
-shape.
-
-For the methylation–sIgA work specifically, tissue–plasma agreement is a **concordance**
-question — does a participant ranked high on a tissue marker also rank high in plasma? —
-and $\tau$ or Somers' $d$ answers it directly, without assuming the paired measurements
-are linearly related or comparably scaled. See
-[limma versus DSS](../limma-versus-dss-for-methylation.qmd) for how the same
-distribution-shape concerns drive the choice of differential-methylation engine.
-
-::: {.callout-tip title="Reproducibility notes"}
-Every coefficient in this post is computed twice: once from a hand-written
-implementation and once from base R, with `stopifnot(all.equal(...))` asserting they
-agree. A mismatch aborts the render, so a published page is evidence the implementations
-are correct.
-
-**Deviations from a conventional setup**, for anyone rerunning this:
-
-- `dplyr` + `ggplot2` are loaded individually rather than via `tidyverse`; this site
-  builds on R 4.0.5, where the meta-package is not installed.
-- Tables use `knitr::kable()` rather than `gt` or `kableExtra`.
-- Distance correlation and mutual information are written from scratch rather than taken
-  from `energy` and `infotheo`, which both need compilation. The hand-written versions
-  are validated against known cases in the table above.
-- Permutation tests use $B = 999$ and a fixed seed (`set.seed(2026)`), so the
-  $p$-values are reproducible but carry Monte Carlo error of roughly $\pm 0.01$.
+The random subset behind the widget is drawn with a fixed seed, so it is identical on
+every run.
 :::
 
-```{r}
-#| label: session
-#| code-summary: "Session information"
-#| echo: true
-
-kable(
-  data.frame(
-    Component = c("R", "ggplot2", "dplyr", "datasauRus", "palmerpenguins"),
-    Version = c(
-      paste(R.version$major, R.version$minor, sep = "."),
-      as.character(packageVersion("ggplot2")),
-      as.character(packageVersion("dplyr")),
-      as.character(packageVersion("datasauRus")),
-      as.character(packageVersion("palmerpenguins"))
-    )
-  ),
-  caption = "Environment used to render this post."
-)
-```
+<script src="ranking.js" defer></script>
 
 ## References
 

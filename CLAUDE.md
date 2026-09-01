@@ -49,10 +49,9 @@ document invalidates it and CI will try to re-execute code it cannot run. After 
 any R document — prose changes included — re-render it locally and commit the updated
 `_freeze/` output alongside.
 
-The R documents are `posts/limma-versus-dss-for-methylation.qmd`,
-`posts/beyond-correlation-association-vs-concordance/index.qmd`, and
+The R documents are `posts/limma-versus-dss-for-methylation.qmd` and
 `workflows/example-analysis.qmd`. Rendering them locally needs `dplyr`, `ggplot2`,
-`knitr`, `palmerpenguins`, `datasauRus`, and Bioconductor's `limma`, `bsseq`, `DSS`.
+`knitr`, and Bioconductor's `limma`, `bsseq`, `DSS`.
 The three Python posts declare `jupyter: project-python` in their front matter.
 
 ## Authoring conventions
