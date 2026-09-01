@@ -31,7 +31,7 @@ survive with no missing values.
 
 1. **The correlation is useless before you do anything to it.** Across all 478,440 CpGs,
    every pair of the eleven mucosa samples correlates between $0.957$ and $0.990$. Two
-   people with ulcerative colitis average $0.984$. A person with colitis and a person
+   people with ulcerative colitis average $0.983$. A person with colitis and a person
    without average $0.975$. That gap — **0.008** — is the entire visible effect of the
    disease.
 2. **Ranking does not fix it.** Swap every value for its rank and the same comparison
@@ -98,7 +98,7 @@ CpGs from least to most methylated, replace each value with its position in that
 and correlate the positions instead. That is all Spearman's $\rho$ is: Pearson's $r$,
 computed after ranking.
 
-It changes almost nothing here. The mucosa pairs go from a mean of $0.980$ to $0.978$, and
+It changes almost nothing here. The mucosa pairs go from a mean of $0.980$ to $0.977$, and
 the disease gap stays at 0.008. Ranking removes the influence of *how far apart* the two
 clouds are, but the ordering was never in dispute — both samples put the same CpGs at the
 bottom and the same CpGs at the top. The clouds were an accurate picture of genuine

@@ -10,7 +10,9 @@ project:
     - publications/files/**
     - media/**
     # Data files posts fetch at runtime; not discoverable from the rendered HTML.
-    - posts/**/*.json
+    # Named per post rather than globbed, so nothing under posts/ is ever published
+    # to the public site by accident.
+    - posts/beyond-correlation-association-vs-concordance/methylation-subset.json
   preview:
     port: 4200
     browser: true

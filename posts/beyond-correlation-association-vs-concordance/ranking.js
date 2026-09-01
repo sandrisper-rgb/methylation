@@ -130,8 +130,8 @@
     bars.className = "rk-bars";
     bars.setAttribute("role", "img");
     bars.setAttribute("aria-label",
-      "Histogram of beta values with two peaks, one near 0.06 and a larger one near " +
-      "0.84, separated by a shallow valley");
+      "Histogram of beta values with two peaks, a taller one near 0.06 and a broader " +
+      "one near 0.84, separated by a shallow valley");
     frac.forEach(function (f, i) {
       var bar = document.createElement("span");
       bar.className = "rk-bar";
@@ -366,7 +366,7 @@
     function refresh(animate) {
       recompute();
       if (animate) animateTo(state.ranked ? 1 : 0);
-      else { anim.t = state.ranked ? 1 : 0; render(anim.t); }
+      else settle(state.ranked ? 1 : 0);
     }
 
     function setPressed(btns, key, value) {

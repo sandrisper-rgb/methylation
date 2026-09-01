@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 A Quarto website for an exploratory biomarker study, deployed to GitHub Pages by
 `.github/workflows/publish.yml` on every push to `main`. Most of the ~60 `.qmd` files are
-prose; only six execute code.
+prose; only five execute code.
 
 ## Setup — do this first
 
