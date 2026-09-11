@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" role="img" aria-labelledby="t8 d8">
+  <title id="t8">Candidate gene sets: a three-gene hypermethylation panel and hypomethylated immune genes</title>
+  <desc id="d8">FAM217B, KIAA1614, and RIBC2 are a promoter-hypermethylation panel. IL10, SIGLEC5, CD86, CLMP, NLRP3, and NLRC4 are listed as hypomethylated in severe UC.</desc>
+  <rect width="1200" height="360" fill="#f7f4ee"/>
+  <rect x="18" y="18" width="1164" height="324" fill="#fffaf3" stroke="#123b5d" stroke-width="2"/>
+  <text x="40" y="50" font-family="Georgia, serif" font-size="20" fill="#123b5d" font-weight="700">PLATE VIII | Candidate genes / Genes candidatos</text>
+  <text x="40" y="74" font-family="Helvetica, sans-serif" font-size="13" fill="#5a6d74">Cited associations to test - not proven drivers in this cohort. / Asociaciones citadas para poner a prueba - no son drivers demostrados en esta cohorte.</text>
+  <rect x="40" y="96" width="540" height="220" rx="14" fill="#e9f5f2" stroke="#167d78"/>
+  <text x="60" y="128" font-family="Helvetica, sans-serif" font-size="14" font-weight="700" fill="#167d78">HYPERMETHYLATED PANEL / PANEL HIPERMETILADO</text>
+  <text x="60" y="150" font-family="Helvetica, sans-serif" font-size="12" fill="#5a6d74">Kang et al. UC 450K screen -&gt; 3 promoters with lower RNA</text>
+  <g font-family="Helvetica, sans-serif">
+    <rect x="60" y="168" width="150" height="70" rx="10" fill="#123b5d"/>
+    <text x="135" y="198" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">FAM217B</text>
+    <text x="135" y="218" text-anchor="middle" fill="#cfe7e2" font-size="11">function unknown</text>
+    <rect x="230" y="168" width="150" height="70" rx="10" fill="#123b5d"/>
+    <text x="305" y="198" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">KIAA1614</text>
+    <text x="305" y="218" text-anchor="middle" fill="#cfe7e2" font-size="11">highest frequency</text>
+    <rect x="400" y="168" width="150" height="70" rx="10" fill="#123b5d"/>
+    <text x="475" y="198" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">RIBC2</text>
+    <text x="475" y="218" text-anchor="middle" fill="#cfe7e2" font-size="11">reproducible assoc.</text>
+  </g>
+  <text x="60" y="270" font-family="Helvetica, sans-serif" font-size="13" fill="#123b5d">Promoter methylation up and transcription down is consistent with repression, not with causing cancer.</text>
+  <text x="60" y="290" font-family="Helvetica, sans-serif" font-size="12" fill="#5a6d74">Metilación del promotor alta y transcripción baja encaja con represión, no con causar cáncer.</text>
+  <rect x="610" y="96" width="550" height="220" rx="14" fill="#f7efe1" stroke="#d39a38"/>
+  <text x="630" y="128" font-family="Helvetica, sans-serif" font-size="13" font-weight="700" fill="#8a5a12">HYPOMETHYLATED IN SEVERE UC / HIPOMETILADOS EN CU GRAVE</text>
+  <g font-family="Helvetica, sans-serif" font-size="13" font-weight="700" fill="#123b5d">
+    <rect x="630" y="150" width="150" height="36" rx="8" fill="#fff"/><text x="705" y="173" text-anchor="middle">IL10</text>
+    <rect x="790" y="150" width="150" height="36" rx="8" fill="#fff"/><text x="865" y="173" text-anchor="middle">SIGLEC5</text>
+    <rect x="950" y="150" width="150" height="36" rx="8" fill="#fff"/><text x="1025" y="173" text-anchor="middle">CD86</text>
+    <rect x="630" y="196" width="150" height="36" rx="8" fill="#fff"/><text x="705" y="219" text-anchor="middle">CLMP</text>
+    <rect x="790" y="196" width="150" height="36" rx="8" fill="#fff"/><text x="865" y="219" text-anchor="middle">NLRP3</text>
+    <rect x="950" y="196" width="150" height="36" rx="8" fill="#fff"/><text x="1025" y="219" text-anchor="middle">NLRC4</text>
+  </g>
+  <text x="630" y="262" font-family="Helvetica, sans-serif" font-size="13" fill="#123b5d">Lower methylation is not higher expression. Cell mixture can mimic a gene effect.</text>
+  <text x="630" y="282" font-family="Helvetica, sans-serif" font-size="12" fill="#5a6d74">Menos metilación no es más expresión. La mezcla celular puede imitar un efecto génico.</text>
+</svg>

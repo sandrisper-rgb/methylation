@@ -60,6 +60,11 @@ The three Python posts declare `jupyter: project-python` in their front matter.
   they carry figures or assets.
 - Citations use `references.bib` and `apa.csl` at the repo root; posts in subdirectories
   reference them as `../../references.bib`.
+- In a Reveal deck, never write a `###` heading inside a slide. Pandoc's `--section-divs`
+  turns it into a `<section>`, and Reveal treats any descendant `<section>` as a vertical
+  slide: the slide count goes wrong and, because `hash: true` then writes the inner
+  element's id, every navigation bounces the deck back to the title slide. Use a literal
+  `<h3>` instead — `.card h3` in `presentations/onboarding.css` styles it.
 - Raw HTML nested inside a `::: {.class}` fenced div must be unindented with no interior
   blank lines. Pandoc ends a raw-HTML block at a blank line, so a blank line followed by
   indented markup is silently escaped into a visible code block. `<script>` and `<style>`

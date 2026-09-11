@@ -11,6 +11,8 @@ cd methylation
 quarto preview
 ```
 
+New to the science? Open the [English](presentations/new-joiner-en.qmd){target="_blank"} or [Spanish](presentations/new-joiner-es.qmd){target="_blank"} 30-minute briefing before editing pages.
+
 The repository is hosted under Sandra's personal GitHub account.
 
 ## Add content

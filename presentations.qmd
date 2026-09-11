@@ -6,13 +6,15 @@ description: "Project presentations, downloadable slides, and research updates"
 ::: {.lead-panel}
 ## The project in slides
 
-Explore the complete research presentation in Spanish or English. The Spanish version is available both as a browser-friendly PDF and as the original editable PowerPoint.
+New joiners should start with the 30-minute briefing in English or Spanish. The grant presentations remain available as PDF and PowerPoint.
 :::
 
 ## Current presentations
 
 | Date | Presenter | Topic | Language | Format | Status |
 |---|---|---|---|---|---|
+| 2026-09 | Ravi Kalia | New-joiner science and tools | English | [Open deck](presentations/new-joiner-en.qmd){target="_blank"} | Live Reveal.js |
+| 2026-09 | Ravi Kalia | Ciencia y herramientas para incorporación | Spanish | [Abrir presentación](presentations/new-joiner-es.qmd){target="_blank"} | Reveal.js en vivo |
 | 2026-08 | Angie Alejandra Benavides Rojas | DNA methylation and sIgA in progression from UC toward CRC | Spanish | [View PDF](media/presentacion-proyecto-es.pdf){target="_blank"} · [Download PPTX](media/presentacion-proyecto-es.pptx){download="presentacion-proyecto-es.pptx"} | Project presentation |
 | 2026-08 | Angie Alejandra Benavides Rojas | DNA methylation patterns and sIgA levels in colorectal cancer progression | English | [View PDF](media/project-presentation-en.pdf){target="_blank"} | English edition |
 

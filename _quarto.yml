@@ -5,8 +5,11 @@ project:
     - "*.qmd"
     - "workflows/**/*.qmd"
     - "posts/**/*.qmd"
+    - "presentations/new-joiner-en.qmd"
+    - "presentations/new-joiner-es.qmd"
   resources:
     - presentations/files/**
+    - presentations/figures/**
     - publications/files/**
     - media/**
     # Data files posts fetch at runtime; not discoverable from the rendered HTML.

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img">
+  <rect width="1200" height="520" fill="#f7f4ee"/>
+  <rect x="18" y="18" width="1164" height="484" fill="#fffaf3" stroke="#123b5d" stroke-width="2"/>
+  <text x="48" y="62" font-family="Georgia, serif" font-size="26" fill="#123b5d" font-weight="700">Colombia 2024 | GLOBOCAN</text>
+  <text x="48" y="90" font-family="Helvetica, sans-serif" font-size="14" fill="#5a6d74">Estimaciones IARC, ambos sexos, todas las edades. No es la muestra de este estudio.</text>
+  <g font-family="Helvetica, sans-serif">
+    <rect x="48" y="120" width="260" height="150" rx="14" fill="#e9f5f2"/>
+    <text x="178" y="178" text-anchor="middle" font-family="Georgia, serif" font-size="36" fill="#123b5d" font-weight="700">123,053</text>
+    <text x="178" y="210" text-anchor="middle" font-size="14" fill="#167d78">casos nuevos de cáncer</text>
+    <rect x="328" y="120" width="260" height="150" rx="14" fill="#f3e6e4"/>
+    <text x="458" y="178" text-anchor="middle" font-family="Georgia, serif" font-size="36" fill="#123b5d" font-weight="700">55,981</text>
+    <text x="458" y="210" text-anchor="middle" font-size="14" fill="#bc6159">muertes por cáncer</text>
+    <rect x="608" y="120" width="260" height="150" rx="14" fill="#123b5d"/>
+    <text x="738" y="168" text-anchor="middle" fill="#f4c66e" font-size="12" font-weight="700">COLORRECTO | 3.o</text>
+    <text x="738" y="202" text-anchor="middle" font-family="Georgia, serif" font-size="36" fill="#fff" font-weight="700">11,153</text>
+    <text x="738" y="232" text-anchor="middle" font-size="13" fill="#cfe7e2">casos nuevos</text>
+    <rect x="888" y="120" width="260" height="150" rx="14" fill="#123b5d"/>
+    <text x="1018" y="168" text-anchor="middle" fill="#f4c66e" font-size="12" font-weight="700">COLORRECTO | 3.a</text>
+    <text x="1018" y="202" text-anchor="middle" font-family="Georgia, serif" font-size="36" fill="#fff" font-weight="700">5,519</text>
+    <text x="1018" y="232" text-anchor="middle" font-size="13" fill="#cfe7e2">muertes</text>
+    <text x="48" y="310" font-size="13" fill="#5a6d74">Cinco cánceres más frecuentes por casos nuevos (barra a mama = 17,739)</text>
+    <text x="48" y="352" font-size="14" fill="#123b5d">Mama</text>
+    <rect x="160" y="336" width="920" height="22" rx="11" fill="#e2ecea"/>
+    <rect x="160" y="336" width="920" height="22" rx="11" fill="#123b5d"/>
+    <text x="1092" y="352" font-size="13" fill="#123b5d">17,739</text>
+    <text x="48" y="392" font-size="14" fill="#123b5d">Próstata</text>
+    <rect x="160" y="376" width="920" height="22" rx="11" fill="#e2ecea"/>
+    <rect x="160" y="376" width="871" height="22" rx="11" fill="#167d78"/>
+    <text x="1092" y="392" font-size="13" fill="#123b5d">16,793</text>
+    <text x="48" y="432" font-size="14" font-weight="700" fill="#bc6159">Colorrecto</text>
+    <rect x="160" y="416" width="920" height="22" rx="11" fill="#e2ecea"/>
+    <rect x="160" y="416" width="579" height="22" rx="11" fill="#d39a38"/>
+    <text x="1092" y="432" font-size="13" fill="#123b5d">11,153</text>
+    <text x="48" y="472" font-size="14" fill="#123b5d">Estómago</text>
+    <rect x="160" y="456" width="920" height="22" rx="11" fill="#e2ecea"/>
+    <rect x="160" y="456" width="467" height="22" rx="11" fill="#14546a"/>
+    <text x="1092" y="472" font-size="13" fill="#123b5d">9,010</text>
+  </g>
+</svg>
